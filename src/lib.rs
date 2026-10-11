@@ -1,8 +1,21 @@
+use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
+use serde::{Deserialize, de::DeserializeOwned};
 
+use crate::cache::RequestCache;
+
+mod cache;
+pub mod endpoints;
+mod macros;
+pub mod schemas;
+
+#[derive(Builder)]
 pub struct TenariAPI {
+    #[builder(setter(into, strip_option), default)]
     server_key: Option<String>,
+    #[builder(setter(skip))]
     client: Client,
+    cache: bool,
 }
 
 impl TenariAPI {
@@ -20,7 +33,12 @@ impl TenariAPI {
                 ))
                 .build()
                 .unwrap(),
+            cache: true,
         }
+    }
+
+    pub fn builder() -> TenariAPIBuilder {
+        TenariAPIBuilder::default()
     }
 
     /// build the required headers.
@@ -31,5 +49,13 @@ impl TenariAPI {
             headers.insert("X-Server-Key", key.parse().unwrap());
         }
         headers
+    }
+
+    async fn request<T: DeserializeOwned>(&self, endpoint: String) -> anyhow::Result<T> {
+        self.client
+            .get(format!("https://api.tenrai.org/v1/{endpoint}"))
+            .headers(self.build_headers())
+            .cache_json()
+            .await
     }
 }
