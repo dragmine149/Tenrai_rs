@@ -1,9 +1,10 @@
-use std::{any::Any, collections::HashMap, str};
+use std::{any::Any, collections::HashMap, fmt::Display, str};
 
+use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::{generic_type, schemas::Date};
+use crate::{generic_type, query, schemas::Date};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
@@ -113,3 +114,97 @@ pub struct Trailer {
     pub views: Option<u64>,
     pub youtube_id: Option<String>,
 }
+
+#[derive(Debug, Clone)]
+pub enum AnimeType {
+    Tv,
+    Movie,
+    Ova,
+    Special,
+    Ona,
+    Music,
+    Cm,
+    Pv,
+    TvSpecial,
+}
+impl Display for AnimeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            AnimeType::Tv => write!(f, "tv"),
+            AnimeType::Movie => write!(f, "movie"),
+            AnimeType::Ova => write!(f, "ova"),
+            AnimeType::Special => write!(f, "special"),
+            AnimeType::Ona => write!(f, "ona"),
+            AnimeType::Music => write!(f, "music"),
+            AnimeType::Cm => write!(f, "cm"),
+            AnimeType::Pv => write!(f, "pv"),
+            AnimeType::TvSpecial => write!(f, "tv_special"),
+        }
+    }
+}
+#[derive(Debug, Clone)]
+pub enum AnimeStatus {
+    Airing,
+    Complete,
+    Upcoming,
+}
+impl Display for AnimeStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            AnimeStatus::Airing => write!(f, "airing"),
+            AnimeStatus::Complete => write!(f, "complete"),
+            AnimeStatus::Upcoming => write!(f, "upcoming"),
+        }
+    }
+}
+#[derive(Debug, Clone)]
+pub enum AnimeRating {
+    G,
+    Pg,
+    Pg13,
+    R17,
+    R,
+    Rx,
+}
+impl Display for AnimeRating {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            AnimeRating::G => write!(f, "g"),
+            AnimeRating::Pg => write!(f, "pg"),
+            AnimeRating::Pg13 => write!(f, "pg13"),
+            AnimeRating::R17 => write!(f, "r17"),
+            AnimeRating::R => write!(f, "r"),
+            AnimeRating::Rx => write!(f, "rx"),
+        }
+    }
+}
+
+fn query_vec<T: Display>(vec: &Vec<T>) -> String {
+    vec.iter()
+        .map(|s| format!("{s}"))
+        .collect::<Vec<String>>()
+        .join(",")
+}
+
+query!(Anime {
+    q: String,
+    page: u64,
+    limit: u64,
+    anime_type: Vec<AnimeType>:query_vec,
+    status: Vec<AnimeStatus>:query_vec,
+    rating: Vec<AnimeRating>:query_vec,
+    sfw: String,
+    sfw_strict: String,
+    unapproved: String,
+    score: u64,
+    min_score: u64,
+    max_score: u64,
+    genres: String,
+    genres_exclude: String,
+    order_by: String,
+    sort: String,
+    letter: String,
+    producers: String,
+    start_date: String,
+    end_date: String
+});

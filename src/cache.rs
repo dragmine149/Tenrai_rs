@@ -76,11 +76,14 @@ pub(crate) fn read_cache(url: &Url) -> anyhow::Result<Option<Bytes>> {
 
 /// Write the response to a file in the [dirs::cache_dir()] returns the text result anyway for processing.
 pub(crate) async fn cache_response(response: Response) -> anyhow::Result<Bytes> {
+    let success = response.status().is_success();
     let url = response.url().to_string();
     let text = response.bytes().await?;
 
-    // println!("{:?}", get_cache_file(url.clone()));
-    fs::write(get_cache_file(url)?, &text)?;
+    if success {
+        // println!("{:?}", get_cache_file(url.clone()));
+        fs::write(get_cache_file(url)?, &text)?;
+    }
 
     Ok(text)
 }

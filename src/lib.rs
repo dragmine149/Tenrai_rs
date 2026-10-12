@@ -9,16 +9,27 @@ pub mod endpoints;
 mod macros;
 pub mod schemas;
 
+/// Wrapper for the [TenraiAPI](https://tenrai.org).
+///
+/// # Rate-Limits
+///
+/// # Caching
+/// Caching is done locally by default. Anything cached will stay valid for 1 day after the cache has been modified.
+/// This can be bypassed by setting `cache` to false.
+///
 #[derive(Builder)]
-pub struct TenariAPI {
+pub struct TenraiAPI {
+    /// Server key used for higher rate limits. Received by becoming a patron member: https://api.tenrai.org/documentation#description/server-keys
     #[builder(setter(into, strip_option), default)]
     server_key: Option<String>,
+    /// Internal client object
     #[builder(setter(skip))]
     client: Client,
-    cache: bool,
+    /// To use local caching as well.
+    pub cache: bool,
 }
 
-impl TenariAPI {
+impl TenraiAPI {
     /// Create a new instance of the API.
     ///
     /// The server key is used for higher rate limits if you have supported on patreon.
@@ -37,8 +48,8 @@ impl TenariAPI {
         }
     }
 
-    pub fn builder() -> TenariAPIBuilder {
-        TenariAPIBuilder::default()
+    pub fn builder() -> TenraiAPIBuilder {
+        TenraiAPIBuilder::default()
     }
 
     /// build the required headers.
@@ -51,6 +62,7 @@ impl TenariAPI {
         headers
     }
 
+    /// Internal function for sending the request itself.
     async fn request<T: DeserializeOwned>(&self, endpoint: String) -> anyhow::Result<T> {
         let builder = self
             .client

@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
 pub mod anime;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -28,6 +28,7 @@ pub struct TenraiResponse<T> {
     pub data: T,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct TenraiPaginatorResponse<T> {
     pub pagination: Paginator,
     pub data: Vec<T>,

@@ -1,13 +1,40 @@
+pub(crate) mod generic {
+    use tenari::TenraiAPI;
+
+    pub(crate) fn build_client() -> TenraiAPI {
+        TenraiAPI::builder().cache(false).build().unwrap()
+    }
+}
+
 #[cfg(test)]
 mod anime_tests {
-    use tenari::{
-        TenariAPI,
-        schemas::{TenraiResponse, anime::Anime},
+    use crate::generic::build_client;
+    use tenari::schemas::{
+        TenraiResponse,
+        anime::{Anime, AnimeQuery, AnimeType},
     };
 
+    #[test]
+    fn test_query_gen() {
+        let query = AnimeQuery::builder()
+            .anime_type([AnimeType::Tv, AnimeType::Movie])
+            .build()
+            .expect("Failed to build");
+        assert_eq!(format!("{query}"), "?anime_type=tv,movie")
+    }
+
+    // #[tokio::test]
+    // async fn search_anime() {
+    //     let client = build_client();
+    //     let data = client
+    //         .anime_search(AnimeQuery::builder().q("e").build().unwrap())
+    //         .await
+    //         .expect("Failed to send api")
+    //         .data;
+    // }
     #[tokio::test]
     async fn anime_details() {
-        let client = TenariAPI::builder().cache(false).build().unwrap();
+        let client = build_client();
         let data = client
             .anime_details(1)
             .await
