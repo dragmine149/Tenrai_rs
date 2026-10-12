@@ -2,7 +2,7 @@ use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
 use serde::{Deserialize, de::DeserializeOwned};
 
-use crate::cache::RequestCache;
+use crate::cache::{Jsonify, RequestCache};
 
 mod cache;
 pub mod endpoints;
@@ -52,10 +52,13 @@ impl TenariAPI {
     }
 
     async fn request<T: DeserializeOwned>(&self, endpoint: String) -> anyhow::Result<T> {
-        self.client
+        let builder = self
+            .client
             .get(format!("https://api.tenrai.org/v1/{endpoint}"))
-            .headers(self.build_headers())
-            .cache_json()
-            .await
+            .headers(self.build_headers());
+        match self.cache {
+            true => builder.cache_json().await,
+            false => Ok(builder.send().await?.text().await?.json()?),
+        }
     }
 }
