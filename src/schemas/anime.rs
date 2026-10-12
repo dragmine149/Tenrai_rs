@@ -4,7 +4,10 @@ use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::{generic_type, query, schemas::Date};
+use crate::{
+    generic_type, query,
+    schemas::{Date, query_vec},
+};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
@@ -177,13 +180,6 @@ impl Display for AnimeRating {
             AnimeRating::Rx => write!(f, "rx"),
         }
     }
-}
-
-fn query_vec<T: Display>(vec: &Vec<T>) -> String {
-    vec.iter()
-        .map(|s| format!("{s}"))
-        .collect::<Vec<String>>()
-        .join(",")
 }
 
 query!(Anime {

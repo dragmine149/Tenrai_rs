@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 pub mod anime;
+use std::fmt::Display;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Paginator {
@@ -32,4 +33,11 @@ pub struct TenraiResponse<T> {
 pub struct TenraiPaginatorResponse<T> {
     pub pagination: Paginator,
     pub data: Vec<T>,
+}
+
+pub(crate) fn query_vec<T: Display>(vec: &Vec<T>) -> String {
+    vec.iter()
+        .map(|s| format!("{s}"))
+        .collect::<Vec<String>>()
+        .join(",")
 }
