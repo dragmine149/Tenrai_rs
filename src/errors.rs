@@ -1,46 +1,20 @@
+use crate::{cache::CacheError, error};
+use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-use serde::{Deserialize, Serialize};
+error!(Tenrai {
+    /// An error returned by the API.
+    Tenrai: TenraiAPIError,
+    /// An error happened within the local caching system.
+    Cache: std::io::Error,
+    /// An error happened within the reqwest crate.
+    Reqwest: reqwest::Error,
+    /// An error happened within translating the data.
+    Serde: serde_json::Error,
+});
 
-use crate::cache::CacheError;
+pub type Error = TenraiError;
 
-#[derive(Debug)]
-pub enum Error {
-    /// An error happened with the API
-    Tenrai(TenraiAPIError),
-    /// An error happened in local caching.
-    Cache(std::io::Error),
-    /// An error happened in local reqwest
-    Reqwest(reqwest::Error),
-    /// An error happened while deserializing data.
-    Serde(serde_json::Error),
-}
-impl std::error::Error for Error {}
-impl Display for Error {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                Error::Tenrai(e) => e.to_string(),
-                Error::Cache(e) => e.to_string(),
-                Error::Reqwest(e) => e.to_string(),
-                Error::Serde(e) => e.to_string(),
-            }
-        )
-    }
-}
-
-impl From<reqwest::Error> for Error {
-    fn from(value: reqwest::Error) -> Self {
-        Self::Reqwest(value)
-    }
-}
-impl From<serde_json::Error> for Error {
-    fn from(value: serde_json::Error) -> Self {
-        Self::Serde(value)
-    }
-}
 impl From<CacheError> for Error {
     fn from(value: CacheError) -> Self {
         match value {
@@ -48,11 +22,6 @@ impl From<CacheError> for Error {
             CacheError::Reqwest(e) => Self::Reqwest(e),
             CacheError::Serde(e) => Self::Serde(e),
         }
-    }
-}
-impl From<TenraiAPIError> for Error {
-    fn from(value: TenraiAPIError) -> Self {
-        Self::Tenrai(value)
     }
 }
 

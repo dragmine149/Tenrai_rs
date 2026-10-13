@@ -55,3 +55,53 @@ macro_rules! query {
     	format!("{}", $field)
     }
 }
+
+/// Helper macro for making errors.
+///
+/// # Usage
+/// ```rust
+/// error!(Cache {
+///     Cache: std::io::Error,
+///     Reqwest: reqwest::Error,
+///     Serde: serde_json::Error,
+/// });
+/// ```
+/// Basically just define a struct of the errors.
+#[macro_export]
+macro_rules! error {
+    ($name: tt {
+    	$(
+    		$(#[$field_meta:meta])?
+     		$error:ident:$error_type:ty,
+     	)+
+    }) => {
+        pastey::paste! {
+        	#[derive(Debug)]
+            pub enum [<$name:upper_camel Error>] {
+            	$(
+             		$(#[$field_meta])?
+             		[<$error:upper_camel>]($error_type),
+             	)*
+            }
+            impl std::error::Error for [<$name:upper_camel Error>] {}
+            impl std::fmt::Display for [<$name:upper_camel Error>] {
+            	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+             		writeln!(
+               			f, "{}", match self {
+                  			$(
+                     			Self::[<$error:upper_camel>](e) => e.to_string(),
+                     		)+
+                  		}
+               		)
+             	}
+            }
+            $(
+            	impl From<$error_type> for [<$name:upper_camel Error>] {
+             		fn from(value: $error_type) -> Self {
+               			Self::[<$error:upper_camel>](value)
+               		}
+             	}
+            )*
+        }
+    };
+}
