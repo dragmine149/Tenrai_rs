@@ -139,37 +139,96 @@ pub enum AnimeStatus {
 }
 #[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "snake_case")]
+/// The age rating of the anime.
 pub enum AnimeRating {
+    /// All Ages
     G,
+    /// Children
     Pg,
+    /// Teens 13 or older
     Pg13,
+    /// 17+ (violence & profanity)
     R17,
+    /// Mild Nudity
     R,
+    /// Hentai
     Rx,
 }
 
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum Unapproved {
+    False,
+    True,
+    Only,
+}
+
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum OrderBy {
+    MalId,
+    Title,
+    StartDate,
+    EndDate,
+    Episodes,
+    Score,
+    ScoredBy,
+    Rank,
+    Popularity,
+    Members,
+    Favorites,
+}
+
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum SortDirection {
+    #[strum(to_string = "asc")]
+    Ascending,
+    #[strum(to_string = "desc")]
+    Descending,
+}
+
 query!(Anime {
+    /// Title search query (fuzzy matched against English, Japanese and default titles). Cannot be combined with [AnimeQuery::letter]
     query: String:(|_, v| format!("q={v}")),
+    /// Page number
     page: u64,
+    /// Results per page (Default: 25)
     limit: u64,
     /// Filter by media type. Multiple types can be selected.
     anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    status: Vec<AnimeStatus>:query_vec,
+    /// Only anime with this airing status
+    status: AnimeStatus,
+    /// Filter by age rating. Multiple ratings can be selected.
     rating: Vec<AnimeRating>:query_vec,
+    /// Filter adult content
     sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
     sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    unapproved: String,
+    /// Also include unapproved entries.
+    unapproved: Unapproved,
+    /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.
     score: f64,
+    /// Only entries with this score or higher
     min_score: f64,
+    /// Only entries with this score or lower
     max_score: f64,
+    /// Comma Separated IDs
     genres: String,
+    /// Comma Separated IDs
     genres_exclude: String,
-    order_by: String,
-    sort: String,
+    /// Field to sort the results by.
+    order_by: OrderBy,
+    /// Sort direction. Only applies when [AnimeQuery::order_by] is used.
+    sort: SortDirection,
+    /// Only anime whose title starts with this letter. Cannot be combined with [AnimeQuery::query].
     letter: char,
+    /// Comma Separated IDs
     producers: String,
-    start_date: String,
-    end_date: String,
+    /// Only anime that started airing on or after this date.
+    start_date: Date,
+    /// Only anime that finished airing on or before this date.
+    end_date: Date,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p < 20000),

@@ -29,11 +29,25 @@ pub struct PaginatorItems {
     pub per_page: u64,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 pub struct Date {
     pub day: Option<u64>,
     pub month: Option<u64>,
     pub year: Option<u64>,
+}
+impl Display for Date {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(year) = self.year {
+            write!(f, "{:0>4}", year)?;
+            if let Some(month) = self.month {
+                write!(f, "-{:0>2}", month)?;
+                if let Some(day) = self.day {
+                    write!(f, "-{:0>2}", day)?
+                }
+            }
+        }
+        Ok(())
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]

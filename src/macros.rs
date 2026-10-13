@@ -47,6 +47,9 @@ macro_rules! generic_type {
 /// }
 /// ```
 /// By default, if one is not provided, `format!("{var_name}={value}")` is used.
+///
+/// # Default
+/// Note that we do not implement any method to deal with default variables. The server should take care of that.
 #[macro_export]
 macro_rules! query {
     ($name:ident {
