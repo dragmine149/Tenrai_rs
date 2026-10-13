@@ -149,15 +149,15 @@ pub enum AnimeRating {
 }
 
 query!(Anime {
-    query: String,
+    query: String:(|_, v| format!("q={v}")),
     page: u64,
     limit: u64,
     /// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:query_vec,
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
     status: Vec<AnimeStatus>:query_vec,
     rating: Vec<AnimeRating>:query_vec,
     sfw: bool,
-    sfw_strict: bool,
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
     unapproved: String,
     score: f64,
     min_score: f64,

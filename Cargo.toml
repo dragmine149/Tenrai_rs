@@ -4,6 +4,9 @@ version = "1.0.0"
 edition = "2024"
 readme = "Readme.md"
 
+[lib]
+doctest = false
+
 [dependencies]
 bytes = "1.12"
 derive_builder = "0.20"

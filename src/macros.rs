@@ -25,36 +25,28 @@ macro_rules! generic_type {
 /// - `DataStruct` is done like a normal struct, with optional `:{format_func}` for cases where `T` doesn't have `to_string()`
 /// - `ValidationStruct` is done in the format of `{var}: {reason}: {func}`.
 ///
-/// # Example
+/// ## format_func
+/// A format function is given the stringified name of the field, plus the value to format. As such it can be used for both renaming and edge-cases.
+///
+/// For example
 /// ```ignore
-///query!(Anime {
-///     q: String,
-///     page: u64,
-///     limit: u64,
-///     /// Filter by media type. Multiple types can be selected.
-///     anime_type: Vec<AnimeType>:query_vec,
-///     status: Vec<AnimeStatus>:query_vec,
-///     rating: Vec<AnimeRating>:query_vec,
-///     sfw: String,
-///     sfw_strict: String,
-///     unapproved: String,
-///     score: u64,
-///     min_score: u64,
-///     max_score: u64,
-///     genres: String,
-///     genres_exclude: String,
-///     order_by: String,
-///     sort: String,
-///     letter: char,
-///     producers: String,
-///     start_date: String,
-///     end_date: String,
-/// }, {
-///     q: "Query length is too long": (|q: &String| q.len() > 300),
-///     page: "Page must be less than 20k": (|p: &u64| *p < 20000),
-///     limit: "Can not request more than 100 entries at once": (|l: &u64| l > 100),
-/// });
+/// // renaming
+/// query: String:(|_, v| format!("q={v}")),
+///
+/// // parsing
+/// anime_type: Vec<AnimeType>:query_vec,
+///
+/// pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
+///     format!(
+///         "{var_name}={}",
+///         vec.iter()
+///             .map(|s| format!("{s}"))
+///             .collect::<Vec<String>>()
+///             .join(",")
+///     )
+/// }
 /// ```
+/// By default, if one is not provided, `format!("{var_name}={value}")` is used.
 #[macro_export]
 macro_rules! query {
     ($name:ident {
@@ -97,7 +89,7 @@ macro_rules! query {
              		let mut query = vec![];
                		$(
                  		if let Some(v) = self.$var.as_ref() {
-                 			query.push(format!("{}={}", stringify!($var), query!(@format v, $($fmt)?)));
+                 			query.push(query!(@format $var, v, $($fmt)?));
                    		}
                  	)*
                   	if query.len() > 0 {
@@ -110,11 +102,11 @@ macro_rules! query {
         }
     };
 
-    (@format $field:expr, $fmt:expr) => {
-    	$fmt($field)
+    (@format $var:ident, $field:expr, $fmt:expr) => {
+    	$fmt(stringify!($var), $field)
     };
-    (@format $field:expr,) => {
-    	format!("{}", $field)
+    (@format $var:ident, $field:expr,) => {
+    	format!("{}={}", stringify!($var), $field)
     }
 }
 

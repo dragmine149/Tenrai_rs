@@ -10,9 +10,10 @@ use tenrai::schemas::{
 fn test_query_gen() {
     let query = AnimeQuery::builder()
         .anime_type([AnimeType::Tv, AnimeType::Movie, AnimeType::TvSpecial])
+        .query("Some Anime")
         .build()
         .expect("Failed to build");
-    assert_eq!(format!("{query}"), "?anime_type=tv,movie,tv_special")
+    assert_eq!(format!("{query}"), "?q=Some Anime&type=tv,movie,tv_special")
 }
 #[test]
 fn test_long_query() {

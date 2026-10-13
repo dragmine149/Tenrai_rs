@@ -4,11 +4,14 @@ use crate::errors::TenraiAPIError;
 use std::fmt::Display;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
-pub(crate) fn query_vec<T: Display>(vec: &[T]) -> String {
-    vec.iter()
-        .map(|s| format!("{s}"))
-        .collect::<Vec<String>>()
-        .join(",")
+pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
+    format!(
+        "{var_name}={}",
+        vec.iter()
+            .map(|s| format!("{s}"))
+            .collect::<Vec<String>>()
+            .join(",")
+    )
 }
 
 #[derive(Debug, Serialize, Deserialize)]
