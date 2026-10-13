@@ -1,7 +1,7 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse, TenraiRaw, TenraiRawPaginator, TenraiResponse,
+        TenraiPaginatorResponse, TenraiResponse,
         anime::{Anime, AnimeQuery},
     },
 };
@@ -12,20 +12,14 @@ impl TenraiAPI {
         query: AnimeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
-            .request::<TenraiRawPaginator<Anime>>(format!("anime{query}"))
+            .request(format!("anime{query}"))
             .await?
-            .result()?)
+            .result_paginator()?)
     }
     pub async fn anime_details(&self, id: u64) -> crate::Result<TenraiResponse<Anime>> {
-        Ok(self
-            .request::<TenraiRaw<Anime>>(format!("anime/{id}"))
-            .await?
-            .result()?)
+        Ok(self.request(format!("anime/{id}")).await?.result()?)
     }
     pub async fn anime_full_details(&self, id: u64) -> crate::Result<TenraiResponse<Anime>> {
-        Ok(self
-            .request::<TenraiRaw<Anime>>(format!("anime/{id}/full"))
-            .await?
-            .result()?)
+        Ok(self.request(format!("anime/{id}/full")).await?.result()?)
     }
 }

@@ -1,8 +1,15 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
 pub mod anime;
+use crate::errors::TenraiAPIError;
 use std::fmt::Display;
 
-use crate::errors::TenraiAPIError;
+/// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
+pub(crate) fn query_vec<T: Display>(vec: &[T]) -> String {
+    vec.iter()
+        .map(|s| format!("{s}"))
+        .collect::<Vec<String>>()
+        .join(",")
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Paginator {
@@ -37,47 +44,9 @@ pub struct TenraiPaginatorResponse<T> {
     pub data: Vec<T>,
 }
 
-pub(crate) fn query_vec<T: Display>(vec: &[T]) -> String {
-    vec.iter()
-        .map(|s| format!("{s}"))
-        .collect::<Vec<String>>()
-        .join(",")
-}
-
 #[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct TenraiRaw<T> {
-    pub data: Option<T>,
-    pub status: Option<u64>,
-    #[serde(rename = "type")]
-    pub error_type: Option<String>,
-    pub message: Option<String>,
-    pub error: Option<String>,
-    pub path: Option<String>,
-}
-
-impl<T> TenraiRaw<T> {
-    fn build_error(self) -> TenraiAPIError {
-        TenraiAPIError {
-            status: self.status.unwrap(),
-            error_type: self.error_type.unwrap(),
-            message: self.message.unwrap(),
-            error: self.error.unwrap(),
-            path: self.path.unwrap(),
-        }
-    }
-
-    pub(crate) fn result(self) -> Result<TenraiResponse<T>, TenraiAPIError> {
-        if let Some(data) = self.data {
-            Ok(TenraiResponse { data })
-        } else {
-            Err(self.build_error())
-        }
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub(crate) struct TenraiRawPaginator<T> {
-    pub data: Option<Vec<T>>,
+pub(crate) struct TenraiRaw {
+    pub data: Option<serde_json::Value>,
     pub pagination: Option<Paginator>,
     pub status: Option<u64>,
     #[serde(rename = "type")]
@@ -87,7 +56,7 @@ pub(crate) struct TenraiRawPaginator<T> {
     pub path: Option<String>,
 }
 
-impl<T> TenraiRawPaginator<T> {
+impl TenraiRaw {
     fn build_error(self) -> TenraiAPIError {
         TenraiAPIError {
             status: self.status.unwrap(),
@@ -98,12 +67,28 @@ impl<T> TenraiRawPaginator<T> {
         }
     }
 
-    pub(crate) fn result(self) -> Result<TenraiPaginatorResponse<T>, TenraiAPIError> {
+    pub(crate) fn result<T>(self) -> Result<TenraiResponse<T>, TenraiAPIError>
+    where
+        T: DeserializeOwned,
+    {
+        if let Some(data) = self.data {
+            Ok(TenraiResponse {
+                // shouldn't fail because it's part of the API.
+                data: serde_json::from_value(data).unwrap(),
+            })
+        } else {
+            Err(self.build_error())
+        }
+    }
+    pub(crate) fn result_paginator<T>(self) -> Result<TenraiPaginatorResponse<T>, TenraiAPIError>
+    where
+        T: DeserializeOwned,
+    {
         if let Some(data) = self.data {
             Ok(TenraiPaginatorResponse {
-                // pagination should exist here.
                 pagination: self.pagination.unwrap(),
-                data,
+                // shouldn't fail because it's part of the API.
+                data: serde_json::from_value::<Vec<T>>(data).unwrap(),
             })
         } else {
             Err(self.build_error())

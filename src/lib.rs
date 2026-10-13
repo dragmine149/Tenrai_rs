@@ -1,6 +1,9 @@
 use std::time::{Duration, SystemTime};
 
-use crate::cache::{Jsonify, RequestCache};
+use crate::{
+    cache::{Jsonify, RequestCache},
+    schemas::TenraiRaw,
+};
 use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
 use serde::de::DeserializeOwned;
@@ -72,7 +75,7 @@ impl TenraiAPI {
     }
 
     /// Internal function for sending the request itself.
-    async fn request<T: DeserializeOwned>(&self, endpoint: String) -> crate::Result<T> {
+    async fn request(&self, endpoint: String) -> crate::Result<TenraiRaw> {
         loop {
             let response = self
                 .client
