@@ -50,6 +50,11 @@ impl From<CacheError> for Error {
         }
     }
 }
+impl From<TenraiAPIError> for Error {
+    fn from(value: TenraiAPIError) -> Self {
+        Self::Tenrai(value)
+    }
+}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TenraiAPIError {

@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 pub mod anime;
 use std::fmt::Display;
 
+use crate::errors::TenraiAPIError;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Paginator {
     pub last_visible_page: u64,
@@ -40,4 +42,71 @@ pub(crate) fn query_vec<T: Display>(vec: &[T]) -> String {
         .map(|s| format!("{s}"))
         .collect::<Vec<String>>()
         .join(",")
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub(crate) struct TenraiRaw<T> {
+    pub data: Option<T>,
+    pub status: Option<u64>,
+    #[serde(rename = "type")]
+    pub error_type: Option<String>,
+    pub message: Option<String>,
+    pub error: Option<String>,
+    pub path: Option<String>,
+}
+
+impl<T> TenraiRaw<T> {
+    fn build_error(self) -> TenraiAPIError {
+        TenraiAPIError {
+            status: self.status.unwrap(),
+            error_type: self.error_type.unwrap(),
+            message: self.message.unwrap(),
+            error: self.error.unwrap(),
+            path: self.path.unwrap(),
+        }
+    }
+
+    pub(crate) fn result(self) -> Result<TenraiResponse<T>, TenraiAPIError> {
+        if let Some(data) = self.data {
+            Ok(TenraiResponse { data })
+        } else {
+            Err(self.build_error())
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub(crate) struct TenraiRawPaginator<T> {
+    pub data: Option<Vec<T>>,
+    pub pagination: Option<Paginator>,
+    pub status: Option<u64>,
+    #[serde(rename = "type")]
+    pub error_type: Option<String>,
+    pub message: Option<String>,
+    pub error: Option<String>,
+    pub path: Option<String>,
+}
+
+impl<T> TenraiRawPaginator<T> {
+    fn build_error(self) -> TenraiAPIError {
+        TenraiAPIError {
+            status: self.status.unwrap(),
+            error_type: self.error_type.unwrap(),
+            message: self.message.unwrap(),
+            error: self.error.unwrap(),
+            path: self.path.unwrap(),
+        }
+    }
+
+    pub(crate) fn result(self) -> Result<TenraiPaginatorResponse<T>, TenraiAPIError> {
+        if let Some(data) = self.data {
+            Ok(TenraiPaginatorResponse {
+                // pagination should exist here.
+                pagination: self.pagination.unwrap(),
+                data,
+            })
+        } else {
+            Err(self.build_error())
+        }
+    }
 }
