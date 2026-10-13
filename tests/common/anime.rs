@@ -9,10 +9,18 @@ use tenrai::schemas::{
 #[test]
 fn test_query_gen() {
     let query = AnimeQuery::builder()
-        .anime_type([AnimeType::Tv, AnimeType::Movie])
+        .anime_type([AnimeType::Tv, AnimeType::Movie, AnimeType::TvSpecial])
         .build()
         .expect("Failed to build");
-    assert_eq!(format!("{query}"), "?anime_type=tv,movie")
+    assert_eq!(format!("{query}"), "?anime_type=tv,movie,tv_special")
+}
+#[test]
+fn test_long_query() {
+    let query = AnimeQuery::builder()
+        .query(include_str!("../data/long_text.txt"))
+        .build()
+        .expect_err("Should panic for being too long");
+    assert_eq!(query.to_string(), "Query length is too long");
 }
 
 // #[tokio::test]

@@ -1,13 +1,12 @@
-use std::{collections::HashMap, fmt::Display, str};
-
-use derive_builder::Builder;
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-
 use crate::{
     generic_type, query,
     schemas::{Date, query_vec},
 };
+use derive_builder::Builder;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::{collections::HashMap, str};
+use strum_macros::Display;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
@@ -118,7 +117,8 @@ pub struct Trailer {
     pub youtube_id: Option<String>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
 pub enum AnimeType {
     Tv,
     Movie,
@@ -130,37 +130,15 @@ pub enum AnimeType {
     Pv,
     TvSpecial,
 }
-impl Display for AnimeType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            AnimeType::Tv => write!(f, "tv"),
-            AnimeType::Movie => write!(f, "movie"),
-            AnimeType::Ova => write!(f, "ova"),
-            AnimeType::Special => write!(f, "special"),
-            AnimeType::Ona => write!(f, "ona"),
-            AnimeType::Music => write!(f, "music"),
-            AnimeType::Cm => write!(f, "cm"),
-            AnimeType::Pv => write!(f, "pv"),
-            AnimeType::TvSpecial => write!(f, "tv_special"),
-        }
-    }
-}
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
 pub enum AnimeStatus {
     Airing,
     Complete,
     Upcoming,
 }
-impl Display for AnimeStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            AnimeStatus::Airing => write!(f, "airing"),
-            AnimeStatus::Complete => write!(f, "complete"),
-            AnimeStatus::Upcoming => write!(f, "upcoming"),
-        }
-    }
-}
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
 pub enum AnimeRating {
     G,
     Pg,
@@ -169,38 +147,34 @@ pub enum AnimeRating {
     R,
     Rx,
 }
-impl Display for AnimeRating {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            AnimeRating::G => write!(f, "g"),
-            AnimeRating::Pg => write!(f, "pg"),
-            AnimeRating::Pg13 => write!(f, "pg13"),
-            AnimeRating::R17 => write!(f, "r17"),
-            AnimeRating::R => write!(f, "r"),
-            AnimeRating::Rx => write!(f, "rx"),
-        }
-    }
-}
 
 query!(Anime {
-    q: String,
+    query: String,
     page: u64,
     limit: u64,
+    /// Filter by media type. Multiple types can be selected.
     anime_type: Vec<AnimeType>:query_vec,
     status: Vec<AnimeStatus>:query_vec,
     rating: Vec<AnimeRating>:query_vec,
-    sfw: String,
-    sfw_strict: String,
+    sfw: bool,
+    sfw_strict: bool,
     unapproved: String,
-    score: u64,
-    min_score: u64,
-    max_score: u64,
+    score: f64,
+    min_score: f64,
+    max_score: f64,
     genres: String,
     genres_exclude: String,
     order_by: String,
     sort: String,
-    letter: String,
+    letter: char,
     producers: String,
     start_date: String,
-    end_date: String
+    end_date: String,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p < 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
+    min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
+    max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
 });

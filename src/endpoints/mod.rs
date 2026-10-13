@@ -1,7 +1,7 @@
 #[cfg(feature = "custom")]
 use crate::{
     TenraiAPI,
-    schemas::{TenraiPaginatorResponse, TenraiRaw, TenraiRawPaginator, TenraiResponse},
+    schemas::{TenraiPaginatorResponse, TenraiResponse},
 };
 #[cfg(feature = "custom")]
 use serde::de::DeserializeOwned;
@@ -14,10 +14,7 @@ impl TenraiAPI {
     where
         T: DeserializeOwned,
     {
-        Ok(self
-            .request::<TenraiRaw<T>>(endpoint.into())
-            .await?
-            .result()?)
+        Ok(self.request(endpoint.into()).await?.result()?)
     }
     pub async fn custom_paginator<T>(
         &self,
@@ -26,9 +23,6 @@ impl TenraiAPI {
     where
         T: DeserializeOwned,
     {
-        Ok(self
-            .request::<TenraiRawPaginator<T>>(endpoint.into())
-            .await?
-            .result()?)
+        Ok(self.request(endpoint.into()).await?.result_paginator()?)
     }
 }
