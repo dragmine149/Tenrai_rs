@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize, de::DeserializeOwned};
+use serde::{Deserialize, Serialize};
 pub mod anime;
 use std::fmt::Display;
 

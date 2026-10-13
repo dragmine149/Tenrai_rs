@@ -1,13 +1,15 @@
+use crate::cache::{Jsonify, RequestCache};
 use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
-use serde::{Deserialize, de::DeserializeOwned};
-
-use crate::cache::{Jsonify, RequestCache};
+use serde::de::DeserializeOwned;
 
 mod cache;
 pub mod endpoints;
+pub mod errors;
 mod macros;
 pub mod schemas;
+
+pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 
 /// Wrapper for the [TenraiAPI](https://tenrai.org).
 ///
@@ -63,13 +65,13 @@ impl TenraiAPI {
     }
 
     /// Internal function for sending the request itself.
-    async fn request<T: DeserializeOwned>(&self, endpoint: String) -> anyhow::Result<T> {
+    async fn request<T: DeserializeOwned>(&self, endpoint: String) -> crate::Result<T> {
         let builder = self
             .client
             .get(format!("https://api.tenrai.org/v1/{endpoint}"))
             .headers(self.build_headers());
         match self.cache {
-            true => builder.cache_json().await,
+            true => Ok(builder.cache_json().await?),
             false => Ok(builder.send().await?.text().await?.json()?),
         }
     }
