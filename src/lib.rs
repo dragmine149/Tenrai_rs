@@ -1,3 +1,5 @@
+use std::time::{Duration, SystemTime};
+
 use crate::cache::{Jsonify, RequestCache};
 use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
@@ -6,14 +8,18 @@ use serde::de::DeserializeOwned;
 mod cache;
 pub mod endpoints;
 pub mod errors;
-mod macros;
 pub mod schemas;
+
+#[macro_use]
+mod macros;
 
 pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 
 /// Wrapper for the [TenraiAPI](https://tenrai.org).
 ///
 /// # Rate-Limits
+/// By default, this client provides no protection against being rate-limited. If you send too many requests, they
+/// will just end up being retried until the server allows them through.
 ///
 /// # Caching
 /// Caching is done locally by default. Anything cached will stay valid for 1 day after the cache has been modified.
@@ -28,6 +34,7 @@ pub struct TenraiAPI {
     #[builder(setter(skip))]
     client: Client,
     /// To use local caching as well.
+    #[builder(setter, default = true)]
     pub cache: bool,
 }
 
@@ -66,13 +73,28 @@ impl TenraiAPI {
 
     /// Internal function for sending the request itself.
     async fn request<T: DeserializeOwned>(&self, endpoint: String) -> crate::Result<T> {
-        let builder = self
-            .client
-            .get(format!("https://api.tenrai.org/v1/{endpoint}"))
-            .headers(self.build_headers());
-        match self.cache {
-            true => Ok(builder.cache_json().await?),
-            false => Ok(builder.send().await?.text().await?.json()?),
+        loop {
+            let response = self
+                .client
+                .get(format!("https://api.tenrai.org/v1/{endpoint}"))
+                .headers(self.build_headers())
+                .send()
+                .await?;
+
+            let headers = response.headers();
+            let status = response.status();
+            if status.as_u16() == 429 {
+                // if this ain't provided i'm going to be worried.
+                let retry = headers.get("Retry-After").unwrap();
+                let timeout = retry.to_str().unwrap().parse().unwrap_or(1_u64);
+                tokio::time::sleep(Duration::from_secs(timeout)).await;
+                continue;
+            }
+
+            break match self.cache {
+                true => Ok(response.cache_json().await?),
+                false => Ok(response.json().await?),
+            };
         }
     }
 }

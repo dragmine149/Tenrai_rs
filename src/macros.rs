@@ -59,7 +59,7 @@ macro_rules! query {
 /// Helper macro for making errors.
 ///
 /// # Usage
-/// ```rust
+/// ```ignore (macros are private)
 /// error!(Cache {
 ///     Cache: std::io::Error,
 ///     Reqwest: reqwest::Error,

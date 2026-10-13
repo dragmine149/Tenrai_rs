@@ -1,7 +1,7 @@
 // #[cfg(test)]
 // mod anime_tests {
 use crate::common::build_client;
-use tenari::schemas::{
+use tenrai::schemas::{
     TenraiResponse,
     anime::{Anime, AnimeQuery, AnimeType},
 };

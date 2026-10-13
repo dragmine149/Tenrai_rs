@@ -13,12 +13,28 @@ mod main_tests {
         println!("{:?}", result);
         assert!(matches!(
             result.err().unwrap(),
-            tenari::errors::Error::Tenrai(_)
+            tenrai::errors::Error::Tenrai(_)
         ))
+    }
+
+    #[tokio::test]
+    #[ignore = "There should not be any major need to test this"]
+    async fn test_rate_limit() {
+        let client = build_client();
+        let mut futures = vec![];
+        // limit is 20 as we should be able to hit the /second limit rather than the /min limit.
+        for _ in 0..20 {
+            futures.push(client.anime_details(1));
+        }
+        for future in futures {
+            future
+                .await
+                .expect("Nothing should have failed just because we rate-limited");
+        }
     }
 }
 
-use tenari::TenraiAPI;
+use tenrai::TenraiAPI;
 
 pub(crate) fn build_client() -> TenraiAPI {
     TenraiAPI::builder().cache(false).build().unwrap()
