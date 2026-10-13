@@ -63,7 +63,7 @@ fn get_cache_file(url: String) -> std::io::Result<PathBuf> {
     if !save_path.exists() {
         let mut file = OpenOptions::new()
             .create(true)
-            .write(true)
+            
             .append(true)
             .open(folder.join("map.csv"))?;
         writeln!(file, "{},{}", url_hash, url)?;
@@ -90,12 +90,12 @@ fn dir_size(path: impl Into<PathBuf>) -> std::io::Result<u64> {
 
 pub(crate) fn clear_cache() -> std::io::Result<()> {
     let folder = cache_dir()?;
-    Ok(fs::remove_dir_all(folder)?)
+    fs::remove_dir_all(folder)
 }
 
 pub(crate) fn cache_size() -> std::io::Result<u64> {
     let folder = cache_dir()?;
-    Ok(dir_size(folder)?)
+    dir_size(folder)
 }
 
 /// Read the cache from disk. Returns an error if something failed with the read, and option depending on the contents.
@@ -187,11 +187,11 @@ impl RequestCache for RequestBuilder {
         let request = request?;
         let url = request.url();
 
-        if let Some(cache) = read_cache(&url)? {
+        if let Some(cache) = read_cache(url)? {
             return Ok(cache);
         }
         // println!("No cache, requesting");
-        Ok(cache_response(client.execute(request).await?).await?)
+        cache_response(client.execute(request).await?).await
     }
     async fn cached(self) -> Result<Cached, CacheError> {
         let (client, request) = self.build_split();

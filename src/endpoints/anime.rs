@@ -2,7 +2,7 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
-        anime::{Anime, AnimeQuery, AnimeQueryBuilder},
+        anime::{Anime, AnimeQuery},
     },
 };
 

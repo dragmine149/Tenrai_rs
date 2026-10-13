@@ -35,7 +35,7 @@ pub struct TenraiPaginatorResponse<T> {
     pub data: Vec<T>,
 }
 
-pub(crate) fn query_vec<T: Display>(vec: &Vec<T>) -> String {
+pub(crate) fn query_vec<T: Display>(vec: &[T]) -> String {
     vec.iter()
         .map(|s| format!("{s}"))
         .collect::<Vec<String>>()
