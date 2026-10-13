@@ -1,12 +1,7 @@
-use std::time::{Duration, SystemTime};
-
-use crate::{
-    cache::{Jsonify, RequestCache},
-    schemas::TenraiRaw,
-};
+use crate::{cache::RequestCache, schemas::TenraiRaw};
 use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
-use serde::de::DeserializeOwned;
+use std::time::Duration;
 
 mod cache;
 pub mod endpoints;
@@ -30,7 +25,7 @@ pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 ///
 #[derive(Builder)]
 pub struct TenraiAPI {
-    /// Server key used for higher rate limits. Received by becoming a patron member: https://api.tenrai.org/documentation#description/server-keys
+    /// Server key used for higher rate limits. Received by becoming a patron member: <https://api.tenrai.org/documentation#description/server-keys>
     #[builder(setter(into, strip_option), default)]
     server_key: Option<String>,
     /// Internal client object
@@ -45,7 +40,7 @@ impl TenraiAPI {
     /// Create a new instance of the API.
     ///
     /// The server key is used for higher rate limits if you have supported on patreon.
-    /// See more https://api.tenrai.org/documentation#description/server-keys
+    /// See more <https://api.tenrai.org/documentation#description/server-keys>
     pub fn new(server_key: Option<String>) -> Self {
         Self {
             server_key,

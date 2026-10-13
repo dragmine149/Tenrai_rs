@@ -60,11 +60,13 @@ fn dir_size(path: impl Into<PathBuf>) -> std::io::Result<u64> {
     dir_size(fs::read_dir(path.into())?)
 }
 
+#[allow(dead_code)]
 pub(crate) fn clear_cache() -> std::io::Result<()> {
     let folder = cache_dir()?;
     fs::remove_dir_all(folder)
 }
 
+#[allow(dead_code)]
 pub(crate) fn cache_size() -> std::io::Result<u64> {
     let folder = cache_dir()?;
     dir_size(folder)
@@ -103,6 +105,7 @@ pub(crate) async fn cache_response(response: Response) -> Result<Bytes, CacheErr
     Ok(text)
 }
 
+#[allow(dead_code)]
 pub trait Jsonify {
     fn json<T>(&self) -> serde_json::Result<T>
     where
@@ -117,7 +120,7 @@ impl Jsonify for String {
         serde_json::from_str(self)
     }
 }
-
+#[allow(dead_code)]
 pub(crate) trait RequestCache {
     /// Send the request and cache the result. Returns the raw bytes of the request for usage.
     ///
