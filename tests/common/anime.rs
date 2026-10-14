@@ -113,3 +113,27 @@ async fn anime_details() {
     assert_eq!(data.demographics, doc_test_data.demographics);
 }
 // }
+
+#[tokio::test]
+#[ignore = "This sends upwards of 300 requests hence takes like a minute or two."]
+async fn check_parsing() {
+    let client = build_client();
+    let mut page = 1_u64;
+    loop {
+        println!("{page}");
+        let result = client
+            .anime_search(
+                AnimeQuery::builder()
+                    .page(page)
+                    .limit(100_u64)
+                    .build()
+                    .unwrap(),
+            )
+            .await
+            .expect("This should not fail");
+        page += 1;
+        if !result.pagination.has_next_page {
+            break;
+        }
+    }
+}

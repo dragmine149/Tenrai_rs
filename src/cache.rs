@@ -16,12 +16,10 @@ error!(Cache {
     Serde: serde_json::Error,
 });
 
-impl CacheError {}
-
 pub fn cache_dir() -> std::io::Result<PathBuf> {
     Ok(dirs::cache_dir()
         .ok_or(std::io::Error::other("Failed to get cache directory"))?
-        .join("AniTorrent"))
+        .join(env!("CARGO_PKG_NAME")))
 }
 
 fn get_cache_file(url: String) -> std::io::Result<PathBuf> {

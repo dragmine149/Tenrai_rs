@@ -1,7 +1,11 @@
+use derive_builder::Builder;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use strum_macros::Display;
 pub mod anime;
-use crate::errors::{MachineErrorType, TenraiAPIError};
+use crate::{
+    errors::{MachineErrorType, TenraiAPIError},
+    query,
+};
 use std::fmt::Display;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
@@ -145,6 +149,11 @@ impl Display for Date {
 /// When using `format!("{}", AgeRating::{whatever})`. A different result will appear as compared to serialization.
 /// This is to allow both the query and the API Json response to use the same enum.
 pub enum AgeRating {
+    /// This entry has no rating. No like, seriously it has no rating...
+    ///
+    /// See <https://myanimelist.net/anime/1863/Silk_Road_Shounen_Yuuto> for an example
+    #[strum(to_string = "")]
+    None,
     /// All Ages
     #[serde(rename = "G - All Ages")]
     G,
@@ -181,3 +190,8 @@ pub enum Season {
     Summer,
     Fall,
 }
+
+query!(SFW {
+    sfw: bool,
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+}, {});

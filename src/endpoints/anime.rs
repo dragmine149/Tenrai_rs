@@ -1,7 +1,7 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse, TenraiResponse,
+        SfwQuery, TenraiPaginatorResponse, TenraiResponse,
         anime::{Anime, AnimeQuery},
     },
 };
@@ -22,7 +22,16 @@ impl TenraiAPI {
         Ok(self.request(format!("anime/{id}")).await?.result()?)
     }
     /// Get full detailed data for an anime
-    pub async fn anime_full_details(&self, id: u64) -> crate::Result<TenraiResponse<Anime>> {
-        Ok(self.request(format!("anime/{id}/full")).await?.result()?)
+    ///
+    /// NOTE: [SfwQuery] will only filter out external relationsions. Not the entire entry itself.
+    pub async fn anime_full_details(
+        &self,
+        id: u64,
+        query: SfwQuery,
+    ) -> crate::Result<TenraiResponse<Anime>> {
+        Ok(self
+            .request(format!("anime/{id}/full{query}"))
+            .await?
+            .result()?)
     }
 }

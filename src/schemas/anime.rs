@@ -217,15 +217,18 @@ pub enum AnimeType {
     Cm,
     #[serde(rename = "PV")]
     Pv,
-    #[serde(rename = "TV_SPECIAL")]
+    #[serde(rename = "TV Special")]
     TvSpecial,
+    Unknown,
 }
 #[derive(Debug, Clone, Display, Deserialize, Serialize, PartialEq, Eq)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeStatus {
+    #[serde(rename = "Currently Airing")]
     Airing,
     #[serde(rename = "Finished Airing")]
     Complete,
+    #[serde(rename = "Not yet aired")]
     Upcoming,
 }
 
@@ -305,11 +308,12 @@ query!(Anime {
     end_date: Date,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p < 20000),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
     score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
     min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
     max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.iter().any(|r| *r == AgeRating::None)),
 });
 
 #[derive(Debug, Serialize, Deserialize)]
