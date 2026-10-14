@@ -1,4 +1,7 @@
-use crate::{cache::RequestCache, schemas::TenraiRaw};
+use crate::{
+    cache::{RequestCache, TryRequestCache},
+    schemas::TenraiRaw,
+};
 use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
 use std::time::Duration;
@@ -71,13 +74,23 @@ impl TenraiAPI {
 
     /// Internal function for sending the request itself.
     async fn request(&self, endpoint: String) -> crate::Result<TenraiRaw> {
+        let url = format!("https://api.tenrai.org/v1/{endpoint}");
+        let request = self.client.get(url).headers(self.build_headers());
+
         loop {
-            let response = self
-                .client
-                .get(format!("https://api.tenrai.org/v1/{endpoint}"))
-                .headers(self.build_headers())
-                .send()
-                .await?;
+            let request = request
+                .try_clone()
+                .expect("We should not be sending a stream");
+            let request = if self.cache {
+                match request.try_cache_json() {
+                    Ok(c) => return Ok(c),
+                    Err(e) => e,
+                }
+            } else {
+                request
+            };
+
+            let response = request.send().await?;
 
             let headers = response.headers();
             let status = response.status();

@@ -118,6 +118,8 @@ impl Jsonify for String {
         serde_json::from_str(self)
     }
 }
+
+/// An extension to anything to cache the data before returning it. Should also read from cache where possible.
 #[allow(dead_code)]
 pub(crate) trait RequestCache {
     /// Send the request and cache the result. Returns the raw bytes of the request for usage.
@@ -152,6 +154,31 @@ pub(crate) trait RequestCache {
     }
 }
 
+/// An alternative version of RequestCache but returns the original if there is no cache
+///
+/// Note that the error is consumed and not returned.
+#[allow(dead_code)]
+pub(crate) trait TryRequestCache {
+    fn try_cache(self) -> Result<Bytes, Self>
+    where
+        Self: Sized;
+    fn try_cache_str(self) -> Result<String, Self>
+    where
+        Self: Sized,
+    {
+        let cache = self.try_cache()?;
+        Ok(String::from_utf8_lossy(cache.chunk()).to_string())
+    }
+    fn try_cache_json<T>(self) -> Result<T, Self>
+    where
+        T: DeserializeOwned,
+        Self: Sized,
+    {
+        let cache = self.try_cache()?;
+        Ok(serde_json::from_slice(cache.chunk()).expect("This was malformed data"))
+    }
+}
+
 impl RequestCache for RequestBuilder {
     async fn cache(self) -> Result<Bytes, CacheError> {
         let (client, request) = self.build_split();
@@ -168,5 +195,23 @@ impl RequestCache for RequestBuilder {
 impl RequestCache for Response {
     async fn cache(self) -> Result<Bytes, CacheError> {
         cache_response(self).await
+    }
+}
+impl TryRequestCache for RequestBuilder {
+    fn try_cache(self) -> Result<Bytes, Self>
+    where
+        Self: Sized,
+    {
+        let (client, request) = self.build_split();
+        let request = request.expect("I don't understand how this errored...");
+        let url = request.url();
+
+        if let Ok(cache) = read_cache(url)
+            && let Some(cache) = cache
+        {
+            Ok(cache)
+        } else {
+            Err(RequestBuilder::from_parts(client, request))
+        }
     }
 }
