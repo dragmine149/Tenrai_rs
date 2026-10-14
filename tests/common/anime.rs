@@ -2,7 +2,7 @@
 // mod anime_tests {
 use crate::common::build_client;
 use tenrai::schemas::{
-    AgeRating, TenraiResponse,
+    AgeRating, BasicPageQuery, SfwQuery, TenraiResponse,
     anime::{Anime, AnimeQuery, AnimeType},
 };
 
@@ -137,3 +137,22 @@ async fn check_parsing() {
         }
     }
 }
+
+#[tokio::test]
+async fn anime_episode() {
+    let client = build_client();
+    client
+        .anime_episodes(58505, BasicPageQuery::default())
+        .await
+        .unwrap();
+}
+
+// async fn anime_news() {
+//     let client = build_client();
+//     client
+//         .sfw()
+//         .anime_news(58505, BasicPageQuery::default())
+//         .await;
+
+//     client.anime_news(id, query, query2)
+// }

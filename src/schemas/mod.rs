@@ -191,7 +191,17 @@ pub enum Season {
     Fall,
 }
 
-query!(SFW {
+query!(
+/// Filter out anime which are not SFW. NOTE: In some cases it might look like no filtering in done. In these cases, only external relations have been filtered.
+SFW {
+	/// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
 }, {});
+
+query!(BasicPage {
+    page: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});

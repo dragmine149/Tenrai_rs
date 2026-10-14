@@ -358,3 +358,80 @@ pub struct ThemeSongs {
     pub openeings: Vec<String>,
     pub endings: Vec<String>,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeRecommendation {
+    pub url: String,
+    pub votes: u64,
+    pub entry: AnimeRecommendationEntry,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeRecommendationEntry {
+    pub mal_id: u64,
+    pub images: Images,
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeCharacter {
+    character: AnimeCharacterEntry,
+    favorites: u64,
+    role: AnimeCharacterRole,
+    voice_actors: AnimeCharacterVA,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeCharacterEntry {
+    pub mal_id: u64,
+    pub images: Images,
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub enum AnimeCharacterRole {
+    Main,
+    Supporting,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeCharacterVA {
+    pub language: String,
+    pub person: Person,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Person {
+    pub favorites: u64,
+    pub images: Images,
+    pub mal_id: u64,
+    pub name: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeStaff {
+    pub person: Person,
+    pub position: Vec<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeEpisode {
+    pub aired: Option<Aired>,
+    pub duration: Option<u64>,
+    pub filler: bool,
+    pub forum_url: Option<String>,
+    pub images: Images,
+    pub mal_id: u64,
+    pub recap: bool,
+    /// Number of forum replies for this episode
+    pub replies: Option<u64>,
+    pub score: Option<u64>,
+    pub synopsis: Option<String>,
+    pub title: String,
+    pub title_japanese: Option<String>,
+    pub title_romanji: Option<String>,
+    pub url: String,
+}

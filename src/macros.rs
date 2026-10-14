@@ -59,7 +59,7 @@ macro_rules! generic_type {
 /// Note that we do not implement any method to deal with default variables. The server should take care of that.
 #[macro_export]
 macro_rules! query {
-    ($name:ident {
+    ($(#[$query_meta:meta])? $name:ident {
     	$(
      		$(#[$field_meta:meta])?
      		$var:ident:$var_type:ty $(:$fmt:expr)?,
@@ -70,8 +70,9 @@ macro_rules! query {
      	)*
     }) => {
         pastey::paste! {
-            #[derive(Debug, Builder)]
+            #[derive(Debug, Default, Builder)]
             #[builder(build_fn(validate = "Self::validate"))]
+            $(#[$query_meta])?
             pub struct [<$name:upper_camel Query>] {
             	$(
              		$(#[$field_meta])?
