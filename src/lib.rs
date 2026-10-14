@@ -94,10 +94,13 @@ impl TenraiAPI {
 
             let headers = response.headers();
             let status = response.status();
+            #[cfg(feature = "auto_retry")]
             if status.as_u16() == 429 {
                 // if this ain't provided i'm going to be worried.
                 let retry = headers.get("Retry-After").unwrap();
                 let timeout = retry.to_str().unwrap().parse().unwrap_or(1_u64);
+                #[cfg(feature = "log")]
+                log::info!("Waiting {} seconds to auto-retry.", timeout);
                 tokio::time::sleep(Duration::from_secs(timeout)).await;
                 continue;
             }
