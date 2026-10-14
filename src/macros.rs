@@ -1,13 +1,20 @@
+/// A macro to make a generic type. There are many different types of the same information, so this consolidates them all.
+///
+/// This also helps us with the `type` parameter as `type` is a keyword in rust.
 #[macro_export]
 macro_rules! generic_type {
     ($name: tt) => {
         pastey::paste! {
            #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
             pub struct [<$name:upper_camel Type>] {
+                /// The unique MAL ID of the catalog item
                 pub mal_id: u64,
+                /// The name of the catalog item
                 pub name: String,
                 #[serde(rename = "type")]
+                /// The type of the catalog item
                 pub [<$name:lower_camel _type>]: String,
+                /// The MAL website link for this catalog item
                 pub url: String,
             }
         }

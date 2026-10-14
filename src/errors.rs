@@ -1,6 +1,7 @@
 use crate::{cache::CacheError, error};
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
+use strum_macros::Display;
 
 error!(Tenrai {
     /// An error returned by the API.
@@ -25,13 +26,19 @@ impl From<CacheError> for Error {
     }
 }
 
+/// Information about any error that happened within the API.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TenraiAPIError {
+    /// The status code returned.
     pub status: u64,
+    /// Machine readable error category
     #[serde(rename = "type")]
-    pub error_type: String,
+    pub error_type: MachineErrorType,
+    /// Human readable explanation
     pub message: String,
+    /// Additional context or recovery guidance
     pub error: String,
+    /// Request path that produced the error.
     pub path: String,
 }
 
@@ -43,4 +50,25 @@ impl Display for TenraiAPIError {
             self.status, self.error_type, self.error, self.path
         )
     }
+}
+
+/// Machine readable error category.
+///
+/// *Although this isn't fully documented, they said it was machine readable so...*
+#[derive(Debug, Serialize, Deserialize, Display)]
+pub enum MachineErrorType {
+    BadRequestException,
+    UnauthorizedException,
+    ForbiddenException,
+    NotFoundException,
+    MethodNotAllowedException,
+    PayloadTooLargeException,
+    UriTooLongException,
+    RateLimitException,
+    RequestHeaderFieldsTooLargeException,
+    InternalServerErrorException,
+    BadGatewayException,
+    ServiceUnavailableException,
+    GatewayTimeoutException,
+    ResourceNotFoundException,
 }

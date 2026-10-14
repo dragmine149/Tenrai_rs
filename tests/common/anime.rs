@@ -2,7 +2,7 @@
 // mod anime_tests {
 use crate::common::build_client;
 use tenrai::schemas::{
-    TenraiResponse,
+    AgeRating, TenraiResponse,
     anime::{Anime, AnimeQuery, AnimeType},
 };
 
@@ -11,9 +11,13 @@ fn test_query_gen() {
     let query = AnimeQuery::builder()
         .anime_type([AnimeType::Tv, AnimeType::Movie, AnimeType::TvSpecial])
         .query("Some Anime")
+        .rating([AgeRating::Pg13])
         .build()
         .expect("Failed to build");
-    assert_eq!(format!("{query}"), "?q=Some Anime&type=tv,movie,tv_special")
+    assert_eq!(
+        format!("{query}"),
+        "?q=Some Anime&type=tv,movie,tv_special&rating=pg13"
+    )
 }
 #[test]
 fn test_long_query() {
@@ -43,7 +47,7 @@ async fn anime_details() {
         .data;
     // println!("{:?}", data);
     let doc_test_data =
-        serde_json::from_str::<TenraiResponse<Anime>>(include_str!("anime_details.json"))
+        serde_json::from_str::<TenraiResponse<Anime>>(include_str!("../data/anime_details.json"))
             .expect("Failed to parse local test data")
             .data;
 
