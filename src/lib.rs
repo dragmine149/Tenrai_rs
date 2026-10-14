@@ -6,7 +6,7 @@ use derive_builder::Builder;
 use reqwest::{Client, header::HeaderMap};
 #[cfg(feature = "rate")]
 use std::cell::RefCell;
-use std::{default, time::Duration};
+use std::time::Duration;
 #[cfg(feature = "rate")]
 use tokio::time::Instant;
 

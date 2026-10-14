@@ -313,7 +313,7 @@ query!(Anime {
     score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
     min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
     max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    rating: "Rating can not be None": (|r: &[AgeRating]| r.iter().any(|r| *r == AgeRating::None)),
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
 #[derive(Debug, Serialize, Deserialize)]
