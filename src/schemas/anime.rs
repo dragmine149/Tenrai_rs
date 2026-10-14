@@ -9,6 +9,8 @@ use std::{collections::HashMap, str};
 use strum_macros::Display;
 
 /// Information about the anime entry in question.
+///
+/// NOTE: Some fields are only available when doing the [TenraiAPI::anime_full_details] query instead, and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
     /// Airing dates of the anime.
@@ -29,6 +31,10 @@ pub struct Anime {
     pub episodes: Option<u64>,
     /// Explicit genre classification (E.g. Hentai, Ecchi)
     pub explicit_genres: Vec<GenreType>,
+    /// External links and resources related to this anime
+    ///
+    /// Requires `full` details
+    pub external: Option<Vec<External>>,
     /// Total users who have favorited the anime.
     pub favorites: Option<u64>,
     /// Genre Classification
@@ -39,6 +45,10 @@ pub struct Anime {
     pub licensors: Vec<LicensorType>,
     /// The unique MAL ID of this entry.
     pub mal_id: u64,
+    /// More information related to the anime outside of the background/synopsis
+    ///
+    /// Requires `full` details
+    pub more_info: Option<String>,
     /// Total users who have added this to their lists.
     pub members: Option<u64>,
     /// Global popularity rank based on [Anime::members].
@@ -49,6 +59,10 @@ pub struct Anime {
     pub rank: Option<u64>,
     /// Age rating categorization
     pub rating: Option<AgeRating>,
+    /// Relationships with other media in the same series
+    ///
+    /// Requires `full` details
+    pub relations: Option<Vec<Relation>>,
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.
@@ -59,10 +73,18 @@ pub struct Anime {
     pub source: String,
     /// Airing status of the anime.
     pub status: AnimeStatus,
+    /// External sites where you can watch the anime
+    ///
+    /// Requires `full` details
+    pub streaming: Option<Vec<External>>,
     /// Animation Studios
     pub studios: Vec<StudioType>,
     /// Main plot summary description
     pub synopsis: Option<String>,
+    /// Theme songs used in the anime.
+    ///
+    /// Requires `full` details
+    pub theme: Option<ThemeSongs>,
     /// Theme Classification.
     pub themes: Vec<ThemeType>,
     /// The primary default title of the anime.
@@ -289,3 +311,46 @@ query!(Anime {
     min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
     max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
 });
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct External {
+    /// The name of the link
+    pub name: String,
+    /// The destination of the link
+    pub url: String,
+}
+
+/// Combines a relationship between this entry and another entry.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Relation {
+    /// The relation between the two.
+    pub relation: String,
+    /// The other entry to compare to.
+    pub entry: RelationEntry,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RelationEntry {
+    /// The ID on MAL.
+    pub mal_id: u64,
+    /// The type of this entry.
+    #[serde(rename = "type")]
+    pub entry_type: String,
+    pub name: String,
+    pub url: String,
+    /// The media type of this entry.
+    ///
+    /// NOTE: This is different that [RelationEntry::entry_type].
+    /// For example, the [RelationEntry::entry_type] might be `manga` whilst this is `light_novel`. or `anime` and `TV` respctably.
+    pub media_type: String,
+    pub images: Images,
+}
+
+/// Theme songs found in the anime.
+///
+/// TODO: Implement custom de/serialize to parse the data so this is much more usable.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ThemeSongs {
+    pub openeings: Vec<String>,
+    pub endings: Vec<String>,
+}
