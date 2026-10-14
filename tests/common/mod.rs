@@ -37,5 +37,5 @@ mod main_tests {
 use tenrai::TenraiAPI;
 
 pub(crate) fn build_client() -> TenraiAPI {
-    TenraiAPI::builder().cache(false).build().unwrap()
+    TenraiAPI::builder().cache(true).build().unwrap()
 }

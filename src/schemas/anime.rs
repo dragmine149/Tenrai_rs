@@ -156,9 +156,9 @@ generic_type!(Theme);
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Images {
     /// Jpg versions of the images
-    pub jpg: ImageDetails,
+    pub jpg: Option<ImageDetails>,
     /// Webp versions of the images
-    pub webp: ImageDetails,
+    pub webp: Option<ImageDetails>,
 }
 
 /// Details about the sizes of the images used on the website.
@@ -419,7 +419,7 @@ pub struct AnimeStaff {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeEpisode {
-    pub aired: Option<Aired>,
+    pub aired: Option<String>,
     pub duration: Option<u64>,
     pub filler: bool,
     pub forum_url: Option<String>,
@@ -428,7 +428,7 @@ pub struct AnimeEpisode {
     pub recap: bool,
     /// Number of forum replies for this episode
     pub replies: Option<u64>,
-    pub score: Option<u64>,
+    pub score: Option<f64>,
     pub synopsis: Option<String>,
     pub title: String,
     pub title_japanese: Option<String>,

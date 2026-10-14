@@ -27,9 +27,9 @@ pub struct Paginator {
     /// Whether there are more results on the next page.
     pub has_next_page: bool,
     /// The current page number requested.
-    pub current_page: u64,
+    pub current_page: Option<u64>,
     /// Detailed item pagination counts
-    pub items: PaginatorItems,
+    pub items: Option<PaginatorItems>,
 }
 
 /// Detailed item pagination counts
