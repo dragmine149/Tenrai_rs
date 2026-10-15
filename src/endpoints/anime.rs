@@ -1,18 +1,18 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        BasicPageQuery, PageSfwQuery, SfwQuery, TenraiPaginatorResponse, TenraiResponse,
+        TenraiPaginatorResponse, TenraiResponse,
         anime::{
             Anime, AnimeArticle, AnimeCharacter, AnimeEpisode, AnimeForum, AnimeIdsQuery,
-            AnimeQuery, AnimeRecommendation, AnimeReview, AnimeReviewQuery, AnimeStack, AnimeStaff,
-            AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ArticleQuery, BasicAnimeQuery,
-            External, ForumQuery, Images, Relation, StackQuery, ThemeSongs, Trailer,
+            AnimeMoreInfo, AnimeQuery, AnimeRecommendation, AnimeReview, AnimeReviewQuery,
+            AnimeStack, AnimeStaff, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ArticleQuery,
+            BasicAnimeQuery, External, ForumQuery, Images, Relation, StackQuery, ThemeSongs,
         },
+        common::{BasicPageQuery, PageSfwQuery, SfwQuery},
     },
 };
 
-// API functions related to anime.
-// See other files for other functions.
+/// API functions related to anime.
 impl TenraiAPI {
     /// Search for an anime with filters.
     pub async fn anime_search(

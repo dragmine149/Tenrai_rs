@@ -1,12 +1,13 @@
-use derive_builder::Builder;
+//! Schemas used throughout the client.
+//! Everything here is returned from the API in one way or another.
+//!
+//! Structs used in this module are global between all endpoints. See individual sub-modules for more related info.
+use crate::errors::{MachineErrorType, TenraiAPIError};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
-use strum_macros::Display;
-pub mod anime;
-use crate::{
-    errors::{MachineErrorType, TenraiAPIError},
-    query,
-};
 use std::fmt::Display;
+
+pub mod anime;
+pub mod common;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
 pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
@@ -80,6 +81,7 @@ pub(crate) struct TenraiRaw {
     pub path: Option<String>,
 }
 
+// Convert the raw data from the API into individual responses depending on what was requested.
 impl TenraiRaw {
     fn build_error(self) -> TenraiAPIError {
         TenraiAPIError {
@@ -119,99 +121,3 @@ impl TenraiRaw {
         }
     }
 }
-
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
-pub struct Date {
-    pub day: Option<u64>,
-    pub month: Option<u64>,
-    pub year: Option<u64>,
-}
-impl Display for Date {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if let Some(year) = self.year {
-            write!(f, "{:0>4}", year)?;
-            if let Some(month) = self.month {
-                write!(f, "-{:0>2}", month)?;
-                if let Some(day) = self.day {
-                    write!(f, "-{:0>2}", day)?
-                }
-            }
-        }
-        Ok(())
-    }
-}
-
-#[derive(Debug, Clone, Display, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
-#[strum(serialize_all = "snake_case")]
-/// The age rating of the anime.
-///
-/// # Display vs Serialization
-/// When using `format!("{}", AgeRating::{whatever})`. A different result will appear as compared to serialization.
-/// This is to allow both the query and the API Json response to use the same enum.
-pub enum AgeRating {
-    /// This entry has no rating. No like, seriously it has no rating...
-    ///
-    /// See <https://myanimelist.net/anime/1863/Silk_Road_Shounen_Yuuto> for an example
-    #[strum(to_string = "")]
-    None,
-    /// All Ages
-    #[serde(rename = "G - All Ages")]
-    G,
-    /// Children
-    #[serde(rename = "PG - Children")]
-    Pg,
-    /// Teens 13 or older
-    #[serde(rename = "PG-13 - Teens 13 or older")]
-    Pg13,
-    /// 17+ (violence & profanity)
-    #[serde(rename = "R - 17+ (violence & profanity)")]
-    R17,
-    /// Mild Nudity
-    #[serde(rename = "R+ - Mild Nudity")]
-    R,
-    /// Hentai
-    #[serde(rename = "Rx - Hentai")]
-    Rx,
-}
-
-/// The season when the given entry started.
-///
-/// # real-life Comparison
-/// This follows the real life comparison that a season is 3 months long. Where winter is January -> March, spring is April -> June, etc.
-///
-/// NOTE: In some cases, a season can be the next season even if it started before the current season ends.
-///
-/// *that being said, you've probably watched enough anime to gather all of this*
-#[derive(Debug, Clone, Display, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
-#[serde(rename_all = "lowercase")]
-pub enum Season {
-    Winter,
-    Spring,
-    Summer,
-    Fall,
-}
-
-query!(
-/// Filter out anime which are not SFW. NOTE: In some cases it might look like no filtering in done. In these cases, only external relations have been filtered.
-SFW {
-	/// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-}, {});
-
-query!(BasicPage {
-    page: u64,
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
-
-query!(
-/// A combination of [SfwQuery] and [BasicPageQuery]
-PageSFW {
-    page: u64,
-    sfw: bool,
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});

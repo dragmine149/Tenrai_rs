@@ -1,6 +1,11 @@
+//! Structs related to anime endpoints.
+
 use crate::{
     generic_type, query,
-    schemas::{AgeRating, Date, Season, query_vec},
+    schemas::{
+        common::{AgeRating, Date, Season},
+        query_vec,
+    },
 };
 use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
@@ -126,6 +131,7 @@ pub struct Aired {
     /// String format which MAL uses to display the dates.
     pub string: Option<String>,
 }
+/// Information about the form and to dates
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct AiredProp {
     pub from: Date,

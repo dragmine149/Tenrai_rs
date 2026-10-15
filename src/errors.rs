@@ -1,9 +1,13 @@
+//! Custom errors that may occur during usage.
+
 use crate::{cache::CacheError, error};
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 use strum_macros::Display;
 
-error!(Tenrai {
+error!(
+/// Custom error combining all other possible errors.
+Tenrai {
     /// An error returned by the API.
     Tenrai: TenraiAPIError,
     /// An error happened within the local caching system.
@@ -14,6 +18,7 @@ error!(Tenrai {
     Serde: serde_json::Error,
 });
 
+/// Public generic crate type alias.
 pub type Error = TenraiError;
 
 impl From<CacheError> for Error {

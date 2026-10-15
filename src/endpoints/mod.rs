@@ -1,3 +1,5 @@
+//! Various
+
 #[cfg(feature = "custom")]
 use crate::{
     TenraiAPI,
@@ -8,6 +10,9 @@ use serde::de::DeserializeOwned;
 
 mod anime;
 
+/// Custom functions related to the API. Gives the security of the requests while the freedom of the response.
+///
+/// Shouldn't be needed in most cases.
 #[cfg(feature = "custom")]
 impl TenraiAPI {
     pub async fn custom<T>(&self, endpoint: impl Into<String>) -> crate::Result<TenraiResponse<T>>

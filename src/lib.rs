@@ -1,3 +1,24 @@
+//! A Wrapper for the [Tenrai API](https://api.tenrai.org) in rust.
+//!
+//! # Usage
+//! ```
+//! #[tokio::main]
+//! async fn main() {
+//!     // create a client
+//!     let client = TenraiAPI::default();
+//! 	// send a request to fetch konosuba
+//! 	let result = client.anime_full_details(30831).await;
+//! 	// use said data
+//! 	if let Ok(data) = result {
+//! 		println!("{}", data.url); // https://myanimelist.net/anime/30831/Kono_Subarashii_Sekai_ni_Shukufuku_wo
+//! 	}
+//! }
+//! ```
+//!
+//! # See
+//! - The official api docs this is based on: <https://api.tenrai.org/documentation>
+//! - The github repo for more information: <>
+
 use crate::{
     cache::{RequestCache, TryRequestCache},
     schemas::TenraiRaw,
@@ -11,13 +32,14 @@ use std::time::Duration;
 use tokio::time::Instant;
 
 mod cache;
-pub mod endpoints;
+mod endpoints;
 pub mod errors;
 pub mod schemas;
 
 #[macro_use]
 mod macros;
 
+/// Version of [Result<T, E>](std::result::Result) with our errors autofilled in.
 pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 
 /// Wrapper for the [TenraiAPI](https://tenrai.org).
@@ -138,7 +160,7 @@ impl Default for TenraiAPI {
     }
 }
 
-// this impl is more for the user-facing stuff of the API.
+/// Various methods to create new versions of the API.
 impl TenraiAPI {
     /// Create a new instance of the API.
     ///
@@ -151,6 +173,7 @@ impl TenraiAPI {
         }
     }
 
+    // this sis the new default client. Unlike the basic client, we use our own custom user agent.
     fn default_client() -> Client {
         Client::builder()
             .user_agent(format!(

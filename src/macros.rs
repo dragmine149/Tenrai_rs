@@ -77,7 +77,7 @@ macro_rules! query {
             	$(
              		$(#[$field_meta])?
              		#[builder(setter(into, strip_option), default)]
-                    $var: Option<$var_type>,
+                    pub $var: Option<$var_type>,
                 )*
             }
             impl [<$name:upper_camel Query>] {
@@ -134,7 +134,7 @@ macro_rules! query {
 /// Basically just define a struct of the errors.
 #[macro_export]
 macro_rules! error {
-    ($name: tt {
+    ($(#[$doc_meta:meta])? $name:ident {
     	$(
     		$(#[$field_meta:meta])?
      		$error:ident:$error_type:ty,
@@ -142,6 +142,7 @@ macro_rules! error {
     }) => {
         pastey::paste! {
         	#[derive(Debug)]
+         	$(#[$doc_meta])?
             pub enum [<$name:upper_camel Error>] {
             	$(
              		$(#[$field_meta])?
