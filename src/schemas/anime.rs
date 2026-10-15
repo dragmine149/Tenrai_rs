@@ -156,7 +156,7 @@ generic_type!(Theme);
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Images {
     /// Jpg versions of the images
-    pub jpg: Option<ImageDetails>,
+    pub jpg: ImageDetails,
     /// Webp versions of the images
     pub webp: Option<ImageDetails>,
 }
@@ -232,9 +232,10 @@ pub enum AnimeStatus {
     Upcoming,
 }
 
+/// Extension of [bool] but with `Only`
 #[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "snake_case")]
-pub enum Unapproved {
+pub enum OnlyBool {
     False,
     True,
     Only,
@@ -283,7 +284,7 @@ query!(Anime {
     /// Apply strict SFW filtering for adult content and Ecchi
     sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
     /// Also include unapproved entries.
-    unapproved: Unapproved,
+    unapproved: OnlyBool,
     /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.
     score: f64,
     /// Only entries with this score or higher
@@ -434,4 +435,293 @@ pub struct AnimeEpisode {
     pub title_japanese: Option<String>,
     pub title_romanji: Option<String>,
     pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeArticle {
+    /// Author profile URL
+    pub author_url: String,
+    /// Author MAL Username
+    pub author_username: String,
+    /// Comment Count
+    pub comments: u64,
+    /// Date posted (ISO8601 format)
+    pub date: String,
+    /// Excerpt (or some kind of preview)
+    pub except: String,
+    pub images: Images,
+    pub mal_id: u64,
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum ArticleOrdering {
+    #[strum(to_string = "published_at")]
+    PublishedDate,
+    #[strum(to_string = "views")]
+    ViewCount,
+}
+
+query!(Article {
+    page: u64,
+    order_by: ArticleOrdering,
+    sort: SortDirection,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum ForumOrdering {
+    EpisodeNumber,
+    #[strum(to_string = "created_on")]
+    CreationDate,
+    CommentCount,
+    LastPost,
+}
+
+query!(
+/// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
+Forum {
+    page: u64,
+    order_by: ForumOrdering,
+    sort: SortDirection,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeForum {
+    pub author_url: Option<String>,
+    pub author_username: Option<String>,
+    pub comments: u64,
+    pub last_comment: CommentInfo,
+    pub mal_id: u64,
+    /// Topic title. Can be empty.
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CommentInfo {
+    pub author_url: Option<String>,
+    pub author_username: Option<String>,
+    pub date: Option<String>,
+    pub url: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeVideo {
+    pub episodes: AnimeVideoEpisode,
+    pub music_videos: AnimeVideoMusic,
+    pub promo: Vec<AnimeVideoPromo>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeVideoEpisode {
+    pub episode: String,
+    pub images: Images,
+    pub mal_id: u64,
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeVideoMusic {
+    pub meta: AnimeVideoMusicMeta,
+    pub title: String,
+    pub video: Trailer,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeVideoMusicMeta {
+    pub author: String,
+    pub title: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeVideoPromo {
+    pub title: String,
+    pub trailer: Trailer,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeStatistics {
+    pub completed: u64,
+    pub dropped: u64,
+    pub on_hold: u64,
+    pub plan_to_watch: u64,
+    pub scores: AnimeStatsScore,
+    pub total: u64,
+    pub watching: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeStatsScore {
+    pub percentage: f64,
+    pub votes: u64,
+    pub score: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeMoreInfo {
+    #[serde(rename = "moreinfo")]
+    pub more_info: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum AnimeReviewSort {
+    Newest,
+    Oldest,
+    MostHelpful,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum Sentiment {
+    Recommended,
+    MixedFeelings,
+    NotRecommended,
+}
+
+query!(AnimeReview {
+    page: u64,
+    sort: AnimeReviewSort,
+    preliminary: OnlyBool,
+    spoilers: OnlyBool,
+    sentiment: Sentiment,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeReview {
+    pub date: Option<String>,
+    pub episodes_watched: Option<u64>,
+    pub is_preliminary: bool,
+    pub is_spoiler: bool,
+    pub mal_id: u64,
+    pub reactions: AnimeReviewReaction,
+    pub review: String,
+    pub score: u64,
+    pub tags: Vec<String>,
+    #[serde(rename = "type")]
+    pub review_type: String,
+    pub url: String,
+    pub user: User,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeReviewReaction {
+    pub confusing: u64,
+    pub creative: u64,
+    pub funny: u64,
+    pub informative: u64,
+    pub love_it: u64,
+    pub nice: u64,
+    pub overall: u64,
+    pub well_written: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct User {
+    pub images: Images,
+    pub url: String,
+    pub username: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum StackOrder {
+    CreatedAt,
+    RestackCount,
+}
+
+query!(Stack {
+    query: String:(|_, v| format!("q={v}")),
+    page: u64,
+    limit: u64,
+    stack_order: StackOrder,
+    sort: SortDirection,
+    spoilers: OnlyBool,
+    challenges: OnlyBool,
+    official: OnlyBool,
+    sfw: bool,
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeStack {
+    pub author_url: Option<String>,
+    pub author_username: Option<String>,
+    pub created_at: Option<String>,
+    pub description: String,
+    pub entry_count: u64,
+    pub is_challenge: u64,
+    pub is_official: u64,
+    pub is_spoiler: u64,
+    pub mal_id: u64,
+    pub restack_count: u64,
+    pub stack_type: AnimeStackType,
+    pub title: String,
+    pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AnimeStackType {
+    Anime,
+    Manga,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum BasicAnimeOrder {
+    #[strum(to_string = "mal_id")]
+    MalID,
+    Title,
+}
+
+query!(BasicAnime {
+    query: String:(|_, v| format!("q={v}")),
+    page: u64,
+    limit: u64,
+    order_by: BasicAnimeOrder,
+    sort: SortDirection,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(AnimeIds {
+	/// Filter by media type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Only anime with this airing status
+    status: AnimeStatus,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Fields to include per entry. Allowed: Title, Type
+    include: Vec<AnimeIDQueryInclude>:query_vec,
+    /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
+    updated_at: String,
+}, {});
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "snake_case")]
+pub enum AnimeIDQueryInclude {
+    Title,
+    #[strum(to_string = "type")]
+    AnimeType,
 }

@@ -205,3 +205,13 @@ query!(BasicPage {
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
+
+query!(
+/// A combination of [SfwQuery] and [BasicPageQuery]
+PageSFW {
+    page: u64,
+    sfw: bool,
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
