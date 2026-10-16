@@ -8,6 +8,7 @@ use std::fmt::Display;
 
 pub mod anime;
 pub mod common;
+pub mod query;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
 pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {

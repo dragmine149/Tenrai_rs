@@ -3,12 +3,14 @@ use crate::{
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
         anime::{
-            Anime, AnimeArticle, AnimeCharacter, AnimeEpisode, AnimeForum, AnimeIdsQuery,
-            AnimeMoreInfo, AnimeQuery, AnimeRecommendation, AnimeReview, AnimeReviewQuery,
-            AnimeStack, AnimeStaff, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ArticleQuery,
-            BasicAnimeQuery, External, ForumQuery, Images, Relation, StackQuery, ThemeSongs,
+            Anime, AnimeArticle, AnimeCharacter, AnimeEpisode, AnimeForum, AnimeIDList,
+            AnimeMoreInfo, AnimeRecommendation, AnimeReview, AnimeStack, AnimeStaff,
+            AnimeStatistics, AnimeVideo, AnimeVideoEpisode, External, Images, Relation, ThemeSongs,
         },
-        common::{BasicPageQuery, PageSfwQuery, SfwQuery},
+        query::{
+            AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
+            BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery,
+        },
     },
 };
 
@@ -254,8 +256,10 @@ impl TenraiAPI {
     ///
     /// NOTE: This requires a server key.
     /// TODO: Implement client-sided server-key checker
-    /// TODO: Solve this edge-case situation.
-    pub async fn anime_ids(&self, query: AnimeIdsQuery) -> crate::Result<TenraiResponse<Vec<u64>>> {
+    pub async fn anime_ids(
+        &self,
+        query: AnimeIdsQuery,
+    ) -> crate::Result<TenraiResponse<AnimeIDList>> {
         Ok(self.request(format!("anime/ids{query}")).await?.result()?)
     }
 }

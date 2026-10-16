@@ -1,13 +1,9 @@
 //! Structs related to anime endpoints.
 
 use crate::{
-    generic_type, query,
-    schemas::{
-        common::{AgeRating, Date, Season},
-        query_vec,
-    },
+    generic_type,
+    schemas::common::{AgeRating, Date, Season},
 };
-use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::{collections::HashMap, str};
@@ -238,15 +234,6 @@ pub enum AnimeStatus {
     Upcoming,
 }
 
-/// Extension of [bool] but with `Only`
-#[derive(Debug, Clone, Display)]
-#[strum(serialize_all = "snake_case")]
-pub enum OnlyBool {
-    False,
-    True,
-    Only,
-}
-
 #[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "snake_case")]
 pub enum OrderBy {
@@ -271,57 +258,6 @@ pub enum SortDirection {
     #[strum(to_string = "desc")]
     Descending,
 }
-
-query!(Anime {
-    /// Title search query (fuzzy matched against English, Japanese and default titles). Cannot be combined with [AnimeQuery::letter]
-    query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u64,
-    /// Results per page (Default: 25)
-    limit: u64,
-    /// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    /// Only anime with this airing status
-    status: AnimeStatus,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Also include unapproved entries.
-    unapproved: OnlyBool,
-    /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.
-    score: f64,
-    /// Only entries with this score or higher
-    min_score: f64,
-    /// Only entries with this score or lower
-    max_score: f64,
-    /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
-    /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
-    /// Field to sort the results by.
-    order_by: OrderBy,
-    /// Sort direction. Only applies when [AnimeQuery::order_by] is used.
-    sort: SortDirection,
-    /// Only anime whose title starts with this letter. Cannot be combined with [AnimeQuery::query].
-    letter: char,
-    /// List of produces to filter by. Use the ID of the producer.
-    producers: Vec<u64>:query_vec,
-    /// Only anime that started airing on or after this date.
-    start_date: Date,
-    /// Only anime that finished airing on or before this date.
-    end_date: Date,
-}, {
-    query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-    score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
-});
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct External {
@@ -470,14 +406,6 @@ pub enum ArticleOrdering {
     ViewCount,
 }
 
-query!(Article {
-    page: u64,
-    order_by: ArticleOrdering,
-    sort: SortDirection,
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
-
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum ForumOrdering {
@@ -487,16 +415,6 @@ pub enum ForumOrdering {
     CommentCount,
     LastPost,
 }
-
-query!(
-/// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
-Forum {
-    page: u64,
-    order_by: ForumOrdering,
-    sort: SortDirection,
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeForum {
@@ -593,16 +511,6 @@ pub enum Sentiment {
     NotRecommended,
 }
 
-query!(AnimeReview {
-    page: u64,
-    sort: AnimeReviewSort,
-    preliminary: OnlyBool,
-    spoilers: OnlyBool,
-    sentiment: Sentiment,
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeReview {
     pub date: Option<String>,
@@ -646,23 +554,6 @@ pub enum StackOrder {
     RestackCount,
 }
 
-query!(Stack {
-    query: String:(|_, v| format!("q={v}")),
-    page: u64,
-    limit: u64,
-    stack_order: StackOrder,
-    sort: SortDirection,
-    spoilers: OnlyBool,
-    challenges: OnlyBool,
-    official: OnlyBool,
-    sfw: bool,
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-}, {
-    query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-});
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeStack {
     pub author_url: Option<String>,
@@ -695,39 +586,25 @@ pub enum BasicAnimeOrder {
     Title,
 }
 
-query!(BasicAnime {
-    query: String:(|_, v| format!("q={v}")),
-    page: u64,
-    limit: u64,
-    order_by: BasicAnimeOrder,
-    sort: SortDirection,
-}, {
-    query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-});
-
-query!(AnimeIds {
-	/// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    /// Only anime with this airing status
-    status: AnimeStatus,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Fields to include per entry. Allowed: Title, Type
-    include: Vec<AnimeIDQueryInclude>:query_vec,
-    /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
-    updated_at: String,
-}, {});
-
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeIDQueryInclude {
     Title,
     #[strum(to_string = "type")]
     AnimeType,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AnimeIDList {
+    IDs(Vec<u64>),
+    Context(Vec<AnimeIDContext>),
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeIDContext {
+    pub mal_id: u64,
+    pub title: String,
+    #[serde(rename = "type")]
+    pub id_type: String,
 }

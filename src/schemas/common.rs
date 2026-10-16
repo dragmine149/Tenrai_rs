@@ -82,29 +82,20 @@ pub enum Season {
     Fall,
 }
 
-query!(
-/// Filter out anime which are not SFW. NOTE: In some cases it might look like no filtering in done. In these cases, only external relations have been filtered.
-SFW {
-	/// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-}, {});
-
-query!(
-/// Basic paginator query. Allows the selection of a different page.
-BasicPage {
-    page: u64,
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
-
-query!(
-/// A combination of [SfwQuery] and [BasicPageQuery]
-PageSFW {
-    page: u64,
-    sfw: bool,
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-}, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-});
+/// Extension of [bool] but with `Only`
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum OnlyBool {
+    /// Exclude
+    ///
+    /// Will **NEVER** show these items
+    False,
+    /// Include
+    ///
+    /// Will Show these items
+    True,
+    /// Exclusive
+    ///
+    /// Will **ONLY** Show these items
+    Only,
+}
