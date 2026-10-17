@@ -8,6 +8,7 @@ use std::fmt::Display;
 
 pub mod anime;
 pub mod common;
+pub mod people;
 pub mod query;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.

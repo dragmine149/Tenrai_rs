@@ -5,7 +5,7 @@ A rust wrapper for the [Tenrai API](https://tenrai.org/)
 Major -> Same as Tenrai API version
 Minor / Patch -> Whatever i fell like.
 
-# Features
+# Feature Flags
 <details>
   <summary>auto_retry (default)</summary>
   Automatically retry upon certain errors. This will delay the response but make it more likely an OK response is returned.
@@ -45,3 +45,8 @@ Minor / Patch -> Whatever i fell like.
 # Documentation
 Everything has been documentated in line with the [official API documentation](https://api.tenrai.org/documentation)
 However in some cases, documentation will be slightly reworded to make more sense or to explain more that the official one lacks.
+
+## Naming
+Most variable names are done in line with the official API documentation. But there are many cases where the name is different.
+
+A common case is `type` due to being a keyword in rust. Other renames have been done for rust usability. At the very least the new names should match the official ones decently enough.

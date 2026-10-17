@@ -2,12 +2,19 @@
 
 use crate::{
     generic_type,
-    schemas::common::{AgeRating, Date, Season},
+    schemas::common::{AgeRating, Date, Entry, External, ImageDetails, Images, Season},
 };
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::{collections::HashMap, str};
+use regex::Regex;
+use serde::{Deserialize, Serialize, de::Visitor};
+use serde_json::Deserializer;
 use strum_macros::Display;
+
+generic_type!(Demographics);
+generic_type!(Genre);
+generic_type!(Licensor);
+generic_type!(Producer);
+generic_type!(Studio);
+generic_type!(Theme);
 
 /// Information about the anime entry in question.
 ///
@@ -127,6 +134,7 @@ pub struct Aired {
     /// String format which MAL uses to display the dates.
     pub string: Option<String>,
 }
+
 /// Information about the form and to dates
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct AiredProp {
@@ -147,34 +155,6 @@ pub struct AnimeBroadcast {
     pub timezone: Option<String>,
 }
 
-generic_type!(Demographics);
-generic_type!(Genre);
-generic_type!(Licensor);
-generic_type!(Producer);
-generic_type!(Studio);
-generic_type!(Theme);
-
-/// Images used on the website.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Images {
-    /// Jpg versions of the images
-    pub jpg: ImageDetails,
-    /// Webp versions of the images
-    pub webp: Option<ImageDetails>,
-}
-
-/// Details about the sizes of the images used on the website.
-///
-/// NOTE: Depending on the endpoint, not all images url's will be provided.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct ImageDetails {
-    pub image_url: Option<String>,
-    pub large_image_url: Option<String>,
-    pub small_image_url: Option<String>,
-    pub maximum_image_url: Option<String>,
-    pub medium_image_url: Option<String>,
-}
-
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct AlternativeTitle {
     pub title: String,
@@ -184,6 +164,8 @@ pub struct AlternativeTitle {
 }
 
 /// Information about the youtube video representing the trailer.
+///
+/// All fields are self-explanitor.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Trailer {
     pub comment_count: Option<u64>,
@@ -195,11 +177,20 @@ pub struct Trailer {
     pub likes: Option<u64>,
     pub privacy_status: Option<String>,
     pub published_at: Option<String>,
-    pub region_restriction: Option<HashMap<String, Value>>,
+    pub region_restriction: Option<RegionalRestrictions>,
     pub title: Option<String>,
     pub url: Option<String>,
     pub views: Option<u64>,
     pub youtube_id: Option<String>,
+}
+
+/// Countries where YouTube allows or blocks the video, as two-letter country codes.
+///
+/// Only one of the two lists is present.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RegionalRestrictions {
+    pub allowed: Option<Vec<String>>,
+    pub blocked: Option<Vec<String>>,
 }
 
 /// The format that this anime is in.
@@ -223,6 +214,8 @@ pub enum AnimeType {
     TvSpecial,
     Unknown,
 }
+
+/// Status of the anime.
 #[derive(Debug, Clone, Display, Deserialize, Serialize, PartialEq, Eq)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeStatus {
@@ -234,6 +227,7 @@ pub enum AnimeStatus {
     Upcoming,
 }
 
+/// Which field to order the anime by.
 #[derive(Debug, Clone, Display)]
 #[strum(serialize_all = "snake_case")]
 pub enum OrderBy {
@@ -248,23 +242,6 @@ pub enum OrderBy {
     Popularity,
     Members,
     Favorites,
-}
-
-#[derive(Debug, Clone, Display)]
-#[strum(serialize_all = "snake_case")]
-pub enum SortDirection {
-    #[strum(to_string = "asc")]
-    Ascending,
-    #[strum(to_string = "desc")]
-    Descending,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct External {
-    /// The name of the link
-    pub name: String,
-    /// The destination of the link
-    pub url: String,
 }
 
 /// Combines a relationship between this entry and another entry.
@@ -298,84 +275,162 @@ pub struct RelationEntry {
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ThemeSongs {
-    pub openeings: Vec<String>,
-    pub endings: Vec<String>,
+    pub openings: Vec<ThemeSong>,
+    pub endings: Vec<ThemeSong>,
 }
 
+/// Information about the theme song.
+///
+/// NOTE: The data is parsed from a string using regex and hence can't easily be linked back to an entry on MAL.
+///
+/// NOTE: Index Data is lost on serializing.
+#[derive(Debug)]
+pub struct ThemeSong {
+    /// The name of the song
+    pub name: String,
+    /// The artist(s) that sung it.
+    pub artists: Vec<String>,
+    /// The episodes that version was used in.
+    ///
+    /// When a song is only used in one episode, both values will be the same.
+    pub episodes: Vec<(u64, u64)>,
+}
+
+/// Helper struct used for the custom deserializer for [[ThemeSong]]
+///
+/// The deserializer takes in the string and splits out it (via regex) to a more usable format.
+struct ThemeSongVisitor;
+impl<'de> Visitor<'de> for ThemeSongVisitor {
+    fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(
+            f,
+            "A theme song in the format of '{{name}} by {{composer}} ({{eps}})'"
+        )
+    }
+
+    type Value = ThemeSong;
+    fn visit_string<E>(self, v: String) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        // SEE: https://regex101.com/r/bkhn4r/1
+        let regex = Regex::new(
+            r#"(?gmux)^\s* (?:\d+:\s+)? "([^"]+)" \s+by\s+ (.+?) \s* (?:\(eps\s(.+?)\))*$"#,
+        )
+        .unwrap();
+        let captures = regex
+            .captures(v)
+            .ok_or_else(|| serde::de::Error::custom("Failed to parse regex"))?;
+
+        let name = captures
+            .get(1)
+            .ok_or_else(|| serde::de::Error::missing_field("Name"))?
+            .as_str()
+            .to_string();
+        let artists = captures
+            .get(2)
+            .ok_or_else(|| serde::de::Error::missing_field("Artists"))?
+            .as_str()
+            .split(",")
+            .map(|s| s.to_owned())
+            .collect::<Vec<String>>();
+        let episodes = captures
+            .get(3)
+            .ok_or_else(|| serde::de::Error::missing_field("Episodes"))?
+            .as_str()
+            .split(",")
+            .map(|ep| {
+                ep.split_once("-").map_or_else(
+                    || {
+                        let num = ep.parse::<u64>().unwrap();
+                        (num, num)
+                    },
+                    |(a, b)| (a.parse().unwrap(), b.parse().unwrap()),
+                )
+            })
+            .collect::<Vec<(u64, u64)>>();
+
+        Ok(ThemeSong {
+            name,
+            artists,
+            episodes,
+        })
+    }
+}
+impl<'de> Deserialize<'de> for ThemeSong {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_string(ThemeSongVisitor)
+    }
+}
+impl Serialize for ThemeSong {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&format!(
+            "{:?} by {} (eps {})",
+            self.name,
+            self.artists.join(","),
+            self.episodes
+                .iter()
+                .map(|ep| {
+                    if ep.0 == ep.1 {
+                        ep.0.to_string()
+                    } else {
+                        format!("{}-{}", ep.0, ep.1)
+                    }
+                })
+                .fold(String::new(), |acc, x| acc + &x + ",")
+        ))
+    }
+}
+
+/// Information about the recommendation.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeRecommendation {
+    /// The recommended anime
     pub url: String,
+    /// How many people voted on this recommendation
     pub votes: u64,
-    pub entry: AnimeRecommendationEntry,
+    /// More info about the anime itself.
+    pub entry: Entry,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AnimeRecommendationEntry {
-    pub mal_id: u64,
-    pub images: Images,
-    pub title: String,
-    pub url: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AnimeCharacter {
-    character: AnimeCharacterEntry,
-    favorites: u64,
-    role: AnimeCharacterRole,
-    voice_actors: AnimeCharacterVA,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AnimeCharacterEntry {
-    pub mal_id: u64,
-    pub images: Images,
-    pub title: String,
-    pub url: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub enum AnimeCharacterRole {
-    Main,
-    Supporting,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AnimeCharacterVA {
-    pub language: String,
-    pub person: Person,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Person {
-    pub favorites: u64,
-    pub images: Images,
-    pub mal_id: u64,
-    pub name: String,
-    pub url: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AnimeStaff {
-    pub person: Person,
-    pub position: Vec<String>,
-}
-
+/// Information about an individual episode in the anime.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeEpisode {
+    /// WHen the anime aired. Forrmat of YYYY-MM-DDTHH:mm:SS+TZ:tz
+    ///
+    /// TODO: Use a parser to make this into a more usable format.
     pub aired: Option<String>,
+    /// The length of the episode in seconds.
     pub duration: Option<u64>,
+    /// Is this episode a filler episode?
     pub filler: bool,
+    /// The link to the forum URL for discussing about this episode.
     pub forum_url: Option<String>,
+    /// Images related to the episode
     pub images: Images,
+    /// The ID of this entry on MAL
     pub mal_id: u64,
+    /// Is this a recap episode?
     pub recap: bool,
     /// Number of forum replies for this episode
     pub replies: Option<u64>,
+    /// Average score of this episode.
     pub score: Option<f64>,
+    /// Synopsis of the episode itself
     pub synopsis: Option<String>,
+    /// The standard title of the episode
     pub title: String,
+    /// The title in the japanese language
     pub title_japanese: Option<String>,
+    /// The title romanjised
     pub title_romanji: Option<String>,
+    /// The link to the MAL entry on the episode.
     pub url: String,
 }
 
@@ -397,6 +452,7 @@ pub struct AnimeArticle {
     pub url: String,
 }
 
+/// How to order the listing of articles
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum ArticleOrdering {
@@ -406,6 +462,7 @@ pub enum ArticleOrdering {
     ViewCount,
 }
 
+/// How to order the listing of forums
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum ForumOrdering {
@@ -416,15 +473,21 @@ pub enum ForumOrdering {
     LastPost,
 }
 
+/// Information about a forum post
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeForum {
+    /// The URL of the author
     pub author_url: Option<String>,
+    /// The username of the author
     pub author_username: Option<String>,
+    /// How many comments are on this post
     pub comments: u64,
+    /// Information about the last comment
     pub last_comment: CommentInfo,
     pub mal_id: u64,
     /// Topic title. Can be empty.
     pub title: String,
+    /// The URL to the forum post.
     pub url: String,
 }
 

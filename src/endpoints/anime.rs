@@ -3,10 +3,12 @@ use crate::{
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
         anime::{
-            Anime, AnimeArticle, AnimeCharacter, AnimeEpisode, AnimeForum, AnimeIDList,
-            AnimeMoreInfo, AnimeRecommendation, AnimeReview, AnimeStack, AnimeStaff,
-            AnimeStatistics, AnimeVideo, AnimeVideoEpisode, External, Images, Relation, ThemeSongs,
+            Anime, AnimeArticle, AnimeEpisode, AnimeForum, AnimeIDList, AnimeMoreInfo,
+            AnimeRecommendation, AnimeReview, AnimeStack, AnimeStatistics, AnimeVideo,
+            AnimeVideoEpisode, Relation, ThemeSongs,
         },
+        common::{External, Images},
+        people::{AnimeStaff, Character},
         query::{
             AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
             BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery,
@@ -53,10 +55,7 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get character list and voice actors for an anime
-    pub async fn anime_characters(
-        &self,
-        id: u64,
-    ) -> crate::Result<TenraiResponse<Vec<AnimeCharacter>>> {
+    pub async fn anime_characters(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Character>>> {
         Ok(self
             .request(format!("anime/{id}/characters"))
             .await?

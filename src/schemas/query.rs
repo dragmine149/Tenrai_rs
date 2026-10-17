@@ -7,9 +7,9 @@ use crate::{
     schemas::{
         anime::{
             AnimeIDQueryInclude, AnimeReviewSort, AnimeStatus, AnimeType, ArticleOrdering,
-            BasicAnimeOrder, ForumOrdering, OrderBy, Sentiment, SortDirection, StackOrder,
+            BasicAnimeOrder, ForumOrdering, OrderBy, Sentiment, StackOrder,
         },
-        common::{AgeRating, Date, OnlyBool},
+        common::{AgeRating, Date, OnlyBool, SortDirection},
         query_vec,
     },
 };

@@ -99,3 +99,56 @@ pub enum OnlyBool {
     /// Will **ONLY** Show these items
     Only,
 }
+
+/// Images used on the website.
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Images {
+    /// Jpg versions of the images
+    pub jpg: ImageDetails,
+    /// Webp versions of the images
+    pub webp: Option<ImageDetails>,
+}
+
+/// Details about the sizes of the images used on the website.
+///
+/// NOTE: Some endpoints won't return certain images. This is more generic of all images.
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct ImageDetails {
+    pub image_url: Option<String>,
+    pub large_image_url: Option<String>,
+    pub small_image_url: Option<String>,
+    pub maximum_image_url: Option<String>,
+    pub medium_image_url: Option<String>,
+}
+
+/// Direction to sort the results in.
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum SortDirection {
+    #[strum(to_string = "asc")]
+    Ascending,
+    #[strum(to_string = "desc")]
+    Descending,
+}
+
+/// Entries are short structs containing very basic "connection" information in a sense.
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Entry {
+    /// Identifier of this entry on MAL
+    pub mal_id: u64,
+    /// Images related to this entry.
+    pub images: Images,
+    /// Title of this entry
+    pub title: String,
+    /// URL of this entry
+    pub url: String,
+}
+
+/// Basic information containing a link to an external website.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct External {
+    /// The name of the link
+    pub name: String,
+    /// The destination of the link
+    pub url: String,
+}
