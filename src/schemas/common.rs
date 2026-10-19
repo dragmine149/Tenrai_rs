@@ -1,10 +1,8 @@
 //! Struct related to common data.
 //!
 //! This data doesn't come under a specific category as so many different endpoints return it.
-//! NOTE: This is different that the ones found in [tenrai::schemas] as those are more return helpers whilst this is data.
+//! NOTE: This is different that the ones found in [tenrai::schemas](crate::schemas) as those are more return helpers whilst this is data.
 
-use crate::query;
-use derive_builder::Builder;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 use strum_macros::Display;

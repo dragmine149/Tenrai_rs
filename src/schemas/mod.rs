@@ -57,6 +57,19 @@ pub struct TenraiResponse<T> {
 
 /// Special struct for when returning data from the API.
 ///
+/// Data stored is based on the endpoint called. With additional total count of entries returned.
+///
+/// Also see [TenraiResponse] for the default version.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TenraiTotalResponse<T> {
+    /// The data stored based on the query.
+    pub data: T,
+    /// The total count of entries.
+    pub total: u64,
+}
+
+/// Special struct for when returning data from the API.
+///
 /// Data stored is based on the endpoint called. With additional paginator information stored.
 ///
 /// Also see [TenraiResponse] for the non-paginator version.
@@ -75,6 +88,7 @@ pub struct TenraiPaginatorResponse<T> {
 pub(crate) struct TenraiRaw {
     pub data: Option<serde_json::Value>,
     pub pagination: Option<Paginator>,
+    pub total: Option<u64>,
     pub status: Option<u64>,
     #[serde(rename = "type")]
     pub error_type: Option<MachineErrorType>,
@@ -117,6 +131,19 @@ impl TenraiRaw {
                 pagination: self.pagination.unwrap(),
                 // shouldn't fail because it's part of the API.
                 data: serde_json::from_value::<Vec<T>>(data).unwrap(),
+            })
+        } else {
+            Err(self.build_error())
+        }
+    }
+    pub(crate) fn result_total<T>(self) -> Result<TenraiTotalResponse<T>, TenraiAPIError>
+    where
+        T: DeserializeOwned,
+    {
+        if let Some(data) = self.data {
+            Ok(TenraiTotalResponse {
+                data: serde_json::from_value(data).unwrap(),
+                total: self.total.unwrap(),
             })
         } else {
             Err(self.build_error())

@@ -2,8 +2,10 @@
 // mod anime_tests {
 use crate::common::build_client;
 use tenrai::schemas::{
-    AgeRating, BasicPageQuery, SfwQuery, TenraiResponse,
-    anime::{Anime, AnimeQuery, AnimeType},
+    TenraiResponse,
+    anime::{Anime, AnimeType},
+    common::AgeRating,
+    query::{AnimeQuery, BasicPageQuery},
 };
 
 #[test]
@@ -156,3 +158,13 @@ async fn anime_episode() {
 
 //     client.anime_news(id, query, query2)
 // }
+
+#[tokio::test]
+async fn get_music_videos() {
+    let client = build_client();
+    // 20021 is a good example of all three fields.
+    let videos = client
+        .anime_videos(20021)
+        .await
+        .expect("Failed to get anime videos");
+}

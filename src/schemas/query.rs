@@ -188,3 +188,18 @@ query!(Article {
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
+
+query!(
+/// Query for getting historical stats.
+StatsHistory {
+    page: u64,
+    limit: u64,
+    sort: SortDirection,
+    /// Only days **on** or **after** this date
+    start_date: Date,
+    /// Only days **on** or **before** this date
+    end_date: Date,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});

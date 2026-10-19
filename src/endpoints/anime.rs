@@ -1,17 +1,17 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse, TenraiResponse,
+        TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         anime::{
             Anime, AnimeArticle, AnimeEpisode, AnimeForum, AnimeIDList, AnimeMoreInfo,
-            AnimeRecommendation, AnimeReview, AnimeStack, AnimeStatistics, AnimeVideo,
-            AnimeVideoEpisode, Relation, ThemeSongs,
+            AnimeRecommendation, AnimeReview, AnimeStack, AnimeStatistics, AnimeStatsHistory,
+            AnimeVideo, AnimeVideoEpisode, Relation, ThemeSongs,
         },
         common::{External, Images},
         people::{AnimeStaff, Character},
         query::{
             AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
-            BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery,
+            BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -122,15 +122,9 @@ impl TenraiAPI {
             .await?
             .result()?)
     }
-    /// Get videos for ananime
-    pub async fn anime_videos(
-        &self,
-        id: u64,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeVideo>> {
-        Ok(self
-            .request(format!("anime/{id}/videos"))
-            .await?
-            .result_paginator()?)
+    /// Get videos for an anime
+    pub async fn anime_videos(&self, id: u64) -> crate::Result<TenraiResponse<AnimeVideo>> {
+        Ok(self.request(format!("anime/{id}/videos")).await?.result()?)
     }
     /// Get episode videos for an anime
     pub async fn anime_video_episodes(
@@ -159,6 +153,19 @@ impl TenraiAPI {
             .request(format!("anime/{id}/statistics"))
             .await?
             .result()?)
+    }
+    /// Get historical statistics for an anime
+    ///
+    /// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
+    pub async fn anime_statistics_historical(
+        &self,
+        id: u64,
+        query: StatsHistoryQuery,
+    ) -> crate::Result<TenraiPaginatorResponse<AnimeStatsHistory>> {
+        Ok(self
+            .request(format!("anime/{id}/statistics/history{query}"))
+            .await?
+            .result_paginator()?)
     }
     /// Get more information for an anime
     pub async fn anime_more_info(&self, id: u64) -> crate::Result<TenraiResponse<AnimeMoreInfo>> {
@@ -258,7 +265,10 @@ impl TenraiAPI {
     pub async fn anime_ids(
         &self,
         query: AnimeIdsQuery,
-    ) -> crate::Result<TenraiResponse<AnimeIDList>> {
-        Ok(self.request(format!("anime/ids{query}")).await?.result()?)
+    ) -> crate::Result<TenraiTotalResponse<AnimeIDList>> {
+        Ok(self
+            .request(format!("anime/ids{query}"))
+            .await?
+            .result_total()?)
     }
 }

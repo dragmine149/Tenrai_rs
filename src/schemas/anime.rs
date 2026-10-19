@@ -6,7 +6,6 @@ use crate::{
 };
 use regex::Regex;
 use serde::{Deserialize, Serialize, de::Visitor};
-use serde_json::Deserializer;
 use strum_macros::Display;
 
 generic_type!(Demographics);
@@ -18,7 +17,7 @@ generic_type!(Theme);
 
 /// Information about the anime entry in question.
 ///
-/// NOTE: Some fields are only available when doing the [TenraiAPI::anime_full_details] query instead, and will be marked as such.
+/// NOTE: Some fields are only available when doing the [TenraiAPI::anime_full_details](crate::TenraiAPI::anime_full_details) query instead, and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
     /// Airing dates of the anime.
@@ -138,7 +137,9 @@ pub struct Aired {
 /// Information about the form and to dates
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct AiredProp {
+    /// When the anime first started
     pub from: Date,
+    /// When the anime finished.
     pub to: Date,
 }
 
@@ -157,6 +158,7 @@ pub struct AnimeBroadcast {
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct AlternativeTitle {
+    /// The alternative title
     pub title: String,
     /// The type or language classification of the title
     #[serde(rename = "type")]
@@ -187,7 +189,7 @@ pub struct Trailer {
 /// Countries where YouTube allows or blocks the video, as two-letter country codes.
 ///
 /// Only one of the two lists is present.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct RegionalRestrictions {
     pub allowed: Option<Vec<String>>,
     pub blocked: Option<Vec<String>>,
@@ -260,13 +262,16 @@ pub struct RelationEntry {
     /// The type of this entry.
     #[serde(rename = "type")]
     pub entry_type: String,
+    /// The name of the entry
     pub name: String,
+    /// The URL to the entry
     pub url: String,
     /// The media type of this entry.
     ///
     /// NOTE: This is different that [RelationEntry::entry_type].
     /// For example, the [RelationEntry::entry_type] might be `manga` whilst this is `light_novel`. or `anime` and `TV` respctably.
     pub media_type: String,
+    /// Images relating to the entry.
     pub images: Images,
 }
 
@@ -309,7 +314,7 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
     }
 
     type Value = ThemeSong;
-    fn visit_string<E>(self, v: String) -> Result<Self::Value, E>
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
     where
         E: serde::de::Error,
     {
@@ -362,7 +367,7 @@ impl<'de> Deserialize<'de> for ThemeSong {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_string(ThemeSongVisitor)
+        deserializer.deserialize_str(ThemeSongVisitor)
     }
 }
 impl Serialize for ThemeSong {
@@ -446,9 +451,13 @@ pub struct AnimeArticle {
     pub date: String,
     /// Excerpt (or some kind of preview)
     pub except: String,
+    /// Images on the entry.
     pub images: Images,
+    /// The ID of the article
     pub mal_id: u64,
+    /// The title of the article
     pub title: String,
+    /// The URL to the article
     pub url: String,
 }
 
@@ -484,6 +493,7 @@ pub struct AnimeForum {
     pub comments: u64,
     /// Information about the last comment
     pub last_comment: CommentInfo,
+    /// The ID of the forum thread.
     pub mal_id: u64,
     /// Topic title. Can be empty.
     pub title: String,
@@ -491,73 +501,138 @@ pub struct AnimeForum {
     pub url: String,
 }
 
+/// Basic information about a comment.
+///
+/// Doesn't include comment information.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CommentInfo {
+    /// The url of the author who posted the comment
     pub author_url: Option<String>,
+    /// The username of the author who posted the comment
     pub author_username: Option<String>,
+    /// The date/time when the comment was posted.
+    ///
+    /// TODO: Convert into proper date/time object
     pub date: Option<String>,
+    /// The url to go to the comment in question.
     pub url: Option<String>,
 }
 
+/// Information about every video related to the anime
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeVideo {
-    pub episodes: AnimeVideoEpisode,
-    pub music_videos: AnimeVideoMusic,
+    /// Episodes videos
+    pub episodes: Vec<AnimeVideoEpisode>,
+    /// Any music videos.
+    pub music_videos: Vec<AnimeVideoMusic>,
+    /// Any promotion videos.
     pub promo: Vec<AnimeVideoPromo>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeVideoEpisode {
+    /// The episode index?
+    ///
+    /// NOTE: Not the same as [[AnimeVideoEpisode::title]]
     pub episode: String,
+    /// Images related to the episode
     pub images: Images,
+    /// The entry of the episode on MAL
     pub mal_id: u64,
+    /// The title of the episode
     pub title: String,
+    /// The URL to the mal information of the episode.
     pub url: String,
 }
 
+/// Information about the music video.
+///
+/// This can be trusted, but many anime entries are missing videos so use something like <https://animethemes.moe> instead
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeVideoMusic {
+    /// Information about the music video
     pub meta: AnimeVideoMusicMeta,
+    /// Title of the video as visible in MAL.
+    ///
+    /// Contains:
+    /// - op/ed/in num
+    /// - title
+    /// - authors
+    /// See [AnimeVideoMusic::meta] for a split version
     pub title: String,
+    /// Youtube entry of the music video
     pub video: Trailer,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeVideoMusicMeta {
+    /// Author of the music video
     pub author: String,
+    /// Title of the music video
     pub title: String,
 }
 
+/// Information about a promotion video for the anime
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeVideoPromo {
+    /// Title of the video as shown on MAL.
+    ///
+    /// Is not the same as [Trailer::title]
     pub title: String,
+    /// The details about the video.
     pub trailer: Trailer,
 }
 
+/// Statistics about the specified anime
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeStatistics {
     pub completed: u64,
     pub dropped: u64,
     pub on_hold: u64,
     pub plan_to_watch: u64,
-    pub scores: AnimeStatsScore,
+    /// Breakdown of each score and how much it contributes
+    pub scores: Vec<AnimeStatsScore>,
     pub total: u64,
     pub watching: u64,
 }
 
+/// Information about an individual score and how much it contributes to the overall score.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeStatsScore {
+    /// Percent out of total scores
     pub percentage: f64,
+    /// How many users voted for this
     pub votes: u64,
+    /// The score index in question
     pub score: u64,
 }
 
+/// Statistics about an anime for a certain day.
+///
+/// If the [AnimeStatsHistory::date] doesn't have any information. None will be returned.
+///
+/// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AnimeStatsHistory {
+    /// Date queried
+    pub date: Date,
+    pub favorites: Option<u64>,
+    pub members: Option<u64>,
+    pub popularity: Option<u64>,
+    pub rank: Option<u64>,
+    pub score: Option<u64>,
+    pub scored_by: Option<u64>,
+    pub stats: Option<AnimeStatistics>,
+}
+
+/// More info.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeMoreInfo {
     #[serde(rename = "moreinfo")]
     pub more_info: String,
 }
 
+/// How to sort an anime review list
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeReviewSort {
@@ -566,6 +641,7 @@ pub enum AnimeReviewSort {
     MostHelpful,
 }
 
+/// If the reviewer would recommend the anime or not.
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
 pub enum Sentiment {
@@ -574,23 +650,39 @@ pub enum Sentiment {
     NotRecommended,
 }
 
+/// Information about an review for an anime
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeReview {
+    /// Date it was posted
+    ///
+    /// TODO: Convert to date object
     pub date: Option<String>,
+    /// How many episodes watched (only if [AnimeReview::is_preliminary] is true)
     pub episodes_watched: Option<u64>,
+    /// Has this been posted before they finished the anime
     pub is_preliminary: bool,
+    /// Does this entry contain spoilers
     pub is_spoiler: bool,
+    /// The MAL ID for the review
     pub mal_id: u64,
+    /// Reactions to the review provided by the community.
     pub reactions: AnimeReviewReaction,
+    /// The review itself
     pub review: String,
+    /// The score given by the reviewer
     pub score: u64,
+    /// Any tags on the review
     pub tags: Vec<String>,
+    /// What the review is on (anime/manga/light novel/etc)
     #[serde(rename = "type")]
     pub review_type: String,
+    /// URL to the review
     pub url: String,
+    /// Information about the user who posted the review
     pub user: User,
 }
 
+/// What reaction the community gave the review and how many are of that reaction.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeReviewReaction {
     pub confusing: u64,
@@ -603,10 +695,14 @@ pub struct AnimeReviewReaction {
     pub well_written: u64,
 }
 
+/// Information about a user entry
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {
+    /// Their profile pictures
     pub images: Images,
+    /// A direct link to their page on MAL
     pub url: String,
+    /// Their username
     pub username: String,
 }
 
@@ -617,20 +713,38 @@ pub enum StackOrder {
     RestackCount,
 }
 
+/// Information about an anime stack.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeStack {
+    /// URL of the author who made the stack
     pub author_url: Option<String>,
+    /// Username of the author who made the stack
     pub author_username: Option<String>,
+    /// When the stack was created
+    ///
+    /// TODO: Date object
     pub created_at: Option<String>,
+    /// Description of the stack
     pub description: String,
+    /// How many entries are in the stack (Max 50)
     pub entry_count: u64,
-    pub is_challenge: u64,
-    pub is_official: u64,
-    pub is_spoiler: u64,
+    /// Is the stack a challenge stack
+    ///
+    /// *complete 1 entry in some format by some date*
+    pub is_challenge: bool,
+    /// Is the stack an official stack made by MAL themselves
+    pub is_official: bool,
+    /// Does the stack potentially contain spoilers
+    pub is_spoiler: bool,
+    /// The ID of the stack on MAL
     pub mal_id: u64,
+    /// How many users have restacked it
     pub restack_count: u64,
+    /// What type is the stack
     pub stack_type: AnimeStackType,
+    /// Title of the stack
     pub title: String,
+    /// Direct URL to the stack
     pub url: String,
 }
 
@@ -657,13 +771,19 @@ pub enum AnimeIDQueryInclude {
     AnimeType,
 }
 
+/// All unique valid IDs stored in the database.
+///
+/// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AnimeIDList {
+    /// A raw list of ids
     IDs(Vec<u64>),
+    /// A raw list of ids plus some extra information
     Context(Vec<AnimeIDContext>),
 }
 
+/// Extra information along with the id itself
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeIDContext {
     pub mal_id: u64,
