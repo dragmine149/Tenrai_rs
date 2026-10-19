@@ -7,13 +7,18 @@
 //!     // create a client
 //!     let client = TenraiAPI::default();
 //! 	// send a request to fetch konosuba
-//! 	let result = client.anime_full_details(30831).await;
+//! 	let result = client.anime_full_details(30831, SfwQuery::default()).await;
 //! 	// use said data
 //! 	if let Ok(data) = result {
 //! 		println!("{}", data.url); // https://myanimelist.net/anime/30831/Kono_Subarashii_Sekai_ni_Shukufuku_wo
 //! 	}
 //! }
 //! ```
+//!
+//! ## Queries
+//! A lot of endpoints have a required query parameter. If you don't want to attack any query to the request, provide `T::default()`.
+//!
+//! There are also various different types of queries depending on the combination of potential options.
 //!
 //! # See
 //! - The official api docs this is based on: <https://api.tenrai.org/documentation>

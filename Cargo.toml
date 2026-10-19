@@ -22,6 +22,7 @@ strum_macros = "0.28.0"
 tokio = { version = "1.53.2", features = ["macros", "rt"] }
 
 [dev-dependencies]
+"rand" = { version = "0.10.3" }
 
 [features]
 default = ["auto_retry"]
@@ -29,3 +30,4 @@ auto_retry = []
 custom = []
 log = ["dep:log"]
 rate = []
+# test_random = []

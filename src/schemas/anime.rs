@@ -77,6 +77,8 @@ pub struct Anime {
     /// Season of premier.
     pub season: Option<Season>,
     /// The source material type.
+    ///
+    /// TODO: Enum-ify
     pub source: String,
     /// Airing status of the anime.
     pub status: AnimeStatus,
@@ -110,7 +112,7 @@ pub struct Anime {
     pub trailer: Trailer,
     /// The broadcast or media type
     #[serde(rename = "type")]
-    pub anime_type: AnimeType,
+    pub anime_type: Option<AnimeType>,
     /// The direct MAL webpage URL of the anime
     pub url: String,
     /// Year or premier.
@@ -247,15 +249,15 @@ pub enum OrderBy {
 }
 
 /// Combines a relationship between this entry and another entry.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Relation {
     /// The relation between the two.
     pub relation: String,
     /// The other entry to compare to.
-    pub entry: RelationEntry,
+    pub entry: Vec<RelationEntry>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct RelationEntry {
     /// The ID on MAL.
     pub mal_id: u64,
@@ -278,7 +280,7 @@ pub struct RelationEntry {
 /// Theme songs found in the anime.
 ///
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct ThemeSongs {
     pub openings: Vec<ThemeSong>,
     pub endings: Vec<ThemeSong>,
@@ -289,7 +291,7 @@ pub struct ThemeSongs {
 /// NOTE: The data is parsed from a string using regex and hence can't easily be linked back to an entry on MAL.
 ///
 /// NOTE: Index Data is lost on serializing.
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct ThemeSong {
     /// The name of the song
     pub name: String,
@@ -298,6 +300,8 @@ pub struct ThemeSong {
     /// The episodes that version was used in.
     ///
     /// When a song is only used in one episode, both values will be the same.
+    ///
+    /// NOTE: It is possible for no episodes to be listed. In which case an empty vec will be provided.
     pub episodes: Vec<(u64, u64)>,
 }
 
@@ -320,40 +324,55 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
     {
         // SEE: https://regex101.com/r/bkhn4r/1
         let regex = Regex::new(
-            r#"(?gmux)^\s* (?:\d+:\s+)? "([^"]+)" \s+by\s+ (.+?) \s* (?:\(eps\s(.+?)\))*$"#,
+            r#"(?mux)^\s* (?:\d+:\s+)? "([^"]+)" \s+by\s+ (.+?) \s* (?:\(eps\s(.+?)\))*$"#,
         )
         .unwrap();
         let captures = regex
             .captures(v)
-            .ok_or_else(|| serde::de::Error::custom("Failed to parse regex"))?;
+            .ok_or_else(|| serde::de::Error::custom("(themesong regex) Failed to parse regex"))?;
 
         let name = captures
             .get(1)
-            .ok_or_else(|| serde::de::Error::missing_field("Name"))?
+            .ok_or_else(|| serde::de::Error::missing_field("(themesong regex) Name"))?
             .as_str()
             .to_string();
         let artists = captures
             .get(2)
-            .ok_or_else(|| serde::de::Error::missing_field("Artists"))?
+            .ok_or_else(|| serde::de::Error::missing_field("(themesong regex) Artists"))?
             .as_str()
             .split(",")
             .map(|s| s.to_owned())
             .collect::<Vec<String>>();
         let episodes = captures
             .get(3)
-            .ok_or_else(|| serde::de::Error::missing_field("Episodes"))?
-            .as_str()
-            .split(",")
-            .map(|ep| {
-                ep.split_once("-").map_or_else(
-                    || {
-                        let num = ep.parse::<u64>().unwrap();
-                        (num, num)
-                    },
-                    |(a, b)| (a.parse().unwrap(), b.parse().unwrap()),
-                )
+            .map(|eps| {
+                // .ok_or_else(|| serde::de::Error::missing_field("Episodes"))?
+                eps.as_str()
+                    .split(",")
+                    .map(|ep| {
+                        ep.split_once("-").map_or_else(
+                            || {
+                                let num = ep
+                                    .trim()
+                                    .parse::<u64>()
+                                    .unwrap_or_else(|_| panic!("Expected digit found {}", ep));
+                                (num, num)
+                            },
+                            |(a, b)| {
+                                (
+                                    a.trim()
+                                        .parse()
+                                        .unwrap_or_else(|_| panic!("Expected digit found {}", a)),
+                                    b.trim()
+                                        .parse()
+                                        .unwrap_or_else(|_| panic!("Expected digit found {}", b)),
+                                )
+                            },
+                        )
+                    })
+                    .collect::<Vec<(u64, u64)>>()
             })
-            .collect::<Vec<(u64, u64)>>();
+            .unwrap_or_default();
 
         Ok(ThemeSong {
             name,
@@ -446,11 +465,11 @@ pub struct AnimeArticle {
     /// Author MAL Username
     pub author_username: String,
     /// Comment Count
-    pub comments: u64,
+    pub comments: Option<u64>,
     /// Date posted (ISO8601 format)
     pub date: String,
     /// Excerpt (or some kind of preview)
-    pub except: String,
+    pub excerpt: String,
     /// Images on the entry.
     pub images: Images,
     /// The ID of the article
@@ -620,7 +639,7 @@ pub struct AnimeStatsHistory {
     pub members: Option<u64>,
     pub popularity: Option<u64>,
     pub rank: Option<u64>,
-    pub score: Option<u64>,
+    pub score: Option<f64>,
     pub scored_by: Option<u64>,
     pub stats: Option<AnimeStatistics>,
 }
@@ -629,7 +648,7 @@ pub struct AnimeStatsHistory {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeMoreInfo {
     #[serde(rename = "moreinfo")]
-    pub more_info: String,
+    pub more_info: Option<String>,
 }
 
 /// How to sort an anime review list
@@ -765,7 +784,7 @@ pub enum BasicAnimeOrder {
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[strum(serialize_all = "snake_case")]
-pub enum AnimeIDQueryInclude {
+pub enum AnimeIDsQueryInclude {
     Title,
     #[strum(to_string = "type")]
     AnimeType,

@@ -3,12 +3,12 @@
 //! This data doesn't come under a specific category as so many different endpoints return it.
 //! NOTE: This is different that the ones found in [tenrai::schemas](crate::schemas) as those are more return helpers whilst this is data.
 
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::Visitor};
 use std::fmt::Display;
 use strum_macros::Display;
 
 /// Stores the date related to the entry.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
+#[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
 pub struct Date {
     pub day: Option<u64>,
     pub month: Option<u64>,
@@ -27,6 +27,65 @@ impl Display for Date {
             }
         }
         Ok(())
+    }
+}
+struct DateVisitor;
+impl<'de> Deserialize<'de> for Date {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(DateVisitor)
+    }
+}
+impl<'de> Visitor<'de> for DateVisitor {
+    type Value = Date;
+
+    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(formatter, "Date in the format of YYYY-MM-DD")
+    }
+
+    fn visit_string<E>(self, v: String) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        self.visit_str(&v)
+    }
+
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        let mut split = v.splitn(3, "-").map(|s| s.parse::<u64>().ok());
+        let year = split.next().flatten();
+        let month = split.next().flatten();
+        let day = split.next().flatten();
+        Ok(Date { day, month, year })
+    }
+
+    fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+    where
+        A: serde::de::MapAccess<'de>,
+    {
+        let mut date = Date::default();
+        while let Some(key) = map.next_key::<String>()? {
+            match key.as_str() {
+                "day" => {
+                    date.day = map.next_value().ok();
+                }
+                "month" => {
+                    date.month = map.next_value().ok();
+                }
+                "year" => {
+                    date.year = map.next_value().ok();
+                }
+                _ => {
+                    let _: serde::de::IgnoredAny = map.next_value()?;
+                }
+            }
+        }
+
+        Ok(date)
     }
 }
 
@@ -137,13 +196,16 @@ pub struct Entry {
     /// Images related to this entry.
     pub images: Images,
     /// Title of this entry
+    ///
+    /// Characters use `name` instead.
+    #[serde(alias = "name")]
     pub title: String,
     /// URL of this entry
     pub url: String,
 }
 
 /// Basic information containing a link to an external website.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct External {
     /// The name of the link
     pub name: String,

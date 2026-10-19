@@ -7,7 +7,7 @@ pub struct Character {
     pub character: Entry,
     pub favorites: u64,
     pub role: CharacterRole,
-    pub voice_actors: CharacterVA,
+    pub voice_actors: Vec<CharacterVA>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -24,7 +24,7 @@ pub struct CharacterVA {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Person {
-    pub favorites: u64,
+    pub favorites: Option<u64>,
     pub images: Images,
     pub mal_id: u64,
     pub name: String,
@@ -34,5 +34,5 @@ pub struct Person {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AnimeStaff {
     pub person: Person,
-    pub position: Vec<String>,
+    pub positions: Vec<String>,
 }

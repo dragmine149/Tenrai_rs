@@ -6,7 +6,7 @@ use crate::{
     query,
     schemas::{
         anime::{
-            AnimeIDQueryInclude, AnimeReviewSort, AnimeStatus, AnimeType, ArticleOrdering,
+            AnimeIDsQueryInclude, AnimeReviewSort, AnimeStatus, AnimeType, ArticleOrdering,
             BasicAnimeOrder, ForumOrdering, OrderBy, Sentiment, StackOrder,
         },
         common::{AgeRating, Date, OnlyBool, SortDirection},
@@ -149,7 +149,7 @@ query!(AnimeIds {
     /// Apply strict SFW filtering for adult content and Ecchi
     sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
     /// Fields to include per entry. Allowed: Title, Type
-    include: Vec<AnimeIDQueryInclude>:query_vec,
+    include: Vec<AnimeIDsQueryInclude>:query_vec,
     /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
     updated_at: String,
 }, {});

@@ -48,7 +48,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<AnimeRecommendation>> {
+    ) -> crate::Result<TenraiResponse<Vec<AnimeRecommendation>>> {
         Ok(self
             .request(format!("anime/{id}/recommendations{query}"))
             .await?
@@ -228,33 +228,30 @@ impl TenraiAPI {
     /// Browse unapproved anime entries
     pub async fn anime_unapproved(
         &self,
-        id: u64,
         query: BasicAnimeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
-            .request(format!("anime/{id}/unapproved{query}"))
+            .request(format!("anime/unapproved{query}"))
             .await?
             .result_paginator()?)
     }
     /// Browse denied anime entries
     pub async fn anime_denied(
         &self,
-        id: u64,
         query: BasicAnimeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
-            .request(format!("anime/{id}/denied{query}"))
+            .request(format!("anime/denied{query}"))
             .await?
             .result_paginator()?)
     }
     /// Browse deleted anime entries
     pub async fn anime_deleted(
         &self,
-        id: u64,
         query: BasicAnimeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
-            .request(format!("anime/{id}/deleted{query}"))
+            .request(format!("anime/deleted{query}"))
             .await?
             .result_paginator()?)
     }
