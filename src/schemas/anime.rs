@@ -17,7 +17,7 @@ generic_type!(Theme);
 
 /// Information about the anime entry in question.
 ///
-/// NOTE: Some fields are only available when doing the [TenraiAPI::anime_full_details](crate::TenraiAPI::anime_full_details) query instead, and will be marked as such.
+/// NOTE: Some fields are only available when doing [TenraiAPI::anime_full_details](crate::TenraiAPI::anime_full_details) query instead, and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Anime {
     /// Airing dates of the anime.

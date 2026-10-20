@@ -8,6 +8,7 @@ use std::fmt::Display;
 
 pub mod anime;
 pub mod common;
+pub mod manga;
 pub mod people;
 pub mod query;
 pub mod schedules;

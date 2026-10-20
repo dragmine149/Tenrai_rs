@@ -66,3 +66,29 @@ macro_rules! TestBuilder {
         }
     };
 }
+
+/// Macro for making tests specified to testing the paginator endpoints.
+///
+/// These tests can take many minutes to run as although we're doing 100 entries per page, we are still limited.
+#[macro_export]
+macro_rules! TestPaginator {
+    ($func_name: ident, $func:expr $(, $attr:meta)*) => {
+        #[tokio::test]
+        $(#[$attr])*
+        async fn $func_name() {
+            let client = build_client();
+            let mut page = 1_u64;
+            for _ in 0..120 {
+                let res = $func(&client, page).await.expect("This should not fail");
+                if page == 1 {
+                    page = rand::random_range(1..res.pagination.last_visible_page);
+                    println!("Chosen page: {page}");
+                }
+                page += 1;
+                if !res.pagination.has_next_page {
+                    break;
+                }
+            }
+        }
+    };
+}

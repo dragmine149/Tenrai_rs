@@ -10,6 +10,7 @@ use crate::{
             BasicAnimeOrder, ForumOrdering, OrderBy, Sentiment, StackOrder,
         },
         common::{AgeRating, Date, OnlyBool, SortDirection},
+        manga::{MangaOrder, MangaStatus, MangaType},
         query_vec,
         schedules::ScheduleDayFilter,
     },
@@ -90,9 +91,9 @@ query!(Anime {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-    score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    min_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
-    max_score: "Score must be between 1 and 10": (|l: &f64| *l >= 1.0 && *l < 10.0),
+    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
@@ -216,9 +217,59 @@ query!(Schedule {
     sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
     /// Include unapproved entries
     unapproved: OnlyBool,
+    /// Page number
     page: u64,
+    /// Results per page (Default: 25)
     limit: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(Manga {
+    /// The name of the anime to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter by manga type, multiple can be selected
+    manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Only manga with this publishing status
+    status: MangaStatus,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Only entries with this exact score
+    score: f64,
+    /// Only entries with this score or higher
+    min_score: f64,
+    /// Only entries with this score or lower
+    max_score: f64,
+    /// Also include unapproved entries
+    unapproved: bool,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Sort the results by...
+    order_by: MangaOrder,
+    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
+    sort: SortDirection,
+    /// Only manga whose title starts with this letter. Cannot be combined with [MangaQuery::query].
+    letter: char,
+    /// Magazines this manga has been published in. Use the ID of the magazine.
+    magazines: Vec<u64>:query_vec,
+    /// Only manga that started publishing on or after this date.
+    start_date: Date,
+    /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
+    end_date: Date,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
 });
