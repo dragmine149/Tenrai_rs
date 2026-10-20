@@ -11,6 +11,7 @@ use crate::{
         },
         common::{AgeRating, Date, OnlyBool, SortDirection},
         query_vec,
+        schedules::ScheduleDayFilter,
     },
 };
 use derive_builder::Builder;
@@ -199,6 +200,24 @@ StatsHistory {
     start_date: Date,
     /// Only days **on** or **before** this date
     end_date: Date,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(Schedule {
+    /// Filter by day of week
+    filter: ScheduleDayFilter,
+    /// Filter out kids entries
+    kids: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Include unapproved entries
+    unapproved: OnlyBool,
+    page: u64,
+    limit: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),

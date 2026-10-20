@@ -9,6 +9,7 @@ use crate::{
 use serde::de::DeserializeOwned;
 
 mod anime;
+mod schedules;
 
 /// Custom functions related to the API. Gives the security of the requests while the freedom of the response.
 ///
