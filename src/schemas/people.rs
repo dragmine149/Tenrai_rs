@@ -17,6 +17,7 @@ pub struct Character {
 
 /// How important is the character role
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub enum CharacterRole {
     Main,
     Supporting,
@@ -24,6 +25,7 @@ pub enum CharacterRole {
 
 /// Information about a character VA
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct CharacterVA {
     /// Which language they play the character in.
     pub language: String,
@@ -33,6 +35,7 @@ pub struct CharacterVA {
 
 /// Information about a person.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Person {
     /// How many users have favorited this person
     pub favorites: Option<u64>,
@@ -48,6 +51,7 @@ pub struct Person {
 
 /// Individual entries for who helped on an anime
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeStaff {
     /// The person itself
     pub person: Person,
@@ -57,6 +61,7 @@ pub struct AnimeStaff {
 
 /// Individual entries for who helped on a manga
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct MangaAuthor {
     /// ID on MAL
     pub mal_id: u64,
@@ -73,6 +78,7 @@ pub struct MangaAuthor {
 
 /// Information about where a manga was serialized
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct MangaSerialization {
     /// ID on MAL
     pub mal_id: u64,

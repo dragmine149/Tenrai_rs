@@ -19,6 +19,7 @@ generic_type!(Theme);
 ///
 /// NOTE: Some fields are only available when doing [TenraiAPI::anime_full_details](crate::TenraiAPI::anime_full_details) query instead, and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Anime {
     /// Airing dates of the anime.
     pub aired: Aired,
@@ -55,6 +56,7 @@ pub struct Anime {
     /// More information related to the anime outside of the background/synopsis
     ///
     /// Requires `full` details
+    #[serde(rename = "moreinfo")]
     pub more_info: Option<String>,
     /// Total users who have added this to their lists.
     pub members: Option<u64>,
@@ -121,6 +123,7 @@ pub struct Anime {
 
 /// Date when this anime aired.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct Aired {
     /// When the anime started
     ///
@@ -138,6 +141,7 @@ pub struct Aired {
 
 /// Information about the form and to dates
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct AiredProp {
     /// When the anime first started
     pub from: Date,
@@ -147,6 +151,7 @@ pub struct AiredProp {
 
 /// Weekly broadcast schedule day, time and timezone.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeBroadcast {
     /// Day of week the broadcast happened
     pub day: Option<String>,
@@ -159,6 +164,7 @@ pub struct AnimeBroadcast {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct AlternativeTitle {
     /// The alternative title
     pub title: String,
@@ -171,6 +177,7 @@ pub struct AlternativeTitle {
 ///
 /// All fields are self-explanitor.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Trailer {
     pub comment_count: Option<u64>,
     pub dislikes: Option<u64>,
@@ -192,6 +199,7 @@ pub struct Trailer {
 ///
 /// Only one of the two lists is present.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct RegionalRestrictions {
     pub allowed: Option<Vec<String>>,
     pub blocked: Option<Vec<String>>,
@@ -258,6 +266,7 @@ pub struct Relation {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct RelationEntry {
     /// The ID on MAL.
     pub mal_id: u64,
@@ -281,6 +290,7 @@ pub struct RelationEntry {
 ///
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct ThemeSongs {
     pub openings: Vec<ThemeSong>,
     pub endings: Vec<ThemeSong>,
@@ -322,11 +332,10 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
     where
         E: serde::de::Error,
     {
-        // SEE: https://regex101.com/r/bkhn4r/1
-        let regex = Regex::new(
-            r#"(?mux)^\s* (?:\d+:\s+)? "([^"]+)" \s+by\s+ (.+?) \s* (?:\(eps\s(.+?)\))*$"#,
-        )
-        .unwrap();
+        // SEE: https://regex101.com/r/bkhn4r/2
+        let regex =
+            Regex::new(r#"(?mux) ^(?:\d+:\s+)? "(.+?)" \s+by\s+ (.+?)\s* (?:\(eps\s+(.+?)\))?$"#)
+                .unwrap();
         let captures = regex
             .captures(v)
             .ok_or_else(|| serde::de::Error::custom("(themesong regex) Failed to parse regex"))?;
@@ -414,6 +423,7 @@ impl Serialize for ThemeSong {
 
 /// Information about the recommendation.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeRecommendation {
     /// The recommended anime
     pub url: String,
@@ -425,6 +435,7 @@ pub struct AnimeRecommendation {
 
 /// Information about an individual episode in the anime.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeEpisode {
     /// WHen the anime aired. Forrmat of YYYY-MM-DDTHH:mm:SS+TZ:tz
     ///
@@ -459,6 +470,7 @@ pub struct AnimeEpisode {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeArticle {
     /// Author profile URL
     pub author_url: String,
@@ -482,6 +494,7 @@ pub struct AnimeArticle {
 
 /// How to order the listing of articles
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum ArticleOrdering {
     #[strum(to_string = "published_at")]
@@ -492,6 +505,7 @@ pub enum ArticleOrdering {
 
 /// How to order the listing of forums
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum ForumOrdering {
     EpisodeNumber,
@@ -503,6 +517,7 @@ pub enum ForumOrdering {
 
 /// Information about a forum post
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeForum {
     /// The URL of the author
     pub author_url: Option<String>,
@@ -518,12 +533,17 @@ pub struct AnimeForum {
     pub title: String,
     /// The URL to the forum post.
     pub url: String,
+    /// Date forum was created.
+    ///
+    /// TODO: Date object
+    pub date: String,
 }
 
 /// Basic information about a comment.
 ///
 /// Doesn't include comment information.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct CommentInfo {
     /// The url of the author who posted the comment
     pub author_url: Option<String>,
@@ -539,6 +559,7 @@ pub struct CommentInfo {
 
 /// Information about every video related to the anime
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeVideo {
     /// Episodes videos
     pub episodes: Vec<AnimeVideoEpisode>,
@@ -549,6 +570,7 @@ pub struct AnimeVideo {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeVideoEpisode {
     /// The episode index?
     ///
@@ -568,6 +590,7 @@ pub struct AnimeVideoEpisode {
 ///
 /// This can be trusted, but many anime entries are missing videos so use something like <https://animethemes.moe> instead
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeVideoMusic {
     /// Information about the music video
     pub meta: AnimeVideoMusicMeta,
@@ -584,6 +607,7 @@ pub struct AnimeVideoMusic {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeVideoMusicMeta {
     /// Author of the music video
     pub author: String,
@@ -593,6 +617,7 @@ pub struct AnimeVideoMusicMeta {
 
 /// Information about a promotion video for the anime
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeVideoPromo {
     /// Title of the video as shown on MAL.
     ///
@@ -604,6 +629,7 @@ pub struct AnimeVideoPromo {
 
 /// Statistics about the specified anime
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeStatistics {
     pub completed: u64,
     pub dropped: u64,
@@ -617,6 +643,7 @@ pub struct AnimeStatistics {
 
 /// Information about an individual score and how much it contributes to the overall score.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeStatsScore {
     /// Percent out of total scores
     pub percentage: f64,
@@ -632,6 +659,7 @@ pub struct AnimeStatsScore {
 ///
 /// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeStatsHistory {
     /// Date queried
     pub date: Date,
@@ -641,11 +669,13 @@ pub struct AnimeStatsHistory {
     pub rank: Option<u64>,
     pub score: Option<f64>,
     pub scored_by: Option<u64>,
+    #[serde(rename = "statistics")]
     pub stats: Option<AnimeStatistics>,
 }
 
 /// More info.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeMoreInfo {
     #[serde(rename = "moreinfo")]
     pub more_info: Option<String>,
@@ -653,6 +683,7 @@ pub struct AnimeMoreInfo {
 
 /// How to sort an anime review list
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeReviewSort {
     Newest,
@@ -662,6 +693,7 @@ pub enum AnimeReviewSort {
 
 /// If the reviewer would recommend the anime or not.
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum Sentiment {
     Recommended,
@@ -671,6 +703,7 @@ pub enum Sentiment {
 
 /// Information about an review for an anime
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeReview {
     /// Date it was posted
     ///
@@ -703,6 +736,7 @@ pub struct AnimeReview {
 
 /// What reaction the community gave the review and how many are of that reaction.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeReviewReaction {
     pub confusing: u64,
     pub creative: u64,
@@ -716,6 +750,7 @@ pub struct AnimeReviewReaction {
 
 /// Information about a user entry
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct User {
     /// Their profile pictures
     pub images: Images,
@@ -726,6 +761,7 @@ pub struct User {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum StackOrder {
     CreatedAt,
@@ -734,6 +770,7 @@ pub enum StackOrder {
 
 /// Information about an anime stack.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeStack {
     /// URL of the author who made the stack
     pub author_url: Option<String>,
@@ -768,6 +805,7 @@ pub struct AnimeStack {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 #[serde(rename_all = "snake_case")]
 pub enum AnimeStackType {
     Anime,
@@ -775,6 +813,7 @@ pub enum AnimeStackType {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum BasicAnimeOrder {
     #[strum(to_string = "mal_id")]
@@ -783,6 +822,7 @@ pub enum BasicAnimeOrder {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeIDsQueryInclude {
     Title,
@@ -794,6 +834,7 @@ pub enum AnimeIDsQueryInclude {
 ///
 /// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 #[serde(untagged)]
 pub enum AnimeIDList {
     /// A raw list of ids
@@ -804,6 +845,7 @@ pub enum AnimeIDList {
 
 /// Extra information along with the id itself
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct AnimeIDContext {
     pub mal_id: u64,
     pub title: String,

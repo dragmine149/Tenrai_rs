@@ -26,6 +26,7 @@ pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
 
 /// Standard pagination metadata showing page count, total records, and navigation state.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Paginator {
     /// The highest page number available for this query
     pub last_visible_page: u64,
@@ -39,6 +40,7 @@ pub struct Paginator {
 
 /// Detailed item pagination counts
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct PaginatorItems {
     /// Number of records returned on the current page.
     pub count: u64,
@@ -52,6 +54,7 @@ pub struct PaginatorItems {
 ///
 /// Data stored is based on the endpoint called. Also see [TenraiPaginatorResponse] for a pagination version.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct TenraiResponse<T> {
     /// The data stored based on the query.
     pub data: T,
@@ -63,6 +66,7 @@ pub struct TenraiResponse<T> {
 ///
 /// Also see [TenraiResponse] for the default version.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct TenraiTotalResponse<T> {
     /// The data stored based on the query.
     pub data: T,
@@ -76,6 +80,7 @@ pub struct TenraiTotalResponse<T> {
 ///
 /// Also see [TenraiResponse] for the non-paginator version.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct TenraiPaginatorResponse<T> {
     /// Information about the current page.
     pub pagination: Paginator,
@@ -87,6 +92,7 @@ pub struct TenraiPaginatorResponse<T> {
 ///
 /// This is used before the data gets split up into `Result<Response, Error>`
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub(crate) struct TenraiRaw {
     pub data: Option<serde_json::Value>,
     pub pagination: Option<Paginator>,

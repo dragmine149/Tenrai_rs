@@ -9,6 +9,7 @@ use strum_macros::Display;
 
 /// Stores the date related to the entry.
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
+#[serde(deny_unknown_fields)]
 pub struct Date {
     pub day: Option<u64>,
     pub month: Option<u64>,
@@ -159,6 +160,7 @@ pub enum OnlyBool {
 
 /// Images used on the website.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct Images {
     /// Jpg versions of the images
     pub jpg: ImageDetails,
@@ -170,6 +172,7 @@ pub struct Images {
 ///
 /// NOTE: Some endpoints won't return certain images. This is more generic of all images.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct ImageDetails {
     pub image_url: Option<String>,
     pub large_image_url: Option<String>,
@@ -190,6 +193,7 @@ pub enum SortDirection {
 
 /// Entries are short structs containing very basic "connection" information in a sense.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct Entry {
     /// Identifier of this entry on MAL
     pub mal_id: u64,
@@ -206,6 +210,7 @@ pub struct Entry {
 
 /// Basic information containing a link to an external website.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
 pub struct External {
     /// The name of the link
     pub name: String,

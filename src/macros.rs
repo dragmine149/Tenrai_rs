@@ -6,6 +6,7 @@ macro_rules! generic_type {
     ($name: tt) => {
         pastey::paste! {
            #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+           #[serde(deny_unknown_fields)]
             pub struct [<$name:upper_camel Type>] {
                 /// The unique MAL ID of the catalog item
                 pub mal_id: u64,
