@@ -576,12 +576,3 @@ pub struct User {
     /// Their username
     pub username: String,
 }
-
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
-#[strum(serialize_all = "snake_case")]
-pub enum BasicAnimeOrder {
-    #[strum(to_string = "mal_id")]
-    MalID,
-    Title,
-}

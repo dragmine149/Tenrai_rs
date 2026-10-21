@@ -342,3 +342,13 @@ pub struct StatsHistory<T> {
     #[serde(rename = "statistics")]
     pub stats: Option<T>,
 }
+
+/// Basic ordering between MAL and Title
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
+#[strum(serialize_all = "snake_case")]
+pub enum BasicOrder {
+    #[strum(to_string = "mal_id")]
+    MalID,
+    Title,
+}

@@ -6,7 +6,7 @@ use crate::{
     query,
     schemas::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, BasicAnimeOrder, ForumOrdering, OrderBy},
-        common::{AgeRating, Date, IDsQueryInclude, OnlyBool, SortDirection},
+        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         query_vec,
         reviews::{ReviewSort, Sentiment},
@@ -163,7 +163,7 @@ query!(Basic {
     /// Results per page (Default: 25)
     limit: u64,
     /// How to sort the anime
-    order_by: BasicAnimeOrder,
+    order_by: BasicOrder,
     /// Order in which to sort.
     sort: SortDirection,
 }, {
