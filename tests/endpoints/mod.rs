@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod anime;
 #[cfg(test)]
+mod characters;
+#[cfg(test)]
 mod manga;
 #[cfg(test)]
 mod schedules;

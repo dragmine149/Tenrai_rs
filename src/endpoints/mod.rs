@@ -9,6 +9,7 @@ use crate::{
 use serde::de::DeserializeOwned;
 
 mod anime;
+mod characters;
 mod manga;
 mod schedules;
 

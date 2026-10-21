@@ -5,7 +5,7 @@
 use crate::{
     query,
     schemas::{
-        anime::{AnimeStatus, AnimeType, ArticleOrdering, BasicAnimeOrder, ForumOrdering, OrderBy},
+        anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         query_vec,
@@ -175,6 +175,7 @@ query!(Basic {
 query!(
 /// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
 Forum {
+    /// Page number
     page: u64,
     order_by: ForumOrdering,
     sort: SortDirection,
@@ -183,9 +184,16 @@ Forum {
 });
 
 query!(Article {
+    /// Page number
     page: u64,
+    /// Field to sort the results by.
     order_by: ArticleOrdering,
+    /// Direction to sort the results
     sort: SortDirection,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
@@ -328,3 +336,22 @@ query!(MangaIds {
     /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
     updated_at: String,
 }, {});
+
+query!(Character {
+    /// The name of the anime to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// How to sort the anime
+    order_by: BasicOrder,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// Only characters whose name start with this letter
+    letter: char,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
