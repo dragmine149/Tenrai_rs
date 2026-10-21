@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
 use crate::schemas::{
-    anime::{Aired, AlternativeTitle, DemographicsType, GenreType, ThemeType},
-    common::Images,
+    anime::{Aired, AlternativeTitle, DemographicsType, GenreType, Relation, ThemeType},
+    common::{External, Images},
     people::{MangaAuthor, MangaSerialization},
 };
 
@@ -75,6 +75,10 @@ pub struct Manga {
     pub demographics: Vec<DemographicsType>,
     /// Explicit genre classification (E.g. Hentai, Ecchi)
     pub explicit_genres: Vec<GenreType>,
+    /// External links and resources related to this manga
+    ///
+    /// Requires `full` details
+    pub external: Option<Vec<External>>,
     /// Total users who have favorited the anime.
     pub favorites: Option<u64>,
     /// Genre Classification
@@ -83,6 +87,11 @@ pub struct Manga {
     pub images: Images,
     /// The unique MAL ID of this entry.
     pub mal_id: u64,
+    /// More information related to the manga outside of the background/synopsis
+    ///
+    /// Requires `full` details
+    #[serde(rename = "moreinfo")]
+    pub more_info: Option<String>,
     /// Total users who have added this to their lists.
     pub members: Option<u64>,
     /// Global popularity rank based on [Anime::members].
@@ -93,6 +102,10 @@ pub struct Manga {
     pub publishing: bool,
     /// Global rank based on average score
     pub rank: Option<u64>,
+    /// Relationships with other media in the same series
+    ///
+    /// Requires `full` details
+    pub relations: Option<Vec<Relation>>,
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.

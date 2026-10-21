@@ -2,7 +2,7 @@ use crate::{TestBuilder, TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
     errors::{MachineErrorType, TenraiError},
-    schemas::query::MangaQuery,
+    schemas::query::{MangaQuery, SfwQuery},
 };
 
 TestPaginator!(
@@ -21,6 +21,6 @@ TestPaginator!(
     ignore = "This takes 1 minutes to complete on it's own (public tier)"
 );
 TestBuilder!(
-    manga_details,
-    (async |client: &TenraiAPI, id| { client.manga_details(id).await })
+    manga_full_details,
+    (async |client: &TenraiAPI, id| { client.manga_full_details(id, SfwQuery::default()).await })
 );
