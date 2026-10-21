@@ -7,6 +7,7 @@ use crate::{
 use serde::de::DeserializeOwned;
 
 mod anime;
+mod articles;
 mod characters;
 mod companies;
 mod genres;

@@ -450,3 +450,12 @@ pub struct FullRecommendationInfo {
     /// Who made the review
     pub user: User,
 }
+
+/// Basic information about a tag.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Tag {
+    /// Name of this tag
+    pub name: String,
+    /// How many entries have this tag
+    pub count: u64,
+}

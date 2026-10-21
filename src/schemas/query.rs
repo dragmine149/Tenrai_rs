@@ -524,3 +524,43 @@ query!(Magazine {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
+
+query!(News {
+    /// The name of the article to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Only items with this tag. See [TenraiAPI::news_tags] for the tags.
+    tag: String,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(FullArticle {
+    /// The name of the article to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Only items with this tag. See [TenraiAPI::articles_tags] for the tags.
+    tag: String,
+    /// Field to sort the results by.
+    order_by: ArticleOrdering,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
