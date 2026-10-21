@@ -5,8 +5,8 @@ use tenrai::{
     schemas::{
         common::IDsQueryInclude,
         query::{
-            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MangaIdsQuery, MangaQuery,
-            PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
+            MangaQuery, PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -106,18 +106,24 @@ TestBuilder!(
 );
 TestBuilder!(
     manga_ids,
-    (async |client: &TenraiAPI, _| client.manga_ids(MangaIdsQuery::default()).await),
+    (async |client: &TenraiAPI, _| { client.manga_ids(MangaIdsQuery::default()).await }),
     ignore = "Requires Server key"
 );
 TestBuilder!(
     manga_ids_information,
-    (async |client: &TenraiAPI, _| client
-        .manga_ids(
-            MangaIdsQuery::builder()
-                .include([IDsQueryInclude::Title, IDsQueryInclude::Type])
-                .build()
-                .unwrap()
-        )
-        .await),
+    (async |client: &TenraiAPI, _| {
+        client
+            .manga_ids(
+                MangaIdsQuery::builder()
+                    .include([IDsQueryInclude::Title, IDsQueryInclude::Type])
+                    .build()
+                    .unwrap(),
+            )
+            .await
+    }),
     ignore = "Requires Server key"
+);
+TestBuilder!(
+    magazines,
+    (async |client: &TenraiAPI, _| { client.magazines(MagazineQuery::default()).await })
 );

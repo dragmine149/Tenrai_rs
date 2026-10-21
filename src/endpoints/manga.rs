@@ -6,11 +6,12 @@ use crate::{
         common::{
             External, Forum, IDList, Images, MoreInfo, Recommendation, Relation, StatsHistory,
         },
+        filter::BasicInfo,
         manga::{Manga, MangaStatistics},
         people::Character,
         query::{
-            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MangaIdsQuery, MangaQuery,
-            PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
+            MangaQuery, PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
         reviews::Review,
         stacks::Stack,
@@ -225,5 +226,17 @@ impl TenraiAPI {
             .request(format!("manga/ids{query}"))
             .await?
             .result_total()?)
+    }
+}
+
+// This is wayy too small to be on it's own. And it fits nicely in with manga (as well yeah).
+// If this expands, then we break it out.
+impl TenraiAPI {
+    /// Search manga magazines
+    pub async fn magazines(
+        &self,
+        query: MagazineQuery,
+    ) -> crate::Result<TenraiResponse<Vec<BasicInfo>>> {
+        Ok(self.request(format!("magazines{query}")).await?.result()?)
     }
 }

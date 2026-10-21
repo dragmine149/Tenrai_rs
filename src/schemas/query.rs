@@ -8,7 +8,7 @@ use crate::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         companies::ProducerOrder,
-        filter::{GenreFilter, SeasonOrder, TopFilter},
+        filter::{GenreFilter, MagazineOrder, SeasonOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::PeopleOrder,
         query_vec,
@@ -216,8 +216,11 @@ query!(Article {
 query!(
 /// Query for getting historical stats.
 StatsHistory {
+    /// Page number
     page: u64,
+    /// Results per page (Default: 25)
     limit: u64,
+    /// Direction to sort the results
     sort: SortDirection,
     /// Only days **on** or **after** this date
     start_date: Date,
@@ -487,3 +490,21 @@ query!(Genre {
     /// Filter by category
     filter: GenreFilter,
 }, {});
+
+query!(Magazine {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// The name of the magazine to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Only magazines whose name start with this letter
+    letter: char,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// How to sort the results
+    order_by: MagazineOrder,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});

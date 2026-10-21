@@ -1,6 +1,6 @@
 use crate::{
     TenraiAPI,
-    schemas::{TenraiResponse, filter::GenreInfo, query::GenreQuery},
+    schemas::{TenraiResponse, filter::BasicInfo, query::GenreQuery},
 };
 
 impl TenraiAPI {
@@ -8,7 +8,7 @@ impl TenraiAPI {
     pub async fn genres_anime(
         &self,
         query: GenreQuery,
-    ) -> crate::Result<TenraiResponse<Vec<GenreInfo>>> {
+    ) -> crate::Result<TenraiResponse<Vec<BasicInfo>>> {
         Ok(self
             .request(format!("genres/anime{query}"))
             .await?
@@ -18,7 +18,7 @@ impl TenraiAPI {
     pub async fn genres_manga(
         &self,
         query: GenreQuery,
-    ) -> crate::Result<TenraiResponse<Vec<GenreInfo>>> {
+    ) -> crate::Result<TenraiResponse<Vec<BasicInfo>>> {
         Ok(self
             .request(format!("genres/manga{query}"))
             .await?

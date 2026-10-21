@@ -2,6 +2,8 @@
 //!
 //! Kinda don't deserve their own files due to how small they are.
 
+use core::str;
+
 use crate::schemas::common::Season;
 use serde::{Deserialize, Serialize};
 use strum_macros::Display;
@@ -39,15 +41,24 @@ pub enum GenreFilter {
     Demographics,
 }
 
-/// Information about a specific genre when returned from `genre_`
+/// Information about a specific item
 #[derive(Debug, Serialize, Deserialize)]
-pub struct GenreInfo {
+pub struct BasicInfo {
     /// ID on MAL
     pub mal_id: u64,
     /// Name of genre
     pub name: String,
     /// Direct URL to genre
     pub url: String,
-    /// How many entries have this genre
+    /// How many entries have this item
     pub count: u64,
+}
+
+/// Order magaines by this
+#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum MagazineOrder {
+    MalId,
+    Name,
+    Count,
 }
