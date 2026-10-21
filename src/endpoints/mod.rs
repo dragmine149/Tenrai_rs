@@ -12,6 +12,7 @@ mod companies;
 mod genres;
 mod manga;
 mod people;
+mod recommendations;
 mod reviews;
 mod schedules;
 mod seasonal;

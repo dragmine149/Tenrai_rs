@@ -1,10 +1,6 @@
 use crate::{
     TenraiAPI,
-    schemas::{
-        TenraiPaginatorResponse,
-        query::{ReviewQuery, TopReviewQuery},
-        reviews::Review,
-    },
+    schemas::{TenraiPaginatorResponse, query::TopReviewQuery, reviews::Review},
 };
 
 impl TenraiAPI {

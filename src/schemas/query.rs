@@ -38,7 +38,7 @@ BasicPage {
 });
 
 query!(
-/// Basic paginator query. Allows the selection of a different page.
+/// Full paginator query. Allows the selection of a different page.
 Page {
     /// Page Number
     page: u64,
@@ -46,6 +46,7 @@ Page {
     limit: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
 query!(
@@ -58,6 +59,21 @@ PageSFW {
     sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
+
+query!(
+/// A combination of [SfwQuery] and [PageQuery]
+FullPageSFW {
+    page: u64,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Results per page (Default: 25)
+    limit: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
 query!(Anime {

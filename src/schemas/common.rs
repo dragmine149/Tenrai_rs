@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize, de::Visitor};
 use std::fmt::Display;
 use strum_macros::Display;
 
-use crate::generic_type;
+use crate::{generic_type, schemas::anime::User};
 
 /// Stores the date related to the entry.
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
@@ -425,4 +425,28 @@ pub struct RelationEntry {
     pub media_type: String,
     /// Images relating to the entry.
     pub images: Images,
+}
+
+/// More detailed information about a recommendation
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct FullRecommendationInfo {
+    /// ID of the recommendation
+    ///
+    /// Format is provided as (id-id) where:
+    /// - first id is "if you liked this"
+    /// - second id is "i would recommend that"
+    ///
+    /// TODO: Custom deserializer / serializer
+    pub mal_id: String,
+    /// Each individual entry
+    pub entry: Vec<Entry>,
+    /// Content of the review
+    pub content: String,
+    /// Date the review was made
+    ///
+    /// TODO: Date Object
+    pub date: String,
+    /// Who made the review
+    pub user: User,
 }

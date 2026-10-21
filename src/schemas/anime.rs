@@ -502,7 +502,7 @@ pub struct AnimeStatistics {
 #[serde(deny_unknown_fields)]
 pub struct User {
     /// Their profile pictures
-    pub images: Images,
+    pub images: Option<Images>,
     /// A direct link to their page on MAL
     pub url: String,
     /// Their username
