@@ -13,6 +13,7 @@ mod companies;
 mod genres;
 mod manga;
 mod people;
+mod random;
 mod recommendations;
 mod reviews;
 mod schedules;

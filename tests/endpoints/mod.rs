@@ -13,6 +13,8 @@ mod manga;
 #[cfg(test)]
 mod people;
 #[cfg(test)]
+mod random;
+#[cfg(test)]
 mod recommendations;
 #[cfg(test)]
 mod reviews;
