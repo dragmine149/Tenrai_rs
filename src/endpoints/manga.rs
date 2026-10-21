@@ -1,6 +1,6 @@
 use crate::{
     TenraiAPI,
-    schemas::{TenraiPaginatorResponse, manga::Manga, query::MangaQuery},
+    schemas::{TenraiPaginatorResponse, TenraiResponse, manga::Manga, query::MangaQuery},
 };
 
 impl TenraiAPI {
@@ -12,5 +12,8 @@ impl TenraiAPI {
             .request(format!("manga{query}"))
             .await?
             .result_paginator()?)
+    }
+    pub async fn manga_details(&self, id: u64) -> crate::Result<TenraiResponse<Manga>> {
+        Ok(self.request(format!("manga/{id}")).await?.result()?)
     }
 }
