@@ -1,9 +1,13 @@
 # Tenrai API
 A rust wrapper for the [Tenrai API](https://tenrai.org/)
 
-# Versioning
-Major -> Same as Tenrai API version
-Minor / Patch -> Whatever i fell like.
+# Versioning / Updates
+- Major -> Same as Tenrai API version
+- Minor / Patch -> Whatever i fell like.
+
+The major version will be supported for as long as it's online. Minor versions are going to be dropped way quicker.
+
+Also see [Changelog](changelog).
 
 # Feature Flags
 <details>
