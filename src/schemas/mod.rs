@@ -11,6 +11,7 @@ pub mod article;
 pub mod characters;
 pub mod common;
 pub mod companies;
+pub mod filter;
 pub mod manga;
 pub mod people;
 pub mod query;

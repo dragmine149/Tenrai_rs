@@ -6,11 +6,9 @@ use crate::{
     query,
     schemas::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
-        common::{
-            AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SeasonOrder, SortDirection,
-            TopFilter,
-        },
+        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         companies::ProducerOrder,
+        filter::{GenreFilter, SeasonOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::PeopleOrder,
         query_vec,
@@ -480,3 +478,12 @@ query!(TopReview {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
+
+query!(Genre {
+	/// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Filter by category
+    filter: GenreFilter,
+}, {});

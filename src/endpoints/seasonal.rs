@@ -1,9 +1,7 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse,
-        anime::Anime,
-        common::{Season, SeasonLookup},
+        TenraiPaginatorResponse, anime::Anime, common::Season, filter::SeasonLookup,
         query::SeasonalQuery,
     },
 };

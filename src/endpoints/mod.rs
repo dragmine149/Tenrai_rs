@@ -9,6 +9,7 @@ use serde::de::DeserializeOwned;
 mod anime;
 mod characters;
 mod companies;
+mod genres;
 mod manga;
 mod people;
 mod schedules;
