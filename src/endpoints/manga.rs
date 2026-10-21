@@ -2,9 +2,10 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
-        anime::Relation,
         article::Article,
-        common::{External, Forum, IDList, Images, MoreInfo, Recommendation, StatsHistory},
+        common::{
+            External, Forum, IDList, Images, MoreInfo, Recommendation, Relation, StatsHistory,
+        },
         manga::{Manga, MangaStatistics},
         people::Character,
         query::{

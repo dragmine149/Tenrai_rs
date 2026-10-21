@@ -3,19 +3,17 @@
 use crate::{
     generic_type,
     schemas::common::{
-        AgeRating, AlternativeTitle, Date, External, ImageDetails, Images, Season, StatsScore,
+        AgeRating, Aired, AlternativeTitle, DemographicsType, External, GenreType, ImageDetails,
+        Images, Relation, Season, StatsScore, ThemeType,
     },
 };
 use regex::Regex;
 use serde::{Deserialize, Serialize, de::Visitor};
 use strum_macros::Display;
 
-generic_type!(Demographics);
-generic_type!(Genre);
 generic_type!(Licensor);
 generic_type!(Producer);
 generic_type!(Studio);
-generic_type!(Theme);
 
 /// Information about the anime entry in question.
 ///
@@ -123,34 +121,6 @@ pub struct Anime {
     pub year: Option<u64>,
 }
 
-/// Date when this anime aired.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct Aired {
-    /// When the anime started
-    ///
-    /// Formatted as ISO-8601. A date known only to the year or month is given as year or year-month instead of a full date.
-    pub from: Option<String>,
-    /// Exact integer split of the airing dates.
-    pub prop: AiredProp,
-    /// When the anime finished
-    ///
-    /// Formatted as ISO-8601. A date known only to the year or month is given as year or year-month instead of a full date.
-    pub to: Option<String>,
-    /// String format which MAL uses to display the dates.
-    pub string: Option<String>,
-}
-
-/// Information about the form and to dates
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct AiredProp {
-    /// When the anime first started
-    pub from: Date,
-    /// When the anime finished.
-    pub to: Date,
-}
-
 /// Weekly broadcast schedule day, time and timezone.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
@@ -246,36 +216,6 @@ pub enum OrderBy {
     Popularity,
     Members,
     Favorites,
-}
-
-/// Combines a relationship between this entry and another entry.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Relation {
-    /// The relation between the two.
-    pub relation: String,
-    /// The other entry to compare to.
-    pub entry: Vec<RelationEntry>,
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct RelationEntry {
-    /// The ID on MAL.
-    pub mal_id: u64,
-    /// The type of this entry.
-    #[serde(rename = "type")]
-    pub entry_type: String,
-    /// The name of the entry
-    pub name: String,
-    /// The URL to the entry
-    pub url: String,
-    /// The media type of this entry.
-    ///
-    /// NOTE: This is different that [RelationEntry::entry_type].
-    /// For example, the [RelationEntry::entry_type] might be `manga` whilst this is `light_novel`. or `anime` and `TV` respctably.
-    pub media_type: String,
-    /// Images relating to the entry.
-    pub images: Images,
 }
 
 /// Theme songs found in the anime.

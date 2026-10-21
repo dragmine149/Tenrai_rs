@@ -2,12 +2,11 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
-        anime::{
-            Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, Relation,
-            ThemeSongs,
-        },
+        anime::{Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ThemeSongs},
         article::Article,
-        common::{External, Forum, IDList, Images, MoreInfo, Recommendation, StatsHistory},
+        common::{
+            External, Forum, IDList, Images, MoreInfo, Recommendation, Relation, StatsHistory,
+        },
         people::{AnimeStaff, Character},
         query::{
             AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,

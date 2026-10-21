@@ -2,8 +2,10 @@ use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
 use crate::schemas::{
-    anime::{Aired, DemographicsType, GenreType, Relation, ThemeType},
-    common::{AlternativeTitle, External, Images, StatsScore},
+    common::{
+        Aired, AlternativeTitle, DemographicsType, External, GenreType, Images, Relation,
+        StatsScore, ThemeType,
+    },
     people::{MangaAuthor, MangaSerialization},
 };
 

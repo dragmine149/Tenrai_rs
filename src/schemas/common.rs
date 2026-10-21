@@ -7,6 +7,8 @@ use serde::{Deserialize, Serialize, de::Visitor};
 use std::fmt::Display;
 use strum_macros::Display;
 
+use crate::generic_type;
+
 /// Stores the date related to the entry.
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
 #[serde(deny_unknown_fields)]
@@ -361,4 +363,66 @@ pub struct AlternativeTitle {
     /// The type or language classification of the title
     #[serde(rename = "type")]
     pub title_type: String,
+}
+
+/// Date information about this media
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct Aired {
+    /// When the media started
+    ///
+    /// Formatted as ISO-8601. A date known only to the year or month is given as year or year-month instead of a full date.
+    pub from: Option<String>,
+    /// Exact integer split of the airing dates.
+    pub prop: AiredProp,
+    /// When the media finished
+    ///
+    /// Formatted as ISO-8601. A date known only to the year or month is given as year or year-month instead of a full date.
+    pub to: Option<String>,
+    /// String format which MAL uses to display the dates.
+    pub string: Option<String>,
+}
+
+/// Information about the form and to dates
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct AiredProp {
+    /// When this first started
+    pub from: Date,
+    /// When this finished.
+    pub to: Date,
+}
+
+generic_type!(Demographics);
+generic_type!(Genre);
+generic_type!(Theme);
+
+/// Combines a relationship between this entry and another entry.
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Relation {
+    /// The relation between the two.
+    pub relation: String,
+    /// The other entry to compare to.
+    pub entry: Vec<RelationEntry>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct RelationEntry {
+    /// The ID on MAL.
+    pub mal_id: u64,
+    /// The type of this entry.
+    #[serde(rename = "type")]
+    pub entry_type: String,
+    /// The name of the entry
+    pub name: String,
+    /// The URL to the entry
+    pub url: String,
+    /// The media type of this entry.
+    ///
+    /// NOTE: This is different that [RelationEntry::entry_type].
+    /// For example, the [RelationEntry::entry_type] might be `manga` whilst this is `light_novel`. or `anime` and `TV` respctably.
+    pub media_type: String,
+    /// Images relating to the entry.
+    pub images: Images,
 }
