@@ -31,8 +31,10 @@ pub struct Review {
     ///
     /// TODO: Convert to date object
     pub date: Option<String>,
-    /// How many episodes watched (only if [Review::is_preliminary] is true)
-    pub episodes_watched: Option<u64>,
+    /// How far through they are (only if [Review::is_preliminary] is true)
+    #[serde(alias = "episodes_watched")]
+    #[serde(alias = "chapters_read")]
+    pub progress: Option<u64>,
     /// Has this been posted before they finished it
     pub is_preliminary: bool,
     /// Does this entry contain spoilers
