@@ -18,7 +18,7 @@ impl TenraiAPI {
     }
     /// Get all news article tags
     pub async fn news_tags(&self) -> crate::Result<TenraiResponse<Vec<Tag>>> {
-        Ok(self.request(format!("news/tags")).await?.result()?)
+        Ok(self.request("news/tags".to_string()).await?.result()?)
     }
     /// Get an news article by its id
     pub async fn news_details(
@@ -43,7 +43,7 @@ impl TenraiAPI {
     }
     /// Get all article tags
     pub async fn article_tags(&self) -> crate::Result<TenraiResponse<Tag>> {
-        Ok(self.request(format!("articles/tags")).await?.result()?)
+        Ok(self.request("articles/tags".to_string()).await?.result()?)
     }
     /// Get an article by its id
     pub async fn article_details(

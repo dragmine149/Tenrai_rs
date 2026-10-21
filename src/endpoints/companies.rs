@@ -40,6 +40,6 @@ impl TenraiAPI {
     /// NOTE: This requires a server key.
     /// TODO: Implement client-sided server-key checker
     pub async fn company_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
-        Ok(self.request(format!("producers/ids")).await?.result()?)
+        Ok(self.request("producers/ids".to_string()).await?.result()?)
     }
 }

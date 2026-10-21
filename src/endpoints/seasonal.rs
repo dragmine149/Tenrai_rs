@@ -56,6 +56,6 @@ impl TenraiAPI {
     }
     /// Get every season that can be looked up
     pub async fn seasonal_all(&self) -> crate::Result<TenraiPaginatorResponse<SeasonLookup>> {
-        Ok(self.request(format!("seasons")).await?.result_paginator()?)
+        Ok(self.request("seasons".to_string()).await?.result_paginator()?)
     }
 }

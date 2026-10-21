@@ -94,6 +94,6 @@ impl TenraiAPI {
     /// NOTE: This requires a server key.
     /// TODO: Implement client-sided server-key checker
     pub async fn character_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
-        Ok(self.request(format!("characters/ids")).await?.result()?)
+        Ok(self.request("characters/ids".to_string()).await?.result()?)
     }
 }
