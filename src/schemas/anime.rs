@@ -2,7 +2,7 @@
 
 use crate::{
     generic_type,
-    schemas::common::{AgeRating, Date, External, ImageDetails, Images, Season},
+    schemas::common::{AgeRating, Date, External, ImageDetails, Images, Season, StatsScore},
 };
 use regex::Regex;
 use serde::{Deserialize, Serialize, de::Visitor};
@@ -457,29 +457,6 @@ pub struct AnimeEpisode {
     pub url: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeArticle {
-    /// Author profile URL
-    pub author_url: String,
-    /// Author MAL Username
-    pub author_username: String,
-    /// Comment Count
-    pub comments: Option<u64>,
-    /// Date posted (ISO8601 format)
-    pub date: String,
-    /// Excerpt (or some kind of preview)
-    pub excerpt: String,
-    /// Images on the entry.
-    pub images: Images,
-    /// The ID of the article
-    pub mal_id: u64,
-    /// The title of the article
-    pub title: String,
-    /// The URL to the article
-    pub url: String,
-}
-
 /// How to order the listing of articles
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[serde(deny_unknown_fields)]
@@ -501,48 +478,6 @@ pub enum ForumOrdering {
     CreationDate,
     CommentCount,
     LastPost,
-}
-
-/// Information about a forum post
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeForum {
-    /// The URL of the author
-    pub author_url: Option<String>,
-    /// The username of the author
-    pub author_username: Option<String>,
-    /// How many comments are on this post
-    pub comments: u64,
-    /// Information about the last comment
-    pub last_comment: CommentInfo,
-    /// The ID of the forum thread.
-    pub mal_id: u64,
-    /// Topic title. Can be empty.
-    pub title: String,
-    /// The URL to the forum post.
-    pub url: String,
-    /// Date forum was created.
-    ///
-    /// TODO: Date object
-    pub date: String,
-}
-
-/// Basic information about a comment.
-///
-/// Doesn't include comment information.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct CommentInfo {
-    /// The url of the author who posted the comment
-    pub author_url: Option<String>,
-    /// The username of the author who posted the comment
-    pub author_username: Option<String>,
-    /// The date/time when the comment was posted.
-    ///
-    /// TODO: Convert into proper date/time object
-    pub date: Option<String>,
-    /// The url to go to the comment in question.
-    pub url: Option<String>,
 }
 
 /// Information about every video related to the anime
@@ -588,6 +523,7 @@ pub struct AnimeVideoMusic {
     /// - op/ed/in num
     /// - title
     /// - authors
+    ///
     /// See [AnimeVideoMusic::meta] for a split version
     pub title: String,
     /// Youtube entry of the music video
@@ -624,116 +560,9 @@ pub struct AnimeStatistics {
     pub on_hold: u64,
     pub plan_to_watch: u64,
     /// Breakdown of each score and how much it contributes
-    pub scores: Vec<AnimeStatsScore>,
+    pub scores: Vec<StatsScore>,
     pub total: u64,
     pub watching: u64,
-}
-
-/// Information about an individual score and how much it contributes to the overall score.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeStatsScore {
-    /// Percent out of total scores
-    pub percentage: f64,
-    /// How many users voted for this
-    pub votes: u64,
-    /// The score index in question
-    pub score: u64,
-}
-
-/// Statistics about an anime for a certain day.
-///
-/// If the [AnimeStatsHistory::date] doesn't have any information. None will be returned.
-///
-/// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeStatsHistory {
-    /// Date queried
-    pub date: Date,
-    pub favorites: Option<u64>,
-    pub members: Option<u64>,
-    pub popularity: Option<u64>,
-    pub rank: Option<u64>,
-    pub score: Option<f64>,
-    pub scored_by: Option<u64>,
-    #[serde(rename = "statistics")]
-    pub stats: Option<AnimeStatistics>,
-}
-
-/// More info.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeMoreInfo {
-    #[serde(rename = "moreinfo")]
-    pub more_info: Option<String>,
-}
-
-/// How to sort an anime review list
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
-#[strum(serialize_all = "snake_case")]
-pub enum AnimeReviewSort {
-    Newest,
-    Oldest,
-    MostHelpful,
-}
-
-/// If the reviewer would recommend the anime or not.
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
-#[strum(serialize_all = "snake_case")]
-pub enum Sentiment {
-    Recommended,
-    MixedFeelings,
-    NotRecommended,
-}
-
-/// Information about an review for an anime
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeReview {
-    /// Date it was posted
-    ///
-    /// TODO: Convert to date object
-    pub date: Option<String>,
-    /// How many episodes watched (only if [AnimeReview::is_preliminary] is true)
-    pub episodes_watched: Option<u64>,
-    /// Has this been posted before they finished the anime
-    pub is_preliminary: bool,
-    /// Does this entry contain spoilers
-    pub is_spoiler: bool,
-    /// The MAL ID for the review
-    pub mal_id: u64,
-    /// Reactions to the review provided by the community.
-    pub reactions: AnimeReviewReaction,
-    /// The review itself
-    pub review: String,
-    /// The score given by the reviewer
-    pub score: u64,
-    /// Any tags on the review
-    pub tags: Vec<String>,
-    /// What the review is on (anime/manga/light novel/etc)
-    #[serde(rename = "type")]
-    pub review_type: String,
-    /// URL to the review
-    pub url: String,
-    /// Information about the user who posted the review
-    pub user: User,
-}
-
-/// What reaction the community gave the review and how many are of that reaction.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeReviewReaction {
-    pub confusing: u64,
-    pub creative: u64,
-    pub funny: u64,
-    pub informative: u64,
-    pub love_it: u64,
-    pub nice: u64,
-    pub overall: u64,
-    pub well_written: u64,
 }
 
 /// Information about a user entry
@@ -751,92 +580,8 @@ pub struct User {
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
-pub enum StackOrder {
-    CreatedAt,
-    RestackCount,
-}
-
-/// Information about an anime stack.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeStack {
-    /// URL of the author who made the stack
-    pub author_url: Option<String>,
-    /// Username of the author who made the stack
-    pub author_username: Option<String>,
-    /// When the stack was created
-    ///
-    /// TODO: Date object
-    pub created_at: Option<String>,
-    /// Description of the stack
-    pub description: String,
-    /// How many entries are in the stack (Max 50)
-    pub entry_count: u64,
-    /// Is the stack a challenge stack
-    ///
-    /// *complete 1 entry in some format by some date*
-    pub is_challenge: bool,
-    /// Is the stack an official stack made by MAL themselves
-    pub is_official: bool,
-    /// Does the stack potentially contain spoilers
-    pub is_spoiler: bool,
-    /// The ID of the stack on MAL
-    pub mal_id: u64,
-    /// How many users have restacked it
-    pub restack_count: u64,
-    /// What type is the stack
-    pub stack_type: AnimeStackType,
-    /// Title of the stack
-    pub title: String,
-    /// Direct URL to the stack
-    pub url: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(rename_all = "snake_case")]
-pub enum AnimeStackType {
-    Anime,
-    Manga,
-}
-
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
-#[strum(serialize_all = "snake_case")]
 pub enum BasicAnimeOrder {
     #[strum(to_string = "mal_id")]
     MalID,
     Title,
-}
-
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
-#[strum(serialize_all = "snake_case")]
-pub enum AnimeIDsQueryInclude {
-    Title,
-    #[strum(to_string = "type")]
-    AnimeType,
-}
-
-/// All unique valid IDs stored in the database.
-///
-/// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-#[serde(untagged)]
-pub enum AnimeIDList {
-    /// A raw list of ids
-    IDs(Vec<u64>),
-    /// A raw list of ids plus some extra information
-    Context(Vec<AnimeIDContext>),
-}
-
-/// Extra information along with the id itself
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeIDContext {
-    pub mal_id: u64,
-    pub title: String,
-    #[serde(rename = "type")]
-    pub id_type: String,
 }

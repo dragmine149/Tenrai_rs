@@ -6,12 +6,12 @@
 //! async fn main() {
 //!     // create a client
 //!     let client = TenraiAPI::default();
-//! 	// send a request to fetch konosuba
-//! 	let result = client.anime_full_details(30831, SfwQuery::default()).await;
-//! 	// use said data
-//! 	if let Ok(data) = result {
-//! 		println!("{}", data.url); // https://myanimelist.net/anime/30831/Kono_Subarashii_Sekai_ni_Shukufuku_wo
-//! 	}
+//!     // send a request to fetch konosuba
+//!     let result = client.anime_full_details(30831, SfwQuery::default()).await;
+//!     // use said data
+//!     if let Ok(data) = result {
+//!         println!("{}", data.url); // https://myanimelist.net/anime/30831/Kono_Subarashii_Sekai_ni_Shukufuku_wo
+//!     }
 //! }
 //! ```
 //!

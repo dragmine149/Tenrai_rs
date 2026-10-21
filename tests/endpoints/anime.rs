@@ -2,10 +2,10 @@ use tenrai::{
     TenraiAPI,
     errors::{MachineErrorType, TenraiError},
     schemas::{
-        anime::AnimeIDsQueryInclude,
+        common::IDsQueryInclude,
         query::{
-            AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
-            BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
+            PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -118,7 +118,7 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_reviews,
-    (async |client: &TenraiAPI, id| client.anime_reviews(id, AnimeReviewQuery::default()).await)
+    (async |client: &TenraiAPI, id| client.anime_reviews(id, ReviewQuery::default()).await)
 );
 TestBuilder!(
     anime_stacks,
@@ -126,15 +126,15 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_unapproved,
-    (async |client: &TenraiAPI, _| client.anime_unapproved(BasicAnimeQuery::default()).await)
+    (async |client: &TenraiAPI, _| client.anime_unapproved(BasicQuery::default()).await)
 );
 TestBuilder!(
     anime_denied,
-    (async |client: &TenraiAPI, _| client.anime_denied(BasicAnimeQuery::default()).await)
+    (async |client: &TenraiAPI, _| client.anime_denied(BasicQuery::default()).await)
 );
 TestBuilder!(
     anime_deleted,
-    (async |client: &TenraiAPI, _| client.anime_deleted(BasicAnimeQuery::default()).await)
+    (async |client: &TenraiAPI, _| client.anime_deleted(BasicQuery::default()).await)
 );
 TestBuilder!(
     anime_ids,
@@ -146,18 +146,10 @@ TestBuilder!(
     (async |client: &TenraiAPI, _| client
         .anime_ids(
             AnimeIdsQuery::builder()
-                .include([AnimeIDsQueryInclude::Title, AnimeIDsQueryInclude::AnimeType])
+                .include([IDsQueryInclude::Title, IDsQueryInclude::Type])
                 .build()
                 .unwrap()
         )
         .await),
     ignore = "Requires Server key"
 );
-
-// #[test]
-// fn local_parsing() {
-//     serde_json::from_str::<tenrai::schemas::TenraiResponse<tenrai::schemas::anime::Anime>>(
-//         include_str!("/home/dragmine/.cache/tenrai/12006696859294398967.txt"),
-//     )
-//     .expect("Failed to parse json");
-// }

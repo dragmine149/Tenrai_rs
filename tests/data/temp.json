@@ -1,0 +1,2390 @@
+{
+  "pagination": {
+    "last_visible_page": 26,
+    "has_next_page": true,
+    "current_page": 1,
+    "items": {
+      "count": 25,
+      "total": 638,
+      "per_page": 25
+    }
+  },
+  "data": [
+    {
+      "mal_id": 3185,
+      "url": "https://myanimelist.net/manga/3185/Saijoukai_De_Dakishimete",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/3485.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/3485t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/3485l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/3485.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/3485t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/3485l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Saijoukai De Dakishimete"
+        },
+        {
+          "type": "English",
+          "title": "Embrace Me Tightly on the Highest Floor"
+        },
+        {
+          "type": "Synonym",
+          "title": "Embrace Me Tightly on the Highest Floor"
+        }
+      ],
+      "title": "Saijoukai De Dakishimete",
+      "title_english": "Embrace Me Tightly on the Highest Floor",
+      "title_japanese": "",
+      "title_synonyms": [
+        "Embrace Me Tightly on the Highest Floor"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": 6.58,
+      "scored_by": 252,
+      "rank": 14118,
+      "popularity": 22318,
+      "members": 445,
+      "favorites": null,
+      "synopsis": "Ever since Fuyou was little her younger brother Richi has had a habit of going into her bed. It wasn't a problem when they were kids but unfortunately the situation changed...",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 2058,
+          "type": "people",
+          "name": "Yoshino, Mari",
+          "url": "https://myanimelist.net/people/2058/Mari_Yoshino",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 8,
+          "type": "manga",
+          "name": "Drama",
+          "url": "https://myanimelist.net/manga/genre/8/Drama"
+        },
+        {
+          "mal_id": 22,
+          "type": "manga",
+          "name": "Romance",
+          "url": "https://myanimelist.net/manga/genre/22/Romance"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [
+        {
+          "mal_id": 40,
+          "type": "manga",
+          "name": "Psychological",
+          "url": "https://myanimelist.net/manga/genre/40/Psychological"
+        }
+      ],
+      "demographics": [
+        {
+          "mal_id": 25,
+          "type": "manga",
+          "name": "Shoujo",
+          "url": "https://myanimelist.net/manga/genre/25/Shoujo"
+        }
+      ]
+    },
+    {
+      "mal_id": 3645,
+      "url": "https://myanimelist.net/manga/3645/Death_Note_13__How_to_Read_-_Shinsou",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/231006.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/231006t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/231006l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/231006.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/231006t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/231006l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Death Note 13: How to Read - Shinsou"
+        },
+        {
+          "type": "English",
+          "title": "Death Note 13: How to Read"
+        },
+        {
+          "type": "Japanese",
+          "title": "DEATH NOTE 13 HOW TO READ 真相"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note 13: How to Read - Truth"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note Pilot"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note Episode 0"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note ni Rakugaki 4-koma"
+        }
+      ],
+      "title": "Death Note 13: How to Read - Shinsou",
+      "title_english": "Death Note 13: How to Read",
+      "title_japanese": "DEATH NOTE 13 HOW TO READ 真相",
+      "title_synonyms": [
+        "Death Note 13: How to Read - Truth",
+        "Death Note Pilot",
+        "Death Note Episode 0",
+        "Death Note ni Rakugaki 4-koma"
+      ],
+      "type": "Manga",
+      "chapters": 2,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2003-08-04T00:00:00+00:00",
+        "to": null,
+        "prop": {
+          "from": {
+            "day": 4,
+            "month": 8,
+            "year": 2003
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": "Aug 4, 2003"
+      },
+      "score": 7.2,
+      "scored_by": 13329,
+      "rank": 5876,
+      "popularity": 754,
+      "members": 24563,
+      "favorites": null,
+      "synopsis": "Death Note 13: How to Read - Shinsou is a guidebook which contains the spin-off series Death Note ni Rakugaki 4-koma and the pilot one-shot.",
+      "background": "Death Note 13: How to Read - Shinsou was published in English as Death Note 13: How to Read by VIZ Media on February 19, 2008.",
+      "authors": [
+        {
+          "mal_id": 1888,
+          "type": "people",
+          "name": "Obata, Takeshi",
+          "url": "https://myanimelist.net/people/1888/Takeshi_Obata",
+          "role": null
+        },
+        {
+          "mal_id": 2111,
+          "type": "people",
+          "name": "Ohba, Tsugumi",
+          "url": "https://myanimelist.net/people/2111/Tsugumi_Ohba",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 83,
+          "type": "manga",
+          "name": "Shounen Jump (Weekly)",
+          "url": "https://myanimelist.net/manga/magazine/83/Shounen_Jump_Weekly"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 4,
+          "type": "manga",
+          "name": "Comedy",
+          "url": "https://myanimelist.net/manga/genre/4/Comedy"
+        },
+        {
+          "mal_id": 7,
+          "type": "manga",
+          "name": "Mystery",
+          "url": "https://myanimelist.net/manga/genre/7/Mystery"
+        },
+        {
+          "mal_id": 37,
+          "type": "manga",
+          "name": "Supernatural",
+          "url": "https://myanimelist.net/manga/genre/37/Supernatural"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [
+        {
+          "mal_id": 20,
+          "type": "manga",
+          "name": "Parody",
+          "url": "https://myanimelist.net/manga/genre/20/Parody"
+        }
+      ],
+      "demographics": [
+        {
+          "mal_id": 27,
+          "type": "manga",
+          "name": "Shounen",
+          "url": "https://myanimelist.net/manga/genre/27/Shounen"
+        }
+      ]
+    },
+    {
+      "mal_id": 4512,
+      "url": "https://myanimelist.net/manga/4512/Kuso_Miso_Technique",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/20222.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/20222t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/20222l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/20222.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/20222t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/20222l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Kuso Miso Technique"
+        },
+        {
+          "type": "Japanese",
+          "title": "くそみそテクニック"
+        },
+        {
+          "type": "Synonym",
+          "title": "Kuso Miso Soup"
+        },
+        {
+          "type": "Synonym",
+          "title": "Yaranaika"
+        }
+      ],
+      "title": "Kuso Miso Technique",
+      "title_english": "",
+      "title_japanese": "くそみそテクニック",
+      "title_synonyms": [
+        "Kuso Miso Soup",
+        "Yaranaika"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "1987-01-10T00:00:00+00:00",
+        "to": "1987-01-10T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 10,
+            "month": 1,
+            "year": 1987
+          },
+          "to": {
+            "day": 10,
+            "month": 1,
+            "year": 1987
+          }
+        },
+        "string": "Jan 10, 1987 to Jan 10, 1987"
+      },
+      "score": 5.64,
+      "scored_by": 2095,
+      "rank": null,
+      "popularity": 6056,
+      "members": 3750,
+      "favorites": null,
+      "synopsis": "Masaki Michishita, a typical guy enrolled in preparatory school, is running to the park washroom when he spots a man wearing a jumpsuit sitting on a nearby bench. The man, Takakazu Abe, then unzips his jumpsuit and exposes his penis, asking Masaki, \"Wanna do it?\" They then proceed to the washroom and have sex.\n\n(Source: Wikipedia)",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 4053,
+          "type": "people",
+          "name": "Yamakawa, Junichi",
+          "url": "https://myanimelist.net/people/4053/Junichi_Yamakawa",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 28,
+          "type": "manga",
+          "name": "Boys Love",
+          "url": "https://myanimelist.net/manga/genre/28/Boys_Love"
+        },
+        {
+          "mal_id": 49,
+          "type": "manga",
+          "name": "Erotica",
+          "url": "https://myanimelist.net/manga/genre/49/Erotica"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 4941,
+      "url": "https://myanimelist.net/manga/4941/Death_Note__Tokubetsu-hen",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/5/226627.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/5/226627t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/5/226627l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/5/226627.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/5/226627t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/5/226627l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Death Note: Tokubetsu-hen"
+        },
+        {
+          "type": "Japanese",
+          "title": "DEATH NOTE 特別編"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note One Shot"
+        },
+        {
+          "type": "Synonym",
+          "title": "Death Note Special Chapter"
+        }
+      ],
+      "title": "Death Note: Tokubetsu-hen",
+      "title_english": "",
+      "title_japanese": "DEATH NOTE 特別編",
+      "title_synonyms": [
+        "Death Note One Shot",
+        "Death Note Special Chapter"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2008-02-09T00:00:00+00:00",
+        "to": "2008-02-09T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 9,
+            "month": 2,
+            "year": 2008
+          },
+          "to": {
+            "day": 9,
+            "month": 2,
+            "year": 2008
+          }
+        },
+        "string": "Feb 9, 2008 to Feb 9, 2008"
+      },
+      "score": 6.99,
+      "scored_by": 17365,
+      "rank": 8826,
+      "popularity": 582,
+      "members": 31098,
+      "favorites": null,
+      "synopsis": "It has been three years since the \"Kira Killings\" came to a halt, but the world has not forgotten that godlike figure. While rumors circulate that Kira was killed, others claim that Kira is merely taking a break and that their rebirth is inevitable. Although this is nothing but gossip, soon enough, Japan falls under the Death Note's spell once again. \n\nWhen a spike in elderly deaths occurs, many believe that Kira is making a comeback. This time, however, those dying are publicly wishing for Kira to kill them, inspiring many other suicidal individuals to call upon Kira's powers. With both publicity and the number of deaths ramping up, the Japanese police and the anonymous detective L are drawn in to tackle the return of the Death Note.\n\n[Written by MAL Rewrite]",
+      "background": "Death Note: Tokubetsu-hen was drawn in commemoration of the screening of the live-action movie, L change the WorLd. The one-shot was published in English as a part of VIZ Media's Death Note All-in-One Edition, which was released on September 6, 2017.",
+      "authors": [
+        {
+          "mal_id": 1888,
+          "type": "people",
+          "name": "Obata, Takeshi",
+          "url": "https://myanimelist.net/people/1888/Takeshi_Obata",
+          "role": null
+        },
+        {
+          "mal_id": 2111,
+          "type": "people",
+          "name": "Ohba, Tsugumi",
+          "url": "https://myanimelist.net/people/2111/Tsugumi_Ohba",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 83,
+          "type": "manga",
+          "name": "Shounen Jump (Weekly)",
+          "url": "https://myanimelist.net/manga/magazine/83/Shounen_Jump_Weekly"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 7,
+          "type": "manga",
+          "name": "Mystery",
+          "url": "https://myanimelist.net/manga/genre/7/Mystery"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": [
+        {
+          "mal_id": 27,
+          "type": "manga",
+          "name": "Shounen",
+          "url": "https://myanimelist.net/manga/genre/27/Shounen"
+        }
+      ]
+    },
+    {
+      "mal_id": 5508,
+      "url": "https://myanimelist.net/manga/5508/Baby_Universe",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/7020.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/7020t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/7020l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/7020.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/7020t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/7020l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Baby Universe"
+        }
+      ],
+      "title": "Baby Universe",
+      "title_english": "",
+      "title_japanese": "",
+      "title_synonyms": [],
+      "type": "Manga",
+      "chapters": 1,
+      "volumes": 1,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2002-01-01T00:00:00+00:00",
+        "to": "2002-01-01T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 1,
+            "year": 2002
+          },
+          "to": {
+            "day": 1,
+            "month": 1,
+            "year": 2002
+          }
+        },
+        "string": "2002 to 2002"
+      },
+      "score": null,
+      "scored_by": 54,
+      "rank": 15953,
+      "popularity": 29373,
+      "members": 161,
+      "favorites": null,
+      "synopsis": "Can Kengo convince Saki that she's not too grown up to recapture the innocent excitement they felt while searching the sky for UFOs as kids?",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 2817,
+          "type": "people",
+          "name": "Akira, Shouko",
+          "url": "https://myanimelist.net/people/2817/Shouko_Akira",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": [
+        {
+          "mal_id": 25,
+          "type": "manga",
+          "name": "Shoujo",
+          "url": "https://myanimelist.net/manga/genre/25/Shoujo"
+        }
+      ]
+    },
+    {
+      "mal_id": 5999,
+      "url": "https://myanimelist.net/manga/5999/Gakuen_no_Toy",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
+          "small_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
+          "large_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
+          "small_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
+          "large_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Gakuen no Toy"
+        }
+      ],
+      "title": "Gakuen no Toy",
+      "title_english": null,
+      "title_japanese": null,
+      "title_synonyms": [],
+      "type": "Manga",
+      "chapters": null,
+      "volumes": null,
+      "status": "Publishing",
+      "publishing": true,
+      "published": {
+        "from": "2006-11-06T00:00:00+00:00",
+        "to": null,
+        "prop": {
+          "from": {
+            "day": 6,
+            "month": 11,
+            "year": 2006
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": "Nov 6, 2006 to ?"
+      },
+      "score": null,
+      "scored_by": 2,
+      "rank": 23654,
+      "popularity": 79748,
+      "members": 29,
+      "favorites": 1,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 4822,
+          "type": "people",
+          "name": "Fujida, Maki",
+          "url": "https://myanimelist.net/people/4822/Maki_Fujida",
+          "role": "Story & Art"
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 74,
+          "type": "manga",
+          "name": "Princess",
+          "url": "https://myanimelist.net/manga/magazine/74/Princess"
+        }
+      ],
+      "genres": [],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 8322,
+      "url": "https://myanimelist.net/manga/8322/Karakuri",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/11469.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/11469t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/11469l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/11469.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/11469t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/11469l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Karakuri"
+        },
+        {
+          "type": "English",
+          "title": "Clockwork"
+        }
+      ],
+      "title": "Karakuri",
+      "title_english": "Clockwork",
+      "title_japanese": "",
+      "title_synonyms": [],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": 6.28,
+      "scored_by": 390,
+      "rank": 17774,
+      "popularity": 19151,
+      "members": 701,
+      "favorites": null,
+      "synopsis": "Her grandfather has passed on, leaving a mecha in his likeness to help her. Has he left other gifts and will she ever truly understand? -from Baka-Updates Manga",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 3490,
+          "type": "people",
+          "name": "Ishiguro, Masakazu",
+          "url": "https://myanimelist.net/people/3490/Masakazu_Ishiguro",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 24,
+          "type": "manga",
+          "name": "Sci-Fi",
+          "url": "https://myanimelist.net/manga/genre/24/Sci-Fi"
+        },
+        {
+          "mal_id": 36,
+          "type": "manga",
+          "name": "Slice of Life",
+          "url": "https://myanimelist.net/manga/genre/36/Slice_of_Life"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 9012,
+      "url": "https://myanimelist.net/manga/9012/Skin_wo_Nuide",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/102149.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/102149t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/102149l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/102149.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/102149t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/102149l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Skin wo Nuide"
+        },
+        {
+          "type": "Japanese",
+          "title": "スキンを脱いで"
+        },
+        {
+          "type": "Synonym",
+          "title": "Take Off Your Skin"
+        }
+      ],
+      "title": "Skin wo Nuide",
+      "title_english": "",
+      "title_japanese": "スキンを脱いで",
+      "title_synonyms": [
+        "Take Off Your Skin"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2007-11-24T00:00:00+00:00",
+        "to": "2007-11-24T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 24,
+            "month": 11,
+            "year": 2007
+          },
+          "to": {
+            "day": 24,
+            "month": 11,
+            "year": 2007
+          }
+        },
+        "string": "Nov 24, 2007 to Nov 24, 2007"
+      },
+      "score": 6.31,
+      "scored_by": 122,
+      "rank": null,
+      "popularity": 31161,
+      "members": 266,
+      "favorites": null,
+      "synopsis": "A 26 year old office lady and a 35 year old IT worker hookup in an online dating chatroom and eventually decide to meet in person. Unexpectedly, neither one of them are who they claim to be, but will that be enough to stifle their feelings?",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 5807,
+          "type": "people",
+          "name": "Gotoh, Juan",
+          "url": "https://myanimelist.net/people/5807/Juan_Gotoh",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 452,
+          "type": "manga",
+          "name": "Comic Masyo",
+          "url": "https://myanimelist.net/manga/magazine/452/Comic_Masyo"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 9370,
+      "url": "https://myanimelist.net/manga/9370/Yuri_Awase",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/12746.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/12746t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/12746l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/12746.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/12746t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/12746l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Yuri Awase"
+        }
+      ],
+      "title": "Yuri Awase",
+      "title_english": "",
+      "title_japanese": "",
+      "title_synonyms": [],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": null,
+      "scored_by": 94,
+      "rank": null,
+      "popularity": 33582,
+      "members": 223,
+      "favorites": null,
+      "synopsis": "Mayu, an adolescent girl, has always dreamed of engaging in sexual intercourse with a person of the same gender, but due to her traditional upbringing in rural Japan, she is reluctant to reveal her sexual orientation. However, after Yuriko, her older sister-in-law, stumbles into Mayu masturbating in the washroom, the two proceed to indulge in their lustful and immoral desires...\n\n[Written by MAL Rewrite]",
+      "background": null,
+      "authors": [],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 49,
+          "type": "manga",
+          "name": "Erotica",
+          "url": "https://myanimelist.net/manga/genre/49/Erotica"
+        },
+        {
+          "mal_id": 26,
+          "type": "manga",
+          "name": "Girls Love",
+          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
+        },
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 11122,
+      "url": "https://myanimelist.net/manga/11122/Heart_no_Present",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/15027.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/15027t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/15027l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/15027.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/15027t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/15027l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Heart no Present"
+        },
+        {
+          "type": "Japanese",
+          "title": "ハートのプレゼント"
+        },
+        {
+          "type": "Synonym",
+          "title": "ハートのプレゼント, Present of the heart"
+        }
+      ],
+      "title": "Heart no Present",
+      "title_english": "",
+      "title_japanese": "ハートのプレゼント",
+      "title_synonyms": [
+        "ハートのプレゼント, Present of the heart"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": 6.57,
+      "scored_by": 238,
+      "rank": 14967,
+      "popularity": 25359,
+      "members": 420,
+      "favorites": null,
+      "synopsis": "ILDA is one of the best basketball players. He even has his own cheering section. Tsubaki finds herself staring at him while she practices her shoots. But her team is not even good. And if they don't find a way to win the next basketball game, their team might get canceled!",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 1923,
+          "type": "people",
+          "name": "Enomoto, Chizuru",
+          "url": "https://myanimelist.net/people/1923/Chizuru_Enomoto",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 30,
+          "type": "manga",
+          "name": "Sports",
+          "url": "https://myanimelist.net/manga/genre/30/Sports"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [
+        {
+          "mal_id": 78,
+          "type": "manga",
+          "name": "Team Sports",
+          "url": "https://myanimelist.net/manga/genre/78/Team_Sports"
+        }
+      ],
+      "demographics": []
+    },
+    {
+      "mal_id": 13097,
+      "url": "https://myanimelist.net/manga/13097/Regarding_Mika",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/22178.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/22178t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/22178l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/22178.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/22178t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/22178l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Regarding Mika"
+        }
+      ],
+      "title": "Regarding Mika",
+      "title_english": "",
+      "title_japanese": "",
+      "title_synonyms": [],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": 5.48,
+      "scored_by": 257,
+      "rank": null,
+      "popularity": 21778,
+      "members": 560,
+      "favorites": null,
+      "synopsis": "An eroguro story about the last day of a woman and things she'll see for the last time in her life.",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 7159,
+          "type": "people",
+          "name": "Hayami, Jun",
+          "url": "https://myanimelist.net/people/7159/Jun_Hayami",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        },
+        {
+          "mal_id": 14,
+          "type": "manga",
+          "name": "Horror",
+          "url": "https://myanimelist.net/manga/genre/14/Horror"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 13354,
+      "url": "https://myanimelist.net/manga/13354/Hissatsu_Surume_Katame",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/89687.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/89687t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/89687l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/89687.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/89687t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/89687l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Hissatsu Surume Katame"
+        },
+        {
+          "type": "Japanese",
+          "title": "必殺するめ固め"
+        },
+        {
+          "type": "Synonym",
+          "title": "The Deadly Dried Squid Technique"
+        }
+      ],
+      "title": "Hissatsu Surume Katame",
+      "title_english": "",
+      "title_japanese": "必殺するめ固め",
+      "title_synonyms": [
+        "The Deadly Dried Squid Technique"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "1979-07-01T00:00:00+00:00",
+        "to": "1979-07-01T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 7,
+            "year": 1979
+          },
+          "to": {
+            "day": 1,
+            "month": 7,
+            "year": 1979
+          }
+        },
+        "string": "Jul 1979 to Jul 1979"
+      },
+      "score": 5.08,
+      "scored_by": 400,
+      "rank": 21230,
+      "popularity": 20461,
+      "members": 734,
+      "favorites": null,
+      "synopsis": "If you've ever had a guy steal your girl through the use of a squid-related judo move, this oneshot will definitely speak to you!\n\nIt straddles the line between being comedic and just plain odd. If I had to give it some deep meaning, I'd say it speaks to the futility of life. Sometimes the bad guys just win, and the good guys get embarrassed. \n\n(Source: MU)",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 5398,
+          "type": "people",
+          "name": "Tsuge, Yoshiharu",
+          "url": "https://myanimelist.net/people/5398/Yoshiharu_Tsuge",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": [
+        {
+          "mal_id": 41,
+          "type": "manga",
+          "name": "Seinen",
+          "url": "https://myanimelist.net/manga/genre/41/Seinen"
+        }
+      ]
+    },
+    {
+      "mal_id": 13585,
+      "url": "https://myanimelist.net/manga/13585/Rasen",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/270798.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/270798t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/270798l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/270798.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/270798t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/270798l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Rasen"
+        },
+        {
+          "type": "English",
+          "title": "Spiral"
+        },
+        {
+          "type": "Japanese",
+          "title": "らせん"
+        },
+        {
+          "type": "Synonym",
+          "title": "The Spiral"
+        }
+      ],
+      "title": "Rasen",
+      "title_english": "Spiral",
+      "title_japanese": "らせん",
+      "title_synonyms": [
+        "The Spiral"
+      ],
+      "type": "Novel",
+      "chapters": 47,
+      "volumes": 1,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "1995-01-01T00:00:00+00:00",
+        "to": "1995-01-01T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 1,
+            "year": 1995
+          },
+          "to": {
+            "day": 1,
+            "month": 1,
+            "year": 1995
+          }
+        },
+        "string": "1995 to 1995"
+      },
+      "score": 7.31,
+      "scored_by": 232,
+      "rank": 4733,
+      "popularity": 17691,
+      "members": 842,
+      "favorites": null,
+      "synopsis": "Pathologist Ando is at a low point in his life following his small son's death from drowning and the subsiquent break-up of his marriage. Work is his only escape, and his depressing world of lonliness and regret is shaken up when an old rival from school, Ryuji Takayama, turns up on his slab ready to be dissected.\n\nBizzare things happen during the post mortem that link Ryuji's demise to a series of mysterious deaths. From beyond the grave Ryuji appears to be leading Ando towards a suspicious videotape - could this hold the answer to the riddle of the strange deaths? or is it merely the first clue? When Ando meets Mai, an attractive former student of Ryuji's, his desire to solve the puzzle transcends curiosity and becomes a matter of life or death.\n\nSPIRAL is the stunning sequel to the highliy acclaimed RING, and can also be read as a standalone.\n\n(Source: Vertical Inc.)",
+      "background": "Rasen was published in English as Spiral by Vertical Inc. on January 1, 2005.",
+      "authors": [
+        {
+          "mal_id": 3288,
+          "type": "people",
+          "name": "Suzuki, Koji",
+          "url": "https://myanimelist.net/people/3288/Koji_Suzuki",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 14,
+          "type": "manga",
+          "name": "Horror",
+          "url": "https://myanimelist.net/manga/genre/14/Horror"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 13586,
+      "url": "https://myanimelist.net/manga/13586/Loop",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/270792.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/270792t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/270792l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/270792.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/270792t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/270792l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Loop"
+        },
+        {
+          "type": "English",
+          "title": "Loop"
+        },
+        {
+          "type": "Japanese",
+          "title": "ループ"
+        }
+      ],
+      "title": "Loop",
+      "title_english": "Loop",
+      "title_japanese": "ループ",
+      "title_synonyms": [],
+      "type": "Novel",
+      "chapters": 43,
+      "volumes": 1,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "1998-01-01T00:00:00+00:00",
+        "to": "1998-01-01T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 1,
+            "year": 1998
+          },
+          "to": {
+            "day": 1,
+            "month": 1,
+            "year": 1998
+          }
+        },
+        "string": "1998 to 1998"
+      },
+      "score": null,
+      "scored_by": 107,
+      "rank": 22122,
+      "popularity": 25198,
+      "members": 455,
+      "favorites": null,
+      "synopsis": "In Loop, the killer mimics both AIDS and cancer in a deadly new guise. Kaoru Futami, a youth mature beyond his years, must hope to find answers in the deserts of New Mexico and the Loop project, a virtual matrix created by scientists. The fate of more than just his loved ones depends on Kaoru's success.\n\nIn this suspense-filled follow-up to Ring and Spiral, Suzuki masterfully confounds the reader with a stunning new twist on the Ring mythology.\n\n(Source: Vertical Inc.)",
+      "background": "Loop was published in English by Vertical Inc. on October 1, 2005.",
+      "authors": [
+        {
+          "mal_id": 3288,
+          "type": "people",
+          "name": "Suzuki, Koji",
+          "url": "https://myanimelist.net/people/3288/Koji_Suzuki",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 14,
+          "type": "manga",
+          "name": "Horror",
+          "url": "https://myanimelist.net/manga/genre/14/Horror"
+        },
+        {
+          "mal_id": 7,
+          "type": "manga",
+          "name": "Mystery",
+          "url": "https://myanimelist.net/manga/genre/7/Mystery"
+        },
+        {
+          "mal_id": 24,
+          "type": "manga",
+          "name": "Sci-Fi",
+          "url": "https://myanimelist.net/manga/genre/24/Sci-Fi"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 14010,
+      "url": "https://myanimelist.net/manga/14010/Hokenshitsu_no_Shinigami",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/19900.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/19900t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/19900l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/19900.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/19900t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/19900l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Hokenshitsu no Shinigami"
+        },
+        {
+          "type": "Japanese",
+          "title": "保健室の死神"
+        },
+        {
+          "type": "Synonym",
+          "title": "The Shinigami Infirmary"
+        }
+      ],
+      "title": "Hokenshitsu no Shinigami",
+      "title_english": "",
+      "title_japanese": "保健室の死神",
+      "title_synonyms": [
+        "The Shinigami Infirmary"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2009-01-01T00:00:00+00:00",
+        "to": "2009-01-01T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 1,
+            "year": 2009
+          },
+          "to": {
+            "day": 1,
+            "month": 1,
+            "year": 2009
+          }
+        },
+        "string": "2009 to 2009"
+      },
+      "score": 6.87,
+      "scored_by": 498,
+      "rank": 10634,
+      "popularity": 14671,
+      "members": 1065,
+      "favorites": null,
+      "synopsis": "Hadesu Sensei is no ordinary middle school nurse. In fact, many students believe he is a shinigami. His excessive friendliness and eagerness to win his students' affection does little to offset his terrifying appearance. But, fortunately for this middle school, Hadesu Sensei is an expert at extracting \"byouma\", demons of disease, from possessed students!",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 3753,
+          "type": "people",
+          "name": "Aimoto, Shou",
+          "url": "https://myanimelist.net/people/3753/Shou_Aimoto",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 249,
+          "type": "manga",
+          "name": "Akamaru Jump",
+          "url": "https://myanimelist.net/manga/magazine/249/Akamaru_Jump"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 4,
+          "type": "manga",
+          "name": "Comedy",
+          "url": "https://myanimelist.net/manga/genre/4/Comedy"
+        },
+        {
+          "mal_id": 37,
+          "type": "manga",
+          "name": "Supernatural",
+          "url": "https://myanimelist.net/manga/genre/37/Supernatural"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [
+        {
+          "mal_id": 23,
+          "type": "manga",
+          "name": "School",
+          "url": "https://myanimelist.net/manga/genre/23/School"
+        }
+      ],
+      "demographics": [
+        {
+          "mal_id": 27,
+          "type": "manga",
+          "name": "Shounen",
+          "url": "https://myanimelist.net/manga/genre/27/Shounen"
+        }
+      ]
+    },
+    {
+      "mal_id": 14774,
+      "url": "https://myanimelist.net/manga/14774/Yoru_no_Sugao",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/271176.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/271176t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/271176l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/271176.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/271176t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/271176l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Yoru no Sugao"
+        },
+        {
+          "type": "Japanese",
+          "title": "ヨルノスガオ"
+        }
+      ],
+      "title": "Yoru no Sugao",
+      "title_english": "",
+      "title_japanese": "ヨルノスガオ",
+      "title_synonyms": [],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2007-12-27T00:00:00+00:00",
+        "to": "2007-12-27T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 27,
+            "month": 12,
+            "year": 2007
+          },
+          "to": {
+            "day": 27,
+            "month": 12,
+            "year": 2007
+          }
+        },
+        "string": "Dec 27, 2007 to Dec 27, 2007"
+      },
+      "score": null,
+      "scored_by": 93,
+      "rank": null,
+      "popularity": 34784,
+      "members": 224,
+      "favorites": null,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 6760,
+          "type": "people",
+          "name": "Youshu, Ohepe",
+          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 258,
+          "type": "manga",
+          "name": "Comic Hotmilk",
+          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 14981,
+      "url": "https://myanimelist.net/manga/14981/Suru",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/21674.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/21674t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/21674l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/21674.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/21674t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/21674l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Suru?"
+        },
+        {
+          "type": "Japanese",
+          "title": "する？"
+        },
+        {
+          "type": "Synonym",
+          "title": "Wanna Do It?"
+        }
+      ],
+      "title": "Suru?",
+      "title_english": "",
+      "title_japanese": "する？",
+      "title_synonyms": [
+        "Wanna Do It?"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2008-03-05T00:00:00+00:00",
+        "to": "2008-03-05T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 5,
+            "month": 3,
+            "year": 2008
+          },
+          "to": {
+            "day": 5,
+            "month": 3,
+            "year": 2008
+          }
+        },
+        "string": "Mar 5, 2008 to Mar 5, 2008"
+      },
+      "score": null,
+      "scored_by": 64,
+      "rank": null,
+      "popularity": 36720,
+      "members": 180,
+      "favorites": null,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 6760,
+          "type": "people",
+          "name": "Youshu, Ohepe",
+          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 555,
+          "type": "manga",
+          "name": "Comic Mujin",
+          "url": "https://myanimelist.net/manga/magazine/555/Comic_Mujin"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 14982,
+      "url": "https://myanimelist.net/manga/14982/Chibi_tte_Iuna",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/21756.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/21756t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/21756l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/21756.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/21756t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/21756l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Chibi tte Iuna!!"
+        },
+        {
+          "type": "Japanese",
+          "title": "チビって言うな～っ！！"
+        },
+        {
+          "type": "Synonym",
+          "title": "Don’t Call Me a Midget!!"
+        }
+      ],
+      "title": "Chibi tte Iuna!!",
+      "title_english": "",
+      "title_japanese": "チビって言うな～っ！！",
+      "title_synonyms": [
+        "Don’t Call Me a Midget!!"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2009-04-04T00:00:00+00:00",
+        "to": "2009-04-04T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 4,
+            "month": 4,
+            "year": 2009
+          },
+          "to": {
+            "day": 4,
+            "month": 4,
+            "year": 2009
+          }
+        },
+        "string": "Apr 4, 2009 to Apr 4, 2009"
+      },
+      "score": 6.22,
+      "scored_by": 188,
+      "rank": null,
+      "popularity": 24714,
+      "members": 441,
+      "favorites": null,
+      "synopsis": "Her older brother doesn't think she's all that grown up so she decide to show him that she really is an adult. Her female friend helps push her even farther towards adulthood as well.",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 6760,
+          "type": "people",
+          "name": "Youshu, Ohepe",
+          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 555,
+          "type": "manga",
+          "name": "Comic Mujin",
+          "url": "https://myanimelist.net/manga/magazine/555/Comic_Mujin"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 49,
+          "type": "manga",
+          "name": "Erotica",
+          "url": "https://myanimelist.net/manga/genre/49/Erotica"
+        },
+        {
+          "mal_id": 26,
+          "type": "manga",
+          "name": "Girls Love",
+          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
+        },
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 14984,
+      "url": "https://myanimelist.net/manga/14984/Fushidarana_Karada",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/111039.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/111039t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/111039l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/111039.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/111039t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/111039l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Fushidarana Karada"
+        },
+        {
+          "type": "Japanese",
+          "title": "フシダラナカラダ"
+        },
+        {
+          "type": "Synonym",
+          "title": "Wet and Sloppy Bodies"
+        }
+      ],
+      "title": "Fushidarana Karada",
+      "title_english": "",
+      "title_japanese": "フシダラナカラダ",
+      "title_synonyms": [
+        "Wet and Sloppy Bodies"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2008-07-02T00:00:00+00:00",
+        "to": "2008-07-02T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 2,
+            "month": 7,
+            "year": 2008
+          },
+          "to": {
+            "day": 2,
+            "month": 7,
+            "year": 2008
+          }
+        },
+        "string": "Jul 2, 2008 to Jul 2, 2008"
+      },
+      "score": null,
+      "scored_by": 90,
+      "rank": null,
+      "popularity": 33183,
+      "members": 230,
+      "favorites": null,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 6760,
+          "type": "people",
+          "name": "Youshu, Ohepe",
+          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 258,
+          "type": "manga",
+          "name": "Comic Hotmilk",
+          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 16257,
+      "url": "https://myanimelist.net/manga/16257/So_Serious",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/23850.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/23850t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/23850l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/23850.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/23850t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/23850l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "So Serious"
+        }
+      ],
+      "title": "So Serious",
+      "title_english": "",
+      "title_japanese": "",
+      "title_synonyms": [],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": 6.8,
+      "scored_by": 243,
+      "rank": 11389,
+      "popularity": 23379,
+      "members": 408,
+      "favorites": null,
+      "synopsis": "Guns, crosswords and a dash of hostage molestation!\n\n(Source: M-U)",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 8962,
+          "type": "people",
+          "name": "Matsuo, Marta",
+          "url": "https://myanimelist.net/people/8962/Marta_Matsuo",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 394,
+          "type": "manga",
+          "name": "Opera",
+          "url": "https://myanimelist.net/manga/magazine/394/Opera"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 28,
+          "type": "manga",
+          "name": "Boys Love",
+          "url": "https://myanimelist.net/manga/genre/28/Boys_Love"
+        },
+        {
+          "mal_id": 8,
+          "type": "manga",
+          "name": "Drama",
+          "url": "https://myanimelist.net/manga/genre/8/Drama"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 18082,
+      "url": "https://myanimelist.net/manga/18082/Her_Leg",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/27673.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/27673t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/27673l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/27673.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/27673t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/27673l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Her Leg"
+        },
+        {
+          "type": "Japanese",
+          "title": "オミアシ"
+        },
+        {
+          "type": "Synonym",
+          "title": "Omiashi"
+        }
+      ],
+      "title": "Her Leg",
+      "title_english": "",
+      "title_japanese": "オミアシ",
+      "title_synonyms": [
+        "Omiashi"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2009-01-01T00:00:00+00:00",
+        "to": null,
+        "prop": {
+          "from": {
+            "day": 1,
+            "month": 1,
+            "year": 2009
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": "2009"
+      },
+      "score": null,
+      "scored_by": 64,
+      "rank": null,
+      "popularity": 39364,
+      "members": 150,
+      "favorites": null,
+      "synopsis": "Hentai one-shot focusing on leg fetish.",
+      "background": null,
+      "authors": [],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 18355,
+      "url": "https://myanimelist.net/manga/18355/Urbane",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/28070.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/28070t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/28070l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/28070.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/28070t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/28070l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Urbane"
+        },
+        {
+          "type": "Synonym",
+          "title": "The Snow-Woman"
+        }
+      ],
+      "title": "Urbane",
+      "title_english": "",
+      "title_japanese": "",
+      "title_synonyms": [
+        "The Snow-Woman"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2009-01-17T00:00:00+00:00",
+        "to": "2009-01-17T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 17,
+            "month": 1,
+            "year": 2009
+          },
+          "to": {
+            "day": 17,
+            "month": 1,
+            "year": 2009
+          }
+        },
+        "string": "Jan 17, 2009 to Jan 17, 2009"
+      },
+      "score": 6.4,
+      "scored_by": 116,
+      "rank": 16898,
+      "popularity": 32016,
+      "members": 250,
+      "favorites": null,
+      "synopsis": "A winter romance between a cheerful country girl and a beauty from the city who doesn't like to be touched.\n\n(Source: Lililicious)",
+      "background": null,
+      "authors": [],
+      "serializations": [
+        {
+          "mal_id": 423,
+          "type": "manga",
+          "name": "Comic Yuri Hime",
+          "url": "https://myanimelist.net/manga/magazine/423/Comic_Yuri_Hime"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 26,
+          "type": "manga",
+          "name": "Girls Love",
+          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 22184,
+      "url": "https://myanimelist.net/manga/22184/Hakomiya_Gensou_Gekijou",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/36048.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/36048t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/36048l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/36048.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/36048t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/36048l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Hakomiya Gensou Gekijou"
+        },
+        {
+          "type": "English",
+          "title": "Kei Hakomiya's Fantasy Theater"
+        },
+        {
+          "type": "Japanese",
+          "title": "箱宮ケイ幻想劇場"
+        }
+      ],
+      "title": "Hakomiya Gensou Gekijou",
+      "title_english": "Kei Hakomiya's Fantasy Theater",
+      "title_japanese": "箱宮ケイ幻想劇場",
+      "title_synonyms": [],
+      "type": "Manga",
+      "chapters": 2,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": null,
+      "scored_by": 10,
+      "rank": 42824,
+      "popularity": 63988,
+      "members": 36,
+      "favorites": null,
+      "synopsis": "A manga that seems to contain two short chapters.\n\n1. The Summer of Gah and us.\n2. The Moon and the Desert, and the Bomb Rocket\n\n(Source: MU)",
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 11207,
+          "type": "people",
+          "name": "Hakomiya, Kei",
+          "url": "https://myanimelist.net/people/11207/Kei_Hakomiya",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 10,
+          "type": "manga",
+          "name": "Fantasy",
+          "url": "https://myanimelist.net/manga/genre/10/Fantasy"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 22420,
+      "url": "https://myanimelist.net/manga/22420/Sakura_Midareru",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/48163.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/48163t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/48163l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/3/48163.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/48163t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/48163l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Sakura Midareru"
+        },
+        {
+          "type": "Japanese",
+          "title": "さくらみだれる"
+        },
+        {
+          "type": "Synonym",
+          "title": "Sakura's Disturbance"
+        }
+      ],
+      "title": "Sakura Midareru",
+      "title_english": "",
+      "title_japanese": "さくらみだれる",
+      "title_synonyms": [
+        "Sakura's Disturbance"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": "2009-09-02T00:00:00+00:00",
+        "to": "2009-09-02T00:00:00+00:00",
+        "prop": {
+          "from": {
+            "day": 2,
+            "month": 9,
+            "year": 2009
+          },
+          "to": {
+            "day": 2,
+            "month": 9,
+            "year": 2009
+          }
+        },
+        "string": "Sep 2, 2009 to Sep 2, 2009"
+      },
+      "score": null,
+      "scored_by": 75,
+      "rank": null,
+      "popularity": 35050,
+      "members": 202,
+      "favorites": null,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 6760,
+          "type": "people",
+          "name": "Youshu, Ohepe",
+          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
+          "role": null
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 258,
+          "type": "manga",
+          "name": "Comic Hotmilk",
+          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    },
+    {
+      "mal_id": 23478,
+      "url": "https://myanimelist.net/manga/23478/Kongetsu_no_Wanko",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/49105.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/49105t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/49105l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/1/49105.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/49105t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/49105l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Kongetsu no Wanko"
+        },
+        {
+          "type": "Japanese",
+          "title": "今月のわんこ"
+        },
+        {
+          "type": "Synonym",
+          "title": "This Month's Doggie"
+        }
+      ],
+      "title": "Kongetsu no Wanko",
+      "title_english": "",
+      "title_japanese": "今月のわんこ",
+      "title_synonyms": [
+        "This Month's Doggie"
+      ],
+      "type": "One-shot",
+      "chapters": 1,
+      "volumes": null,
+      "status": "Finished",
+      "publishing": false,
+      "published": {
+        "from": null,
+        "to": null,
+        "prop": {
+          "from": {
+            "day": null,
+            "month": null,
+            "year": null
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": null
+      },
+      "score": null,
+      "scored_by": 33,
+      "rank": null,
+      "popularity": 47810,
+      "members": 90,
+      "favorites": null,
+      "synopsis": null,
+      "background": null,
+      "authors": [
+        {
+          "mal_id": 12206,
+          "type": "people",
+          "name": "Usakun",
+          "url": "https://myanimelist.net/people/12206/Usakun",
+          "role": null
+        }
+      ],
+      "serializations": [],
+      "genres": [
+        {
+          "mal_id": 4,
+          "type": "manga",
+          "name": "Comedy",
+          "url": "https://myanimelist.net/manga/genre/4/Comedy"
+        },
+        {
+          "mal_id": 12,
+          "type": "manga",
+          "name": "Hentai",
+          "url": "https://myanimelist.net/manga/genre/12/Hentai"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [],
+      "demographics": []
+    }
+  ]
+}

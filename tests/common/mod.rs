@@ -60,3 +60,12 @@ fn test_long_query() {
         .expect_err("Should panic for being too long");
     assert_eq!(query.to_string(), "Query length is too long");
 }
+
+/// Test designed for quickly checking an endpoint as trying to find the cause can be confusing.
+#[test]
+fn local_parsing() {
+    serde_json::from_str::<tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::manga::Manga>>(
+        include_str!("../data/temp.json"),
+    )
+    .expect("Failed to parse json");
+}

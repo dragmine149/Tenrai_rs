@@ -229,3 +229,116 @@ pub struct Recommendation {
     /// More info about the media itself.
     pub entry: Entry,
 }
+
+/// Information about an individual score and how much it contributes to the overall score.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct StatsScore {
+    /// Percent out of total scores
+    pub percentage: f64,
+    /// How many users voted for this
+    pub votes: u64,
+    /// The score index in question
+    pub score: u64,
+}
+
+/// More info.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct MoreInfo {
+    #[serde(rename = "moreinfo")]
+    pub more_info: Option<String>,
+}
+
+/// Information about a forum post
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Forum {
+    /// The URL of the author
+    pub author_url: Option<String>,
+    /// The username of the author
+    pub author_username: Option<String>,
+    /// How many comments are on this post
+    pub comments: u64,
+    /// Information about the last comment
+    pub last_comment: CommentInfo,
+    /// The ID of the forum thread.
+    pub mal_id: u64,
+    /// Topic title. Can be empty.
+    pub title: String,
+    /// The URL to the forum post.
+    pub url: String,
+    /// Date forum was created.
+    ///
+    /// TODO: Date object
+    pub date: String,
+}
+
+/// Basic information about a comment.
+///
+/// Doesn't include comment information.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct CommentInfo {
+    /// The url of the author who posted the comment
+    pub author_url: Option<String>,
+    /// The username of the author who posted the comment
+    pub author_username: Option<String>,
+    /// The date/time when the comment was posted.
+    ///
+    /// TODO: Convert into proper date/time object
+    pub date: Option<String>,
+    /// The url to go to the comment in question.
+    pub url: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
+#[strum(serialize_all = "snake_case")]
+pub enum IDsQueryInclude {
+    Title,
+    Type,
+}
+
+/// All unique valid IDs stored in the database.
+///
+/// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+#[serde(untagged)]
+pub enum IDList {
+    /// A raw list of ids
+    IDs(Vec<u64>),
+    /// A raw list of ids plus some extra information
+    Context(Vec<IDContext>),
+}
+
+/// Extra information along with the id itself
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct IDContext {
+    pub mal_id: u64,
+    pub title: String,
+    #[serde(rename = "type")]
+    pub id_type: String,
+}
+
+/// Statistics about an entry for a certain day.
+///
+/// If the [StatsHistory::date] doesn't have any information. None will be returned.
+///
+/// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct StatsHistory<T> {
+    /// Date queried
+    pub date: Date,
+    pub favorites: Option<u64>,
+    pub members: Option<u64>,
+    pub popularity: Option<u64>,
+    pub rank: Option<u64>,
+    pub score: Option<f64>,
+    pub scored_by: Option<u64>,
+    #[serde(rename = "statistics")]
+    pub stats: Option<T>,
+}

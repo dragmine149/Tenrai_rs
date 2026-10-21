@@ -7,11 +7,14 @@ use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::fmt::Display;
 
 pub mod anime;
+pub mod article;
 pub mod common;
 pub mod manga;
 pub mod people;
 pub mod query;
+pub mod reviews;
 pub mod schedules;
+pub mod stacks;
 
 /// Display function helper for turning a vector into a CSV. Mainly used for query parameters.
 pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {

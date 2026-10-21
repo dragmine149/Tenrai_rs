@@ -5,14 +5,13 @@
 use crate::{
     query,
     schemas::{
-        anime::{
-            AnimeIDsQueryInclude, AnimeReviewSort, AnimeStatus, AnimeType, ArticleOrdering,
-            BasicAnimeOrder, ForumOrdering, OrderBy, Sentiment, StackOrder,
-        },
-        common::{AgeRating, Date, OnlyBool, SortDirection},
-        manga::{MangaOrder, MangaStatus, MangaType},
+        anime::{AnimeStatus, AnimeType, ArticleOrdering, BasicAnimeOrder, ForumOrdering, OrderBy},
+        common::{AgeRating, Date, IDsQueryInclude, OnlyBool, SortDirection},
+        manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         query_vec,
+        reviews::{ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
+        stacks::StackOrder,
     },
 };
 use derive_builder::Builder;
@@ -97,11 +96,11 @@ query!(Anime {
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
-query!(AnimeReview {
+query!(Review {
     /// Page number
     page: u64,
     /// Sort direction.
-    sort: AnimeReviewSort,
+    sort: ReviewSort,
     /// Include reviews written before all episodes have been watched
     preliminary: OnlyBool,
     /// Include reviews which might contain spoilers
@@ -151,12 +150,12 @@ query!(AnimeIds {
     /// Apply strict SFW filtering for adult content and Ecchi
     sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
     /// Fields to include per entry. Allowed: Title, Type
-    include: Vec<AnimeIDsQueryInclude>:query_vec,
+    include: Vec<IDsQueryInclude>:query_vec,
     /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
     updated_at: String,
 }, {});
 
-query!(BasicAnime {
+query!(Basic {
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
@@ -273,3 +272,59 @@ query!(Manga {
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
 });
+
+query!(Adapted {
+    /// Which MyAnimeList list of adapted manga to return. Default: [MangaAdaptedFilter::All]
+    filter: MangaAdaptedFilter,
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter by manga type, multiple can be selected
+    manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Only manga with this publishing status
+    status: MangaStatus,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    /// Only entries with this exact score
+    score: f64,
+    /// Only entries with this score or higher
+    min_score: f64,
+    /// Only entries with this score or lower
+    max_score: f64,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// Sort the results by...
+    order_by: MangaOrder,
+    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
+    sort: SortDirection,
+    /// Only manga that started publishing on or after this date.
+    start_date: Date,
+    /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
+    end_date: Date,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+});
+
+query!(MangaIds {
+	/// Filter by media type. Multiple types can be selected.
+    manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Only anime with this airing status
+    status: MangaStatus,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Fields to include per entry. Allowed: Title, Type
+    include: Vec<IDsQueryInclude>:query_vec,
+    /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
+    updated_at: String,
+}, {});

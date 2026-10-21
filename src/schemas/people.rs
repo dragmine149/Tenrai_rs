@@ -12,6 +12,7 @@ pub struct Character {
     /// How important is the character role
     pub role: CharacterRole,
     /// Which VAs (voice actors) play the character.
+    #[serde(default)]
     pub voice_actors: Vec<CharacterVA>,
 }
 
@@ -68,7 +69,7 @@ pub struct MangaAuthor {
     /// Name of the person
     pub name: String,
     /// The credited role
-    pub role: String,
+    pub role: Option<String>,
     /// Always "people" (meant to be type but well...)
     #[serde(rename = "type")]
     pub author_type: String,

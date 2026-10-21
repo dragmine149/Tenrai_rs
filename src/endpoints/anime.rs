@@ -3,16 +3,18 @@ use crate::{
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         anime::{
-            Anime, AnimeArticle, AnimeEpisode, AnimeForum, AnimeIDList, AnimeMoreInfo, AnimeReview,
-            AnimeStack, AnimeStatistics, AnimeStatsHistory, AnimeVideo, AnimeVideoEpisode,
-            Relation, ThemeSongs,
+            Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, Relation,
+            ThemeSongs,
         },
-        common::{External, Images, Recommendation},
+        article::Article,
+        common::{External, Forum, IDList, Images, MoreInfo, Recommendation, StatsHistory},
         people::{AnimeStaff, Character},
         query::{
-            AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
-            BasicPageQuery, ForumQuery, PageSfwQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
+            PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
+        reviews::Review,
+        stacks::Stack,
     },
 };
 
@@ -81,7 +83,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: PageSfwQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeArticle>> {
+    ) -> crate::Result<TenraiPaginatorResponse<Article>> {
         Ok(self
             .request(format!("anime/{id}/news{query}"))
             .await?
@@ -92,7 +94,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: ArticleQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeArticle>> {
+    ) -> crate::Result<TenraiPaginatorResponse<Article>> {
         Ok(self
             .request(format!("anime/{id}/articles{query}"))
             .await?
@@ -105,7 +107,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: ForumQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeForum>> {
+    ) -> crate::Result<TenraiPaginatorResponse<Forum>> {
         Ok(self
             .request(format!("anime/{id}/forum{query}"))
             .await?
@@ -161,14 +163,14 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: StatsHistoryQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeStatsHistory>> {
+    ) -> crate::Result<TenraiPaginatorResponse<StatsHistory<AnimeStatistics>>> {
         Ok(self
             .request(format!("anime/{id}/statistics/history{query}"))
             .await?
             .result_paginator()?)
     }
     /// Get more information for an anime
-    pub async fn anime_more_info(&self, id: u64) -> crate::Result<TenraiResponse<AnimeMoreInfo>> {
+    pub async fn anime_more_info(&self, id: u64) -> crate::Result<TenraiResponse<MoreInfo>> {
         Ok(self
             .request(format!("anime/{id}/moreinfo"))
             .await?
@@ -207,8 +209,8 @@ impl TenraiAPI {
     pub async fn anime_reviews(
         &self,
         id: u64,
-        query: AnimeReviewQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeReview>> {
+        query: ReviewQuery,
+    ) -> crate::Result<TenraiPaginatorResponse<Review>> {
         Ok(self
             .request(format!("anime/{id}/reviews{query}"))
             .await?
@@ -219,26 +221,26 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: StackQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<AnimeStack>> {
+    ) -> crate::Result<TenraiPaginatorResponse<Stack>> {
         Ok(self
             .request(format!("anime/{id}/stacks{query}"))
             .await?
             .result_paginator()?)
     }
-    /// Browse unapproved anime entries
+    /// Get anime waiting for MAL approval
     pub async fn anime_unapproved(
         &self,
-        query: BasicAnimeQuery,
+        query: BasicQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
             .request(format!("anime/unapproved{query}"))
             .await?
             .result_paginator()?)
     }
-    /// Browse denied anime entries
+    /// Get anime MAL denied
     pub async fn anime_denied(
         &self,
-        query: BasicAnimeQuery,
+        query: BasicQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
             .request(format!("anime/denied{query}"))
@@ -248,7 +250,7 @@ impl TenraiAPI {
     /// Browse deleted anime entries
     pub async fn anime_deleted(
         &self,
-        query: BasicAnimeQuery,
+        query: BasicQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
             .request(format!("anime/deleted{query}"))
@@ -262,7 +264,7 @@ impl TenraiAPI {
     pub async fn anime_ids(
         &self,
         query: AnimeIdsQuery,
-    ) -> crate::Result<TenraiTotalResponse<AnimeIDList>> {
+    ) -> crate::Result<TenraiTotalResponse<IDList>> {
         Ok(self
             .request(format!("anime/ids{query}"))
             .await?

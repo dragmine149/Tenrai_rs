@@ -3,7 +3,7 @@ use strum_macros::Display;
 
 use crate::schemas::{
     anime::{Aired, AlternativeTitle, DemographicsType, GenreType, Relation, ThemeType},
-    common::{External, Images},
+    common::{External, Images, StatsScore},
     people::{MangaAuthor, MangaSerialization},
 };
 
@@ -137,4 +137,27 @@ pub struct Manga {
     pub url: String,
     /// Total volumes published (null if ongoing)
     pub volumes: Option<u64>,
+}
+
+/// Statistics about the specified anime
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct MangaStatistics {
+    pub completed: u64,
+    pub dropped: u64,
+    pub on_hold: u64,
+    pub plan_to_read: u64,
+    /// Breakdown of each score and how much it contributes
+    pub scores: Vec<StatsScore>,
+    pub total: u64,
+    pub reading: u64,
+}
+
+/// Which MyAnimeList list of adapted manga to return
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[strum(serialize_all = "lowercase")]
+pub enum MangaAdaptedFilter {
+    All,
+    Upcoming,
+    Airing,
 }
