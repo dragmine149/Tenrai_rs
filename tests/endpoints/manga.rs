@@ -24,3 +24,9 @@ TestBuilder!(
     manga_full_details,
     (async |client: &TenraiAPI, id| { client.manga_full_details(id, SfwQuery::default()).await })
 );
+TestBuilder!(
+    manga_recommendation,
+    (async |client: &TenraiAPI, id| {
+        client.manga_recommendations(id, SfwQuery::default()).await
+    })
+);

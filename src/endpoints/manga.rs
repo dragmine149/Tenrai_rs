@@ -2,6 +2,7 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
+        common::Recommendation,
         manga::Manga,
         query::{MangaQuery, SfwQuery},
     },
@@ -27,6 +28,16 @@ impl TenraiAPI {
     ) -> crate::Result<TenraiResponse<Manga>> {
         Ok(self
             .request(format!("manga/{id}/full{query}"))
+            .await?
+            .result()?)
+    }
+    pub async fn manga_recommendations(
+        &self,
+        id: u64,
+        query: SfwQuery,
+    ) -> crate::Result<TenraiResponse<Vec<Recommendation>>> {
+        Ok(self
+            .request(format!("manga/{id}/recommendations{query}"))
             .await?
             .result()?)
     }

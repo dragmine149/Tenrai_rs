@@ -3,11 +3,11 @@ use crate::{
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         anime::{
-            Anime, AnimeArticle, AnimeEpisode, AnimeForum, AnimeIDList, AnimeMoreInfo,
-            AnimeRecommendation, AnimeReview, AnimeStack, AnimeStatistics, AnimeStatsHistory,
-            AnimeVideo, AnimeVideoEpisode, Relation, ThemeSongs,
+            Anime, AnimeArticle, AnimeEpisode, AnimeForum, AnimeIDList, AnimeMoreInfo, AnimeReview,
+            AnimeStack, AnimeStatistics, AnimeStatsHistory, AnimeVideo, AnimeVideoEpisode,
+            Relation, ThemeSongs,
         },
-        common::{External, Images},
+        common::{External, Images, Recommendation},
         people::{AnimeStaff, Character},
         query::{
             AnimeIdsQuery, AnimeQuery, AnimeReviewQuery, ArticleQuery, BasicAnimeQuery,
@@ -48,7 +48,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Vec<AnimeRecommendation>>> {
+    ) -> crate::Result<TenraiResponse<Vec<Recommendation>>> {
         Ok(self
             .request(format!("anime/{id}/recommendations{query}"))
             .await?

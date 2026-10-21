@@ -2,7 +2,7 @@
 
 use crate::{
     generic_type,
-    schemas::common::{AgeRating, Date, Entry, External, ImageDetails, Images, Season},
+    schemas::common::{AgeRating, Date, External, ImageDetails, Images, Season},
 };
 use regex::Regex;
 use serde::{Deserialize, Serialize, de::Visitor};
@@ -419,18 +419,6 @@ impl Serialize for ThemeSong {
                 .fold(String::new(), |acc, x| acc + &x + ",")
         ))
     }
-}
-
-/// Information about the recommendation.
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeRecommendation {
-    /// The recommended anime
-    pub url: String,
-    /// How many people voted on this recommendation
-    pub votes: u64,
-    /// More info about the anime itself.
-    pub entry: Entry,
 }
 
 /// Information about an individual episode in the anime.

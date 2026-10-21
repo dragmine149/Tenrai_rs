@@ -217,3 +217,15 @@ pub struct External {
     /// The destination of the link
     pub url: String,
 }
+
+/// Information about the recommendation.
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Recommendation {
+    /// Link to the recommended media
+    pub url: String,
+    /// How many people voted on this recommendation
+    pub votes: u64,
+    /// More info about the media itself.
+    pub entry: Entry,
+}
