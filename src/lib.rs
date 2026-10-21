@@ -20,6 +20,12 @@
 //!
 //! There are also various different types of queries depending on the combination of potential options.
 //!
+//! # Endpoint Notes
+//! Most endpoints function names will follow the official ones provide by tenrai. However, some functions have been renamed. A table has been provided below
+//! |Original|Renamed To|Reason|
+//! |--------|----------|------|
+//! |Producer|Company   |Company encomposises the returned data better|
+//!
 //! # See
 //! - The official api docs this is based on: <https://api.tenrai.org/documentation>
 //! - The github repo for more information: <>

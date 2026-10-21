@@ -7,6 +7,7 @@ use crate::{
     schemas::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
+        companies::ProducerOrder,
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::PeopleOrder,
         query_vec,
@@ -368,7 +369,26 @@ query!(People {
     order_by: PeopleOrder,
     /// Order in which to sort.
     sort: SortDirection,
-    /// Only characters whose name start with this letter
+    /// Only people whose name start with this letter
+    letter: char,
+}, {
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(Producer {
+    /// The name of the anime to search for
+    query: String:(|_, v| format!("q={v}")),
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// How to sort the anime
+    order_by: ProducerOrder,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// Only producers whose name start with this letter
     letter: char,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),

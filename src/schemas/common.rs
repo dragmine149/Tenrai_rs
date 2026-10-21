@@ -352,3 +352,13 @@ pub enum BasicOrder {
     MalID,
     Title,
 }
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct AlternativeTitle {
+    /// The alternative title
+    pub title: String,
+    /// The type or language classification of the title
+    #[serde(rename = "type")]
+    pub title_type: String,
+}

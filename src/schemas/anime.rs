@@ -2,7 +2,9 @@
 
 use crate::{
     generic_type,
-    schemas::common::{AgeRating, Date, External, ImageDetails, Images, Season, StatsScore},
+    schemas::common::{
+        AgeRating, AlternativeTitle, Date, External, ImageDetails, Images, Season, StatsScore,
+    },
 };
 use regex::Regex;
 use serde::{Deserialize, Serialize, de::Visitor};
@@ -161,16 +163,6 @@ pub struct AnimeBroadcast {
     pub time: Option<String>,
     /// Which timezone this information is related to.
     pub timezone: Option<String>,
-}
-
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
-pub struct AlternativeTitle {
-    /// The alternative title
-    pub title: String,
-    /// The type or language classification of the title
-    #[serde(rename = "type")]
-    pub title_type: String,
 }
 
 /// Information about the youtube video representing the trailer.

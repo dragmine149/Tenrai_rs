@@ -1,5 +1,3 @@
-//! Various
-
 #[cfg(feature = "custom")]
 use crate::{
     TenraiAPI,
@@ -12,6 +10,7 @@ mod anime;
 mod characters;
 mod manga;
 mod people;
+mod companies;
 mod schedules;
 
 /// Custom functions related to the API. Gives the security of the requests while the freedom of the response.

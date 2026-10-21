@@ -3,6 +3,8 @@ mod anime;
 #[cfg(test)]
 mod characters;
 #[cfg(test)]
+mod companies;
+#[cfg(test)]
 mod manga;
 #[cfg(test)]
 mod people;
