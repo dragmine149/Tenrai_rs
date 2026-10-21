@@ -16,8 +16,7 @@ pub struct Character {
     /// How important is the character role
     pub role: CharacterRole,
     /// Which VAs (voice actors) play the character.
-    #[serde(default)]
-    pub voice_actors: Vec<CharacterVA>,
+    pub voice_actors: Option<Vec<CharacterVA>>,
 }
 
 /// How important is the character role
@@ -144,7 +143,7 @@ pub struct Person {
     /// Connection to characters and anime this person has voiced/in
     ///
     /// Requires full details
-    pub voices: Vec<VoiceConnection>,
+    pub voices: Option<Vec<VoiceConnection>>,
     /// Official website of the person.
     pub website_url: Option<String>,
 }

@@ -8,6 +8,7 @@ use crate::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{
             AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SeasonOrder, SortDirection,
+            TopFilter,
         },
         companies::ProducerOrder,
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
@@ -32,7 +33,19 @@ SFW {
 query!(
 /// Basic paginator query. Allows the selection of a different page.
 BasicPage {
+    /// Page Number
     page: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+});
+
+query!(
+/// Basic paginator query. Allows the selection of a different page.
+Page {
+    /// Page Number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
@@ -421,6 +434,48 @@ query!(Seasonal {
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(Top {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Filter by media type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Limit the ranking to a subset
+    filter: TopFilter,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(TopReview {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Sort direction.
+    sort: ReviewSort,
+    /// Include reviews written before all episodes have been watched
+    preliminary: OnlyBool,
+    /// Include reviews which might contain spoilers
+    spoilers: OnlyBool,
+    /// Filter by what the review overall thinks.
+    sentiment: Sentiment,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),

@@ -13,6 +13,7 @@ mod manga;
 mod people;
 mod schedules;
 mod seasonal;
+mod top;
 
 /// Custom functions related to the API. Gives the security of the requests while the freedom of the response.
 ///

@@ -14,8 +14,7 @@ pub struct CharacterDetails {
     /// Information about the character
     pub about: Option<String>,
     /// Connection to an anime this character is in.
-    #[serde(default)]
-    pub anime: Vec<AnimeCharacterConnection>,
+    pub anime: Option<Vec<AnimeCharacterConnection>>,
     /// How many users have favorited this character
     pub favorites: u64,
     /// Images of the character
@@ -23,8 +22,7 @@ pub struct CharacterDetails {
     /// ID of the character
     pub mal_id: u64,
     /// Connection to an manga this character is in.
-    #[serde(default)]
-    pub manga: Vec<MangaCharacterConnection>,
+    pub manga: Option<Vec<MangaCharacterConnection>>,
     /// Name of the character
     pub name: String,
     /// Kanji name of the character
@@ -34,8 +32,7 @@ pub struct CharacterDetails {
     /// URL of the character profile on MAL
     pub url: String,
     /// Who plays this character
-    #[serde(default)]
-    pub voices: Vec<CharacterVA>,
+    pub voices: Option<Vec<CharacterVA>>,
 }
 
 person_connection!(anime, character, role);

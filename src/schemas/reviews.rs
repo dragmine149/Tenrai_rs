@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
-use crate::schemas::anime::User;
+use crate::schemas::{anime::User, common::Entry};
 
 /// How to sort a review list
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
@@ -31,6 +31,10 @@ pub struct Review {
     ///
     /// TODO: Convert to date object
     pub date: Option<String>,
+    /// Link to the MAL entry of the review source
+    ///
+    /// Only included if the review source did not come from anime/manga
+    pub entry: Option<Entry>,
     /// How far through they are (only if [Review::is_preliminary] is true)
     #[serde(alias = "episodes_watched")]
     #[serde(alias = "chapters_read")]
