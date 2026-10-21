@@ -172,3 +172,21 @@ macro_rules! error {
         }
     };
 }
+
+/// Connects a person (ficitonal or real) to a type of media
+#[macro_export]
+macro_rules! person_connection {
+    ($media:ident, $type: ident, $connection_name: ident) => {
+        pastey::paste! {
+            #[doc = "Connects a(n) `" $type "` to a(n) `" $media "` and what `" $connection_name "` they are"]
+            #[derive(Debug, Serialize, Deserialize)]
+            #[serde(deny_unknown_fields)]
+            pub struct [<$media:upper_camel $type:upper_camel Connection>] {
+            	#[doc = "How this person connections to the `" $media "`"]
+                $connection_name: String,
+            	#[doc = "Basic information on the `" $media "` they are in."]
+                $media: Entry,
+            }
+        }
+    };
+}

@@ -5,4 +5,6 @@ mod characters;
 #[cfg(test)]
 mod manga;
 #[cfg(test)]
+mod people;
+#[cfg(test)]
 mod schedules;

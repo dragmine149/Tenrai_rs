@@ -1,5 +1,9 @@
-use crate::schemas::common::{Entry, Images};
+use crate::{
+    person_connection,
+    schemas::common::{Entry, Images},
+};
 use serde::{Deserialize, Serialize};
+use strum_macros::Display;
 
 /// Information about the character.
 #[derive(Debug, Serialize, Deserialize)]
@@ -31,13 +35,13 @@ pub struct CharacterVA {
     /// Which language they play the character in.
     pub language: String,
     /// The person behind the character itself.
-    pub person: Person,
+    pub person: BasicPerson,
 }
 
 /// Information about a person.
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct Person {
+pub struct BasicPerson {
     /// How many users have favorited this person
     pub favorites: Option<u64>,
     /// Profile Picture images
@@ -55,7 +59,7 @@ pub struct Person {
 #[serde(deny_unknown_fields)]
 pub struct AnimeStaff {
     /// The person itself
-    pub person: Person,
+    pub person: BasicPerson,
     /// What positions they were in.
     pub positions: Vec<String>,
 }
@@ -90,4 +94,67 @@ pub struct MangaSerialization {
     pub serialize_type: String,
     /// Direct link on MAL for this item
     pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[serde(deny_unknown_fields)]
+#[strum(serialize_all = "snake_case")]
+/// How to order the people list
+pub enum PeopleOrder {
+    MalId,
+    Name,
+    Birthday,
+    Favorites,
+}
+
+/// Detailed information about a person
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Person {
+    /// Core schema represnenting a person
+    pub about: Option<String>,
+    /// Alternate names, Nicknames or Kanji Aliases
+    pub alternate_names: Vec<String>,
+    /// Anime this person has a position in
+    ///
+    /// Requires full details
+    pub anime: Option<Vec<AnimePersonConnection>>,
+    /// Birthday of the person.
+    ///
+    /// Birthday in ISO 8601 format, as on Jikan. A birthday MAL gives only as a month and year is shown on the 1st of that month. One given only as a year, or with no year, is null.
+    pub birthday: Option<String>,
+    /// Family name of the person (surname)
+    pub family_name: Option<String>,
+    /// How many users have favorited this anime
+    pub favorites: Option<u64>,
+    /// Given name of the person (name)
+    pub given_name: Option<String>,
+    /// Portrait Images of the person
+    pub images: Images,
+    /// MAL ID of the person
+    pub mal_id: u64,
+    /// Anime this person has a position in
+    ///
+    /// Requires full details
+    pub manga: Option<Vec<MangaPersonConnection>>,
+    /// Full name of the person, japanese style (Family, Given)
+    pub name: String,
+    /// Direct profile page URL on MAL
+    pub url: String,
+    /// Connection to characters and anime this person has voiced/in
+    ///
+    /// Requires full details
+    pub voices: Vec<VoiceConnection>,
+    /// Official website of the person.
+    pub website_url: Option<String>,
+}
+
+person_connection!(anime, person, position);
+person_connection!(manga, person, position);
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct VoiceConnection {
+    pub anime: Entry,
+    pub character: Entry,
+    pub role: String,
 }

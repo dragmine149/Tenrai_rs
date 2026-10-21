@@ -1,6 +1,9 @@
-use crate::schemas::{
-    common::{Entry, Images},
-    people::CharacterVA,
+use crate::{
+    person_connection,
+    schemas::{
+        common::{Entry, Images},
+        people::CharacterVA,
+    },
 };
 use serde::{Deserialize, Serialize};
 
@@ -12,7 +15,7 @@ pub struct CharacterDetails {
     pub about: Option<String>,
     /// Connection to an anime this character is in.
     #[serde(default)]
-    pub anime: Vec<AnimeCharacterMediaConnection>,
+    pub anime: Vec<AnimeCharacterConnection>,
     /// How many users have favorited this character
     pub favorites: u64,
     /// Images of the character
@@ -21,7 +24,7 @@ pub struct CharacterDetails {
     pub mal_id: u64,
     /// Connection to an manga this character is in.
     #[serde(default)]
-    pub manga: Vec<MangaCharacterMediaConnection>,
+    pub manga: Vec<MangaCharacterConnection>,
     /// Name of the character
     pub name: String,
     /// Kanji name of the character
@@ -35,22 +38,5 @@ pub struct CharacterDetails {
     pub voices: Vec<CharacterVA>,
 }
 
-/// Connects a character to an anime
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct AnimeCharacterMediaConnection {
-    /// The anime they are in.
-    pub anime: Entry,
-    ///What role they play.
-    pub role: String,
-}
-
-/// Connects a character to an manga
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct MangaCharacterMediaConnection {
-    /// The manga they are in.
-    pub manga: Entry,
-    ///What role they play.
-    pub role: String,
-}
+person_connection!(anime, character, role);
+person_connection!(manga, character, role);

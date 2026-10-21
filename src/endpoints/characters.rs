@@ -3,9 +3,7 @@ use crate::{
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
         article::Article,
-        characters::{
-            AnimeCharacterMediaConnection, CharacterDetails, MangaCharacterMediaConnection,
-        },
+        characters::{AnimeCharacterConnection, CharacterDetails, MangaCharacterConnection},
         common::Images,
         people::CharacterVA,
         query::{ArticleQuery, CharacterQuery, SfwQuery},
@@ -46,7 +44,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Vec<AnimeCharacterMediaConnection>>> {
+    ) -> crate::Result<TenraiResponse<Vec<AnimeCharacterConnection>>> {
         Ok(self
             .request(format!("characters/{id}/anime{query}"))
             .await?
@@ -57,7 +55,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Vec<MangaCharacterMediaConnection>>> {
+    ) -> crate::Result<TenraiResponse<Vec<MangaCharacterConnection>>> {
         Ok(self
             .request(format!("characters/{id}/manga{query}"))
             .await?
