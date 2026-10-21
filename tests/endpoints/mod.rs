@@ -10,3 +10,5 @@ mod manga;
 mod people;
 #[cfg(test)]
 mod schedules;
+#[cfg(test)]
+mod seasons;

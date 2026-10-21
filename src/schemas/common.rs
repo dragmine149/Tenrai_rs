@@ -426,3 +426,18 @@ pub struct RelationEntry {
     /// Images relating to the entry.
     pub images: Images,
 }
+
+#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum SeasonOrder {
+    Score,
+    Members,
+    StartDate,
+}
+
+/// Conjoint year and season.
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SeasonLookup {
+    pub year: u64,
+    pub seasons: Vec<Season>,
+}

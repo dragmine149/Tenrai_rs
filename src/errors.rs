@@ -16,6 +16,8 @@ Tenrai {
     Reqwest: reqwest::Error,
     /// An error happened within translating the data.
     Serde: serde_json::Error,
+    /// An error happened that didn't fit in one of the above
+    Custom: &'static str,
 });
 
 /// Public generic crate type alias.

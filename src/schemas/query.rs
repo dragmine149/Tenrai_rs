@@ -6,7 +6,9 @@ use crate::{
     query,
     schemas::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
-        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
+        common::{
+            AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SeasonOrder, SortDirection,
+        },
         companies::ProducerOrder,
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::PeopleOrder,
@@ -392,6 +394,34 @@ query!(Producer {
     letter: char,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(Seasonal {
+    /// Filter by media type
+    filter: AnimeType,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Also include unapproved entries.
+    unapproved: OnlyBool,
+    /// Include TV series continubing from a previous series
+    continuing: bool,
+    /// Filter out kids entries
+    kids: bool,
+    /// Field to sort the results by
+    order_by: Vec<SeasonOrder>:query_vec,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+}, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
