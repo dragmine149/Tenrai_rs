@@ -1,8 +1,13 @@
 name: Test code
 on: push
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - run: cargo test --features=rate -- --include_ignored --skip _ids
+      - uses: actions/checkout@v7
+
+      - run: cargo test --verbose --features=rate -- --include_ignored --skip _ids
