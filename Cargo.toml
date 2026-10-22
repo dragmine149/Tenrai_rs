@@ -3,6 +3,7 @@ name = "tenrai"
 version = "1.0.0"
 edition = "2024"
 readme = "Readme.md"
+license-file = "LICENSE"
 
 [lib]
 doctest = false
