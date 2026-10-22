@@ -1,2390 +1,2053 @@
 {
-  "pagination": {
-    "last_visible_page": 26,
-    "has_next_page": true,
-    "current_page": 1,
-    "items": {
-      "count": 25,
-      "total": 638,
-      "per_page": 25
-    }
-  },
-  "data": [
-    {
-      "mal_id": 3185,
-      "url": "https://myanimelist.net/manga/3185/Saijoukai_De_Dakishimete",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/3485.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/3485t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/3485l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/3485.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/3485t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/3485l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Saijoukai De Dakishimete"
-        },
-        {
-          "type": "English",
-          "title": "Embrace Me Tightly on the Highest Floor"
-        },
-        {
-          "type": "Synonym",
-          "title": "Embrace Me Tightly on the Highest Floor"
-        }
-      ],
-      "title": "Saijoukai De Dakishimete",
-      "title_english": "Embrace Me Tightly on the Highest Floor",
-      "title_japanese": "",
-      "title_synonyms": [
-        "Embrace Me Tightly on the Highest Floor"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": 6.58,
-      "scored_by": 252,
-      "rank": 14118,
-      "popularity": 22318,
-      "members": 445,
-      "favorites": null,
-      "synopsis": "Ever since Fuyou was little her younger brother Richi has had a habit of going into her bed. It wasn't a problem when they were kids but unfortunately the situation changed...",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 2058,
-          "type": "people",
-          "name": "Yoshino, Mari",
-          "url": "https://myanimelist.net/people/2058/Mari_Yoshino",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 8,
-          "type": "manga",
-          "name": "Drama",
-          "url": "https://myanimelist.net/manga/genre/8/Drama"
-        },
-        {
-          "mal_id": 22,
-          "type": "manga",
-          "name": "Romance",
-          "url": "https://myanimelist.net/manga/genre/22/Romance"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [
-        {
-          "mal_id": 40,
-          "type": "manga",
-          "name": "Psychological",
-          "url": "https://myanimelist.net/manga/genre/40/Psychological"
-        }
-      ],
-      "demographics": [
-        {
-          "mal_id": 25,
-          "type": "manga",
-          "name": "Shoujo",
-          "url": "https://myanimelist.net/manga/genre/25/Shoujo"
-        }
-      ]
-    },
-    {
-      "mal_id": 3645,
-      "url": "https://myanimelist.net/manga/3645/Death_Note_13__How_to_Read_-_Shinsou",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/231006.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/231006t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/231006l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/231006.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/231006t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/231006l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Death Note 13: How to Read - Shinsou"
-        },
-        {
-          "type": "English",
-          "title": "Death Note 13: How to Read"
-        },
-        {
-          "type": "Japanese",
-          "title": "DEATH NOTE 13 HOW TO READ 真相"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note 13: How to Read - Truth"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note Pilot"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note Episode 0"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note ni Rakugaki 4-koma"
-        }
-      ],
-      "title": "Death Note 13: How to Read - Shinsou",
-      "title_english": "Death Note 13: How to Read",
-      "title_japanese": "DEATH NOTE 13 HOW TO READ 真相",
-      "title_synonyms": [
-        "Death Note 13: How to Read - Truth",
-        "Death Note Pilot",
-        "Death Note Episode 0",
-        "Death Note ni Rakugaki 4-koma"
-      ],
-      "type": "Manga",
-      "chapters": 2,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2003-08-04T00:00:00+00:00",
-        "to": null,
-        "prop": {
-          "from": {
-            "day": 4,
-            "month": 8,
-            "year": 2003
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": "Aug 4, 2003"
-      },
-      "score": 7.2,
-      "scored_by": 13329,
-      "rank": 5876,
-      "popularity": 754,
-      "members": 24563,
-      "favorites": null,
-      "synopsis": "Death Note 13: How to Read - Shinsou is a guidebook which contains the spin-off series Death Note ni Rakugaki 4-koma and the pilot one-shot.",
-      "background": "Death Note 13: How to Read - Shinsou was published in English as Death Note 13: How to Read by VIZ Media on February 19, 2008.",
-      "authors": [
-        {
-          "mal_id": 1888,
-          "type": "people",
-          "name": "Obata, Takeshi",
-          "url": "https://myanimelist.net/people/1888/Takeshi_Obata",
-          "role": null
-        },
-        {
-          "mal_id": 2111,
-          "type": "people",
-          "name": "Ohba, Tsugumi",
-          "url": "https://myanimelist.net/people/2111/Tsugumi_Ohba",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 83,
-          "type": "manga",
-          "name": "Shounen Jump (Weekly)",
-          "url": "https://myanimelist.net/manga/magazine/83/Shounen_Jump_Weekly"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 4,
-          "type": "manga",
-          "name": "Comedy",
-          "url": "https://myanimelist.net/manga/genre/4/Comedy"
-        },
-        {
-          "mal_id": 7,
-          "type": "manga",
-          "name": "Mystery",
-          "url": "https://myanimelist.net/manga/genre/7/Mystery"
-        },
-        {
-          "mal_id": 37,
-          "type": "manga",
-          "name": "Supernatural",
-          "url": "https://myanimelist.net/manga/genre/37/Supernatural"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [
-        {
-          "mal_id": 20,
-          "type": "manga",
-          "name": "Parody",
-          "url": "https://myanimelist.net/manga/genre/20/Parody"
-        }
-      ],
-      "demographics": [
-        {
-          "mal_id": 27,
-          "type": "manga",
-          "name": "Shounen",
-          "url": "https://myanimelist.net/manga/genre/27/Shounen"
-        }
-      ]
-    },
-    {
-      "mal_id": 4512,
-      "url": "https://myanimelist.net/manga/4512/Kuso_Miso_Technique",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/20222.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/20222t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/20222l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/20222.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/20222t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/20222l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Kuso Miso Technique"
-        },
-        {
-          "type": "Japanese",
-          "title": "くそみそテクニック"
-        },
-        {
-          "type": "Synonym",
-          "title": "Kuso Miso Soup"
-        },
-        {
-          "type": "Synonym",
-          "title": "Yaranaika"
-        }
-      ],
-      "title": "Kuso Miso Technique",
-      "title_english": "",
-      "title_japanese": "くそみそテクニック",
-      "title_synonyms": [
-        "Kuso Miso Soup",
-        "Yaranaika"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "1987-01-10T00:00:00+00:00",
-        "to": "1987-01-10T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 10,
-            "month": 1,
-            "year": 1987
-          },
-          "to": {
-            "day": 10,
-            "month": 1,
-            "year": 1987
-          }
-        },
-        "string": "Jan 10, 1987 to Jan 10, 1987"
-      },
-      "score": 5.64,
-      "scored_by": 2095,
-      "rank": null,
-      "popularity": 6056,
-      "members": 3750,
-      "favorites": null,
-      "synopsis": "Masaki Michishita, a typical guy enrolled in preparatory school, is running to the park washroom when he spots a man wearing a jumpsuit sitting on a nearby bench. The man, Takakazu Abe, then unzips his jumpsuit and exposes his penis, asking Masaki, \"Wanna do it?\" They then proceed to the washroom and have sex.\n\n(Source: Wikipedia)",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 4053,
-          "type": "people",
-          "name": "Yamakawa, Junichi",
-          "url": "https://myanimelist.net/people/4053/Junichi_Yamakawa",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 28,
-          "type": "manga",
-          "name": "Boys Love",
-          "url": "https://myanimelist.net/manga/genre/28/Boys_Love"
-        },
-        {
-          "mal_id": 49,
-          "type": "manga",
-          "name": "Erotica",
-          "url": "https://myanimelist.net/manga/genre/49/Erotica"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 4941,
-      "url": "https://myanimelist.net/manga/4941/Death_Note__Tokubetsu-hen",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/5/226627.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/5/226627t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/5/226627l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/5/226627.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/5/226627t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/5/226627l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Death Note: Tokubetsu-hen"
-        },
-        {
-          "type": "Japanese",
-          "title": "DEATH NOTE 特別編"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note One Shot"
-        },
-        {
-          "type": "Synonym",
-          "title": "Death Note Special Chapter"
-        }
-      ],
-      "title": "Death Note: Tokubetsu-hen",
-      "title_english": "",
-      "title_japanese": "DEATH NOTE 特別編",
-      "title_synonyms": [
-        "Death Note One Shot",
-        "Death Note Special Chapter"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2008-02-09T00:00:00+00:00",
-        "to": "2008-02-09T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 9,
-            "month": 2,
-            "year": 2008
-          },
-          "to": {
-            "day": 9,
-            "month": 2,
-            "year": 2008
-          }
-        },
-        "string": "Feb 9, 2008 to Feb 9, 2008"
-      },
-      "score": 6.99,
-      "scored_by": 17365,
-      "rank": 8826,
-      "popularity": 582,
-      "members": 31098,
-      "favorites": null,
-      "synopsis": "It has been three years since the \"Kira Killings\" came to a halt, but the world has not forgotten that godlike figure. While rumors circulate that Kira was killed, others claim that Kira is merely taking a break and that their rebirth is inevitable. Although this is nothing but gossip, soon enough, Japan falls under the Death Note's spell once again. \n\nWhen a spike in elderly deaths occurs, many believe that Kira is making a comeback. This time, however, those dying are publicly wishing for Kira to kill them, inspiring many other suicidal individuals to call upon Kira's powers. With both publicity and the number of deaths ramping up, the Japanese police and the anonymous detective L are drawn in to tackle the return of the Death Note.\n\n[Written by MAL Rewrite]",
-      "background": "Death Note: Tokubetsu-hen was drawn in commemoration of the screening of the live-action movie, L change the WorLd. The one-shot was published in English as a part of VIZ Media's Death Note All-in-One Edition, which was released on September 6, 2017.",
-      "authors": [
-        {
-          "mal_id": 1888,
-          "type": "people",
-          "name": "Obata, Takeshi",
-          "url": "https://myanimelist.net/people/1888/Takeshi_Obata",
-          "role": null
-        },
-        {
-          "mal_id": 2111,
-          "type": "people",
-          "name": "Ohba, Tsugumi",
-          "url": "https://myanimelist.net/people/2111/Tsugumi_Ohba",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 83,
-          "type": "manga",
-          "name": "Shounen Jump (Weekly)",
-          "url": "https://myanimelist.net/manga/magazine/83/Shounen_Jump_Weekly"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 7,
-          "type": "manga",
-          "name": "Mystery",
-          "url": "https://myanimelist.net/manga/genre/7/Mystery"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": [
-        {
-          "mal_id": 27,
-          "type": "manga",
-          "name": "Shounen",
-          "url": "https://myanimelist.net/manga/genre/27/Shounen"
-        }
-      ]
-    },
-    {
-      "mal_id": 5508,
-      "url": "https://myanimelist.net/manga/5508/Baby_Universe",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/7020.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/7020t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/7020l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/7020.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/7020t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/7020l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Baby Universe"
-        }
-      ],
-      "title": "Baby Universe",
-      "title_english": "",
-      "title_japanese": "",
-      "title_synonyms": [],
-      "type": "Manga",
-      "chapters": 1,
-      "volumes": 1,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2002-01-01T00:00:00+00:00",
-        "to": "2002-01-01T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 1,
-            "year": 2002
-          },
-          "to": {
-            "day": 1,
-            "month": 1,
-            "year": 2002
-          }
-        },
-        "string": "2002 to 2002"
-      },
-      "score": null,
-      "scored_by": 54,
-      "rank": 15953,
-      "popularity": 29373,
-      "members": 161,
-      "favorites": null,
-      "synopsis": "Can Kengo convince Saki that she's not too grown up to recapture the innocent excitement they felt while searching the sky for UFOs as kids?",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 2817,
-          "type": "people",
-          "name": "Akira, Shouko",
-          "url": "https://myanimelist.net/people/2817/Shouko_Akira",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": [
-        {
-          "mal_id": 25,
-          "type": "manga",
-          "name": "Shoujo",
-          "url": "https://myanimelist.net/manga/genre/25/Shoujo"
-        }
-      ]
-    },
-    {
-      "mal_id": 5999,
-      "url": "https://myanimelist.net/manga/5999/Gakuen_no_Toy",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
-          "small_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
-          "large_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
-          "small_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png",
-          "large_image_url": "https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Gakuen no Toy"
-        }
-      ],
-      "title": "Gakuen no Toy",
-      "title_english": null,
-      "title_japanese": null,
-      "title_synonyms": [],
-      "type": "Manga",
-      "chapters": null,
-      "volumes": null,
-      "status": "Publishing",
-      "publishing": true,
-      "published": {
-        "from": "2006-11-06T00:00:00+00:00",
-        "to": null,
-        "prop": {
-          "from": {
-            "day": 6,
-            "month": 11,
-            "year": 2006
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": "Nov 6, 2006 to ?"
-      },
-      "score": null,
-      "scored_by": 2,
-      "rank": 23654,
-      "popularity": 79748,
-      "members": 29,
-      "favorites": 1,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 4822,
-          "type": "people",
-          "name": "Fujida, Maki",
-          "url": "https://myanimelist.net/people/4822/Maki_Fujida",
-          "role": "Story & Art"
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 74,
-          "type": "manga",
-          "name": "Princess",
-          "url": "https://myanimelist.net/manga/magazine/74/Princess"
-        }
-      ],
-      "genres": [],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 8322,
-      "url": "https://myanimelist.net/manga/8322/Karakuri",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/11469.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/11469t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/11469l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/11469.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/11469t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/11469l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Karakuri"
-        },
-        {
-          "type": "English",
-          "title": "Clockwork"
-        }
-      ],
-      "title": "Karakuri",
-      "title_english": "Clockwork",
-      "title_japanese": "",
-      "title_synonyms": [],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": 6.28,
-      "scored_by": 390,
-      "rank": 17774,
-      "popularity": 19151,
-      "members": 701,
-      "favorites": null,
-      "synopsis": "Her grandfather has passed on, leaving a mecha in his likeness to help her. Has he left other gifts and will she ever truly understand? -from Baka-Updates Manga",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 3490,
-          "type": "people",
-          "name": "Ishiguro, Masakazu",
-          "url": "https://myanimelist.net/people/3490/Masakazu_Ishiguro",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 24,
-          "type": "manga",
-          "name": "Sci-Fi",
-          "url": "https://myanimelist.net/manga/genre/24/Sci-Fi"
-        },
-        {
-          "mal_id": 36,
-          "type": "manga",
-          "name": "Slice of Life",
-          "url": "https://myanimelist.net/manga/genre/36/Slice_of_Life"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 9012,
-      "url": "https://myanimelist.net/manga/9012/Skin_wo_Nuide",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/102149.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/102149t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/102149l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/102149.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/102149t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/102149l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Skin wo Nuide"
-        },
-        {
-          "type": "Japanese",
-          "title": "スキンを脱いで"
-        },
-        {
-          "type": "Synonym",
-          "title": "Take Off Your Skin"
-        }
-      ],
-      "title": "Skin wo Nuide",
-      "title_english": "",
-      "title_japanese": "スキンを脱いで",
-      "title_synonyms": [
-        "Take Off Your Skin"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2007-11-24T00:00:00+00:00",
-        "to": "2007-11-24T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 24,
-            "month": 11,
-            "year": 2007
-          },
-          "to": {
-            "day": 24,
-            "month": 11,
-            "year": 2007
-          }
-        },
-        "string": "Nov 24, 2007 to Nov 24, 2007"
-      },
-      "score": 6.31,
-      "scored_by": 122,
-      "rank": null,
-      "popularity": 31161,
-      "members": 266,
-      "favorites": null,
-      "synopsis": "A 26 year old office lady and a 35 year old IT worker hookup in an online dating chatroom and eventually decide to meet in person. Unexpectedly, neither one of them are who they claim to be, but will that be enough to stifle their feelings?",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 5807,
-          "type": "people",
-          "name": "Gotoh, Juan",
-          "url": "https://myanimelist.net/people/5807/Juan_Gotoh",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 452,
-          "type": "manga",
-          "name": "Comic Masyo",
-          "url": "https://myanimelist.net/manga/magazine/452/Comic_Masyo"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 9370,
-      "url": "https://myanimelist.net/manga/9370/Yuri_Awase",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/12746.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/12746t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/12746l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/12746.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/12746t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/12746l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Yuri Awase"
-        }
-      ],
-      "title": "Yuri Awase",
-      "title_english": "",
-      "title_japanese": "",
-      "title_synonyms": [],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": null,
-      "scored_by": 94,
-      "rank": null,
-      "popularity": 33582,
-      "members": 223,
-      "favorites": null,
-      "synopsis": "Mayu, an adolescent girl, has always dreamed of engaging in sexual intercourse with a person of the same gender, but due to her traditional upbringing in rural Japan, she is reluctant to reveal her sexual orientation. However, after Yuriko, her older sister-in-law, stumbles into Mayu masturbating in the washroom, the two proceed to indulge in their lustful and immoral desires...\n\n[Written by MAL Rewrite]",
-      "background": null,
-      "authors": [],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 49,
-          "type": "manga",
-          "name": "Erotica",
-          "url": "https://myanimelist.net/manga/genre/49/Erotica"
-        },
-        {
-          "mal_id": 26,
-          "type": "manga",
-          "name": "Girls Love",
-          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
-        },
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 11122,
-      "url": "https://myanimelist.net/manga/11122/Heart_no_Present",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/15027.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/15027t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/15027l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/15027.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/15027t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/15027l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Heart no Present"
-        },
-        {
-          "type": "Japanese",
-          "title": "ハートのプレゼント"
-        },
-        {
-          "type": "Synonym",
-          "title": "ハートのプレゼント, Present of the heart"
-        }
-      ],
-      "title": "Heart no Present",
-      "title_english": "",
-      "title_japanese": "ハートのプレゼント",
-      "title_synonyms": [
-        "ハートのプレゼント, Present of the heart"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": 6.57,
-      "scored_by": 238,
-      "rank": 14967,
-      "popularity": 25359,
-      "members": 420,
-      "favorites": null,
-      "synopsis": "ILDA is one of the best basketball players. He even has his own cheering section. Tsubaki finds herself staring at him while she practices her shoots. But her team is not even good. And if they don't find a way to win the next basketball game, their team might get canceled!",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 1923,
-          "type": "people",
-          "name": "Enomoto, Chizuru",
-          "url": "https://myanimelist.net/people/1923/Chizuru_Enomoto",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 30,
-          "type": "manga",
-          "name": "Sports",
-          "url": "https://myanimelist.net/manga/genre/30/Sports"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [
-        {
-          "mal_id": 78,
-          "type": "manga",
-          "name": "Team Sports",
-          "url": "https://myanimelist.net/manga/genre/78/Team_Sports"
-        }
-      ],
-      "demographics": []
-    },
-    {
-      "mal_id": 13097,
-      "url": "https://myanimelist.net/manga/13097/Regarding_Mika",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/22178.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/22178t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/22178l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/22178.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/22178t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/22178l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Regarding Mika"
-        }
-      ],
-      "title": "Regarding Mika",
-      "title_english": "",
-      "title_japanese": "",
-      "title_synonyms": [],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": 5.48,
-      "scored_by": 257,
-      "rank": null,
-      "popularity": 21778,
-      "members": 560,
-      "favorites": null,
-      "synopsis": "An eroguro story about the last day of a woman and things she'll see for the last time in her life.",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 7159,
-          "type": "people",
-          "name": "Hayami, Jun",
-          "url": "https://myanimelist.net/people/7159/Jun_Hayami",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        },
-        {
-          "mal_id": 14,
-          "type": "manga",
-          "name": "Horror",
-          "url": "https://myanimelist.net/manga/genre/14/Horror"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 13354,
-      "url": "https://myanimelist.net/manga/13354/Hissatsu_Surume_Katame",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/89687.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/89687t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/89687l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/89687.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/89687t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/89687l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Hissatsu Surume Katame"
-        },
-        {
-          "type": "Japanese",
-          "title": "必殺するめ固め"
-        },
-        {
-          "type": "Synonym",
-          "title": "The Deadly Dried Squid Technique"
-        }
-      ],
-      "title": "Hissatsu Surume Katame",
-      "title_english": "",
-      "title_japanese": "必殺するめ固め",
-      "title_synonyms": [
-        "The Deadly Dried Squid Technique"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "1979-07-01T00:00:00+00:00",
-        "to": "1979-07-01T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 7,
-            "year": 1979
-          },
-          "to": {
-            "day": 1,
-            "month": 7,
-            "year": 1979
-          }
-        },
-        "string": "Jul 1979 to Jul 1979"
-      },
-      "score": 5.08,
-      "scored_by": 400,
-      "rank": 21230,
-      "popularity": 20461,
-      "members": 734,
-      "favorites": null,
-      "synopsis": "If you've ever had a guy steal your girl through the use of a squid-related judo move, this oneshot will definitely speak to you!\n\nIt straddles the line between being comedic and just plain odd. If I had to give it some deep meaning, I'd say it speaks to the futility of life. Sometimes the bad guys just win, and the good guys get embarrassed. \n\n(Source: MU)",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 5398,
-          "type": "people",
-          "name": "Tsuge, Yoshiharu",
-          "url": "https://myanimelist.net/people/5398/Yoshiharu_Tsuge",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": [
-        {
-          "mal_id": 41,
-          "type": "manga",
-          "name": "Seinen",
-          "url": "https://myanimelist.net/manga/genre/41/Seinen"
-        }
-      ]
-    },
-    {
-      "mal_id": 13585,
-      "url": "https://myanimelist.net/manga/13585/Rasen",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/270798.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/270798t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/270798l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/270798.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/270798t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/270798l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Rasen"
-        },
-        {
-          "type": "English",
-          "title": "Spiral"
-        },
-        {
-          "type": "Japanese",
-          "title": "らせん"
-        },
-        {
-          "type": "Synonym",
-          "title": "The Spiral"
-        }
-      ],
-      "title": "Rasen",
-      "title_english": "Spiral",
-      "title_japanese": "らせん",
-      "title_synonyms": [
-        "The Spiral"
-      ],
-      "type": "Novel",
-      "chapters": 47,
-      "volumes": 1,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "1995-01-01T00:00:00+00:00",
-        "to": "1995-01-01T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 1,
-            "year": 1995
-          },
-          "to": {
-            "day": 1,
-            "month": 1,
-            "year": 1995
-          }
-        },
-        "string": "1995 to 1995"
-      },
-      "score": 7.31,
-      "scored_by": 232,
-      "rank": 4733,
-      "popularity": 17691,
-      "members": 842,
-      "favorites": null,
-      "synopsis": "Pathologist Ando is at a low point in his life following his small son's death from drowning and the subsiquent break-up of his marriage. Work is his only escape, and his depressing world of lonliness and regret is shaken up when an old rival from school, Ryuji Takayama, turns up on his slab ready to be dissected.\n\nBizzare things happen during the post mortem that link Ryuji's demise to a series of mysterious deaths. From beyond the grave Ryuji appears to be leading Ando towards a suspicious videotape - could this hold the answer to the riddle of the strange deaths? or is it merely the first clue? When Ando meets Mai, an attractive former student of Ryuji's, his desire to solve the puzzle transcends curiosity and becomes a matter of life or death.\n\nSPIRAL is the stunning sequel to the highliy acclaimed RING, and can also be read as a standalone.\n\n(Source: Vertical Inc.)",
-      "background": "Rasen was published in English as Spiral by Vertical Inc. on January 1, 2005.",
-      "authors": [
-        {
-          "mal_id": 3288,
-          "type": "people",
-          "name": "Suzuki, Koji",
-          "url": "https://myanimelist.net/people/3288/Koji_Suzuki",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 14,
-          "type": "manga",
-          "name": "Horror",
-          "url": "https://myanimelist.net/manga/genre/14/Horror"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 13586,
-      "url": "https://myanimelist.net/manga/13586/Loop",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/270792.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/270792t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/270792l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/270792.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/270792t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/270792l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Loop"
-        },
-        {
-          "type": "English",
-          "title": "Loop"
-        },
-        {
-          "type": "Japanese",
-          "title": "ループ"
-        }
-      ],
-      "title": "Loop",
-      "title_english": "Loop",
-      "title_japanese": "ループ",
-      "title_synonyms": [],
-      "type": "Novel",
-      "chapters": 43,
-      "volumes": 1,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "1998-01-01T00:00:00+00:00",
-        "to": "1998-01-01T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 1,
-            "year": 1998
-          },
-          "to": {
-            "day": 1,
-            "month": 1,
-            "year": 1998
-          }
-        },
-        "string": "1998 to 1998"
-      },
-      "score": null,
-      "scored_by": 107,
-      "rank": 22122,
-      "popularity": 25198,
-      "members": 455,
-      "favorites": null,
-      "synopsis": "In Loop, the killer mimics both AIDS and cancer in a deadly new guise. Kaoru Futami, a youth mature beyond his years, must hope to find answers in the deserts of New Mexico and the Loop project, a virtual matrix created by scientists. The fate of more than just his loved ones depends on Kaoru's success.\n\nIn this suspense-filled follow-up to Ring and Spiral, Suzuki masterfully confounds the reader with a stunning new twist on the Ring mythology.\n\n(Source: Vertical Inc.)",
-      "background": "Loop was published in English by Vertical Inc. on October 1, 2005.",
-      "authors": [
-        {
-          "mal_id": 3288,
-          "type": "people",
-          "name": "Suzuki, Koji",
-          "url": "https://myanimelist.net/people/3288/Koji_Suzuki",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 14,
-          "type": "manga",
-          "name": "Horror",
-          "url": "https://myanimelist.net/manga/genre/14/Horror"
-        },
-        {
-          "mal_id": 7,
-          "type": "manga",
-          "name": "Mystery",
-          "url": "https://myanimelist.net/manga/genre/7/Mystery"
-        },
-        {
-          "mal_id": 24,
-          "type": "manga",
-          "name": "Sci-Fi",
-          "url": "https://myanimelist.net/manga/genre/24/Sci-Fi"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 14010,
-      "url": "https://myanimelist.net/manga/14010/Hokenshitsu_no_Shinigami",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/19900.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/19900t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/19900l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/19900.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/19900t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/19900l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Hokenshitsu no Shinigami"
-        },
-        {
-          "type": "Japanese",
-          "title": "保健室の死神"
-        },
-        {
-          "type": "Synonym",
-          "title": "The Shinigami Infirmary"
-        }
-      ],
-      "title": "Hokenshitsu no Shinigami",
-      "title_english": "",
-      "title_japanese": "保健室の死神",
-      "title_synonyms": [
-        "The Shinigami Infirmary"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2009-01-01T00:00:00+00:00",
-        "to": "2009-01-01T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 1,
-            "year": 2009
-          },
-          "to": {
-            "day": 1,
-            "month": 1,
-            "year": 2009
-          }
-        },
-        "string": "2009 to 2009"
-      },
-      "score": 6.87,
-      "scored_by": 498,
-      "rank": 10634,
-      "popularity": 14671,
-      "members": 1065,
-      "favorites": null,
-      "synopsis": "Hadesu Sensei is no ordinary middle school nurse. In fact, many students believe he is a shinigami. His excessive friendliness and eagerness to win his students' affection does little to offset his terrifying appearance. But, fortunately for this middle school, Hadesu Sensei is an expert at extracting \"byouma\", demons of disease, from possessed students!",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 3753,
-          "type": "people",
-          "name": "Aimoto, Shou",
-          "url": "https://myanimelist.net/people/3753/Shou_Aimoto",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 249,
-          "type": "manga",
-          "name": "Akamaru Jump",
-          "url": "https://myanimelist.net/manga/magazine/249/Akamaru_Jump"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 4,
-          "type": "manga",
-          "name": "Comedy",
-          "url": "https://myanimelist.net/manga/genre/4/Comedy"
-        },
-        {
-          "mal_id": 37,
-          "type": "manga",
-          "name": "Supernatural",
-          "url": "https://myanimelist.net/manga/genre/37/Supernatural"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [
-        {
-          "mal_id": 23,
-          "type": "manga",
-          "name": "School",
-          "url": "https://myanimelist.net/manga/genre/23/School"
-        }
-      ],
-      "demographics": [
-        {
-          "mal_id": 27,
-          "type": "manga",
-          "name": "Shounen",
-          "url": "https://myanimelist.net/manga/genre/27/Shounen"
-        }
-      ]
-    },
-    {
-      "mal_id": 14774,
-      "url": "https://myanimelist.net/manga/14774/Yoru_no_Sugao",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/271176.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/271176t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/271176l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/271176.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/271176t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/271176l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Yoru no Sugao"
-        },
-        {
-          "type": "Japanese",
-          "title": "ヨルノスガオ"
-        }
-      ],
-      "title": "Yoru no Sugao",
-      "title_english": "",
-      "title_japanese": "ヨルノスガオ",
-      "title_synonyms": [],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2007-12-27T00:00:00+00:00",
-        "to": "2007-12-27T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 27,
-            "month": 12,
-            "year": 2007
-          },
-          "to": {
-            "day": 27,
-            "month": 12,
-            "year": 2007
-          }
-        },
-        "string": "Dec 27, 2007 to Dec 27, 2007"
-      },
-      "score": null,
-      "scored_by": 93,
-      "rank": null,
-      "popularity": 34784,
-      "members": 224,
-      "favorites": null,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 6760,
-          "type": "people",
-          "name": "Youshu, Ohepe",
-          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 258,
-          "type": "manga",
-          "name": "Comic Hotmilk",
-          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 14981,
-      "url": "https://myanimelist.net/manga/14981/Suru",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/21674.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/21674t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/21674l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/21674.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/21674t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/21674l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Suru?"
-        },
-        {
-          "type": "Japanese",
-          "title": "する？"
-        },
-        {
-          "type": "Synonym",
-          "title": "Wanna Do It?"
-        }
-      ],
-      "title": "Suru?",
-      "title_english": "",
-      "title_japanese": "する？",
-      "title_synonyms": [
-        "Wanna Do It?"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2008-03-05T00:00:00+00:00",
-        "to": "2008-03-05T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 5,
-            "month": 3,
-            "year": 2008
-          },
-          "to": {
-            "day": 5,
-            "month": 3,
-            "year": 2008
-          }
-        },
-        "string": "Mar 5, 2008 to Mar 5, 2008"
-      },
-      "score": null,
-      "scored_by": 64,
-      "rank": null,
-      "popularity": 36720,
-      "members": 180,
-      "favorites": null,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 6760,
-          "type": "people",
-          "name": "Youshu, Ohepe",
-          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 555,
-          "type": "manga",
-          "name": "Comic Mujin",
-          "url": "https://myanimelist.net/manga/magazine/555/Comic_Mujin"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 14982,
-      "url": "https://myanimelist.net/manga/14982/Chibi_tte_Iuna",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/21756.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/21756t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/21756l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/21756.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/21756t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/21756l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Chibi tte Iuna!!"
-        },
-        {
-          "type": "Japanese",
-          "title": "チビって言うな～っ！！"
-        },
-        {
-          "type": "Synonym",
-          "title": "Don’t Call Me a Midget!!"
-        }
-      ],
-      "title": "Chibi tte Iuna!!",
-      "title_english": "",
-      "title_japanese": "チビって言うな～っ！！",
-      "title_synonyms": [
-        "Don’t Call Me a Midget!!"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2009-04-04T00:00:00+00:00",
-        "to": "2009-04-04T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 4,
-            "month": 4,
-            "year": 2009
-          },
-          "to": {
-            "day": 4,
-            "month": 4,
-            "year": 2009
-          }
-        },
-        "string": "Apr 4, 2009 to Apr 4, 2009"
-      },
-      "score": 6.22,
-      "scored_by": 188,
-      "rank": null,
-      "popularity": 24714,
-      "members": 441,
-      "favorites": null,
-      "synopsis": "Her older brother doesn't think she's all that grown up so she decide to show him that she really is an adult. Her female friend helps push her even farther towards adulthood as well.",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 6760,
-          "type": "people",
-          "name": "Youshu, Ohepe",
-          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 555,
-          "type": "manga",
-          "name": "Comic Mujin",
-          "url": "https://myanimelist.net/manga/magazine/555/Comic_Mujin"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 49,
-          "type": "manga",
-          "name": "Erotica",
-          "url": "https://myanimelist.net/manga/genre/49/Erotica"
-        },
-        {
-          "mal_id": 26,
-          "type": "manga",
-          "name": "Girls Love",
-          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
-        },
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 14984,
-      "url": "https://myanimelist.net/manga/14984/Fushidarana_Karada",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/111039.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/111039t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/111039l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/111039.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/111039t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/111039l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Fushidarana Karada"
-        },
-        {
-          "type": "Japanese",
-          "title": "フシダラナカラダ"
-        },
-        {
-          "type": "Synonym",
-          "title": "Wet and Sloppy Bodies"
-        }
-      ],
-      "title": "Fushidarana Karada",
-      "title_english": "",
-      "title_japanese": "フシダラナカラダ",
-      "title_synonyms": [
-        "Wet and Sloppy Bodies"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2008-07-02T00:00:00+00:00",
-        "to": "2008-07-02T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 2,
-            "month": 7,
-            "year": 2008
-          },
-          "to": {
-            "day": 2,
-            "month": 7,
-            "year": 2008
-          }
-        },
-        "string": "Jul 2, 2008 to Jul 2, 2008"
-      },
-      "score": null,
-      "scored_by": 90,
-      "rank": null,
-      "popularity": 33183,
-      "members": 230,
-      "favorites": null,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 6760,
-          "type": "people",
-          "name": "Youshu, Ohepe",
-          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 258,
-          "type": "manga",
-          "name": "Comic Hotmilk",
-          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 16257,
-      "url": "https://myanimelist.net/manga/16257/So_Serious",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/23850.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/23850t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/23850l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/23850.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/23850t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/23850l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "So Serious"
-        }
-      ],
-      "title": "So Serious",
-      "title_english": "",
-      "title_japanese": "",
-      "title_synonyms": [],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": 6.8,
-      "scored_by": 243,
-      "rank": 11389,
-      "popularity": 23379,
-      "members": 408,
-      "favorites": null,
-      "synopsis": "Guns, crosswords and a dash of hostage molestation!\n\n(Source: M-U)",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 8962,
-          "type": "people",
-          "name": "Matsuo, Marta",
-          "url": "https://myanimelist.net/people/8962/Marta_Matsuo",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 394,
-          "type": "manga",
-          "name": "Opera",
-          "url": "https://myanimelist.net/manga/magazine/394/Opera"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 28,
-          "type": "manga",
-          "name": "Boys Love",
-          "url": "https://myanimelist.net/manga/genre/28/Boys_Love"
-        },
-        {
-          "mal_id": 8,
-          "type": "manga",
-          "name": "Drama",
-          "url": "https://myanimelist.net/manga/genre/8/Drama"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 18082,
-      "url": "https://myanimelist.net/manga/18082/Her_Leg",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/27673.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/27673t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/27673l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/27673.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/27673t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/27673l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Her Leg"
-        },
-        {
-          "type": "Japanese",
-          "title": "オミアシ"
-        },
-        {
-          "type": "Synonym",
-          "title": "Omiashi"
-        }
-      ],
-      "title": "Her Leg",
-      "title_english": "",
-      "title_japanese": "オミアシ",
-      "title_synonyms": [
-        "Omiashi"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2009-01-01T00:00:00+00:00",
-        "to": null,
-        "prop": {
-          "from": {
-            "day": 1,
-            "month": 1,
-            "year": 2009
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": "2009"
-      },
-      "score": null,
-      "scored_by": 64,
-      "rank": null,
-      "popularity": 39364,
-      "members": 150,
-      "favorites": null,
-      "synopsis": "Hentai one-shot focusing on leg fetish.",
-      "background": null,
-      "authors": [],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 18355,
-      "url": "https://myanimelist.net/manga/18355/Urbane",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/28070.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/28070t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/28070l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/2/28070.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/28070t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/28070l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Urbane"
-        },
-        {
-          "type": "Synonym",
-          "title": "The Snow-Woman"
-        }
-      ],
-      "title": "Urbane",
-      "title_english": "",
-      "title_japanese": "",
-      "title_synonyms": [
-        "The Snow-Woman"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2009-01-17T00:00:00+00:00",
-        "to": "2009-01-17T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 17,
-            "month": 1,
-            "year": 2009
-          },
-          "to": {
-            "day": 17,
-            "month": 1,
-            "year": 2009
-          }
-        },
-        "string": "Jan 17, 2009 to Jan 17, 2009"
-      },
-      "score": 6.4,
-      "scored_by": 116,
-      "rank": 16898,
-      "popularity": 32016,
-      "members": 250,
-      "favorites": null,
-      "synopsis": "A winter romance between a cheerful country girl and a beauty from the city who doesn't like to be touched.\n\n(Source: Lililicious)",
-      "background": null,
-      "authors": [],
-      "serializations": [
-        {
-          "mal_id": 423,
-          "type": "manga",
-          "name": "Comic Yuri Hime",
-          "url": "https://myanimelist.net/manga/magazine/423/Comic_Yuri_Hime"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 26,
-          "type": "manga",
-          "name": "Girls Love",
-          "url": "https://myanimelist.net/manga/genre/26/Girls_Love"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 22184,
-      "url": "https://myanimelist.net/manga/22184/Hakomiya_Gensou_Gekijou",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/36048.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/36048t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/36048l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/36048.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/36048t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/36048l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Hakomiya Gensou Gekijou"
-        },
-        {
-          "type": "English",
-          "title": "Kei Hakomiya's Fantasy Theater"
-        },
-        {
-          "type": "Japanese",
-          "title": "箱宮ケイ幻想劇場"
-        }
-      ],
-      "title": "Hakomiya Gensou Gekijou",
-      "title_english": "Kei Hakomiya's Fantasy Theater",
-      "title_japanese": "箱宮ケイ幻想劇場",
-      "title_synonyms": [],
-      "type": "Manga",
-      "chapters": 2,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": null,
-      "scored_by": 10,
-      "rank": 42824,
-      "popularity": 63988,
-      "members": 36,
-      "favorites": null,
-      "synopsis": "A manga that seems to contain two short chapters.\n\n1. The Summer of Gah and us.\n2. The Moon and the Desert, and the Bomb Rocket\n\n(Source: MU)",
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 11207,
-          "type": "people",
-          "name": "Hakomiya, Kei",
-          "url": "https://myanimelist.net/people/11207/Kei_Hakomiya",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 10,
-          "type": "manga",
-          "name": "Fantasy",
-          "url": "https://myanimelist.net/manga/genre/10/Fantasy"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 22420,
-      "url": "https://myanimelist.net/manga/22420/Sakura_Midareru",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/48163.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/48163t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/48163l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/3/48163.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/3/48163t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/3/48163l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Sakura Midareru"
-        },
-        {
-          "type": "Japanese",
-          "title": "さくらみだれる"
-        },
-        {
-          "type": "Synonym",
-          "title": "Sakura's Disturbance"
-        }
-      ],
-      "title": "Sakura Midareru",
-      "title_english": "",
-      "title_japanese": "さくらみだれる",
-      "title_synonyms": [
-        "Sakura's Disturbance"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": "2009-09-02T00:00:00+00:00",
-        "to": "2009-09-02T00:00:00+00:00",
-        "prop": {
-          "from": {
-            "day": 2,
-            "month": 9,
-            "year": 2009
-          },
-          "to": {
-            "day": 2,
-            "month": 9,
-            "year": 2009
-          }
-        },
-        "string": "Sep 2, 2009 to Sep 2, 2009"
-      },
-      "score": null,
-      "scored_by": 75,
-      "rank": null,
-      "popularity": 35050,
-      "members": 202,
-      "favorites": null,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 6760,
-          "type": "people",
-          "name": "Youshu, Ohepe",
-          "url": "https://myanimelist.net/people/6760/Ohepe_Youshu",
-          "role": null
-        }
-      ],
-      "serializations": [
-        {
-          "mal_id": 258,
-          "type": "manga",
-          "name": "Comic Hotmilk",
-          "url": "https://myanimelist.net/manga/magazine/258/Comic_Hotmilk"
-        }
-      ],
-      "genres": [
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    },
-    {
-      "mal_id": 23478,
-      "url": "https://myanimelist.net/manga/23478/Kongetsu_no_Wanko",
-      "images": {
-        "jpg": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/49105.jpg",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/49105t.jpg",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/49105l.jpg"
-        },
-        "webp": {
-          "image_url": "https://cdn.myanimelist.net/images/manga/1/49105.webp",
-          "small_image_url": "https://cdn.myanimelist.net/images/manga/1/49105t.webp",
-          "large_image_url": "https://cdn.myanimelist.net/images/manga/1/49105l.webp"
-        }
-      },
-      "approved": true,
-      "titles": [
-        {
-          "type": "Default",
-          "title": "Kongetsu no Wanko"
-        },
-        {
-          "type": "Japanese",
-          "title": "今月のわんこ"
-        },
-        {
-          "type": "Synonym",
-          "title": "This Month's Doggie"
-        }
-      ],
-      "title": "Kongetsu no Wanko",
-      "title_english": "",
-      "title_japanese": "今月のわんこ",
-      "title_synonyms": [
-        "This Month's Doggie"
-      ],
-      "type": "One-shot",
-      "chapters": 1,
-      "volumes": null,
-      "status": "Finished",
-      "publishing": false,
-      "published": {
-        "from": null,
-        "to": null,
-        "prop": {
-          "from": {
-            "day": null,
-            "month": null,
-            "year": null
-          },
-          "to": {
-            "day": null,
-            "month": null,
-            "year": null
-          }
-        },
-        "string": null
-      },
-      "score": null,
-      "scored_by": 33,
-      "rank": null,
-      "popularity": 47810,
-      "members": 90,
-      "favorites": null,
-      "synopsis": null,
-      "background": null,
-      "authors": [
-        {
-          "mal_id": 12206,
-          "type": "people",
-          "name": "Usakun",
-          "url": "https://myanimelist.net/people/12206/Usakun",
-          "role": null
-        }
-      ],
-      "serializations": [],
-      "genres": [
-        {
-          "mal_id": 4,
-          "type": "manga",
-          "name": "Comedy",
-          "url": "https://myanimelist.net/manga/genre/4/Comedy"
-        },
-        {
-          "mal_id": 12,
-          "type": "manga",
-          "name": "Hentai",
-          "url": "https://myanimelist.net/manga/genre/12/Hentai"
-        }
-      ],
-      "explicit_genres": [],
-      "themes": [],
-      "demographics": []
-    }
-  ]
+	"pagination": {
+		"last_visible_page": 22,
+		"has_next_page": true,
+		"current_page": 5,
+		"items": {
+			"count": 100,
+			"total": 2188,
+			"per_page": 100
+		}
+	},
+	"data": [
+		{
+			"mal_id": 1966,
+			"url": "https://myanimelist.net/featured/1966/Idle_Dating_Sim_%E2%80%98Crush_Crush%E2%80%99_Arrives_on_Nutaku",
+			"title": "Idle Dating Sim ‘Crush Crush’ Arrives on Nutaku",
+			"summary": "Crush Crush: Moist and Uncensored is now available to play on Nutaku - for free!",
+			"published_at": "2016-10-12T10:04:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 45574,
+			"tags": [
+				"Advertorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1476436762-0b94478034ea0adaf74f5703ce3f2ee7.jpeg"
+				}
+			},
+			"excerpt": "Crush Crush: Moist and Uncensored is now available to play on Nutaku - for free!"
+		},
+		{
+			"mal_id": 1961,
+			"url": "https://myanimelist.net/featured/1961/Introduction_to_Webtoons__5_Awesome_Titles_to_Get_You_Hooked",
+			"title": "Introduction to Webtoons: 5 Awesome Titles to Get You Hooked!",
+			"summary": "Initially a form of comic strip designed to be easily read on mobiles, Webtoons quickly evolved to incorporate elements of Manwha(Korean Manga). The result has been a rich, vibrant form of art, and storytelling that frequently surpasses the quality of popular Anime and manga.",
+			"published_at": "2016-10-12T09:26:00.000+00:00",
+			"author_username": "Paper-Tiger",
+			"author_url": "https://myanimelist.net/profile/Paper-Tiger",
+			"views": 28335,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1476264300-eb7410cd8946dc747f64358b9fd2bb35.jpeg"
+				}
+			},
+			"excerpt": "Initially a form of comic strip designed to be easily read on mobiles, Webtoons quickly evolved to incorporate elements of Manwha(Korean Manga). The result has been ..."
+		},
+		{
+			"mal_id": 1912,
+			"url": "https://myanimelist.net/featured/1912/Top_10_Deredere_Characters_in_Anime__Deredere_Meaning",
+			"title": "Top 10 Deredere Characters in Anime: Deredere Meaning",
+			"summary": "A look of the top deredere characters, and what it actually means.",
+			"published_at": "2016-10-12T09:26:00.000+00:00",
+			"author_username": "madokamage",
+			"author_url": "https://myanimelist.net/profile/madokamage",
+			"views": 309645,
+			"tags": [
+				"Spoiler",
+				"Collection",
+				"Cute Girls"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1476262567-fe04c898adc97298e8ccee25db39e692.png"
+				}
+			},
+			"excerpt": "A look of the top deredere characters, and what it actually means."
+		},
+		{
+			"mal_id": 1963,
+			"url": "https://myanimelist.net/featured/1963/Attack_on_Titan_in_Comic_Form_and_Anime-fied_Steven_Universe",
+			"title": "Attack on Titan in Comic Form and Anime-fied Steven Universe!",
+			"summary": "Attack on Titan and Vampire Hunter D are now Western comics. The American Voltron's a hit, while Steven Universe is enlisting Japanese animators and Crunchyroll is producing international anime productions. Adaptations and co-productions were all the rage at New York Comic Con.",
+			"published_at": "2016-10-11T10:53:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 26377,
+			"tags": [
+				"Attack on Titan",
+				"Events",
+				"Editorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1476142307-da17f1ccf358205bb0edfcad425a8277.jpeg"
+				}
+			},
+			"excerpt": "Attack on Titan and Vampire Hunter D are now Western comics. The American Voltron's a hit, while Steven Universe is enlisting Japanese animators and Crunchyroll is p..."
+		},
+		{
+			"mal_id": 1951,
+			"url": "https://myanimelist.net/featured/1951/Kouta_Hirano__From_Hentai_to_Horror_to_Drifters",
+			"title": "Kouta Hirano: From Hentai to Horror to Drifters",
+			"summary": "An article looking at the life and works of mangaka Kouta Hirano who created the Hellsing franchise and is also the original creator of the Drifters manga and its upcoming anime adaptation.",
+			"published_at": "2016-10-11T10:45:00.000+00:00",
+			"author_username": "MFA_Community",
+			"author_url": "https://myanimelist.net/profile/MFA_Community",
+			"views": 78141,
+			"tags": [
+				"Mangaka"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475366797-d3f02ea36731d06daf05918172d0a9ed.jpeg"
+				}
+			},
+			"excerpt": "An article looking at the life and works of mangaka Kouta Hirano who created the Hellsing franchise and is also the original creator of the Drifters manga and its up..."
+		},
+		{
+			"mal_id": 1964,
+			"url": "https://myanimelist.net/featured/1964/Advice_for_Manga_Translators__9_Points_For_Success",
+			"title": "Advice for Manga Translators: 9 Points For Success",
+			"summary": "Deb Aoki gets in touch with a bunch of N. American publishing companies to get some insider info on what aspiring translators need to look out for.",
+			"published_at": "2016-10-11T10:07:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 7738,
+			"tags": [],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1476178966-17a598fa8163a1cc63dc13281f53fa23.png"
+				}
+			},
+			"excerpt": "Deb Aoki gets in touch with a bunch of N. American publishing companies to get some insider info on what aspiring translators need to look out for."
+		},
+		{
+			"mal_id": 1950,
+			"url": "https://myanimelist.net/featured/1950/Sympathetic_Anime_Villains_You_Cant_Help_But_Root_For",
+			"title": "Sympathetic Anime Villains You Can't Help But Root For",
+			"summary": "We're supposed to want the hero to succeed, but there are times when the bad guy has a good reason to be bad. We know you're secretly rooting for these sympathetic anime villains.",
+			"published_at": "2016-10-10T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 136480,
+			"tags": [
+				"Collection",
+				"Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475284676-bf1c7d9a4ee2dae9e3bcc11eee071e82.jpeg"
+				}
+			},
+			"excerpt": "We're supposed to want the hero to succeed, but there are times when the bad guy has a good reason to be bad. We know you're secretly rooting for these sympathetic a..."
+		},
+		{
+			"mal_id": 1947,
+			"url": "https://myanimelist.net/featured/1947/The_Fall_2016_Anime_Season_Has_Some_Actually_Good_LN_Adaptations",
+			"title": "The Fall 2016 Anime Season Has Some Actually Good LN Adaptations!",
+			"summary": "Light Novel adaptations have had something of a poor reputation over the past couple of years in anime. For every actually good one, there are 5-6 terrible highschool harems led by Yuji Everylead the Bland. But this upcoming Fall 2016 anime season looks like it might be the exception....maybe?",
+			"published_at": "2016-10-10T08:05:00.000+00:00",
+			"author_username": "5camp",
+			"author_url": "https://myanimelist.net/profile/5camp",
+			"views": 29004,
+			"tags": [
+				"First Impression"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475188803-d870206c955e842401423954272b44ae.jpeg"
+				}
+			},
+			"excerpt": "Light Novel adaptations have had something of a poor reputation over the past couple of years in anime. For every actually good one, there are 5-6 terrible highschoo..."
+		},
+		{
+			"mal_id": 1945,
+			"url": "https://myanimelist.net/featured/1945/New_Mobile_Game_features_VAs_from_SAO_DanMachi_Bakuman_and_more_",
+			"title": "New Mobile Game features VAs from SAO, DanMachi, Bakuman and more",
+			"summary": "Developers Silicon Studio, known for popular RPG 'Bravely Default', are coming out with a new mobile game 'FANTASICA: Bloodlines' this month.",
+			"published_at": "2016-10-08T06:55:00.000+00:00",
+			"author_username": "yungyoshi",
+			"author_url": "https://myanimelist.net/profile/yungyoshi",
+			"views": 22426,
+			"tags": [
+				"Advertorial",
+				"Games"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475131880-11397e3b77322f9ce464cc33279e2921.jpeg"
+				}
+			},
+			"excerpt": "Developers Silicon Studio, known for popular RPG 'Bravely Default', are coming out with a new mobile game 'FANTASICA: Bloodlines' this month."
+		},
+		{
+			"mal_id": 1949,
+			"url": "https://myanimelist.net/featured/1949/The_12_Creepiest_Anime_Openings_and_Endings_You_Just_Cant_Skip",
+			"title": "The 12 Creepiest Anime Openings and Endings You Just Can't Skip",
+			"summary": "Some anime OPs and EDs are awesome; others forgettable. And then there are those that leave you feeling uneasy and creeped out. Here are 12 of the creepiest anime openings and endings… and we mean that in the best possible way.",
+			"published_at": "2016-10-07T09:55:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 94450,
+			"tags": [
+				"Collection",
+				"Music"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475834094-18c00ada9771396b4d85eded5831affd.jpeg"
+				}
+			},
+			"excerpt": "Some anime OPs and EDs are awesome; others forgettable. And then there are those that leave you feeling uneasy and creeped out. Here are 12 of the creepiest anime op..."
+		},
+		{
+			"mal_id": 1946,
+			"url": "https://myanimelist.net/featured/1946/15_Bizarre_Anime_That_Make_You_Wonder_Wtf_Did_I_Just_Watch",
+			"title": "15 Bizarre Anime That Make You Wonder 'Wtf Did I Just Watch?'",
+			"summary": "There's weird, and then there's *really* weird. These anime are so surreal, weird, and downright bizarre that they'll leave you gaping at the screen, wondering \"wtf did I just watch!?\"",
+			"published_at": "2016-10-07T09:50:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 166364,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475197509-e77a14a9509a48ac240a9b00dbac7c5b.jpeg"
+				}
+			},
+			"excerpt": "There's weird, and then there's *really* weird. These anime are so surreal, weird, and downright bizarre that they'll leave you gaping at the screen, wondering \"wtf ..."
+		},
+		{
+			"mal_id": 1959,
+			"url": "https://myanimelist.net/featured/1959/Tips_on_Translating_Manga_Dialogue",
+			"title": "Tips on Translating Manga Dialogue",
+			"summary": "Basic tips on translating spoken lines in manga, and a method for splitting up the translation process for better quality and efficiency.",
+			"published_at": "2016-10-06T10:06:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 17511,
+			"tags": [],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475747817-09b45622d281df8b7649f0f43deec82b.png"
+				}
+			},
+			"excerpt": "Basic tips on translating spoken lines in manga, and a method for splitting up the translation process for better quality and efficiency."
+		},
+		{
+			"mal_id": 1921,
+			"url": "https://myanimelist.net/featured/1921/10_Anime_like_Attack_on_Titan__Recommendation_Corner",
+			"title": "10 Anime like Attack on Titan: Recommendation Corner",
+			"summary": "Post-apocalyptic action, humanity under attack, mystery and intrigue. Here are some more anime like Attack on Titan.",
+			"published_at": "2016-10-06T09:08:00.000+00:00",
+			"author_username": "HerrKaiser",
+			"author_url": "https://myanimelist.net/profile/HerrKaiser",
+			"views": 276219,
+			"tags": [
+				"Spoiler",
+				"Collection",
+				"Attack on Titan"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1478658333-38c9909d2829adf8e221199a98ba35f5.png"
+				}
+			},
+			"excerpt": "Post-apocalyptic action, humanity under attack, mystery and intrigue. Here are some more anime like Attack on Titan."
+		},
+		{
+			"mal_id": 1958,
+			"url": "https://myanimelist.net/featured/1958/Shin_Godzilla_Review__From_Evangelion_to_Shin_Godzilla",
+			"title": "Shin Godzilla Review: From Evangelion to Shin Godzilla",
+			"summary": "When Godzilla's in his heaven, all's right with the world. Director Hideaki Anno, creator of Neon Genesis Evangelion, turned the latest Godzilla movie into the highest grossing Japanese live-action film of all time. We went to the NY premiere, and it lives up to the hype!",
+			"published_at": "2016-10-06T09:04:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 20357,
+			"tags": [
+				"Review"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475813554-65647ca62a70e51ba78ff5f85ce44d04.jpeg"
+				}
+			},
+			"excerpt": "When Godzilla's in his heaven, all's right with the world. Director Hideaki Anno, creator of Neon Genesis Evangelion, turned the latest Godzilla movie into the highe..."
+		},
+		{
+			"mal_id": 1935,
+			"url": "https://myanimelist.net/featured/1935/Top_15_Anime_Pirate_Characters",
+			"title": "Top 15 Anime Pirate Characters",
+			"summary": "While pirates are still a very real threat even today, the timeless idea of the pirate has been somewhat romanticized in modern media. Here are 15 of the best and most renowned.",
+			"published_at": "2016-10-05T07:12:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 122748,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475650178-32ea767978211dc7c3ad09574c30e784.jpeg"
+				}
+			},
+			"excerpt": "While pirates are still a very real threat even today, the timeless idea of the pirate has been somewhat romanticized in modern media. Here are 15 of the best and mo..."
+		},
+		{
+			"mal_id": 1896,
+			"url": "https://myanimelist.net/featured/1896/10_Surprisingly_Good_Live-Action_Adaptations_of_Manga",
+			"title": "10 Surprisingly Good Live-Action Adaptations of Manga",
+			"summary": "It's pretty much a fact that films based on manga are rarely good, but which ones actually make for surprisingly good live-action adaptations and do justice to manga they are based on?",
+			"published_at": "2016-10-05T06:44:00.000+00:00",
+			"author_username": "FreeNightFalls",
+			"author_url": "https://myanimelist.net/profile/FreeNightFalls",
+			"views": 94553,
+			"tags": [
+				"Live Action",
+				"Collection",
+				"Mangaka"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475649807-641d84238077ef9afe72cd3d7b126847.jpeg"
+				}
+			},
+			"excerpt": "It's pretty much a fact that films based on manga are rarely good, but which ones actually make for surprisingly good live-action adaptations and do justice to manga..."
+		},
+		{
+			"mal_id": 1954,
+			"url": "https://myanimelist.net/featured/1954/The_FULL_Fall_2016_Anime_Season_52_Trailer_Rundown",
+			"title": "The FULL Fall 2016 Anime Season, 52 Trailer Rundown",
+			"summary": "At the first event of its kind held at the KADOKAWA offices in Iidabashi, Japan, I sit through 3+ hours of banter, industry guest appearances, and most importantly, 52 trailers for the upcoming anime of the Fall 2016 season.",
+			"published_at": "2016-10-04T13:20:00.000+00:00",
+			"author_username": "yungyoshi",
+			"author_url": "https://myanimelist.net/profile/yungyoshi",
+			"views": 33889,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475587028-e088399650b7afc044f6dc0453f40899.jpeg"
+				}
+			},
+			"excerpt": "At the first event of its kind held at the KADOKAWA offices in Iidabashi, Japan, I sit through 3+ hours of banter, industry guest appearances, and most importantly, ..."
+		},
+		{
+			"mal_id": 1942,
+			"url": "https://myanimelist.net/featured/1942/Anime_You_Never_Realized_Were_Anime__Nickelodeons_Forgotten_Classics",
+			"title": "Anime You Never Realized Were Anime: Nickelodeon's Forgotten Classics",
+			"summary": "In 1984, the Australian government gifted a group of koalas to Japan. This led to two koala based anime that we rerun for years on American television.",
+			"published_at": "2016-10-04T13:19:00.000+00:00",
+			"author_username": "CriticalAndroid",
+			"author_url": "https://myanimelist.net/profile/CriticalAndroid",
+			"views": 20996,
+			"tags": [
+				"Analysis",
+				"Animals"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474954800-9762a1f11a11e45307d71a03278a6e0a.png"
+				}
+			},
+			"excerpt": "In 1984, the Australian government gifted a group of koalas to Japan. This led to two koala based anime that we rerun for years on American television."
+		},
+		{
+			"mal_id": 1941,
+			"url": "https://myanimelist.net/featured/1941/Nine_Anime_To_Watch_When_Youre_Sad__Recommendation_Corner",
+			"title": "Nine Anime To Watch When You're Sad: Recommendation Corner",
+			"summary": "We all go through bouts of depression and we all deal with it in different ways. Even if we take solace in anime, we might watch completely different things ranging from the joyful to the horribly depressing.",
+			"published_at": "2016-10-03T09:28:00.000+00:00",
+			"author_username": "CriticalAndroid",
+			"author_url": "https://myanimelist.net/profile/CriticalAndroid",
+			"views": 172655,
+			"tags": [
+				"Spoiler",
+				"Recommendation",
+				"Despair",
+				"Heart-warming"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474873564-c0126a8def28ba4c4e6222875f7d7839.jpeg"
+				}
+			},
+			"excerpt": "We all go through bouts of depression and we all deal with it in different ways. Even if we take solace in anime, we might watch completely different things ranging ..."
+		},
+		{
+			"mal_id": 1943,
+			"url": "https://myanimelist.net/featured/1943/Is_Mob_Psycho_100_Better_than_One_Punch_Man",
+			"title": "Is Mob Psycho 100 Better than One Punch Man?",
+			"summary": "Mob Psycho 100's first (but hopefully not only) season has just come to an end, while One Punch Man's second season has just been announced. Which of the two ONE adaptations is ultimately the better show? Read on for the possibly surprising, almost certainly controversial answer!",
+			"published_at": "2016-10-03T09:26:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 77106,
+			"tags": [
+				"Analysis",
+				"One Punch Man",
+				"Editorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475487216-d6dbc2462f741b2154df3a0d552e7ac3.jpeg"
+				}
+			},
+			"excerpt": "Mob Psycho 100's first (but hopefully not only) season has just come to an end, while One Punch Man's second season has just been announced. Which of the two ONE ada..."
+		},
+		{
+			"mal_id": 1936,
+			"url": "https://myanimelist.net/featured/1936/The_Top_12_Strongest_Bleach_Characters",
+			"title": "The Top 12 Strongest Bleach Characters",
+			"summary": "Bleach is loaded with some of the most powerful fighters of any anime world. Here is a ranking of the 12 bleach characters we thought were the strongest.",
+			"published_at": "2016-09-30T11:47:00.000+00:00",
+			"author_username": "Soultsukino",
+			"author_url": "https://myanimelist.net/profile/Soultsukino",
+			"views": 362040,
+			"tags": [
+				"Collection",
+				"Bleach"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475040986-24f18103a0bb7f5217a3a534f05c1b80.png"
+				}
+			},
+			"excerpt": "Bleach is loaded with some of the most powerful fighters of any anime world. Here is a ranking of the 12 bleach characters we thought were the strongest."
+		},
+		{
+			"mal_id": 1931,
+			"url": "https://myanimelist.net/featured/1931/20_of_the_Best_Mature_Anime_of_All_Time",
+			"title": "20 of the Best Mature Anime of All Time",
+			"summary": "Anime aimed at teens is a lot of fun. But anime aimed at an older crowd is on a whole other level! You get more violence, gore, nudity and sex than you bargained for...which isn't entirely a bad thing.",
+			"published_at": "2016-09-30T11:32:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 1139706,
+			"tags": [
+				"Collection",
+				"Action",
+				"Cute Girls",
+				"Cute Guys",
+				"Horror",
+				"Supernatural",
+				"Sci-fi",
+				"Tokyo Ghoul"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474672839-d46d575906f4353784b632ade1447e27.png"
+				}
+			},
+			"excerpt": "Anime aimed at teens is a lot of fun. But anime aimed at an older crowd is on a whole other level! You get more violence, gore, nudity and sex than you bargained for..."
+		},
+		{
+			"mal_id": 1937,
+			"url": "https://myanimelist.net/featured/1937/Top_10_Himedere_Characters_in_Anime__Whats_a_Himedere",
+			"title": "Top 10 Himedere Characters in Anime: What's a Himedere?",
+			"summary": "Not all princesses are peachy! Here we explain the himedere archetype, and give you 10 examples of different himedere characters found in anime.",
+			"published_at": "2016-09-29T10:34:00.000+00:00",
+			"author_username": "wrestlingbubble2",
+			"author_url": "https://myanimelist.net/profile/wrestlingbubble2",
+			"views": 241399,
+			"tags": [
+				"Collection",
+				"Anime Archetypes",
+				"Character Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475125173-7edf28ecd4316e167b79bb59ccb72e09.png"
+				}
+			},
+			"excerpt": "Not all princesses are peachy! Here we explain the himedere archetype, and give you 10 examples of different himedere characters found in anime."
+		},
+		{
+			"mal_id": 1934,
+			"url": "https://myanimelist.net/featured/1934/Good_Help_Is_So_Hard_to_Find_These_Days__15_Evil_Henchmen",
+			"title": "Good Help Is So Hard to Find These Days: 15 Evil Henchmen",
+			"summary": "Anime Henchmen often serve as a mere hurdle for the heroes, but nonetheless one that they must overcome in order to face the true villain of their story.",
+			"published_at": "2016-09-29T10:19:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 28760,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474752178-59b57933566ae9839fc2bba0b6848ff6.jpeg"
+				}
+			},
+			"excerpt": "Anime Henchmen often serve as a mere hurdle for the heroes, but nonetheless one that they must overcome in order to face the true villain of their story."
+		},
+		{
+			"mal_id": 1924,
+			"url": "https://myanimelist.net/featured/1924/Shokugeki_no_Souma_In_Real_Life__From_Ramen_to_Hamburgers",
+			"title": "Shokugeki no Souma In Real Life: From Ramen to Hamburgers",
+			"summary": "It's time to bring the drool-worthy dishes from Shokugeki no Souma to life! If you had to pick between paitan ramen, a lamb pita burger, or oxtail, what would you choose?",
+			"published_at": "2016-09-28T09:45:00.000+00:00",
+			"author_username": "Overcooled",
+			"author_url": "https://myanimelist.net/profile/Overcooled",
+			"views": 45454,
+			"tags": [
+				"Food"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1475055862-30712dab9d70d2ba49aea0469e2e86cd.jpeg"
+				}
+			},
+			"excerpt": "It's time to bring the drool-worthy dishes from Shokugeki no Souma to life! If you had to pick between paitan ramen, a lamb pita burger, or oxtail, what would you ch..."
+		},
+		{
+			"mal_id": 1897,
+			"url": "https://myanimelist.net/featured/1897/Top_10_Best_Shoujo_Managa_That_Havent_Been_Adapted_into_Anime",
+			"title": "Top 10 Best Shoujo Managa That Haven't Been Adapted into Anime",
+			"summary": "Let's take a look at our list of the best rated shoujo manga that haven't been adapted into anime!",
+			"published_at": "2016-09-28T09:37:00.000+00:00",
+			"author_username": "FreeNightFalls",
+			"author_url": "https://myanimelist.net/profile/FreeNightFalls",
+			"views": 298179,
+			"tags": [
+				"Recommendation",
+				"Collection",
+				"Kawaii",
+				"Love",
+				"Mangaka"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473263019-17bb7596bef222b5153ef6a3f116e40e.jpeg"
+				}
+			},
+			"excerpt": "Let's take a look at our list of the best rated shoujo manga that haven't been adapted into anime!"
+		},
+		{
+			"mal_id": 1925,
+			"url": "https://myanimelist.net/featured/1925/12_Best_Romantic_Comedy_Anime_of_All_Time",
+			"title": "12 Best Romantic Comedy Anime of All Time",
+			"summary": "Great for a good laugh, a rainy day or cozying up to with a tub of ice cream; these are the top 12 romantic comedy anime of all time!",
+			"published_at": "2016-09-27T08:27:00.000+00:00",
+			"author_username": "animeChristian12",
+			"author_url": "https://myanimelist.net/profile/animeChristian12",
+			"views": 1265106,
+			"tags": [
+				"Collection",
+				"Love"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474404693-a245a2cfe20a07eabb4f0d46d503ee69.jpeg"
+				}
+			},
+			"excerpt": "Great for a good laugh, a rainy day or cozying up to with a tub of ice cream; these are the top 12 romantic comedy anime of all time!"
+		},
+		{
+			"mal_id": 1928,
+			"url": "https://myanimelist.net/featured/1928/Everlasting_Life__Top_10_Immortal_Characters",
+			"title": "Everlasting Life: Top 10 Immortal Characters",
+			"summary": "Since the dawn of fantasy storytelling in The Epic of Gilgamesh, immortality has been an ever present idea in myth, legend, and literature. Different rules regarding this concept have developed over time but many modern stories still feature characters who presumably can live forever.",
+			"published_at": "2016-09-27T08:26:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 91752,
+			"tags": [
+				"Spoiler",
+				"Collection",
+				"Bleach",
+				"Death Note",
+				"One Punch Man"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474955873-28ce10a1c074c50c1ef642ff7d46fc59.png"
+				}
+			},
+			"excerpt": "Since the dawn of fantasy storytelling in The Epic of Gilgamesh, immortality has been an ever present idea in myth, legend, and literature. Different rules regarding..."
+		},
+		{
+			"mal_id": 1919,
+			"url": "https://myanimelist.net/featured/1919/Re_Zero_and_the_Anxiety_of_Choice_",
+			"title": "Re:Zero and the Anxiety of Choice",
+			"summary": "In this article I will explore one of the most watched and talked about anime of the season, Re:Zero, through the lens of existential philosophy.",
+			"published_at": "2016-09-27T08:26:00.000+00:00",
+			"author_username": "MFA_Community",
+			"author_url": "https://myanimelist.net/profile/MFA_Community",
+			"views": 53323,
+			"tags": [
+				"Spoiler",
+				"Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474091647-7123f5fef60976326133d0aa49d17e04.jpeg"
+				}
+			},
+			"excerpt": "In this article I will explore one of the most watched and talked about anime of the season, Re:Zero, through the lens of existential philosophy."
+		},
+		{
+			"mal_id": 1938,
+			"url": "https://myanimelist.net/featured/1938/Ten_Bizarre_Anime_That_Combine_Two_Really_Random_Ideas",
+			"title": "Ten Bizarre Anime That Combine Two Really Random Ideas",
+			"summary": "Zombies, bears, and lesbians -- oh my. Join us on an adventure into weird anime genre and idea mashups that shouldn't work but do - oh so well.",
+			"published_at": "2016-09-26T08:13:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 40587,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474877542-d70d7a1e4463dd90c4e8f5f96671b8fe.jpeg"
+				}
+			},
+			"excerpt": "Zombies, bears, and lesbians -- oh my. Join us on an adventure into weird anime genre and idea mashups that shouldn't work but do - oh so well."
+		},
+		{
+			"mal_id": 1929,
+			"url": "https://myanimelist.net/featured/1929/Top_10_Rich_Anime_Characters",
+			"title": "Top 10 Rich Anime Characters",
+			"summary": "Fiction is filled with the adventures of the super rich, from renegades like Zorro, geniuses like Tony Stark (a.k.a. Iron Man), and lonely rich kids like... Richy Rich. Anime is no exception to this rule and has loads of characters with money as a key defining characteristic.",
+			"published_at": "2016-09-26T08:00:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 97372,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474876133-0db85d5c140a96691e8d14b6688019a4.png"
+				}
+			},
+			"excerpt": "Fiction is filled with the adventures of the super rich, from renegades like Zorro, geniuses like Tony Stark (a.k.a. Iron Man), and lonely rich kids like... Richy Ri..."
+		},
+		{
+			"mal_id": 1933,
+			"url": "https://myanimelist.net/featured/1933/Anime_You_Should_Watch_Before_Their_Sequels_Air_This_Fall_2016_Season",
+			"title": "Anime You Should Watch Before Their Sequels Air This Fall 2016 Season",
+			"summary": "Sometimes when you look at a new season you find yourself despairing because all you see are a bunch of sequels to anime you've never seen. However I'm here to tell you that you should view this as a fantastic opportunity to catch up on all these anime you haven't seen before the new season begins!",
+			"published_at": "2016-09-24T08:05:00.000+00:00",
+			"author_username": "5camp",
+			"author_url": "https://myanimelist.net/profile/5camp",
+			"views": 84521,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474572791-f0e9f07417152b25578dae7d4a757472.jpeg"
+				}
+			},
+			"excerpt": "Sometimes when you look at a new season you find yourself despairing because all you see are a bunch of sequels to anime you've never seen. However I'm here to tell ..."
+		},
+		{
+			"mal_id": 1926,
+			"url": "https://myanimelist.net/featured/1926/Happily_Ever_After__13_Romance_Anime_About_Relationships",
+			"title": "Happily Ever After: 13 Romance Anime About Relationships",
+			"summary": "The love has been revealed and the confession has been made. Congratulations, you are now a couple...now what? These romance anime explore relationships between established couples for a change.",
+			"published_at": "2016-09-23T10:08:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 355405,
+			"tags": [
+				"Collection",
+				"Love"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474557728-0cea6fe6778084ac20c8c966ed7ab9cd.jpeg"
+				}
+			},
+			"excerpt": "The love has been revealed and the confession has been made. Congratulations, you are now a couple...now what? These romance anime explore relationships between esta..."
+		},
+		{
+			"mal_id": 1927,
+			"url": "https://myanimelist.net/featured/1927/The_Dankest_RedrawReigen_Memes",
+			"title": "The Dankest #RedrawReigen Memes",
+			"summary": "A cool and funny anime series deserves cool and funny memes. Learn how Mob Psycho 100 inspired the popular #RedrawReigen meme and check out some fun images from the hashtag.",
+			"published_at": "2016-09-23T10:05:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 60000,
+			"tags": [
+				"Meme"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474484026-4fd5216436c8d3855c30268cab09fc39.jpeg"
+				}
+			},
+			"excerpt": "A cool and funny anime series deserves cool and funny memes. Learn how Mob Psycho 100 inspired the popular #RedrawReigen meme and check out some fun images from the ..."
+		},
+		{
+			"mal_id": 1918,
+			"url": "https://myanimelist.net/featured/1918/So_Bad_Its_Good__15_Unintentionally_Funny_Comedy_Anime_",
+			"title": "So Bad It's Good: 15 Unintentionally Funny \"Comedy Anime\"",
+			"summary": "Some anime are bad. Some are so bad, they become absolutely hilarious. Here are ten unintentional so bad they're good \"comedy anime.\"",
+			"published_at": "2016-09-22T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 115818,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474436757-853add499dbc201ed5ba6fe5cd7db83d.jpeg"
+				}
+			},
+			"excerpt": "Some anime are bad. Some are so bad, they become absolutely hilarious. Here are ten unintentional so bad they're good \"comedy anime.\""
+		},
+		{
+			"mal_id": 1922,
+			"url": "https://myanimelist.net/featured/1922/Ten_of_the_Best_Violent_Anime",
+			"title": "Ten of the Best Violent Anime",
+			"summary": "On screen violence is thrilling, exhilarating, and without a doubt makes the adrenaline run and pump through the veins. Here's a list of 10 of the best violent anime to tie your knickers in a knot.",
+			"published_at": "2016-09-21T11:57:00.000+00:00",
+			"author_username": "MissSimplice",
+			"author_url": "https://myanimelist.net/profile/MissSimplice",
+			"views": 218415,
+			"tags": [
+				"Collection",
+				"Action"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474381605-2ba9dca4836403d417f59838d4fce6df.png"
+				}
+			},
+			"excerpt": "On screen violence is thrilling, exhilarating, and without a doubt makes the adrenaline run and pump through the veins. Here's a list of 10 of the best violent anime..."
+		},
+		{
+			"mal_id": 1895,
+			"url": "https://myanimelist.net/featured/1895/10_Taboo_Anime_That_You_Would_Rather_Not_Get_Caught_Enjoying",
+			"title": "10 Taboo Anime That You Would Rather Not Get Caught Enjoying",
+			"summary": "Incest, loli, extreme gore, and cannibalism are just some of the subjects considered taboo but they are not really rare in anime. Can you guess which taboo anime shows have found their way to this list?",
+			"published_at": "2016-09-20T09:40:00.000+00:00",
+			"author_username": "FreeNightFalls",
+			"author_url": "https://myanimelist.net/profile/FreeNightFalls",
+			"views": 1433148,
+			"tags": [
+				"Collection",
+				"Brother complex",
+				"Despair",
+				"Horror",
+				"Monsters",
+				"Sister Complex"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474364209-676ac816952c0763ab206885349adbab.png"
+				}
+			},
+			"excerpt": "Incest, loli, extreme gore, and cannibalism are just some of the subjects considered taboo but they are not really rare in anime. Can you guess which taboo anime sho..."
+		},
+		{
+			"mal_id": 1923,
+			"url": "https://myanimelist.net/featured/1923/My_Girlfriend_is_a_Can_of_Soda_And_6_Other_Strange_Moe-fications",
+			"title": "My Girlfriend is a Can of Soda! And 6 Other Strange Moe-fications",
+			"summary": "Cute anime girl soda cans. Cute anime girl guns. Get your moe anthropomorphism fix here and you may never look at a can of soda the same way again.",
+			"published_at": "2016-09-20T09:26:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 50842,
+			"tags": [
+				"Collection",
+				"Cute Girls"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474247851-fc9588f246d178a2ea73fd0c0c0af001.jpeg"
+				}
+			},
+			"excerpt": "Cute anime girl soda cans. Cute anime girl guns. Get your moe anthropomorphism fix here and you may never look at a can of soda the same way again."
+		},
+		{
+			"mal_id": 1915,
+			"url": "https://myanimelist.net/featured/1915/Top_15_Selling_Anime_%E2%80%93_August_2016",
+			"title": "Top 15 Selling Anime – August 2016",
+			"summary": "Now that summer is winding down here at Right Stuf Anime, we're taking preorders for items due to be released around Christmas. We have a lot of titles that are still selling well through August, but hopefully we’ll see studios put out some more big hits just in time for the holiday season!",
+			"published_at": "2016-09-20T01:26:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 40446,
+			"tags": [
+				"Advertorial",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473927551-bc693c443208041845254e7ce70cf451.jpeg"
+				}
+			},
+			"excerpt": "Now that summer is winding down here at Right Stuf Anime, we're taking preorders for items due to be released around Christmas. We have a lot of titles that are stil..."
+		},
+		{
+			"mal_id": 1917,
+			"url": "https://myanimelist.net/featured/1917/Seven_Anime_That_Pass_Off_Sexual_Harassment_as_Romance_",
+			"title": "Seven Anime That Pass Off Sexual Harassment as \"Romance\"",
+			"summary": "Rape, molestation, and other forms of sexual assault are wonderful romantic gestures. At least according to these anime...",
+			"published_at": "2016-09-19T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 269493,
+			"tags": [
+				"Collection",
+				"Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473983537-a6d1c4722621445e8c496ab8a30ee404.jpeg"
+				}
+			},
+			"excerpt": "Rape, molestation, and other forms of sexual assault are wonderful romantic gestures. At least according to these anime..."
+		},
+		{
+			"mal_id": 1916,
+			"url": "https://myanimelist.net/featured/1916/5_Hottest_Manga_Being_Adapted_to_Anime_this_Fall_2016_Season",
+			"title": "5 Hottest Manga Being Adapted to Anime this Fall 2016 Season",
+			"summary": "This upcoming Fall 2016 anime season is stacked with exciting new titles, amongst them being manga adaptations fans have been demanding for over 5 years. We go over the most exciting manga finally being turned into anime this season",
+			"published_at": "2016-09-18T08:05:00.000+00:00",
+			"author_username": "5camp",
+			"author_url": "https://myanimelist.net/profile/5camp",
+			"views": 59423,
+			"tags": [
+				"Collection",
+				"First Impression"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473957809-23bca3949ad68efa93614229dbdb42e6.jpeg"
+				}
+			},
+			"excerpt": "This upcoming Fall 2016 anime season is stacked with exciting new titles, amongst them being manga adaptations fans have been demanding for over 5 years. We go over ..."
+		},
+		{
+			"mal_id": 1909,
+			"url": "https://myanimelist.net/featured/1909/10_Anime_like_Hunter_x_Hunter",
+			"title": "10 Anime like Hunter x Hunter",
+			"summary": "10 great Anime that share some interesting characteristics with the fun and popular Action Adventure classic, Hunter x Hunter!",
+			"published_at": "2016-09-17T08:05:00.000+00:00",
+			"author_username": "wrestlingbubble2",
+			"author_url": "https://myanimelist.net/profile/wrestlingbubble2",
+			"views": 276120,
+			"tags": [
+				"Collection",
+				"Hunter x Hunter"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473919760-4fb526d62bfd119741dcacd70e653604.jpeg"
+				}
+			},
+			"excerpt": "10 great Anime that share some interesting characteristics with the fun and popular Action Adventure classic, Hunter x Hunter!"
+		},
+		{
+			"mal_id": 1913,
+			"url": "https://myanimelist.net/featured/1913/Scariest_Anime_Ever__Writers_Corner",
+			"title": "Scariest Anime Ever: Writer's Corner",
+			"summary": "Sometimes the scariest anime don't have to feature rolling heads and squirting blood to scare you half to death. Here, our writers get into a couple choice picks that haunt them to this day.",
+			"published_at": "2016-09-16T08:41:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 67885,
+			"tags": [
+				"Collection",
+				"Horror"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1474015237-05a6156cf24daaf85f6eb8882b3c1c37.jpeg"
+				}
+			},
+			"excerpt": "Sometimes the scariest anime don't have to feature rolling heads and squirting blood to scare you half to death. Here, our writers get into a couple choice picks tha..."
+		},
+		{
+			"mal_id": 1914,
+			"url": "https://myanimelist.net/featured/1914/Five_Figure_Fridays_-_Prison_School",
+			"title": "Five Figure Fridays - Prison School",
+			"summary": "The Prison School series really managed to imprison many fans with its well crafted R-rated silliness. In its wake, many a great figure was created, and here we are to show you the best of the best!",
+			"published_at": "2016-09-16T08:17:00.000+00:00",
+			"author_username": "rinkya",
+			"author_url": "https://myanimelist.net/profile/rinkya",
+			"views": 18556,
+			"tags": [
+				"Figures"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473898338-1c11bce8e209119d5545a258f4987648.jpeg"
+				}
+			},
+			"excerpt": "The Prison School series really managed to imprison many fans with its well crafted R-rated silliness. In its wake, many a great figure was created, and here we are ..."
+		},
+		{
+			"mal_id": 1910,
+			"url": "https://myanimelist.net/featured/1910/The_10_Craziest_Anime_Commercials",
+			"title": "The 10 Craziest Anime Commercials",
+			"summary": "Commercials are weird.",
+			"published_at": "2016-09-15T10:04:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 46546,
+			"tags": [
+				"Collection",
+				"Funny",
+				"Video"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473804780-52461b24e53ae6754e8d330fc52edfa3.jpeg"
+				}
+			},
+			"excerpt": "Commercials are weird."
+		},
+		{
+			"mal_id": 1905,
+			"url": "https://myanimelist.net/featured/1905/20_Reaction_GIFs_that_Perfectly_Represent_Anime_Fans",
+			"title": "20 Reaction GIFs that Perfectly Represent Anime Fans",
+			"summary": "The life of an anime fan is one heck of an emotional roller-coaster ride! Here are 20 of the most frequent situations that fans find themselves in, and the perfect GIFs to describe them!",
+			"published_at": "2016-09-15T09:54:00.000+00:00",
+			"author_username": "Aiwin",
+			"author_url": "https://myanimelist.net/profile/Aiwin",
+			"views": 111224,
+			"tags": [
+				"Collection",
+				"Funny",
+				"GIF"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473933093-3d7b0560e6a50c4fc9015654c266f07f.png"
+				}
+			},
+			"excerpt": "The life of an anime fan is one heck of an emotional roller-coaster ride! Here are 20 of the most frequent situations that fans find themselves in, and the perfect G..."
+		},
+		{
+			"mal_id": 1908,
+			"url": "https://myanimelist.net/featured/1908/Top_10_Anime_Guys_Who_Would_Be_Your_Best_Boyfriend",
+			"title": "Top 10 Anime Guys Who Would Be Your Best Boyfriend",
+			"summary": "If you’ve ever thought all these 'real' men just aren’t quite up to snuff, maybe it’s time to shop in a different department. Directions to the anime boyfriend section, anyone?",
+			"published_at": "2016-09-14T09:41:00.000+00:00",
+			"author_username": "animeChristian12",
+			"author_url": "https://myanimelist.net/profile/animeChristian12",
+			"views": 86189,
+			"tags": [
+				"Collection",
+				"Cute Guys",
+				"Hot"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473751141-46d15bd4f6ad6138a54be3c5f4eff9a7.png"
+				}
+			},
+			"excerpt": "If you’ve ever thought all these 'real' men just aren’t quite up to snuff, maybe it’s time to shop in a different department. Directions to the anime boyfriend secti..."
+		},
+		{
+			"mal_id": 1903,
+			"url": "https://myanimelist.net/featured/1903/How_Baccano_Deviates_from_the_LN_And_Why_Thats_a_Good_Thing",
+			"title": "How Baccano! Deviates from the LN (And Why That's a Good Thing)",
+			"summary": "The Baccano anime doesn't try to be an exact replica of the original light novels — and that's what makes it great.",
+			"published_at": "2016-09-14T09:40:00.000+00:00",
+			"author_username": "joseinextdoor",
+			"author_url": "https://myanimelist.net/profile/joseinextdoor",
+			"views": 19431,
+			"tags": [
+				"Analysis",
+				"Review"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473845636-ef4d61e4bb7224840e47b5af087e3885.png"
+				}
+			},
+			"excerpt": "The Baccano anime doesn't try to be an exact replica of the original light novels — and that's what makes it great."
+		},
+		{
+			"mal_id": 1891,
+			"url": "https://myanimelist.net/featured/1891/10_Anime_Like_One_Piece__Recommendation_Corner",
+			"title": "10 Anime Like One Piece: Recommendation Corner",
+			"summary": "We love Luffy, the Straw Hat Pirates and their mad capers. For fans of One Piece looking for new anime to watch, we've tracked down just the right shows for you.",
+			"published_at": "2016-09-13T10:31:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 243513,
+			"tags": [
+				"Recommendation",
+				"Action",
+				"One Piece",
+				"Naruto",
+				"Bleach",
+				"Fairy Tail",
+				"Hunter x Hunter",
+				"One Punch Man"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1478659218-2a2f6df392f3df29c4b65be1dce17721.png"
+				}
+			},
+			"excerpt": "We love Luffy, the Straw Hat Pirates and their mad capers. For fans of One Piece looking for new anime to watch, we've tracked down just the right shows for you."
+		},
+		{
+			"mal_id": 1906,
+			"url": "https://myanimelist.net/featured/1906/Top_10_Kamidere_Characters_in_Anime__Whats_a_Kamidere",
+			"title": "Top 10 Kamidere Characters in Anime: What's a Kamidere?",
+			"summary": "In life being confident is important. However, Kamidere take it to a completely different level. Here are 10 that set the standard for what it means to be Kamidere.",
+			"published_at": "2016-09-13T10:30:00.000+00:00",
+			"author_username": "AlanV",
+			"author_url": "https://myanimelist.net/profile/AlanV",
+			"views": 84577,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473762094-05b72e21aa64da6a38472d9ecf076ab6.png"
+				}
+			},
+			"excerpt": "In life being confident is important. However, Kamidere take it to a completely different level. Here are 10 that set the standard for what it means to be Kamidere."
+		},
+		{
+			"mal_id": 1904,
+			"url": "https://myanimelist.net/featured/1904/10_Visual_Novel_Games_That_Need_To_Become_Anime",
+			"title": "10 Visual Novel Games That Need To Become Anime",
+			"summary": "There have been an incredible number of visual novels that have been turned into anime series. Here, we bring you 10 candidates that absolutely need to have their story told as an animation.",
+			"published_at": "2016-09-12T11:26:00.000+00:00",
+			"author_username": "CriticalAndroid",
+			"author_url": "https://myanimelist.net/profile/CriticalAndroid",
+			"views": 60481,
+			"tags": [
+				"Collection",
+				"Games",
+				"Game Adaptation"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473679579-aba73087cff480d77b7f1aeeefa60292.png"
+				}
+			},
+			"excerpt": "There have been an incredible number of visual novels that have been turned into anime series. Here, we bring you 10 candidates that absolutely need to have their st..."
+		},
+		{
+			"mal_id": 1907,
+			"url": "https://myanimelist.net/featured/1907/Top_5_Anime_With_The_Best_Fashion_",
+			"title": "Top 5 Anime With The Best Fashion",
+			"summary": "Take a look at some of the most fashionable anime there is!",
+			"published_at": "2016-09-12T10:54:00.000+00:00",
+			"author_username": "MotherWulf",
+			"author_url": "https://myanimelist.net/profile/MotherWulf",
+			"views": 114957,
+			"tags": [
+				"Collection",
+				"Fashion"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473663936-1ea1ee294f9b8845b912af8090d14470.jpeg"
+				}
+			},
+			"excerpt": "Take a look at some of the most fashionable anime there is!"
+		},
+		{
+			"mal_id": 1902,
+			"url": "https://myanimelist.net/featured/1902/10_Anime_Like_One_Punch_Man__Recommendation_Corner",
+			"title": "10 Anime Like One Punch Man: Recommendation Corner",
+			"summary": "Still waiting on news for the season 2 premiere of One Punch Man? Quit hitting F5 and check out some of these other titles that offer something similar to slake your thirst in the meanwhile.",
+			"published_at": "2016-09-09T10:11:00.000+00:00",
+			"author_username": "wizardvig",
+			"author_url": "https://myanimelist.net/profile/wizardvig",
+			"views": 521895,
+			"tags": [
+				"Recommendation",
+				"Collection",
+				"One Punch Man"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473415717-18eea50c06fc3006dc6acd727d701b56.png"
+				}
+			},
+			"excerpt": "Still waiting on news for the season 2 premiere of One Punch Man? Quit hitting F5 and check out some of these other titles that offer something similar to slake your..."
+		},
+		{
+			"mal_id": 1900,
+			"url": "https://myanimelist.net/featured/1900/Five_Figure_Fridays_-_Steins_Gate",
+			"title": "Five Figure Fridays - Steins Gate",
+			"summary": "Steins Gate took the world bu storm and luckily for us left some awesome figures in its wake. It is high time we looked at some of the coolest Steins Gate figures!",
+			"published_at": "2016-09-09T10:11:00.000+00:00",
+			"author_username": "rinkya",
+			"author_url": "https://myanimelist.net/profile/rinkya",
+			"views": 14071,
+			"tags": [
+				"Figures"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473284903-671d701e206b104673c60bd1b4d65cdd.jpeg"
+				}
+			},
+			"excerpt": "Steins Gate took the world bu storm and luckily for us left some awesome figures in its wake. It is high time we looked at some of the coolest Steins Gate figures!"
+		},
+		{
+			"mal_id": 1899,
+			"url": "https://myanimelist.net/featured/1899/14_Awesome_Anime_Castles_We_Wish_We_Could_Live_In",
+			"title": "14 Awesome Anime Castles (We Wish We Could Live In)",
+			"summary": "Anime has castles in the sky, underground, and everywhere in between… and we wish we could live in them all. Here's our list of the most impressive anime castles ever.",
+			"published_at": "2016-09-08T07:36:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 120841,
+			"tags": [
+				"Collection",
+				"Location"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473303167-602dbf427344e2b7a31552641b63b7b9.png"
+				}
+			},
+			"excerpt": "Anime has castles in the sky, underground, and everywhere in between… and we wish we could live in them all. Here's our list of the most impressive anime castles eve..."
+		},
+		{
+			"mal_id": 1901,
+			"url": "https://myanimelist.net/featured/1901/20_Anime_Shoes__Awesome_Unique_Shoes_Inspired_by_Anime",
+			"title": "20 Anime Shoes: Awesome Unique Shoes Inspired by Anime",
+			"summary": "To have a complete outfit, you need the right shoes. And these anime shoes are the perfect addition to any outfit. Want shoes that show your love for anime in a stylish (and sometimes silly) way? We've got you covered.",
+			"published_at": "2016-09-08T07:29:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 40913,
+			"tags": [
+				"Collection",
+				"Fashion"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1473319486-0919d5074095138315c07754552250a4.png"
+				}
+			},
+			"excerpt": "To have a complete outfit, you need the right shoes. And these anime shoes are the perfect addition to any outfit. Want shoes that show your love for anime in a styl..."
+		},
+		{
+			"mal_id": 1886,
+			"url": "https://myanimelist.net/featured/1886/Top_13_Best_Military_War_Anime_of_All_Time",
+			"title": "Top 13 Best Military/War Anime of All Time",
+			"summary": "Unsurprisingly, many of the more 'epic' anime out there feature fictional military organisations, but so do some lighthearted comedies. This list has a little something for everyone.",
+			"published_at": "2016-09-07T08:12:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 803838,
+			"tags": [
+				"Collection",
+				"Action"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472783641-749ed9808cd0764a334a00ac6cff4092.jpeg"
+				}
+			},
+			"excerpt": "Unsurprisingly, many of the more 'epic' anime out there feature fictional military organisations, but so do some lighthearted comedies. This list has a little someth..."
+		},
+		{
+			"mal_id": 1887,
+			"url": "https://myanimelist.net/featured/1887/One_Bad_Day__15_Mental_Breakdowns_in_Anime",
+			"title": "One Bad Day: 15 Mental Breakdowns in Anime",
+			"summary": "The human mind can only take so much before it just snaps like a twig. When that happens people can have different reactions, from breaking down and crying to going on a killing spree. One bad day can be the tipping point that forever changes a person for better or for worse.",
+			"published_at": "2016-09-07T08:10:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 81160,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472785428-3648c7db3a71fe1737c19a89fc2d807c.jpeg"
+				}
+			},
+			"excerpt": "The human mind can only take so much before it just snaps like a twig. When that happens people can have different reactions, from breaking down and crying to going ..."
+		},
+		{
+			"mal_id": 1871,
+			"url": "https://myanimelist.net/featured/1871/Top_13_Cute_Anime_Boys_of_All_Time",
+			"title": "Top 13 Cute Anime Boys of All Time",
+			"summary": "Just like some female anime characters, male characters also tend to have adorable traits. If you think that cuteness is only reserved for anime girls, you may have to think again. Here is our list of ‘15 Cute Anime Boys’ that is guaranteed to make your heart go beating!",
+			"published_at": "2016-09-06T10:03:00.000+00:00",
+			"author_username": "Ai_Sakura",
+			"author_url": "https://myanimelist.net/profile/Ai_Sakura",
+			"views": 1132820,
+			"tags": [
+				"Collection",
+				"Cute Guys",
+				"Kawaii",
+				"Moe",
+				"GIF"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471939121-9386579acd8983687d286a331b623d8d.jpeg"
+				}
+			},
+			"excerpt": "Just like some female anime characters, male characters also tend to have adorable traits. If you think that cuteness is only reserved for anime girls, you may have ..."
+		},
+		{
+			"mal_id": 1884,
+			"url": "https://myanimelist.net/featured/1884/12_Sexy_Anime_Monster_Girls__Hotter_Than_Human",
+			"title": "12 Sexy Anime Monster Girls: Hotter Than Human",
+			"summary": "People come in all shapes and sizes. Short and tall, young and old, and sometimes with wings or a tail. Just because she's a monster girl, it doesn't mean she can't show you some love.",
+			"published_at": "2016-09-06T09:56:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 407316,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472611666-e0d8ec1518c4f7df8691c595a60d5244.png"
+				}
+			},
+			"excerpt": "People come in all shapes and sizes. Short and tall, young and old, and sometimes with wings or a tail. Just because she's a monster girl, it doesn't mean she can't ..."
+		},
+		{
+			"mal_id": 1883,
+			"url": "https://myanimelist.net/featured/1883/The_Top_10_Worst_Video_Games_Based_On_Anime",
+			"title": "The Top 10 Worst Video Games Based On Anime",
+			"summary": "While there have been some wonderful video games based on anime, not all of them have been so well received by critics or fans. Video games in general seem to have issues when based on a licensed product and the following ten are no exception.",
+			"published_at": "2016-09-05T09:51:00.000+00:00",
+			"author_username": "CriticalAndroid",
+			"author_url": "https://myanimelist.net/profile/CriticalAndroid",
+			"views": 34222,
+			"tags": [
+				"Collection",
+				"Games"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472631253-6616f2823f4c56163f6a22ddb896ca3d.jpeg"
+				}
+			},
+			"excerpt": "While there have been some wonderful video games based on anime, not all of them have been so well received by critics or fans. Video games in general seem to have i..."
+		},
+		{
+			"mal_id": 1892,
+			"url": "https://myanimelist.net/featured/1892/7_Anime_That_Flip_Into_Completely_Different_Genres",
+			"title": "7 Anime That Flip Into Completely Different Genres",
+			"summary": "When you go into an anime, you generally know what to expect. Unless you're watching one of these anime, which suddenly and unexpectedly shift into a different genre as you're watching.",
+			"published_at": "2016-09-05T09:40:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 127637,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472930382-b4b00d28f439d5488fef5dd0366257e5.jpeg"
+				}
+			},
+			"excerpt": "When you go into an anime, you generally know what to expect. Unless you're watching one of these anime, which suddenly and unexpectedly shift into a different genre..."
+		},
+		{
+			"mal_id": 1885,
+			"url": "https://myanimelist.net/featured/1885/Oy_Vey_10__Jewish_Characters_in_Anime",
+			"title": "Oy Vey! 10+ Jewish Characters in Anime!",
+			"summary": "The Jewish population in Japan may be tiny (IT'S UNDER 9000!), but there's a long history of exchange between Jewish and Japanese culture. Here's some historical background and a list of stand-out Jewish characters in anime, manga, and light novels.",
+			"published_at": "2016-09-04T08:05:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 109052,
+			"tags": [
+				"Spoiler",
+				"Collection",
+				"History and Culture"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472678901-399001dbc4a60ce24fe874eb52c9eb7a.jpeg"
+				}
+			},
+			"excerpt": "The Jewish population in Japan may be tiny (IT'S UNDER 9000!), but there's a long history of exchange between Jewish and Japanese culture. Here's some historical bac..."
+		},
+		{
+			"mal_id": 1888,
+			"url": "https://myanimelist.net/featured/1888/Gen_Urobuchis_Puppet_Show_Thunderbolt_Fantasy_is_Kind_of_Awesome",
+			"title": "Gen Urobuchi's Puppet Show Thunderbolt Fantasy is Kind of Awesome",
+			"summary": "The writer of Madoka Magica, Psycho Pass and Fate/Zero has a new show on Crunchyroll this season called Thunderbolt Fantasy...except it's a puppet show. And it's amazing! Let me tell you why.",
+			"published_at": "2016-09-03T08:05:00.000+00:00",
+			"author_username": "5camp",
+			"author_url": "https://myanimelist.net/profile/5camp",
+			"views": 29820,
+			"tags": [
+				"Review"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472670840-8bd87069a8c7cf3af00c0b5ba2ded010.jpeg"
+				}
+			},
+			"excerpt": "The writer of Madoka Magica, Psycho Pass and Fate/Zero has a new show on Crunchyroll this season called Thunderbolt Fantasy...except it's a puppet show. And it's ama..."
+		},
+		{
+			"mal_id": 1879,
+			"url": "https://myanimelist.net/featured/1879/Top_15_Best_Anime_Hackers",
+			"title": "Top 15 Best Anime Hackers",
+			"summary": "Have you ever been fascinated by how computers and various technological doohickeys works? Then, there's a pretty good chance that you've got a geeky mind...and that's no bad thing! And guess what else? You're in good company, as we're about to unveil the best anime hackers.",
+			"published_at": "2016-09-02T09:30:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 428959,
+			"tags": [
+				"Collection",
+				"Character Analysis",
+				"Cute Girls",
+				"GIF",
+				"Technology"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472794821-841ff512db1def20fba45c98328bc924.jpeg"
+				}
+			},
+			"excerpt": "Have you ever been fascinated by how computers and various technological doohickeys works? Then, there's a pretty good chance that you've got a geeky mind...and that..."
+		},
+		{
+			"mal_id": 1890,
+			"url": "https://myanimelist.net/featured/1890/Five_Figure_Fridays_-_Code_Geass",
+			"title": "Five Figure Fridays - Code Geass",
+			"summary": "As we are approaching the 20th anniversary of the series beginning, what better time to check out some of the awesome figures of the anime masterpiece Code Geass!",
+			"published_at": "2016-09-02T09:29:00.000+00:00",
+			"author_username": "rinkya",
+			"author_url": "https://myanimelist.net/profile/rinkya",
+			"views": 9605,
+			"tags": [
+				"Figures"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472682388-672ef3347c98f801f88eda666c70a3ba.jpeg"
+				}
+			},
+			"excerpt": "As we are approaching the 20th anniversary of the series beginning, what better time to check out some of the awesome figures of the anime masterpiece Code Geass!"
+		},
+		{
+			"mal_id": 1889,
+			"url": "https://myanimelist.net/featured/1889/Anime_You_Wouldnt_Believe_Are_Based_on_True_Stories",
+			"title": "Anime You Wouldn't Believe Are Based on True Stories",
+			"summary": "Anime is an escape from reality, but sometimes a bit of the real world seeps into anime series. Some anime draw on real world events, people, and even science -- in ways you might not expect.",
+			"published_at": "2016-09-01T09:46:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 69924,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472657508-e29eec511b0a6c13b12c3ee75b6c1d87.jpeg"
+				}
+			},
+			"excerpt": "Anime is an escape from reality, but sometimes a bit of the real world seeps into anime series. Some anime draw on real world events, people, and even science -- in ..."
+		},
+		{
+			"mal_id": 1882,
+			"url": "https://myanimelist.net/featured/1882/The_Top_10_Best_Video_Games_Based_On_Anime",
+			"title": "The Top 10 Best Video Games Based On Anime",
+			"summary": "There have been a lot of video games based on anime, but in a vast sea of titles, which ones rise to the top?",
+			"published_at": "2016-09-01T09:46:00.000+00:00",
+			"author_username": "CriticalAndroid",
+			"author_url": "https://myanimelist.net/profile/CriticalAndroid",
+			"views": 40486,
+			"tags": [
+				"Collection",
+				"Games"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472626964-531a8ee14aa68d371b0043b459e26271.jpeg"
+				}
+			},
+			"excerpt": "There have been a lot of video games based on anime, but in a vast sea of titles, which ones rise to the top?"
+		},
+		{
+			"mal_id": 1877,
+			"url": "https://myanimelist.net/featured/1877/Top_10_Hottest_Anime_Girls_of_Spring_2016",
+			"title": "Top 10 Hottest Anime Girls of Spring 2016",
+			"summary": "A look at the ten hottest girls from the 2016 spring season of anime!",
+			"published_at": "2016-08-31T10:39:00.000+00:00",
+			"author_username": "madokamage",
+			"author_url": "https://myanimelist.net/profile/madokamage",
+			"views": 227188,
+			"tags": [
+				"Collection",
+				"Cute Girls",
+				"Hot"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472620939-44aa1548b50f763b46b35bc5e201b8b5.png"
+				}
+			},
+			"excerpt": "A look at the ten hottest girls from the 2016 spring season of anime!"
+		},
+		{
+			"mal_id": 1880,
+			"url": "https://myanimelist.net/featured/1880/How_Cute_High_Earth_Defense_Club_LOVEs_2nd_Season_Struck_Comedy_Gold",
+			"title": "How Cute High Earth Defense Club LOVE's 2nd Season Struck Comedy Gold",
+			"summary": "Adolescence is silly. It also matters more than anything. If you can capture that contrast, you’ve pretty much nailed what it’s like to be in high school. And in its second season, \"Cute High Earth Defense Club LOVE!\" has done exactly that, and become a hilariously stupid gem along the way.",
+			"published_at": "2016-08-30T10:39:00.000+00:00",
+			"author_username": "joseinextdoor",
+			"author_url": "https://myanimelist.net/profile/joseinextdoor",
+			"views": 25038,
+			"tags": [
+				"Spoiler",
+				"Recommendation",
+				"Analysis",
+				"Cute Guys"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472517984-68d2a377de0a234ac5d0c98f1a55ab0a.jpeg"
+				}
+			},
+			"excerpt": "Adolescence is silly. It also matters more than anything. If you can capture that contrast, you’ve pretty much nailed what it’s like to be in high school. And in its..."
+		},
+		{
+			"mal_id": 1881,
+			"url": "https://myanimelist.net/featured/1881/Save_the_Worlds_of_Asgard_and_Olympus_in_Omega_Zodiac",
+			"title": "Save the Worlds of Asgard and Olympus in Omega Zodiac",
+			"summary": "The goddess Athena is holding out for a hero. Hack and slash your way to the salvation of this mythical world!",
+			"published_at": "2016-08-30T05:04:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 10463,
+			"tags": [
+				"Advertorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472528432-7bb42e0f3c2b9fac70f9c636b5d61b5d.jpeg"
+				}
+			},
+			"excerpt": "The goddess Athena is holding out for a hero. Hack and slash your way to the salvation of this mythical world!"
+		},
+		{
+			"mal_id": 1878,
+			"url": "https://myanimelist.net/featured/1878/Top_10_Best_Classic_Shonen_Manga_Ever",
+			"title": "Top 10 Best Classic Shonen Manga Ever!",
+			"summary": "Shonen manga is awesome - the action, hot characters, and some cliches that tell us life lessons. We picked the timeless masterpieces from the first-class magazines!",
+			"published_at": "2016-08-29T09:51:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 249965,
+			"tags": [
+				"Recommendation",
+				"Collection",
+				"Action",
+				"Mangaka"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472260570-8cb232cebb70c48332ec08488bdb2dd9.jpeg"
+				}
+			},
+			"excerpt": "Shonen manga is awesome - the action, hot characters, and some cliches that tell us life lessons. We picked the timeless masterpieces from the first-class magazines!"
+		},
+		{
+			"mal_id": 1850,
+			"url": "https://myanimelist.net/featured/1850/10_Totally_Depressing_and_Sad_Anime_Quotes",
+			"title": "10 Totally Depressing and Sad Anime Quotes",
+			"summary": "Ten quotes which are sure to have you either reaching for the tissue box or rolling around on the ground with \"feels\".",
+			"published_at": "2016-08-29T09:49:00.000+00:00",
+			"author_username": "melodius",
+			"author_url": "https://myanimelist.net/profile/melodius",
+			"views": 314747,
+			"tags": [
+				"Quotes",
+				"Despair"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472206354-aef64ed9e290b444b2a7c5a6d42bdc3f.png"
+				}
+			},
+			"excerpt": "Ten quotes which are sure to have you either reaching for the tissue box or rolling around on the ground with \"feels\"."
+		},
+		{
+			"mal_id": 1874,
+			"url": "https://myanimelist.net/featured/1874/10_Anime_Like_Steins_Gate__Recommendation_Corner",
+			"title": "10 Anime Like Steins;Gate: Recommendation Corner",
+			"summary": "There simply are no other anime like Steins;Gate. But we'll try. This list of 10 anime share a theme, tone, or character style with the beloved Steins;Gate series.",
+			"published_at": "2016-08-28T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 1010955,
+			"tags": [
+				"Collection",
+				"Sci-fi"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1478660757-65accbda69170eebde5a2559430d1250.png"
+				}
+			},
+			"excerpt": "There simply are no other anime like Steins;Gate. But we'll try. This list of 10 anime share a theme, tone, or character style with the beloved Steins;Gate series."
+		},
+		{
+			"mal_id": 1870,
+			"url": "https://myanimelist.net/featured/1870/The_Best_5_Anime_Studios_According_to_MyAnimeList",
+			"title": "The Best 5 Anime Studios According to MyAnimeList",
+			"summary": "There are plenty of anime studios out there, but which of these studios are responsible for the most hit anime on MAL? Find out below.",
+			"published_at": "2016-08-27T08:05:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 213572,
+			"tags": [
+				"Analysis",
+				"Studios",
+				"Background Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472192091-2a003fd552738e724f21771455b53de3.png"
+				}
+			},
+			"excerpt": "There are plenty of anime studios out there, but which of these studios are responsible for the most hit anime on MAL? Find out below."
+		},
+		{
+			"mal_id": 1876,
+			"url": "https://myanimelist.net/featured/1876/Five_Figure_Fridays_-_Cowboy_Bebop",
+			"title": "Five Figure Fridays - Cowboy Bebop",
+			"summary": "The Cowboy Bebop passed the test of time and so did these amazing figure that we scoured the galaxy for in order to show them to you, today!",
+			"published_at": "2016-08-26T10:45:00.000+00:00",
+			"author_username": "rinkya",
+			"author_url": "https://myanimelist.net/profile/rinkya",
+			"views": 10283,
+			"tags": [
+				"Figures"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472071646-b17a8154ec2a4f81f03f88634b95a115.jpeg"
+				}
+			},
+			"excerpt": "The Cowboy Bebop passed the test of time and so did these amazing figure that we scoured the galaxy for in order to show them to you, today!"
+		},
+		{
+			"mal_id": 1875,
+			"url": "https://myanimelist.net/featured/1875/Hayao_Miyazaki_Is_Actually_A_Giant_Grump",
+			"title": "Hayao Miyazaki Is Actually A Giant Grump",
+			"summary": "The only wonder that may equal seeing your first Miyazaki movie is the wonder when discovering how the director of such hopeful, inspiring films is actually a giant grump. Relish these pessimistic yet often weirdly accurate quotes from anime's most celebrated director.",
+			"published_at": "2016-08-26T10:44:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 60519,
+			"tags": [
+				"Quotes",
+				"Funny",
+				"Ghibli"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472065462-9be20fcadf1ae4f149bcbf01268cdb67.jpeg"
+				}
+			},
+			"excerpt": "The only wonder that may equal seeing your first Miyazaki movie is the wonder when discovering how the director of such hopeful, inspiring films is actually a giant ..."
+		},
+		{
+			"mal_id": 1872,
+			"url": "https://myanimelist.net/featured/1872/Its_a_Trap_15_Anime_Maids_Who_Are_Actually_Male",
+			"title": "It's a Trap! 15 Anime Maids Who Are Actually Male",
+			"summary": "It's a bird! It's a plane! It's a man dressed in a maid outfit! ...And now we're officially confused.",
+			"published_at": "2016-08-25T10:23:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 432866,
+			"tags": [
+				"Collection",
+				"Cute Guys"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471980612-528e784381ea265b9462d2e1006214f4.jpeg"
+				}
+			},
+			"excerpt": "It's a bird! It's a plane! It's a man dressed in a maid outfit! ...And now we're officially confused."
+		},
+		{
+			"mal_id": 1869,
+			"url": "https://myanimelist.net/featured/1869/10_Anime_Like_Death_Note",
+			"title": "10 Anime Like Death Note",
+			"summary": "Death Note was a major hit when it was released back in 2006 and quickly became known for being an intelligent, yet accessible thriller that would be mentioned anytime anime was brought up. In case your hype for the series still hasn't died down, here are 10 similar anime!",
+			"published_at": "2016-08-25T10:21:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 355457,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1478665308-2eb30da8f36673a6418ca57da00420d6.png"
+				}
+			},
+			"excerpt": "Death Note was a major hit when it was released back in 2006 and quickly became known for being an intelligent, yet accessible thriller that would be mentioned anyti..."
+		},
+		{
+			"mal_id": 1873,
+			"url": "https://myanimelist.net/featured/1873/Goetia_-_the_Infinite_Tower__New_Japanese_Browser-Based_RPG",
+			"title": "Goetia - the Infinite Tower: New Japanese Browser-Based RPG",
+			"summary": "Goetia is a fantasy browser-based online RPG from Japan. You are summoned to this new world as a new King candidate on a journey up Goetia - the Infinite Tower. You will experience many great adventures and obtain treasures as you climb up and unfold secrets of the Infinite Tower.",
+			"published_at": "2016-08-25T07:09:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 16975,
+			"tags": [
+				"Advertorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472024530-da8e22127b1053c8b39e39e32b26dfe7.png"
+				}
+			},
+			"excerpt": "Goetia is a fantasy browser-based online RPG from Japan. You are summoned to this new world as a new King candidate on a journey up Goetia - the Infinite Tower. You ..."
+		},
+		{
+			"mal_id": 1862,
+			"url": "https://myanimelist.net/featured/1862/The_Best_15_Anime_Outfits_-_Ideas_for_Anime_Costume",
+			"title": "The Best 15 Anime Outfits - Ideas for Anime Costume!",
+			"summary": "Are you still thinking what to wear on an anime festival day? Here is our list of the most famous and iconic anime outfits, get an idea of your costume!",
+			"published_at": "2016-08-24T10:33:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 161161,
+			"tags": [
+				"Collection",
+				"Fashion",
+				"One Piece",
+				"Naruto",
+				"Bleach",
+				"Death Note"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472010186-863305ba26bd36e358578b7372ae5277.png"
+				}
+			},
+			"excerpt": "Are you still thinking what to wear on an anime festival day? Here is our list of the most famous and iconic anime outfits, get an idea of your costume!"
+		},
+		{
+			"mal_id": 1835,
+			"url": "https://myanimelist.net/featured/1835/The_Top_10_Mature_Manga",
+			"title": "The Top 10 Mature Manga",
+			"summary": "Manga comes in all flavors and for all age groups. We're about to uncover some of the best mature manga which is just right for those in their late teens. Get ready to enter the world of seinen manga!",
+			"published_at": "2016-08-24T10:31:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 486646,
+			"tags": [
+				"Recommendation",
+				"Collection",
+				"Action",
+				"Mangaka",
+				"Tokyo Ghoul",
+				"One Punch Man"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1472017454-ca334d312f02c3ea6b14714128e894cf.png"
+				}
+			},
+			"excerpt": "Manga comes in all flavors and for all age groups. We're about to uncover some of the best mature manga which is just right for those in their late teens. Get ready ..."
+		},
+		{
+			"mal_id": 1859,
+			"url": "https://myanimelist.net/featured/1859/10_Anime_Mobile_Games_Perfect_for_Your_Smartphone",
+			"title": "10 Anime Mobile Games Perfect for Your Smartphone",
+			"summary": "There’s no device more perfect for taking your gaming on the go than the smartphone. Mobile has become the number one hub for games you can just pick up and play. For anime fans looking to get their fix, here are 10 anime mobile games for the iOS and Android.",
+			"published_at": "2016-08-23T09:39:00.000+00:00",
+			"author_username": "dragon_king_26",
+			"author_url": "https://myanimelist.net/profile/dragon_king_26",
+			"views": 110026,
+			"tags": [
+				"Collection",
+				"Games",
+				"One Piece",
+				"Bleach",
+				"SAO"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471937916-3fb9d0dfde2f85f5c50bfc6ddd1d27a5.jpeg"
+				}
+			},
+			"excerpt": "There’s no device more perfect for taking your gaming on the go than the smartphone. Mobile has become the number one hub for games you can just pick up and play. Fo..."
+		},
+		{
+			"mal_id": 1868,
+			"url": "https://myanimelist.net/featured/1868/Eight_Self-Aware_Anime_Where_Characters_Know_Theyre_in_an_Anime",
+			"title": "Eight Self-Aware Anime Where Characters Know They're in an Anime",
+			"summary": "What happens when anime characters become aware they're in an anime? When the fourth wall ceases to exist, and the anime itself becomes self-aware!? Hilarity ensues, of course!",
+			"published_at": "2016-08-23T09:34:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 73764,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471945037-933fdfec0d2590d045b7e65387648901.png"
+				}
+			},
+			"excerpt": "What happens when anime characters become aware they're in an anime? When the fourth wall ceases to exist, and the anime itself becomes self-aware!? Hilarity ensues,..."
+		},
+		{
+			"mal_id": 1866,
+			"url": "https://myanimelist.net/featured/1866/Why_Bill_Murray_is_The_Best_Anime_Character",
+			"title": "Why Bill Murray is The Best Anime Character",
+			"summary": "This article is not actually about Bill Murray being the best anime character. But an awful lot of popular anime and manga have been reminding us of a certain Bill Murray movie...",
+			"published_at": "2016-08-22T08:56:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 39990,
+			"tags": [
+				"Spoiler",
+				"Analysis",
+				"Editorial"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471841933-743eb2cb803e83222aa171cf7897362a.jpeg"
+				}
+			},
+			"excerpt": "This article is not actually about Bill Murray being the best anime character. But an awful lot of popular anime and manga have been reminding us of a certain Bill M..."
+		},
+		{
+			"mal_id": 1860,
+			"url": "https://myanimelist.net/featured/1860/Hit_Me_Harder_15_Masochist_Anime_Characters",
+			"title": "Hit Me Harder! 15 Masochist Anime Characters",
+			"summary": "Pain and pleasure go hand in hand for some. A few of these people love dishing out pain, but they all love to receive it. Come take a look at anime's top 50 Shades of Grey fans here!",
+			"published_at": "2016-08-22T08:55:00.000+00:00",
+			"author_username": "NicWat10",
+			"author_url": "https://myanimelist.net/profile/NicWat10",
+			"views": 160104,
+			"tags": [
+				"Spoiler",
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471404168-e1e44614785c56b8c77939d5e080a47e.png"
+				}
+			},
+			"excerpt": "Pain and pleasure go hand in hand for some. A few of these people love dishing out pain, but they all love to receive it. Come take a look at anime's top 50 Shades o..."
+		},
+		{
+			"mal_id": 1861,
+			"url": "https://myanimelist.net/featured/1861/The_Multiverse_of_Gundam",
+			"title": "The Multiverse of Gundam",
+			"summary": "We’re closing in on the 40th anniversary of the Gundam franchise from when it debuted back in 1979 and fans around the world are going through a renaissance of material as Sunrise is collaborating with distributors to bring their crown jewels out for release.",
+			"published_at": "2016-08-22T07:10:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 33201,
+			"tags": [
+				"Advertorial",
+				"Review"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471404180-a77a8af3c19926c0616c0a5a000907fd.jpeg"
+				}
+			},
+			"excerpt": "We’re closing in on the 40th anniversary of the Gundam franchise from when it debuted back in 1979 and fans around the world are going through a renaissance of mater..."
+		},
+		{
+			"mal_id": 1867,
+			"url": "https://myanimelist.net/featured/1867/Manage_Naughty_Japanese_Popstars_in_Idol_Wars_Online",
+			"title": "Manage Naughty Japanese Popstars in Idol Wars Online",
+			"summary": "It's a Japanese pop-star battle to the death in the latest game localization from Nutaku, purveyors of some of the most popular translated online games from DMM.com. Mixing elements of the MMO, RPG, and management Sim genre, Idol Wars Online is a J-Pop enthusiast's dream game.",
+			"published_at": "2016-08-22T07:05:00.000+00:00",
+			"author_username": "MAL_editing_team",
+			"author_url": "https://myanimelist.net/profile/MAL_editing_team",
+			"views": 14546,
+			"tags": [
+				"Advertorial",
+				"Cute Girls"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471578063-02b42c53fdb3d77841b200fe3577b0cc.png"
+				}
+			},
+			"excerpt": "It's a Japanese pop-star battle to the death in the latest game localization from Nutaku, purveyors of some of the most popular translated online games from DMM.com...."
+		},
+		{
+			"mal_id": 1865,
+			"url": "https://myanimelist.net/featured/1865/A_Season_of_Magical_Girls__The_Many_Magical_Girl_Anime_of_Fall_2016",
+			"title": "A Season of Magical Girls: The Many Magical Girl Anime of Fall 2016",
+			"summary": "There is not one, not two, but FIVE magical girl anime scheduled for Fall 2016. Are you prepared for the cute magical girl apocalypse?",
+			"published_at": "2016-08-21T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 79201,
+			"tags": [
+				"Collection",
+				"Cute Girls",
+				"Magical"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471480729-1c22216b868feac91d08cb098a3fd43e.jpeg"
+				}
+			},
+			"excerpt": "There is not one, not two, but FIVE magical girl anime scheduled for Fall 2016. Are you prepared for the cute magical girl apocalypse?"
+		},
+		{
+			"mal_id": 1858,
+			"url": "https://myanimelist.net/featured/1858/Beyond_Light_Novels__10_Anime_Based_on_Full-Length_Novels",
+			"title": "Beyond Light Novels: 10 Anime Based on Full-Length Novels",
+			"summary": "Anime seeks inspiration from many places, from light novels to video games. Let's get serious, and dive into the wonderful world of anime based on full-length books.",
+			"published_at": "2016-08-20T08:05:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 55511,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471518600-87ebd1468151f68375976233dc8a14c8.png"
+				}
+			},
+			"excerpt": "Anime seeks inspiration from many places, from light novels to video games. Let's get serious, and dive into the wonderful world of anime based on full-length books."
+		},
+		{
+			"mal_id": 1836,
+			"url": "https://myanimelist.net/featured/1836/Top_15_Retro_Games_Based_On_Anime_Which_Will_Make_You_Feel_Nostalgic",
+			"title": "Top 15 Retro Games Based On Anime Which Will Make You Feel Nostalgic",
+			"summary": "Do you have an older game console sitting in the cupboard, basement or attic? Perhaps it's time to dust it off, plug it in and start enjoying it once again. We're about to discover some fascinating retro games based on anime franchises we've grown to love over the years.",
+			"published_at": "2016-08-20T08:05:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 102187,
+			"tags": [
+				"Recommendation",
+				"Collection",
+				"Games",
+				"Game Adaptation",
+				"Naruto"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471604689-b95217bfcb629b37e9870e0193008895.png"
+				}
+			},
+			"excerpt": "Do you have an older game console sitting in the cupboard, basement or attic? Perhaps it's time to dust it off, plug it in and start enjoying it once again. We're ab..."
+		},
+		{
+			"mal_id": 1864,
+			"url": "https://myanimelist.net/featured/1864/Five_Figure_Fridays_-_Angel_Beats",
+			"title": "Five Figure Fridays - Angel Beats!",
+			"summary": "Dying, waking up in the afterlife, and being greeted by a girl holding a rifle might seem like a nightmare, but that's exactly what happens to the protagonist in Angel Beats! Today we are looking at some nice figures based on the popular show.",
+			"published_at": "2016-08-19T11:01:00.000+00:00",
+			"author_username": "rinkya",
+			"author_url": "https://myanimelist.net/profile/rinkya",
+			"views": 13835,
+			"tags": [
+				"Collection",
+				"Figures"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471446019-9e66f03cf08273141ee649b32b45f1eb.jpeg"
+				}
+			},
+			"excerpt": "Dying, waking up in the afterlife, and being greeted by a girl holding a rifle might seem like a nightmare, but that's exactly what happens to the protagonist in Ang..."
+		},
+		{
+			"mal_id": 1857,
+			"url": "https://myanimelist.net/featured/1857/How_Berserk_is_Influenced_by_Nietzsche",
+			"title": "How Berserk is Influenced by Nietzsche",
+			"summary": "An article exploring the relationship between Berserk; focusing primarily on the Conviction Arc and the philosophical ideas of Friedrich Nietzsche, mostly pertaining to his book \"On the Genealogy of Morality\" written in 1887.",
+			"published_at": "2016-08-19T11:00:00.000+00:00",
+			"author_username": "MFA_Community",
+			"author_url": "https://myanimelist.net/profile/MFA_Community",
+			"views": 50597,
+			"tags": [
+				"Spoiler",
+				"Analysis"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471592481-743b1c12d3606bf121f05e535c7c18bc.jpeg"
+				}
+			},
+			"excerpt": "An article exploring the relationship between Berserk; focusing primarily on the Conviction Arc and the philosophical ideas of Friedrich Nietzsche, mostly pertaining..."
+		},
+		{
+			"mal_id": 1856,
+			"url": "https://myanimelist.net/featured/1856/Top_16_Hottest_Anime_Butlers_of_All_Time",
+			"title": "Top 16 Hottest Anime Butlers of All Time",
+			"summary": "Sometimes butlers are depicted as graying old men named Jeeves. Other times, they're the kind of butler we can only dream about. These anime butlers will make you wish you had your very own impeccably-dressed servant.",
+			"published_at": "2016-08-18T11:24:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 120865,
+			"tags": [
+				"Collection",
+				"Hot"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471104747-245ba561b87852ee1772b0cbbc8f1c09.jpeg"
+				}
+			},
+			"excerpt": "Sometimes butlers are depicted as graying old men named Jeeves. Other times, they're the kind of butler we can only dream about. These anime butlers will make you wi..."
+		},
+		{
+			"mal_id": 1855,
+			"url": "https://myanimelist.net/featured/1855/15_Important_Life_Lessons_You_Can_Only_Learn_From_Anime",
+			"title": "15 Important Life Lessons You Can Only Learn From Anime",
+			"summary": "Anime is not just great entertainment: hidden between the action and the Plot are nuggets of knowledge. Pay close attention, and you'll come out from your anime viewing a bit wiser.",
+			"published_at": "2016-08-18T11:23:00.000+00:00",
+			"author_username": "Littoface",
+			"author_url": "https://myanimelist.net/profile/Littoface",
+			"views": 41277,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471029878-5a64c4cffb88347d682692327c131b76.jpeg"
+				}
+			},
+			"excerpt": "Anime is not just great entertainment: hidden between the action and the Plot are nuggets of knowledge. Pay close attention, and you'll come out from your anime view..."
+		},
+		{
+			"mal_id": 1854,
+			"url": "https://myanimelist.net/featured/1854/Animeception__Anime_Series_Within_Anime_Series",
+			"title": "Animeception: Anime Series Within Anime Series",
+			"summary": "What anime do your favorite anime characters watch? What, you thought you were the only one that got to have all the fun? Fictional characters need their anime too! Here's 10 of the most memorable 'fictional' anime that featured in 'real' anime.",
+			"published_at": "2016-08-17T09:47:00.000+00:00",
+			"author_username": "Unknown",
+			"author_url": null,
+			"views": 26840,
+			"tags": [
+				"Collection"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1471425756-05906f514e8b8fe048c0f0e7bb184cf9.png"
+				}
+			},
+			"excerpt": "What anime do your favorite anime characters watch? What, you thought you were the only one that got to have all the fun? Fictional characters need their anime too! ..."
+		},
+		{
+			"mal_id": 1801,
+			"url": "https://myanimelist.net/featured/1801/15_Hottest_Anime_Girls_With_an_Eyepatch",
+			"title": "15 Hottest Anime Girls With an Eyepatch",
+			"summary": "There is something really alluring about anime girls who wear eye patches, but have you ever wondered what exactly makes them so interesting? If the answer is yes and there is at least one anime eye patch girl that you like, check out the article to see 15 of the best!",
+			"published_at": "2016-08-17T09:47:00.000+00:00",
+			"author_username": "FreeNightFalls",
+			"author_url": "https://myanimelist.net/profile/FreeNightFalls",
+			"views": 1343565,
+			"tags": [
+				"Collection",
+				"Cute Girls",
+				"Kawaii",
+				"Moe",
+				"Hot",
+				"GIF"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1468537650-df5df4a3fffff3744752fd51a529f94a.jpeg"
+				}
+			},
+			"excerpt": "There is something really alluring about anime girls who wear eye patches, but have you ever wondered what exactly makes them so interesting? If the answer is yes an..."
+		},
+		{
+			"mal_id": 1803,
+			"url": "https://myanimelist.net/featured/1803/Top_15_Best_Music_Anime_of_All_Time",
+			"title": "Top 15 Best Music Anime of All Time",
+			"summary": "You might be drawn to the genre by your love of music, but you'll end up staying for the amazing story. Here are the 15 best music anime to ever grace our screens.",
+			"published_at": "2016-08-16T10:40:00.000+00:00",
+			"author_username": "FreeNightFalls",
+			"author_url": "https://myanimelist.net/profile/FreeNightFalls",
+			"views": 953382,
+			"tags": [
+				"Collection",
+				"Cute Girls",
+				"Music"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1469817190-ea46657d0148b0078f52ca0bb074a5ec.jpeg"
+				}
+			},
+			"excerpt": "You might be drawn to the genre by your love of music, but you'll end up staying for the amazing story. Here are the 15 best music anime to ever grace our screens."
+		},
+		{
+			"mal_id": 1853,
+			"url": "https://myanimelist.net/featured/1853/Ten_of_the_Sexiest_Asian_Cosplayers_Ever",
+			"title": "Ten of the Sexiest Asian Cosplayers Ever",
+			"summary": "Do you like cosplay? Do you like sexy asian cosplayers? Then come on in friend, because a glorious bonanza of images awaits you featuring fan favorites from Macross F, Re:Zero, One Piece, Pokemon and many more.",
+			"published_at": "2016-08-16T10:39:00.000+00:00",
+			"author_username": "AlanV",
+			"author_url": "https://myanimelist.net/profile/AlanV",
+			"views": 197718,
+			"tags": [
+				"Collection",
+				"Hot",
+				"Cosplay"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1470932393-6df121488642d0994048c8fa694ea836.jpeg"
+				}
+			},
+			"excerpt": "Do you like cosplay? Do you like sexy asian cosplayers? Then come on in friend, because a glorious bonanza of images awaits you featuring fan favorites from Macross ..."
+		},
+		{
+			"mal_id": 1834,
+			"url": "https://myanimelist.net/featured/1834/Top_10_Adult_Manga_That_Will_Shake_You_To_The_Core",
+			"title": "Top 10 Adult Manga That Will Shake You To The Core!",
+			"summary": "Hey, just because you're getting older doesn't mean that you have to grow out of manga. There's a ton of excellent adult manga that are guaranteed to keep you a fan of the medium for life!",
+			"published_at": "2016-08-15T09:03:00.000+00:00",
+			"author_username": "MisterD98",
+			"author_url": "https://myanimelist.net/profile/MisterD98",
+			"views": 1088092,
+			"tags": [
+				"Collection",
+				"Action",
+				"Horror"
+			],
+			"images": {
+				"jpg": {
+					"image_url": "https://cdn.myanimelist.net/s/common/uploaded_files/1470781357-6e4c603bc31110a349def3d662a6b579.png"
+				}
+			},
+			"excerpt": "Hey, just because you're getting older doesn't mean that you have to grow out of manga. There's a ton of excellent adult manga that are guaranteed to keep you a fan ..."
+		}
+	]
 }

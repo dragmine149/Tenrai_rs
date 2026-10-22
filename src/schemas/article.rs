@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Article {
     /// Author profile URL
-    pub author_url: String,
+    pub author_url: Option<String>,
     /// Author MAL Username
     pub author_username: String,
     /// Comment Count

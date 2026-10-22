@@ -64,8 +64,8 @@ fn test_long_query() {
 /// Test designed for quickly checking an endpoint as trying to find the cause can be confusing.
 #[test]
 fn local_parsing() {
-    serde_json::from_str::<tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::manga::Manga>>(
-        include_str!("../data/temp.json"),
-    )
+    serde_json::from_str::<
+        tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::article::Article>,
+    >(include_str!("../data/temp.json"))
     .expect("Failed to parse json");
 }
