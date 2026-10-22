@@ -3,6 +3,7 @@ use crate::{
     schemas::{TenraiPaginatorResponse, query::TopReviewQuery, reviews::Review},
 };
 
+/// API Functions related to Reviews
 impl TenraiAPI {
     /// Get the latest anime reviews.
     pub async fn reviews_anime_recent(

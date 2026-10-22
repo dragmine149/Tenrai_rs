@@ -3,6 +3,7 @@ use crate::{
     schemas::{TenraiPaginatorResponse, common::FullRecommendationInfo, query::FullPageSfwQuery},
 };
 
+/// API Functions related to Recommendations
 impl TenraiAPI {
     /// Get the latest anime recommendations from users
     pub async fn recommendations_anime_recent(

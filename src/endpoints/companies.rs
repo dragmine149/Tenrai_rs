@@ -6,6 +6,7 @@ use crate::{
     },
 };
 
+/// API Functions related to news Companies
 impl TenraiAPI {
     /// Search for a company on MAL
     pub async fn company_search(

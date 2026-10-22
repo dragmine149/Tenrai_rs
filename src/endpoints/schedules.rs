@@ -3,6 +3,7 @@ use crate::{
     schemas::{TenraiPaginatorResponse, anime::Anime, query::ScheduleQuery},
 };
 
+/// API Functions related to Schedules
 impl TenraiAPI {
     /// Get the weekly broadcast schedule of airing anime
     pub async fn schedules(

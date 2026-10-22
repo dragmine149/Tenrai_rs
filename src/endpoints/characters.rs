@@ -10,6 +10,7 @@ use crate::{
     },
 };
 
+/// API Functions related to Characters
 impl TenraiAPI {
     /// Search for characters
     pub async fn character_search(

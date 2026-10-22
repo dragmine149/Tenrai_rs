@@ -18,6 +18,7 @@ use crate::{
     },
 };
 
+/// API Functions related to Manga
 impl TenraiAPI {
     /// Search and filter manga
     pub async fn manga_search(
@@ -231,6 +232,7 @@ impl TenraiAPI {
 
 // This is wayy too small to be on it's own. And it fits nicely in with manga (as well yeah).
 // If this expands, then we break it out.
+/// API Functions related to Magazines
 impl TenraiAPI {
     /// Search manga magazines
     pub async fn magazines(

@@ -8,6 +8,7 @@ use crate::{
     },
 };
 
+/// API Functions related to news articles
 impl TenraiAPI {
     /// Get news articles
     pub async fn news(&self, query: NewsQuery) -> crate::Result<TenraiPaginatorResponse<Article>> {
@@ -30,6 +31,7 @@ impl TenraiAPI {
     }
 }
 
+/// API Functions related to articles in general
 impl TenraiAPI {
     /// Get featured articles
     pub async fn articles(

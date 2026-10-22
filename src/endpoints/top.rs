@@ -11,6 +11,7 @@ use crate::{
     },
 };
 
+/// API Functions related to Ranking
 impl TenraiAPI {
     /// Get the highest ranking anime
     pub async fn top_anime(

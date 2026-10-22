@@ -6,6 +6,7 @@ use crate::{
     },
 };
 
+/// API Functions related to Seasonal Data
 impl TenraiAPI {
     /// Get the anime of a given season
     pub async fn seasonal_anime(
@@ -56,6 +57,9 @@ impl TenraiAPI {
     }
     /// Get every season that can be looked up
     pub async fn seasonal_all(&self) -> crate::Result<TenraiPaginatorResponse<SeasonLookup>> {
-        Ok(self.request("seasons".to_string()).await?.result_paginator()?)
+        Ok(self
+            .request("seasons".to_string())
+            .await?
+            .result_paginator()?)
     }
 }

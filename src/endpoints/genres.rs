@@ -3,6 +3,7 @@ use crate::{
     schemas::{TenraiResponse, filter::BasicInfo, query::GenreQuery},
 };
 
+/// API Functions related to Genres
 impl TenraiAPI {
     /// List all anime genres, themes and demographics
     pub async fn genres_anime(

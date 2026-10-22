@@ -9,6 +9,7 @@ use crate::{
     },
 };
 
+/// API Functions related to People
 impl TenraiAPI {
     /// Search people, such as VAs, Staff and Authors
     pub async fn people_search(

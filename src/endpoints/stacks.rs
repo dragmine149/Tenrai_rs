@@ -7,6 +7,7 @@ use crate::{
     },
 };
 
+/// API Functions related to Intrest Stacks
 impl TenraiAPI {
     ///Search interest stacks. Interest stacks are themed lists of anime or manga made by users.1
     pub async fn stacks(&self, query: StackQuery) -> crate::Result<TenraiPaginatorResponse<Stack>> {

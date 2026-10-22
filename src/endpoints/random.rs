@@ -6,6 +6,7 @@ use crate::{
     },
 };
 
+/// API Functions related to getting random data
 impl TenraiAPI {
     /// Get a random anime
     pub async fn random_anime(&self, query: SfwQuery) -> crate::Result<TenraiResponse<Anime>> {
