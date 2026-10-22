@@ -10,4 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - run: cargo test --verbose --features=strict -- --include-ignored --skip _ids
+      - name: Build Tests
+        run: cargo build --tests
+      - name: Run Tests
+        run: cargo test --verbose --features=strict -- --include-ignored --skip _ids
