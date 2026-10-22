@@ -14,3 +14,19 @@ Additionally, when running tests. Expect them to take ~1+ minute every 24 tests.
 We are not testing the backend of the database, hence any endpoints with queries will be provided the query which gives the most data.
 
 Queries themselves will have basic tests to make sure formatting works as expected due to the nature of how we have to send them. But as all queries are macros, only a few will be tested.
+
+# Testing
+Most tests can be run out of the box, the only ones which can't are ignored.
+
+The ignored ones are as follows:
+- paginator style (takes a long time on it's own)
+- Tests which require a server key
+
+If you use to include the paginator versions but not server keys, then this command might be useful
+```sh
+cargo test -- --skip _paginator
+```
+Personally, i also recommend adding the rate feature just to smoothen out results
+```sh
+cargo test --features=rate -- --skip _paginator
+```

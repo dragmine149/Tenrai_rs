@@ -87,6 +87,7 @@ pub struct TenraiAPI {
     #[builder(setter, default = true)]
     pub cache: bool,
     #[cfg(feature = "rate")]
+    #[builder(setter(skip), default = "RefCell::new(Instant::now())")]
     last_message: RefCell<Instant>,
 }
 
