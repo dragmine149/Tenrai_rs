@@ -7,7 +7,7 @@ use strum_macros::Display;
 
 /// Information about the character.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Character {
     /// Basic information about the character
     pub character: Entry,
@@ -21,7 +21,7 @@ pub struct Character {
 
 /// How important is the character role
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub enum CharacterRole {
     Main,
     Supporting,
@@ -29,7 +29,7 @@ pub enum CharacterRole {
 
 /// Information about a character VA
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct CharacterVA {
     /// Which language they play the character in.
     pub language: String,
@@ -39,7 +39,7 @@ pub struct CharacterVA {
 
 /// Information about a person.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct BasicPerson {
     /// How many users have favorited this person
     pub favorites: Option<u64>,
@@ -55,7 +55,7 @@ pub struct BasicPerson {
 
 /// Individual entries for who helped on an anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeStaff {
     /// The person itself
     pub person: BasicPerson,
@@ -65,7 +65,7 @@ pub struct AnimeStaff {
 
 /// Individual entries for who helped on a manga
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaAuthor {
     /// ID on MAL
     pub mal_id: u64,
@@ -82,7 +82,7 @@ pub struct MangaAuthor {
 
 /// Information about where a manga was serialized
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaSerialization {
     /// ID on MAL
     pub mal_id: u64,
@@ -96,7 +96,7 @@ pub struct MangaSerialization {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 /// How to order the people list
 pub enum PeopleOrder {
@@ -108,7 +108,7 @@ pub enum PeopleOrder {
 
 /// Detailed information about a person
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Person {
     /// Core schema represnenting a person
     pub about: Option<String>,

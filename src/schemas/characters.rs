@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 
 /// Detailed information about the character
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct CharacterDetails {
     /// Information about the character
     pub about: Option<String>,

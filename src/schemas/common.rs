@@ -11,7 +11,7 @@ use crate::{generic_type, schemas::anime::User};
 
 /// Stores the date related to the entry.
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Date {
     pub day: Option<u64>,
     pub month: Option<u64>,
@@ -162,7 +162,7 @@ pub enum OnlyBool {
 
 /// Images used on the website.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Images {
     /// Jpg versions of the images
     pub jpg: ImageDetails,
@@ -174,7 +174,7 @@ pub struct Images {
 ///
 /// NOTE: Some endpoints won't return certain images. This is more generic of all images.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ImageDetails {
     pub image_url: Option<String>,
     pub large_image_url: Option<String>,
@@ -195,7 +195,7 @@ pub enum SortDirection {
 
 /// Entries are short structs containing very basic "connection" information in a sense.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Entry {
     /// Identifier of this entry on MAL
     pub mal_id: u64,
@@ -212,7 +212,7 @@ pub struct Entry {
 
 /// Basic information containing a link to an external website.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct External {
     /// The name of the link
     pub name: String,
@@ -222,7 +222,7 @@ pub struct External {
 
 /// Information about the recommendation.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Recommendation {
     /// Link to the recommended media
     pub url: String,
@@ -234,7 +234,7 @@ pub struct Recommendation {
 
 /// Information about an individual score and how much it contributes to the overall score.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct StatsScore {
     /// Percent out of total scores
     pub percentage: f64,
@@ -246,7 +246,7 @@ pub struct StatsScore {
 
 /// More info.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MoreInfo {
     #[serde(rename = "moreinfo")]
     pub more_info: Option<String>,
@@ -254,7 +254,7 @@ pub struct MoreInfo {
 
 /// Information about a forum post
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Forum {
     /// The URL of the author
     pub author_url: Option<String>,
@@ -280,7 +280,7 @@ pub struct Forum {
 ///
 /// Doesn't include comment information.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct CommentInfo {
     /// The url of the author who posted the comment
     pub author_url: Option<String>,
@@ -295,7 +295,7 @@ pub struct CommentInfo {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum IDsQueryInclude {
     Title,
@@ -306,7 +306,7 @@ pub enum IDsQueryInclude {
 ///
 /// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[serde(untagged)]
 pub enum IDList {
     /// A raw list of ids
@@ -317,7 +317,7 @@ pub enum IDList {
 
 /// Extra information along with the id itself
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct IDContext {
     pub mal_id: u64,
     pub title: String,
@@ -331,7 +331,7 @@ pub struct IDContext {
 ///
 /// SEE: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history> for more information.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct StatsHistory<T> {
     /// Date queried
     pub date: Date,
@@ -347,7 +347,7 @@ pub struct StatsHistory<T> {
 
 /// Basic ordering between MAL and Title
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum BasicOrder {
     #[strum(to_string = "mal_id")]
@@ -356,7 +356,7 @@ pub enum BasicOrder {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AlternativeTitle {
     /// The alternative title
     pub title: String,
@@ -367,7 +367,7 @@ pub struct AlternativeTitle {
 
 /// Date information about this media
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Aired {
     /// When the media started
     ///
@@ -385,7 +385,7 @@ pub struct Aired {
 
 /// Information about the form and to dates
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AiredProp {
     /// When this first started
     pub from: Date,
@@ -407,7 +407,7 @@ pub struct Relation {
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct RelationEntry {
     /// The ID on MAL.
     pub mal_id: u64,
@@ -429,7 +429,7 @@ pub struct RelationEntry {
 
 /// More detailed information about a recommendation
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct FullRecommendationInfo {
     /// ID of the recommendation
     ///

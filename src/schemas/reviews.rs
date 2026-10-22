@@ -5,7 +5,7 @@ use crate::schemas::{anime::User, common::Entry};
 
 /// How to sort a review list
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ReviewSort {
     Newest,
@@ -15,7 +15,7 @@ pub enum ReviewSort {
 
 /// If the reviewer would recommend the media or not.
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum Sentiment {
     Recommended,
@@ -25,7 +25,7 @@ pub enum Sentiment {
 
 /// Information about an review for an anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Review {
     /// Date it was posted
     ///
@@ -64,7 +64,7 @@ pub struct Review {
 
 /// What reaction the community gave the review and how many are of that reaction.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ReviewReaction {
     pub confusing: u64,
     pub creative: u64,

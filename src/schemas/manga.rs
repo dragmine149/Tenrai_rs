@@ -10,7 +10,7 @@ use crate::schemas::{
 };
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "lowercase")]
 /// The type of the manga
 pub enum MangaType {
@@ -27,7 +27,7 @@ pub enum MangaType {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "lowercase")]
 /// What status is this manga in
 pub enum MangaStatus {
@@ -41,7 +41,7 @@ pub enum MangaStatus {
 }
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 /// How to order the manga
 pub enum MangaOrder {
@@ -63,7 +63,7 @@ pub enum MangaOrder {
 ///
 /// NOTE: Some fields are only available when doing [TenraiAPI::manga_full_details](crate::TenraiAPI::manga_full_details) and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Manga {
     /// Indicates whether the entry has been officially approved by MAL moderators
     pub approved: bool,
@@ -143,7 +143,7 @@ pub struct Manga {
 
 /// Statistics about the specified anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaStatistics {
     pub completed: u64,
     pub dropped: u64,

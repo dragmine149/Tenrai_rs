@@ -19,7 +19,7 @@ generic_type!(Studio);
 ///
 /// NOTE: Some fields are only available when doing [TenraiAPI::anime_full_details](crate::TenraiAPI::anime_full_details) query instead, and will be marked as such.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Anime {
     /// Airing dates of the anime.
     pub aired: Aired,
@@ -123,7 +123,7 @@ pub struct Anime {
 
 /// Weekly broadcast schedule day, time and timezone.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeBroadcast {
     /// Day of week the broadcast happened
     pub day: Option<String>,
@@ -139,7 +139,7 @@ pub struct AnimeBroadcast {
 ///
 /// All fields are self-explanitor.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Trailer {
     pub comment_count: Option<u64>,
     pub dislikes: Option<u64>,
@@ -161,7 +161,7 @@ pub struct Trailer {
 ///
 /// Only one of the two lists is present.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct RegionalRestrictions {
     pub allowed: Option<Vec<String>>,
     pub blocked: Option<Vec<String>>,
@@ -222,7 +222,7 @@ pub enum OrderBy {
 ///
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ThemeSongs {
     pub openings: Vec<ThemeSong>,
     pub endings: Vec<ThemeSong>,
@@ -355,7 +355,7 @@ impl Serialize for ThemeSong {
 
 /// Information about an individual episode in the anime.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeEpisode {
     /// WHen the anime aired. Forrmat of YYYY-MM-DDTHH:mm:SS+TZ:tz
     ///
@@ -391,7 +391,7 @@ pub struct AnimeEpisode {
 
 /// How to order the listing of articles
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ArticleOrdering {
     #[strum(to_string = "published_at")]
@@ -402,7 +402,7 @@ pub enum ArticleOrdering {
 
 /// How to order the listing of forums
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ForumOrdering {
     EpisodeNumber,
@@ -414,7 +414,7 @@ pub enum ForumOrdering {
 
 /// Information about every video related to the anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeVideo {
     /// Episodes videos
     pub episodes: Vec<AnimeVideoEpisode>,
@@ -425,7 +425,7 @@ pub struct AnimeVideo {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeVideoEpisode {
     /// The episode index?
     ///
@@ -445,7 +445,7 @@ pub struct AnimeVideoEpisode {
 ///
 /// This can be trusted, but many anime entries are missing videos so use something like <https://animethemes.moe> instead
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeVideoMusic {
     /// Information about the music video
     pub meta: AnimeVideoMusicMeta,
@@ -463,7 +463,7 @@ pub struct AnimeVideoMusic {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeVideoMusicMeta {
     /// Author of the music video
     pub author: String,
@@ -473,7 +473,7 @@ pub struct AnimeVideoMusicMeta {
 
 /// Information about a promotion video for the anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeVideoPromo {
     /// Title of the video as shown on MAL.
     ///
@@ -485,7 +485,7 @@ pub struct AnimeVideoPromo {
 
 /// Statistics about the specified anime
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeStatistics {
     pub completed: u64,
     pub dropped: u64,
@@ -499,7 +499,7 @@ pub struct AnimeStatistics {
 
 /// Information about a user entry
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct User {
     /// Their profile pictures
     pub images: Option<Images>,

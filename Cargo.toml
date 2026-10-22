@@ -13,6 +13,9 @@ exclude = ["tests/"]
 [lib]
 doctest = false
 
+[[test]]
+required-features = ["strict"]
+
 [dependencies]
 bytes = "1.12"
 derive_builder = "0.20"
@@ -36,4 +39,5 @@ auto_retry = []
 custom = []
 log = ["dep:log"]
 rate = []
+strict = []
 # test_random = []

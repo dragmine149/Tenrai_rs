@@ -7,7 +7,7 @@ A rust wrapper for the [Tenrai API](https://tenrai.org/)
 
 The major version will be supported for as long as it's online. Minor versions are going to be dropped way quicker.
 
-Also see [Changelog](./changelog).
+Also see [Changelog](./changelog.md).
 
 # Feature Flags
 <details>
@@ -51,6 +51,13 @@ Server keys don't have this restriction as they can do 300/min which is in-line 
 
 NOTE: The rate feature does not guarantee that a limit will never be hit. Especially with multiple clients using the same IP/Server-key.
 It is here to reduce the chance of this one client hitting the limit.
+
+</details>
+<details>
+  <summary>strict</summary>
+
+This is intended for development work. Applies `#[serde(deny_unknown_fields)]` to everything making sure nothing gets missed out.
+If the API updates without this crate updating, there is a high likelihood of something breaking if this feature is enabled. 
 
 </details>
 

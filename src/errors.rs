@@ -35,7 +35,7 @@ impl From<CacheError> for Error {
 
 /// Information about any error that happened within the API.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct TenraiAPIError {
     /// The status code returned.
     pub status: u64,
@@ -67,7 +67,7 @@ impl Display for TenraiAPIError {
 /// # Route Not Found
 /// `RouteNotFound` is only available via the `custom` feature. This is because every endpoint should be found.
 #[derive(Debug, Serialize, Deserialize, Display, PartialEq, Eq)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[serde(rename_all = "PascalCase")]
 pub enum MachineErrorType {
     BadRequestException,

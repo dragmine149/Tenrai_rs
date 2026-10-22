@@ -6,7 +6,7 @@ macro_rules! generic_type {
     ($name: tt) => {
         pastey::paste! {
            #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-           #[serde(deny_unknown_fields)]
+           #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
             pub struct [<$name:upper_camel Type>] {
                 /// The unique MAL ID of the catalog item
                 pub mal_id: u64,
@@ -180,7 +180,7 @@ macro_rules! person_connection {
         pastey::paste! {
             #[doc = "Connects a(n) `" $type "` to a(n) `" $media "` and what `" $connection_name "` they are"]
             #[derive(Debug, Serialize, Deserialize)]
-            #[serde(deny_unknown_fields)]
+            #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
             pub struct [<$media:upper_camel $type:upper_camel Connection>] {
             	#[doc = "How this person connections to the `" $media "`"]
                 $connection_name: String,

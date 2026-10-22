@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 /// Information about an article
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Article {
     /// Author profile URL
     pub author_url: String,
@@ -42,7 +42,7 @@ pub struct Article {
 
 /// Content in an article
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ArticleContent {
     /// Parsed HTML oof the article
     pub html: String,
@@ -52,7 +52,7 @@ pub struct ArticleContent {
 
 /// Article relation to a piece of media
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ArticleRelation {
     pub anime: Vec<BasicRelationInfo>,
     pub manga: Vec<BasicRelationInfo>,
@@ -64,7 +64,7 @@ pub struct ArticleRelation {
 
 /// Very basic information to link media together
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct BasicRelationInfo {
     pub mal_id: u64,
     pub name: String,

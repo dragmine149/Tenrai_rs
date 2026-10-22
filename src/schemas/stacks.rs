@@ -4,7 +4,7 @@ use strum_macros::Display;
 use crate::schemas::common::Images;
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum StackOrder {
     CreatedAt,
@@ -13,7 +13,7 @@ pub enum StackOrder {
 
 /// Information about an anime stack.
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Stack {
     /// URL of the author who made the stack
     pub author_url: Option<String>,
@@ -50,7 +50,7 @@ pub struct Stack {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[serde(rename_all = "snake_case")]
 pub enum StackType {
     Anime,
@@ -59,7 +59,7 @@ pub enum StackType {
 
 /// Information about an entry on a stack
 #[derive(Debug, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct StackEntry {
     /// Score given by the author
     pub author_score: Option<u64>,
