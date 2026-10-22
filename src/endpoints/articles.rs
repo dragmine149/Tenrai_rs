@@ -42,7 +42,7 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get all article tags
-    pub async fn article_tags(&self) -> crate::Result<TenraiResponse<Tag>> {
+    pub async fn article_tags(&self) -> crate::Result<TenraiResponse<Vec<Tag>>> {
         Ok(self.request("articles/tags".to_string()).await?.result()?)
     }
     /// Get an article by its id
