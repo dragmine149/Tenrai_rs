@@ -2,6 +2,7 @@
 
 # 1.0.2
 Minor update to clean things up
+- **Added** github automated testing
 - **Changed** `#[serde(deny_unknown_fields)]` is now an optional feature behind `strict`
 - **Changed** how `changelog` is formatted
 - **Fixed** changelog link from crates.io *(hopefully)*

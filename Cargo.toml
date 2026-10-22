@@ -13,9 +13,6 @@ exclude = ["tests/"]
 [lib]
 doctest = false
 
-[[test]]
-required-features = ["strict"]
-
 [dependencies]
 bytes = "1.12"
 derive_builder = "0.20"
