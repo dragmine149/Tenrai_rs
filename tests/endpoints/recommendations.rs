@@ -13,8 +13,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "Paginator"
+    })
 );
 TestPaginator!(
     recommendations_manga_recent,
@@ -28,6 +27,5 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "Paginator"
+    })
 );

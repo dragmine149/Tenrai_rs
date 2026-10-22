@@ -16,8 +16,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ minutes to complete (public tier)"
+    })
 );
 TestBuilder!(
     company_full_details,

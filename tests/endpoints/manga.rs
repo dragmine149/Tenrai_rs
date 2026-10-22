@@ -23,8 +23,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1 minutes to complete on it's own (public tier)"
+    })
 );
 TestBuilder!(
     manga_full_details,

@@ -15,8 +15,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ mins to complete (public tier)"
+    })
 );
 
 TestPaginator!(
@@ -31,8 +30,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ mins to complete (public tier)"
+    })
 );
 
 TestPaginator!(
@@ -47,8 +45,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ mins to complete (public tier)"
+    })
 );
 
 TestPaginator!(
@@ -63,8 +60,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ mins to complete (public tier)"
+    })
 );
 
 TestPaginator!(
@@ -79,6 +75,5 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1+ mins to complete (public tier)"
+    })
 );

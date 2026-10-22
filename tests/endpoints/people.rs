@@ -17,8 +17,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "This takes 1 minute+ on its own to run (public tier)"
+    })
 );
 TestBuilder!(
     people_full_details,

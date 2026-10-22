@@ -17,8 +17,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "paginator"
+    })
 );
 TestPaginator!(
     articles,
@@ -32,8 +31,7 @@ TestPaginator!(
                     .unwrap(),
             )
             .await
-    }),
-    ignore = "paginator"
+    })
 );
 TestBuilder!(
     news_tags,

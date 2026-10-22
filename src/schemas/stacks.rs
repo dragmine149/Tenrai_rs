@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
+use crate::schemas::common::Images;
+
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[serde(deny_unknown_fields)]
 #[strum(serialize_all = "snake_case")]
@@ -25,6 +27,8 @@ pub struct Stack {
     pub description: String,
     /// How many entries are in the stack (Max 50)
     pub entry_count: u64,
+    /// Individual entries in a stack. Only available when requesting the stack
+    pub entries: Option<Vec<StackEntry>>,
     /// Is the stack a challenge stack
     ///
     /// *complete 1 entry in some format by some date*
@@ -51,4 +55,40 @@ pub struct Stack {
 pub enum StackType {
     Anime,
     Manga,
+}
+
+/// Information about an entry on a stack
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct StackEntry {
+    /// Score given by the author
+    pub author_score: Option<u64>,
+    /// Images of the entry
+    pub images: Images,
+    /// ID of the entry on MAL
+    pub mal_id: u64,
+    /// Any notes left by the author
+    pub note: Option<String>,
+    /// The position in the stack
+    pub position: u64,
+    /// The title of the entry
+    pub title: String,
+    /// English version of the entry title
+    pub title_english: Option<String>,
+    /// Type of the entry
+    ///
+    /// NOTE: This can't be easily assigned to [AnimeType](crate::schemas::anime::AnimeType) or [MangaType](crate::schemas::manga::MangaType) as we don't have the context of the list.
+    /// (and rust isn't going to be that easy)
+    #[serde(rename = "type")]
+    pub entry_type: Option<String>,
+    /// URL of the entry
+    pub url: String,
+    /// Which year the anime first aired.
+    pub aired_from_year: Option<u64>,
+    /// How many episodes in the anime.
+    pub episodes: Option<u64>,
+    /// Which year the manga first published.
+    pub published_from_year: Option<u64>,
+    /// How many volumes in the manga.
+    pub volumes: Option<u64>,
 }
