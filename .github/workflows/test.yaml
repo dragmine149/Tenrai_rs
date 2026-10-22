@@ -1,0 +1,8 @@
+name: Test code
+on: push
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cargo test --features=rate -- --include_ignored --skip _ids
