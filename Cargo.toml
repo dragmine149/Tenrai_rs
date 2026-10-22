@@ -8,6 +8,7 @@ homepage = "https://github.com/dragmine149/Tenrai_rs"
 repository = "https://github.com/dragmine149/Tenrai_rs"
 license-file = "LICENSE"
 keywords = ["Jikan", "MAL", "MyAnimeList", "Tenrai"]
+exclude = ["tests/"]
 
 [lib]
 doctest = false
