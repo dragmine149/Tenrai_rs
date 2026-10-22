@@ -1,5 +1,9 @@
 # Changelog
 
+# Unreleased
+## Fixed
+- Changelog link from crates.io
+
 # 1.0.1
 Some markdown fixes
 
