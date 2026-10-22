@@ -28,7 +28,7 @@
 //!
 //! # See
 //! - The official api docs this is based on: <https://api.tenrai.org/documentation>
-//! - The github repo for more information: <>
+//! - The github repo for more information: <https://github.com/dragmine149/Tenrai_rs>
 
 use crate::{
     cache::{RequestCache, TryRequestCache},

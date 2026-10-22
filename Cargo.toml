@@ -2,8 +2,12 @@
 name = "tenrai"
 version = "1.0.0"
 edition = "2024"
+description = "Bindings for the Tenrai API."
 readme = "Readme.md"
+homepage = "https://github.com/dragmine149/Tenrai_rs"
+repository = "https://github.com/dragmine149/Tenrai_rs"
 license-file = "LICENSE"
+keywords = ["Jikan", "MAL", "MyAnimeList", "Tenrai"]
 
 [lib]
 doctest = false
