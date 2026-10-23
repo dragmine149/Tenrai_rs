@@ -259,11 +259,11 @@ impl TenraiAPI {
     /// Retrieve all unique MAL anime IDs of approved entries that currently exist and are active.
     ///
     /// NOTE: This requires a server key.
-    /// TODO: Implement client-sided server-key checker
     pub async fn anime_ids(
         &self,
         query: AnimeIdsQuery,
     ) -> crate::Result<TenraiTotalResponse<IDList>> {
+        self.check_server_key()?;
         Ok(self
             .request(format!("anime/ids{query}"))
             .await?

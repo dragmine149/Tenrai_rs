@@ -218,11 +218,11 @@ impl TenraiAPI {
     /// Retrieve all unique MAL manga IDs of approved entries that currently exist and are active.
     ///
     /// NOTE: This requires a server key.
-    /// TODO: Implement client-sided server-key checker
     pub async fn manga_ids(
         &self,
         query: MangaIdsQuery,
     ) -> crate::Result<TenraiTotalResponse<IDList>> {
+        self.check_server_key()?;
         Ok(self
             .request(format!("manga/ids{query}"))
             .await?

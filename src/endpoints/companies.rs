@@ -39,8 +39,8 @@ impl TenraiAPI {
     /// Get the ID of every company in one request
     ///
     /// NOTE: This requires a server key.
-    /// TODO: Implement client-sided server-key checker
     pub async fn company_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
+        self.check_server_key()?;
         Ok(self.request("producers/ids".to_string()).await?.result()?)
     }
 }

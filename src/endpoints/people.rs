@@ -91,8 +91,8 @@ impl TenraiAPI {
     /// Get the ID of every person in one request
     ///
     /// NOTE: This requires a server key.
-    /// TODO: Implement client-sided server-key checker
     pub async fn people_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
+        self.check_server_key()?;
         Ok(self.request("people/ids".to_string()).await?.result()?)
     }
 }

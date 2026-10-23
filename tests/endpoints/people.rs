@@ -46,5 +46,5 @@ TestBuilder!(
 TestBuilder!(
     people_ids,
     (async |client: &TenraiAPI, _| { client.people_ids().await }),
-    ignore = "This requires a server key"
+    ignore = "Requires Server key"
 );

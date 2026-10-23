@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.3
+I realised i could actually do this now.
+- **Added** local client-sided server key validation.
+
 # 1.0.2
 Minor update to clean things up
 - **Added** github automated testing

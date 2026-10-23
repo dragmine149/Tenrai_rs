@@ -93,8 +93,8 @@ impl TenraiAPI {
     /// Get the ID of every character in one request
     ///
     /// NOTE: This requires a server key.
-    /// TODO: Implement client-sided server-key checker
     pub async fn character_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
+        self.check_server_key()?;
         Ok(self.request("characters/ids".to_string()).await?.result()?)
     }
 }

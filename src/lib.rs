@@ -26,6 +26,9 @@
 //! |--------|----------|------|
 //! |Producer|Company   |Company encomposises the returned data better|
 //!
+//! ## Server Keys
+//! Some endpoints require the use of a server key to access. We check to see if a server key has been provided before a request is even sent out. This cannot check the validicity of the server key though.
+//!
 //! # See
 //! - The official api docs this is based on: <https://api.tenrai.org/documentation>
 //! - The github repo for more information: <https://github.com/dragmine149/Tenrai_rs>
@@ -101,6 +104,13 @@ impl TenraiAPI {
             headers.insert("X-Server-Key", key.parse().unwrap());
         }
         headers
+    }
+
+    fn check_server_key(&self) -> crate::Result<()> {
+        self.server_key.as_ref().ok_or_else(|| {
+            crate::errors::TenraiError::Custom("A server key is required for this endpoint")
+        })?;
+        Ok(())
     }
 
     /// Internal function for sending the request itself.
