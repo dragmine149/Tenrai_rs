@@ -8,6 +8,7 @@ Small changes, but a lot of them. Ran the same test a couple hundred times to ma
 - **Fixed** `Relation.media_type` being null. 
 - **Fixed** edge cases in `Anime.theme` Regex parsing *hopefully should have caught them all*
 - **Fixed** `rate` feature just not working. *I messed up maths*
+- **Fixed** a couple of unresolved links to crate members.
 
 # 1.0.3
 I realised i could actually do this now.

@@ -536,7 +536,7 @@ query!(News {
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-    /// Only items with this tag. See [TenraiAPI::news_tags] for the tags.
+    /// Only items with this tag. See [TenraiAPI::news_tags](crate::TenraiAPI::news_tags) for the tags.
     tag: String,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
@@ -555,7 +555,7 @@ query!(FullArticle {
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
-    /// Only items with this tag. See [TenraiAPI::articles_tags] for the tags.
+    /// Only items with this tag. See [TenraiAPI::article_tags](crate::TenraiAPI::article_tags) for the tags.
     tag: String,
     /// Field to sort the results by.
     order_by: ArticleOrdering,

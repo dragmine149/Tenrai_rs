@@ -96,7 +96,7 @@ pub struct Manga {
     pub more_info: Option<String>,
     /// Total users who have added this to their lists.
     pub members: Option<u64>,
-    /// Global popularity rank based on [Anime::members].
+    /// Global popularity rank based on [Manga::members].
     pub popularity: Option<u64>,
     /// Publication date details.
     pub published: Aired,
