@@ -22,6 +22,8 @@ use crate::{
 /// API Functions related to Manga
 impl TenraiAPI {
     /// Search and filter manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga>
     pub async fn manga_search(
         &self,
         query: MangaQuery,
@@ -32,10 +34,14 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get details for a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}>
     pub async fn manga_details(&self, id: u64) -> crate::Result<TenraiResponse<Manga>> {
         Ok(self.request(format!("manga/{id}")).await?.result()?)
     }
     /// Get full detailed data for a manga.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/full>
     pub async fn manga_full_details(
         &self,
         id: u64,
@@ -47,6 +53,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get recommendations for a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/recommendations>
     pub async fn manga_recommendations(
         &self,
         id: u64,
@@ -58,6 +66,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get manga characters
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/characters>
     pub async fn manga_characters(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Character>>> {
         Ok(self
             .request(format!("manga/{id}/characters"))
@@ -65,6 +75,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get news about a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/news>
     pub async fn manga_news(
         &self,
         id: u64,
@@ -76,6 +88,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get featured articles about a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/articles>
     pub async fn manga_articles(
         &self,
         id: u64,
@@ -87,6 +101,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get pictures for a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/pictures>
     pub async fn manga_pictures(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("manga/{id}/pictures"))
@@ -94,6 +110,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get statistics for a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/statistics>
     pub async fn manga_statistics(
         &self,
         id: u64,
@@ -105,7 +123,7 @@ impl TenraiAPI {
     }
     /// Get historical statistics for a manga
     ///
-    /// See https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/statistics/history for more information
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/statistics/history>
     pub async fn manga_statistics_historyical(
         &self,
         id: u64,
@@ -117,6 +135,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get more information about a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/moreinfo>
     pub async fn manga_more_info(&self, id: u64) -> crate::Result<TenraiResponse<MoreInfo>> {
         Ok(self
             .request(format!("manga/{id}/moreinfo"))
@@ -124,6 +144,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get relations for a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/relations>
     pub async fn manga_relations(
         &self,
         id: u64,
@@ -135,13 +157,17 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get links to other sites about a manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/external>
     pub async fn manga_external(&self, id: u64) -> crate::Result<TenraiResponse<Vec<External>>> {
         Ok(self
             .request(format!("manga/{id}/external"))
             .await?
             .result()?)
     }
-    /// Get ,user reviews of a manga.
+    /// Get user reviews of a manga.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/reviews>
     pub async fn manga_reviews(
         &self,
         id: u64,
@@ -155,6 +181,8 @@ impl TenraiAPI {
     /// Get forum topics related to the manga entry. Episode discussion threads only
     ///
     /// NOTE: You can use the official MAL API to fetch the threads themselves by using the thread id.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/forum>
     pub async fn manga_forum(
         &self,
         id: u64,
@@ -166,6 +194,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get all public interest stacks for an manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/stacks>
     pub async fn manga_stacks(
         &self,
         id: u64,
@@ -177,6 +207,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get manga waiting for MAL approval
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/unapproved>
     pub async fn manga_unapproved(
         &self,
         query: BasicQuery,
@@ -187,6 +219,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get manga MAL denied
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/denied>
     pub async fn manga_denied(
         &self,
         query: BasicQuery,
@@ -197,6 +231,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get manga that have been adapted into anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/adapted>
     pub async fn manga_adapted(
         &self,
         query: AdaptedQuery,
@@ -207,6 +243,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get manga that has been removed from MAL
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/deleted>
     pub async fn manga_deleted(
         &self,
         query: BasicQuery,
@@ -219,6 +257,8 @@ impl TenraiAPI {
     /// Retrieve all unique MAL manga IDs of approved entries that currently exist and are active.
     ///
     /// NOTE: This requires a server key.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/ids>
     pub async fn manga_ids(
         &self,
         query: MangaIdsQuery,
@@ -236,6 +276,8 @@ impl TenraiAPI {
 /// API Functions related to Magazines
 impl TenraiAPI {
     /// Search manga magazines
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/magazines/GET/magazines>
     pub async fn magazines(
         &self,
         query: MagazineQuery,

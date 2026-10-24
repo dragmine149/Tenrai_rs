@@ -14,6 +14,8 @@ use crate::{
 /// API Functions related to Ranking
 impl TenraiAPI {
     /// Get the highest ranking anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/anime>
     pub async fn top_anime(
         &self,
         query: TopQuery,
@@ -24,6 +26,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the highest ranking Manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/manga>
     pub async fn top_manga(
         &self,
         query: TopQuery,
@@ -34,6 +38,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the most favorited people
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/people>
     pub async fn top_people(
         &self,
         query: PageQuery,
@@ -44,6 +50,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the most favorited characters
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/characters>
     pub async fn top_character(
         &self,
         query: PageQuery,
@@ -54,6 +62,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the most helpful reviews
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/reviews>
     pub async fn top_reviews(
         &self,
         query: TopReviewQuery,

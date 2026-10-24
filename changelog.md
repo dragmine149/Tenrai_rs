@@ -2,6 +2,7 @@
 
 # 1.1.0
 Small changes, but a lot of them. Ran the same test a couple hundred times to make sure this update didn't have issues.
+- **Added** `API Documentation: <link>` to every endpoint with a valid documentation.
 - **Enum-ified** `Relation.relation`. 
 - **Enum-ified** `Anime.source`. 
 - **Fixed** `Relation.media_type` being null. 

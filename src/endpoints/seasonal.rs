@@ -9,6 +9,8 @@ use crate::{
 /// API Functions related to Seasonal Data
 impl TenraiAPI {
     /// Get the anime of a given season
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/{year}/{season}>
     pub async fn seasonal_anime(
         &self,
         year: u64,
@@ -26,6 +28,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the current season's anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/now>
     pub async fn seasonal_anime_current(
         &self,
         query: SeasonalQuery,
@@ -36,6 +40,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the previous season's anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/previous>
     pub async fn seasonal_anime_previous(
         &self,
         query: SeasonalQuery,
@@ -46,6 +52,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get announced anime that hasn't aired
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/upcoming>
     pub async fn seasonal_anime_upcoming(
         &self,
         query: SeasonalQuery,
@@ -56,6 +64,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get every season that can be looked up
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons>
     pub async fn seasonal_all(&self) -> crate::Result<TenraiPaginatorResponse<SeasonLookup>> {
         Ok(self
             .request("seasons".to_string())

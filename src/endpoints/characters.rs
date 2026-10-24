@@ -13,6 +13,8 @@ use crate::{
 /// API Functions related to Characters
 impl TenraiAPI {
     /// Search for characters
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters>
     pub async fn character_search(
         &self,
         query: CharacterQuery,
@@ -23,6 +25,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get details for a character
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}>
     pub async fn character_details(
         &self,
         id: u64,
@@ -30,6 +34,8 @@ impl TenraiAPI {
         Ok(self.request(format!("characters/{id}")).await?.result()?)
     }
     /// Get full details for a character
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/full>
     pub async fn character_full_details(
         &self,
         id: u64,
@@ -41,6 +47,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get the anime the character appears in
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/anime>
     pub async fn character_anime_appearance(
         &self,
         id: u64,
@@ -52,6 +60,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get the manga a character appears in
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/manga>
     pub async fn character_manga_appearance(
         &self,
         id: u64,
@@ -63,6 +73,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get a character voice actors
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/voices>
     pub async fn character_voice_actors(
         &self,
         id: u64,
@@ -73,6 +85,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get the pictures for a character
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/pictures>
     pub async fn character_pictures(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("characters/{id}/pictures"))
@@ -80,6 +94,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get featured articles about a character
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/characters/GET/characters/{id}/articles>
     pub async fn character_articles(
         &self,
         id: u64,
@@ -93,6 +109,8 @@ impl TenraiAPI {
     /// Get the ID of every character in one request
     ///
     /// NOTE: This requires a server key.
+    ///
+    /// API DOCUMENTATION: <api.tenrai.org/documentation#tag/characters/GET/characters/ids>
     pub async fn character_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
         self.check_server_key()?;
         Ok(self.request("characters/ids".to_string()).await?.result()?)

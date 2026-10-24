@@ -6,6 +6,8 @@ use crate::{
 /// API Functions related to Recommendations
 impl TenraiAPI {
     /// Get the latest anime recommendations from users
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/recommendations/GET/recommendations/anime>
     pub async fn recommendations_anime_recent(
         &self,
         query: FullPageSfwQuery,
@@ -16,6 +18,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the latest manga recommendations from users
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/recommendations/GET/recommendations/manga>
     pub async fn recommendations_manga_recent(
         &self,
         query: FullPageSfwQuery,

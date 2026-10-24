@@ -12,6 +12,8 @@ use crate::{
 /// API Functions related to People
 impl TenraiAPI {
     /// Search people, such as VAs, Staff and Authors
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people>
     pub async fn people_search(
         &self,
         query: PeopleQuery,
@@ -22,11 +24,15 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get details for a person
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}>
     pub async fn people_details(&self, id: u64) -> crate::Result<TenraiResponse<Person>> {
         Ok(self.request(format!("people/{id}")).await?.result()?)
     }
 
     /// Get Full details for a person
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/full>
     pub async fn people_full_details(
         &self,
         id: u64,
@@ -38,6 +44,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get the anime a person worked on
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/anime>
     pub async fn people_anime_roles(
         &self,
         id: u64,
@@ -49,6 +57,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get the manga a person worked on
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/manga>
     pub async fn people_manga_roles(
         &self,
         id: u64,
@@ -60,6 +70,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get a person voice acting roles.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/voices>
     pub async fn people_voices(
         &self,
         id: u64,
@@ -71,6 +83,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get pictures of a person
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/pictures>
     pub async fn people_pictures(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("people/{id}/pictures"))
@@ -78,6 +92,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get featured articles about a person
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/articles>
     pub async fn people_articles(
         &self,
         id: u64,
@@ -91,6 +107,8 @@ impl TenraiAPI {
     /// Get the ID of every person in one request
     ///
     /// NOTE: This requires a server key.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/ids>
     pub async fn people_ids(&self) -> crate::Result<TenraiResponse<Vec<u64>>> {
         self.check_server_key()?;
         Ok(self.request("people/ids".to_string()).await?.result()?)

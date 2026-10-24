@@ -6,6 +6,8 @@ use crate::{
 /// API Functions related to Schedules
 impl TenraiAPI {
     /// Get the weekly broadcast schedule of airing anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/schedules/GET/schedules>
     pub async fn schedules(
         &self,
         query: ScheduleQuery,

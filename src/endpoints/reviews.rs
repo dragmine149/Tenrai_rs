@@ -6,6 +6,8 @@ use crate::{
 /// API Functions related to Reviews
 impl TenraiAPI {
     /// Get the latest anime reviews.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/reviews/GET/reviews/anime>
     pub async fn reviews_anime_recent(
         &self,
         query: TopReviewQuery,
@@ -16,6 +18,8 @@ impl TenraiAPI {
             .result_paginator()?)
     }
     /// Get the latest manga reviews.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/reviews/GET/reviews/manga>
     pub async fn reviews_manga_recent(
         &self,
         query: TopReviewQuery,

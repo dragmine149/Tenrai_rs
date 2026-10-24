@@ -9,6 +9,8 @@ use crate::{
 /// API Functions related to getting random data
 impl TenraiAPI {
     /// Get a random anime
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/random/GET/random/anime>
     pub async fn random_anime(&self, query: SfwQuery) -> crate::Result<TenraiResponse<Anime>> {
         Ok(self
             .request(format!("random/anime{query}"))
@@ -16,6 +18,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get a random manga
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/random/GET/random/manga>
     pub async fn random_manga(&self, query: SfwQuery) -> crate::Result<TenraiResponse<Manga>> {
         Ok(self
             .request(format!("random/manga{query}"))
@@ -23,6 +27,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get a random character
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/random/GET/random/characters>
     pub async fn random_character(
         &self,
         query: SfwQuery,
@@ -33,6 +39,8 @@ impl TenraiAPI {
             .result()?)
     }
     /// Get a random person
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/random/GET/random/people>
     pub async fn random_person(&self, query: SfwQuery) -> crate::Result<TenraiResponse<Person>> {
         Ok(self
             .request(format!("random/people{query}"))
