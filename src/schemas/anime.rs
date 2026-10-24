@@ -148,6 +148,7 @@ pub enum AnimeSource {
     #[serde(rename = "Mixed media")]
     MixedMedia,
     Music,
+    Radio,
     Original,
     Other,
     Unknown,
