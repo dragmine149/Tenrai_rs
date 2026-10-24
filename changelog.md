@@ -4,6 +4,7 @@
 Small changes, but a lot of them. Ran the same test a couple hundred times to make sure this update didn't have issues.
 - **Enum-ified** `Relation.relation`. 
 - **Enum-ified** `Anime.source`. 
+- **Fixed** `Relation.media_type` being null. 
 - **Fixed** edge cases in `Anime.theme` Regex parsing *hopefully should have caught them all*
 
 # 1.0.3
