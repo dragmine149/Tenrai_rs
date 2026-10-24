@@ -22,7 +22,7 @@ async fn test_error() {
 #[tokio::test]
 #[ignore = "There should not be any major need to test this"]
 #[cfg(feature = "auto_retry")]
-async fn test_rate_limit() {
+async fn test_auto_retry() {
     let client = build_client();
     let mut futures = vec![];
     // limit is 20 as we should be able to hit the /second limit rather than the /min limit.
@@ -33,6 +33,46 @@ async fn test_rate_limit() {
         future
             .await
             .expect("Nothing should have failed just because we rate-limited");
+    }
+}
+
+#[tokio::test]
+#[ignore = "There should not be any major need to test this"]
+#[cfg(feature = "rate")]
+async fn test_rate_limiter() {
+    use std::time::Duration;
+    use tokio::time::Instant;
+
+    let client = build_client();
+    let duration = if client.has_server_key() {
+        Duration::from_millis(200)
+    } else {
+        Duration::from_millis(500)
+    };
+    let upper = duration + Duration::from_millis(100);
+    let lower = duration - Duration::from_millis(100);
+
+    let mut futures = vec![];
+    // limit is 20 as we should be able to hit the /second limit rather than the /min limit.
+    for _ in 0..20 {
+        futures.push(client.anime_details(1));
+    }
+    let mut last = Instant::now();
+    let mut index = 0;
+    for future in futures {
+        future.await.expect("The request should be fine...");
+        if index > 1 {
+            let diff = Instant::now().duration_since(last);
+            println!("{:?}", diff);
+            if diff >= upper {
+                panic!("Request took too long to complete ({diff:?})")
+            }
+            if diff <= lower {
+                panic!("Request completed too quickly ({diff:?})")
+            }
+        }
+        index += 1;
+        last = Instant::now();
     }
 }
 

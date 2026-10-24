@@ -117,16 +117,17 @@ impl TenraiAPI {
     async fn request(&self, endpoint: String) -> crate::Result<TenraiRaw> {
         let url = format!("https://api.tenrai.org/v1/{endpoint}");
         let request = self.client.get(url).headers(self.build_headers());
+        #[cfg(feature = "rate")]
+        let delay = match self.server_key {
+            Some(_) => Duration::from_millis(200),
+            None => Duration::from_millis(500),
+        };
 
         loop {
             #[cfg(feature = "rate")]
             {
-                let last = Instant::now()
-                    .duration_since(*self.last_message.borrow())
-                    .saturating_sub(match self.server_key {
-                        Some(_) => Duration::from_millis(200),
-                        None => Duration::from_millis(500),
-                    });
+                let now = Instant::now();
+                let last = delay.saturating_sub(now.duration_since(*self.last_message.borrow()));
                 tokio::time::sleep(last).await;
             }
 
@@ -167,6 +168,11 @@ impl TenraiAPI {
                 false => Ok(response.json().await?),
             };
         }
+    }
+
+    /// Returns a boolean based on if a server key has been provided or not.
+    pub fn has_server_key(&self) -> bool {
+        self.server_key.is_some()
     }
 }
 

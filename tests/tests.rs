@@ -9,7 +9,7 @@ use tenrai::TenraiAPI;
 pub(crate) fn build_client() -> TenraiAPI {
     let mut builder = TenraiAPI::builder();
     builder.cache(false);
-    builder.cache(true);
+    // builder.cache(true);
     if let Some(sk) = option_env!("server-key") {
         builder.server_key(sk);
     }
