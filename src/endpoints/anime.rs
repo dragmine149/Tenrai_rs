@@ -5,7 +5,8 @@ use crate::{
         anime::{Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ThemeSongs},
         article::Article,
         common::{
-            External, Forum, IDList, Images, MoreInfo, Recommendation, Relation, StatsHistory,
+            External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
+            StatsHistory,
         },
         people::{AnimeStaff, Character},
         query::{
@@ -180,7 +181,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Vec<Relation>>> {
+    ) -> crate::Result<TenraiResponse<Vec<RelationDetails>>> {
         Ok(self
             .request(format!("anime/{id}/relations{query}"))
             .await?

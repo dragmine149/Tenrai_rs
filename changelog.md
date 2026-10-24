@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.1.0
+Small changes, but a lot of them.
+- **Enum-ified** `Relation.relation`. 
+
 # 1.0.3
 I realised i could actually do this now.
 - **Added** local client-sided server key validation.

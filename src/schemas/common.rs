@@ -399,11 +399,33 @@ generic_type!(Theme);
 
 /// Combines a relationship between this entry and another entry.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Relation {
+pub struct RelationDetails {
     /// The relation between the two.
-    pub relation: String,
+    pub relation: Relation,
     /// The other entry to compare to.
     pub entry: Vec<RelationEntry>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub enum Relation {
+    Adaptation,
+    Sequel,
+    Prequel,
+    #[serde(rename = "Spin-Off")]
+    SpinOff,
+    #[serde(rename = "Side Story")]
+    SideStory,
+    #[serde(rename = "Alternative Version")]
+    AlternativeVersion,
+    #[serde(rename = "Alternative Setting")]
+    AlternativeSetting,
+    #[serde(rename = "Parent Story")]
+    ParentStory,
+    Other,
+    Summary,
+    Character,
+    #[serde(rename = "Full Story")]
+    FullStory,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
@@ -422,7 +444,7 @@ pub struct RelationEntry {
     ///
     /// NOTE: This is different that [RelationEntry::entry_type].
     /// For example, the [RelationEntry::entry_type] might be `manga` whilst this is `light_novel`. or `anime` and `TV` respctably.
-    pub media_type: String,
+    pub media_type: Option<String>,
     /// Images relating to the entry.
     pub images: Images,
 }

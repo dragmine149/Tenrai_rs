@@ -3,7 +3,7 @@ use strum_macros::Display;
 
 use crate::schemas::{
     common::{
-        Aired, AlternativeTitle, DemographicsType, External, GenreType, Images, Relation,
+        Aired, AlternativeTitle, DemographicsType, External, GenreType, Images, RelationDetails,
         StatsScore, ThemeType,
     },
     people::{MangaAuthor, MangaSerialization},
@@ -107,7 +107,7 @@ pub struct Manga {
     /// Relationships with other media in the same series
     ///
     /// Requires `full` details
-    pub relations: Option<Vec<Relation>>,
+    pub relations: Option<Vec<RelationDetails>>,
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.

@@ -4,7 +4,7 @@ use crate::{
     generic_type,
     schemas::common::{
         AgeRating, Aired, AlternativeTitle, DemographicsType, External, GenreType, ImageDetails,
-        Images, Relation, Season, StatsScore, ThemeType,
+        Images, RelationDetails, Season, StatsScore, ThemeType,
     },
 };
 use regex::Regex;
@@ -71,7 +71,7 @@ pub struct Anime {
     /// Relationships with other media in the same series
     ///
     /// Requires `full` details
-    pub relations: Option<Vec<Relation>>,
+    pub relations: Option<Vec<RelationDetails>>,
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.

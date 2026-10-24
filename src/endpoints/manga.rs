@@ -4,7 +4,8 @@ use crate::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         article::Article,
         common::{
-            External, Forum, IDList, Images, MoreInfo, Recommendation, Relation, StatsHistory,
+            External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
+            StatsHistory,
         },
         filter::BasicInfo,
         manga::{Manga, MangaStatistics},
@@ -127,7 +128,7 @@ impl TenraiAPI {
         &self,
         id: u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Vec<Relation>>> {
+    ) -> crate::Result<TenraiResponse<Vec<RelationDetails>>> {
         Ok(self
             .request(format!("manga/{id}/relations{query}"))
             .await?
