@@ -79,9 +79,7 @@ pub struct Anime {
     /// Season of premier.
     pub season: Option<Season>,
     /// The source material type.
-    ///
-    /// TODO: Enum-ify
-    pub source: String,
+    pub source: AnimeSource,
     /// Airing status of the anime.
     pub status: AnimeStatus,
     /// External sites where you can watch the anime
@@ -119,6 +117,40 @@ pub struct Anime {
     pub url: String,
     /// Year or premier.
     pub year: Option<u64>,
+}
+
+/// What source the anime is based on..
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+pub enum AnimeSource {
+    Novel,
+    #[serde(rename = "Visual novel")]
+    VisualNovel,
+    #[serde(rename = "Light novel")]
+    LightNovel,
+    #[serde(rename = "Web novel")]
+    WebNovel,
+
+    Manga,
+    #[serde(rename = "Web manga")]
+    WebManga,
+    /// 4-koma Manga
+    #[serde(rename = "4-koma manga")]
+    KomaManga,
+
+    Book,
+    #[serde(rename = "Picture book")]
+    PictureBook,
+
+    Game,
+    #[serde(rename = "Card game")]
+    CardGame,
+
+    #[serde(rename = "Mixed media")]
+    MixedMedia,
+    Music,
+    Original,
+    Other,
+    Unknown,
 }
 
 /// Weekly broadcast schedule day, time and timezone.
@@ -264,9 +296,9 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
     where
         E: serde::de::Error,
     {
-        // SEE: https://regex101.com/r/bkhn4r/2
+        // SEE: https://regex101.com/r/bkhn4r/3
         let regex =
-            Regex::new(r#"(?mux) ^(?:\d+:\s+)? "(.+?)" \s+by\s+ (.+?)\s* (?:\(eps\s+(.+?)\))?$"#)
+            Regex::new(r#"(?mux) (?::\s+)? (?:"|'')(.+?)(?:"|'') (?:\s+by\s+)? (.+?)\s* (?:\(eps?\s+(.+?)\))?$"#)
                 .unwrap();
         let captures = regex
             .captures(v)
@@ -293,21 +325,33 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
                     .map(|ep| {
                         ep.split_once("-").map_or_else(
                             || {
-                                let num = ep
-                                    .trim()
-                                    .parse::<u64>()
-                                    .unwrap_or_else(|_| panic!("Expected digit found {}", ep));
+                                let num = ep.trim().parse::<u64>().unwrap_or_else(|_| {
+                                    panic!("Expected (solo) digit found {}", ep)
+                                });
                                 (num, num)
                             },
                             |(a, b)| {
-                                (
-                                    a.trim()
-                                        .parse()
-                                        .unwrap_or_else(|_| panic!("Expected digit found {}", a)),
-                                    b.trim()
-                                        .parse()
-                                        .unwrap_or_else(|_| panic!("Expected digit found {}", b)),
-                                )
+                                let first = a
+                                    .trim()
+                                    .parse::<u64>()
+                                    .unwrap_or_else(|_| panic!("Expected (a) digit found {}", a));
+                                let b = b.trim();
+                                let second = match b.parse::<u64>() {
+                                    Ok(v) => v,
+                                    Err(_) => {
+                                        if b.contains("?") {
+                                            0
+                                        } else if b.is_empty() {
+                                            0
+                                        } else {
+                                            panic!(
+                                                "Expected (b) digit, or ?? and failed. Found: {}",
+                                                b
+                                            )
+                                        }
+                                    }
+                                };
+                                (first, second)
                             },
                         )
                     })

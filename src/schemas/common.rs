@@ -406,6 +406,7 @@ pub struct RelationDetails {
     pub entry: Vec<RelationEntry>,
 }
 
+/// The relation between two entries.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub enum Relation {
     Adaptation,
@@ -428,6 +429,7 @@ pub enum Relation {
     FullStory,
 }
 
+/// Details about the related entry.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct RelationEntry {
