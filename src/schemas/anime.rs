@@ -151,6 +151,7 @@ pub enum AnimeSource {
     Radio,
     Original,
     Other,
+    #[serde(alias = "")]
     Unknown,
 }
 

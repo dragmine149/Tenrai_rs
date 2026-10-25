@@ -1,4 +1,6 @@
 # Changelog
+# 1.1.2
+ **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
 
 # 1.1.1
 *And this is why we have tests*
