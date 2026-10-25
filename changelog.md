@@ -1,6 +1,7 @@
 # Changelog
 # 1.1.2
- **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
+ - **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
+ - **Fixed** `FullRecommendationInfo.content` breaking due to a `null` value.
 
 # 1.1.1
 *And this is why we have tests*

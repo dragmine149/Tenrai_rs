@@ -466,7 +466,7 @@ pub struct FullRecommendationInfo {
     /// Each individual entry
     pub entry: Vec<Entry>,
     /// Content of the review
-    pub content: String,
+    pub content: Option<String>,
     /// Date the review was made
     ///
     /// TODO: Date Object
