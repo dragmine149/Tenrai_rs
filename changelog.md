@@ -1,6 +1,7 @@
 # Changelog
-# Unreleased
+# 1.1.3
 - **Changed** All non-query parameters to be borrowed *`&`* instead of owned.
+	- *Unsure yet to change the query parameters as well.*
 
 # 1.1.2
  - **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
