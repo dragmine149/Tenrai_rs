@@ -9,8 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - run: rustup toolchain install stable --profile minimal
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Build Tests
         run: cargo build --tests
       - name: Run Tests
-        run: cargo test --verbose --features=strict -- --include-ignored --skip _ids
+        run: cargo test --verbose --features=strict -- --include-ignored --skip _ids _paginator
+      - name: Run Tests (Paginators)
+        run: cargo test --verbose --features=strict _paginator -- --include-ignored
