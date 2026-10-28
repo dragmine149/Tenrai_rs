@@ -71,7 +71,7 @@ pub(crate) fn cache_size() -> std::io::Result<u64> {
 }
 
 /// Read the cache from disk. Returns an error if something failed with the read, and option depending on the contents.
-pub(crate) fn read_cache(url: &Url) -> std::io::Result<Option<Bytes>> {
+pub(crate) fn read_cache(url: &Url, age: Duration) -> std::io::Result<Option<Bytes>> {
     let file = get_cache_file(url.to_string())?;
     // println!("{:?}", file);
     if !file.exists()
@@ -80,7 +80,7 @@ pub(crate) fn read_cache(url: &Url) -> std::io::Result<Option<Bytes>> {
             .modified()?
             .elapsed()
             .unwrap_or(Duration::MAX)
-            > Duration::from_hours(24)
+            > age
     {
         return Ok(None);
     }
@@ -130,27 +130,27 @@ pub(crate) trait RequestCache {
     /// - invalid request object
     /// - error in network request itself
     /// - no ability to read/write to disk
-    async fn cache(self) -> Result<Bytes, CacheError>;
+    async fn cache(self, age: Duration) -> Result<Bytes, CacheError>;
     /// Does [RequestCache::cache] and then returns the result as a string. This is a more usable format for most than bytes.
     ///
     /// Additional errors include:
     /// - Not being able to convert to utf8.
-    async fn cache_str(self) -> Result<String, CacheError>
+    async fn cache_str(self, age: Duration) -> Result<String, CacheError>
     where
         Self: Sized,
     {
-        Ok(String::from_utf8_lossy(self.cache().await?.chunk()).to_string())
+        Ok(String::from_utf8_lossy(self.cache(age).await?.chunk()).to_string())
     }
     /// Does [RequestCache::cache] and then returns the result as the requested object.
     ///
     /// Additional errors included:
     /// - Any error that can happen with `serde_json`
-    async fn cache_json<T>(self) -> Result<T, CacheError>
+    async fn cache_json<T>(self, age: Duration) -> Result<T, CacheError>
     where
         T: DeserializeOwned,
         Self: Sized,
     {
-        Ok(serde_json::from_slice(&self.cache().await?)?)
+        Ok(serde_json::from_slice(&self.cache(age).await?)?)
     }
 }
 
@@ -159,33 +159,33 @@ pub(crate) trait RequestCache {
 /// Note that the error is consumed and not returned.
 #[allow(dead_code)]
 pub(crate) trait TryRequestCache {
-    fn try_cache(self) -> Result<Bytes, Self>
+    fn try_cache(self, age: Duration) -> Result<Bytes, Self>
     where
         Self: Sized;
-    fn try_cache_str(self) -> Result<String, Self>
+    fn try_cache_str(self, age: Duration) -> Result<String, Self>
     where
         Self: Sized,
     {
-        let cache = self.try_cache()?;
+        let cache = self.try_cache(age)?;
         Ok(String::from_utf8_lossy(cache.chunk()).to_string())
     }
-    fn try_cache_json<T>(self) -> Result<T, Self>
+    fn try_cache_json<T>(self, age: Duration) -> Result<T, Self>
     where
         T: DeserializeOwned,
         Self: Sized,
     {
-        let cache = self.try_cache()?;
+        let cache = self.try_cache(age)?;
         Ok(serde_json::from_slice(cache.chunk()).expect("This was malformed data"))
     }
 }
 
 impl RequestCache for RequestBuilder {
-    async fn cache(self) -> Result<Bytes, CacheError> {
+    async fn cache(self, age: Duration) -> Result<Bytes, CacheError> {
         let (client, request) = self.build_split();
         let request = request?;
         let url = request.url();
 
-        if let Some(cache) = read_cache(url)? {
+        if let Some(cache) = read_cache(url, age)? {
             return Ok(cache);
         }
         // println!("No cache, requesting");
@@ -193,12 +193,12 @@ impl RequestCache for RequestBuilder {
     }
 }
 impl RequestCache for Response {
-    async fn cache(self) -> Result<Bytes, CacheError> {
+    async fn cache(self, age: Duration) -> Result<Bytes, CacheError> {
         cache_response(self).await
     }
 }
 impl TryRequestCache for RequestBuilder {
-    fn try_cache(self) -> Result<Bytes, Self>
+    fn try_cache(self, age: Duration) -> Result<Bytes, Self>
     where
         Self: Sized,
     {
@@ -206,7 +206,7 @@ impl TryRequestCache for RequestBuilder {
         let request = request.expect("I don't understand how this errored...");
         let url = request.url();
 
-        if let Ok(cache) = read_cache(url)
+        if let Ok(cache) = read_cache(url, age)
             && let Some(cache) = cache
         {
             Ok(cache)

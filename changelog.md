@@ -1,17 +1,21 @@
 # Changelog
-# 1.1.3
+## Unrelease
+- **Exposed** Caching `age` so values can be used other than the default of `1 day`
+- **Fixed** Changelog formatting *(i was using `#` instead of `##`)*
+
+## 1.1.3
 - **Changed** All non-query parameters to be borrowed *`&`* instead of owned.
 	- *Unsure yet to change the query parameters as well.*
 
-# 1.1.2
+## 1.1.2
  - **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
  - **Fixed** `FullRecommendationInfo.content` breaking due to a `null` value.
 
-# 1.1.1
+## 1.1.1
 *And this is why we have tests*
 - **Fixed** `AnimeSource` not having a `radio` option.
 
-# 1.1.0
+## 1.1.0
 Small changes, but a lot of them. Ran the same test a couple hundred times to make sure this update didn't have issues.
 - **Added** `API Documentation: <link>` to every endpoint with a valid documentation.
 - **Enum-ified** `Relation.relation`. 
@@ -21,11 +25,11 @@ Small changes, but a lot of them. Ran the same test a couple hundred times to ma
 - **Fixed** `rate` feature just not working. *I messed up maths*
 - **Fixed** a couple of unresolved links to crate members.
 
-# 1.0.3
+## 1.0.3
 I realised i could actually do this now.
 - **Added** local client-sided server key validation.
 
-# 1.0.2
+## 1.0.2
 Minor update to clean things up
 - **Added** github automated testing
 - **Changed** `#[serde(deny_unknown_fields)]` is now an optional feature behind `strict`
@@ -33,7 +37,7 @@ Minor update to clean things up
 - **Fixed** changelog link from crates.io *(hopefully)*
 - **Fixed** "edge" case where [`Articles.author_url`](https://docs.rs/tenrai/latest/tenrai/schemas/article/struct.Article.html#structfield.author_url) is `null`
 
-# 1.0.1
+## 1.0.1
 Some markdown fixes
 
 - **Added** Even more basic documentation for `impl`s. *because apparently thats a thing*

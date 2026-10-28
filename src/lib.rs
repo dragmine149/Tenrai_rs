@@ -77,8 +77,11 @@ pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 /// It is here to reduce the chance of this one client hitting the limit.
 ///
 /// # Caching
-/// Caching is done locally by default. Anything cached will stay valid for 1 day after the cache has been modified.
-/// This can be bypassed by setting `cache` to false.
+/// As well as the API cache system (<https://api.tenrai.org/documentation#description/caching-data>), we also cache the results locally.
+///
+/// By default, local cache is valid for one day after the cache was written. Cache is written to the path provided by `dirs::cache_dir().join("tenrai")`.
+///
+/// See [TenraiAPI::cache] for more info on how to deal with the duration of valid cache.
 ///
 #[derive(Builder)]
 pub struct TenraiAPI {
@@ -88,9 +91,11 @@ pub struct TenraiAPI {
     /// Internal client object
     #[builder(setter(skip), default = "TenraiAPI::default_client()")]
     client: Client,
-    /// To use local caching as well.
-    #[builder(setter, default = true)]
-    pub cache: bool,
+    /// How long should the cache be valid for.
+    ///
+    /// If you don't want caching, then set the duration to 0. *([Duration::is_zero])* This will skip even writing to a file.
+    #[builder(setter, default = Duration::from_hours(24))]
+    pub cache: Duration,
     #[cfg(feature = "rate")]
     #[builder(setter(skip), default = "RefCell::new(Instant::now())")]
     last_message: RefCell<Instant>,
@@ -136,8 +141,8 @@ impl TenraiAPI {
             let request = request
                 .try_clone()
                 .expect("We should not be sending a stream");
-            let request = if self.cache {
-                match request.try_cache_json() {
+            let request = if !self.cache.is_zero() {
+                match request.try_cache_json(self.cache) {
                     Ok(c) => return Ok(c),
                     Err(e) => e,
                 }
@@ -165,9 +170,9 @@ impl TenraiAPI {
                 continue;
             }
 
-            break match self.cache {
-                true => Ok(response.cache_json().await?),
-                false => Ok(response.json().await?),
+            break match self.cache.is_zero() {
+                true => Ok(response.json().await?),
+                false => Ok(response.cache_json(self.cache).await?),
             };
         }
     }
@@ -183,7 +188,7 @@ impl Default for TenraiAPI {
         Self {
             server_key: None,
             client: Self::default_client(),
-            cache: true,
+            cache: Duration::from_hours(24),
             #[cfg(feature = "rate")]
             last_message: RefCell::new(Instant::now()),
         }
