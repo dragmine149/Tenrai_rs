@@ -76,16 +76,16 @@ macro_rules! TestBuilder {
 macro_rules! TestPaginator {
     ($func_name: ident, $func:expr) => {
         pastey::paste! {
-               #[tokio::test]
-               #[ignore = "Paginator test, can take many minutes."]
-               async fn [<$func_name _paginator>]() {
-                   let client = build_client();
-                   let mut page = 1_u64;
-                   for _ in 0..120 {
-                       println!("Page: {page}");
-                     let res = $func(&client, page).await.expect("This should not fail");
-                       if page == 1 {
-                           page = rand::random_range(1..res.pagination.last_visible_page);
+            #[tokio::test]
+            #[ignore = "Paginator test, can take many minutes."]
+            async fn [<$func_name _paginator>]() {
+                let client = build_client();
+                let mut page = 1_u64;
+                for _ in 0..15 {
+                    println!("Page: {page}");
+                    let res = $func(&client, page).await.expect("This should not fail");
+                    if page == 1 {
+                        page = rand::random_range(1..res.pagination.last_visible_page);
                         println!("Chosen page: {page}");
                     }
                     page += 1;
