@@ -1,6 +1,8 @@
 mod common;
 mod endpoints;
 
+use std::time::Duration;
+
 use tenrai::TenraiAPI;
 
 /// Build a client. This is used in every test.
@@ -8,7 +10,7 @@ use tenrai::TenraiAPI;
 /// If you wish to test server key aspects, include the `server-key` as an environment variable.
 pub(crate) fn build_client() -> TenraiAPI {
     let mut builder = TenraiAPI::builder();
-    builder.cache(false);
+    builder.cache(Duration::default());
     // builder.cache(true);
     if let Some(sk) = option_env!("server-key") {
         builder.server_key(sk);

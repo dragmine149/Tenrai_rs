@@ -193,7 +193,7 @@ impl RequestCache for RequestBuilder {
     }
 }
 impl RequestCache for Response {
-    async fn cache(self, age: Duration) -> Result<Bytes, CacheError> {
+    async fn cache(self, _age: Duration) -> Result<Bytes, CacheError> {
         cache_response(self).await
     }
 }

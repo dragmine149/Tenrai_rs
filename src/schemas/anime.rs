@@ -341,9 +341,7 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
                                 let second = match b.parse::<u64>() {
                                     Ok(v) => v,
                                     Err(_) => {
-                                        if b.contains("?") {
-                                            0
-                                        } else if b.is_empty() {
+                                        if b.contains("?") || b.is_empty() {
                                             0
                                         } else {
                                             panic!(
