@@ -1,7 +1,7 @@
 use crate::{TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::query::{PageQuery, TopQuery, TopReviewQuery},
+    schemas::query::{PageQuery, TopEpisodeQuery, TopQuery, TopReviewQuery, TypeSfwPageQuery},
 };
 TestPaginator!(
     top_anime,
@@ -69,6 +69,34 @@ TestPaginator!(
         client
             .top_reviews(
                 TopReviewQuery::builder()
+                    .page(page)
+                    .limit(100_u64)
+                    .build()
+                    .unwrap(),
+            )
+            .await
+    })
+);
+TestPaginator!(
+    top_episodes,
+    (async |client: &TenraiAPI, page| {
+        client
+            .top_episodes(
+                TopEpisodeQuery::builder()
+                    .page(page)
+                    .limit(100_u64)
+                    .build()
+                    .unwrap(),
+            )
+            .await
+    })
+);
+TestPaginator!(
+    top_recommendations,
+    (async |client: &TenraiAPI, page| {
+        client
+            .top_recommendations(
+                TypeSfwPageQuery::builder()
                     .page(page)
                     .limit(100_u64)
                     .build()

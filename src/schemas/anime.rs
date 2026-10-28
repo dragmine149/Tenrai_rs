@@ -3,8 +3,8 @@
 use crate::{
     generic_type,
     schemas::common::{
-        AgeRating, Aired, AlternativeTitle, DemographicsType, External, GenreType, ImageDetails,
-        Images, RelationDetails, Season, StatsScore, ThemeType,
+        AgeRating, Aired, AlternativeTitle, DemographicsType, Entry, External, GenreType,
+        ImageDetails, Images, RelationDetails, Season, StatsScore, ThemeType,
     },
 };
 use regex::Regex;
@@ -431,6 +431,12 @@ pub struct AnimeEpisode {
     pub title_romanji: Option<String>,
     /// The link to the MAL entry on the episode.
     pub url: String,
+    /// Entry related to the anime of this episode
+    ///
+    /// Only included when the anime is not provided.
+    pub entry: Option<Entry>,
+    /// Number of votes this episode has. Only included in [TenraiAPI::top_episodes](crate::TenraiAPI::top_episodes)
+    pub votes: Option<u64>,
 }
 
 /// How to order the listing of articles

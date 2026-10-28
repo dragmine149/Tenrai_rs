@@ -1,7 +1,13 @@
 # Changelog
-## Unrelease
+Format is `{Crate}(API)` where both are their represetive versions. If `(API)` does not exist, then it's the same API version as the previous crate version.
+
+## 1.2.0 (v1.0.25)
+First API update.
+- **Updated** to `v1.0.25`, See [API Changelog](https://api.tenrai.org/changelog) for more details.
+	- **Added** `top_episodes`, `top_recommendations`
 - **Exposed** Caching `age` so values can be used other than the default of `1 day`
 - **Fixed** Changelog formatting *(i was using `#` instead of `##`)*
+- **Fixed** `sfw-strict` having an extra `?`. *idk if this actually affected stuff, but its fixed now*
 
 ## 1.1.3
 - **Changed** All non-query parameters to be borrowed *`&`* instead of owned.
@@ -43,5 +49,5 @@ Some markdown fixes
 - **Added** Even more basic documentation for `impl`s. *because apparently thats a thing*
 - **Fixed** Markdown rendering in [Readme](./Readme.md)
 
-## 1.0.0
+## 1.0.0 (v1.0.24)
 Initial release

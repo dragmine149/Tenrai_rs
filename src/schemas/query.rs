@@ -8,7 +8,7 @@ use crate::{
         anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         companies::ProducerOrder,
-        filter::{GenreFilter, MagazineOrder, SeasonOrder, TopFilter},
+        filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::PeopleOrder,
         query_vec,
@@ -25,7 +25,7 @@ SFW {
 	/// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {});
 
 query!(
@@ -56,7 +56,7 @@ PageSFW {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
@@ -68,7 +68,7 @@ FullPageSFW {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Results per page (Default: 25)
     limit: u64,
 }, {
@@ -162,7 +162,7 @@ query!(Stack {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
@@ -224,7 +224,7 @@ query!(Article {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
@@ -255,7 +255,7 @@ query!(Schedule {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Include unapproved entries
     unapproved: OnlyBool,
     /// Page number
@@ -281,7 +281,7 @@ query!(Manga {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only entries with this exact score
     score: f64,
     /// Only entries with this score or higher
@@ -329,7 +329,7 @@ query!(Adapted {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only entries with this exact score
     score: f64,
     /// Only entries with this score or higher
@@ -492,7 +492,9 @@ query!(TopReview {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only reviews of the specified type
+    entry_type: EntryType:(|_, v| format!("type={v}")),
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
@@ -502,7 +504,7 @@ query!(Genre {
 	/// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Filter by category
     filter: GenreFilter,
 }, {});
@@ -535,7 +537,7 @@ query!(News {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only items with this tag. See [TenraiAPI::news_tags](crate::TenraiAPI::news_tags) for the tags.
     tag: String,
 }, {
@@ -554,13 +556,45 @@ query!(FullArticle {
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("?sfw-strict={v}")),
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only items with this tag. See [TenraiAPI::article_tags](crate::TenraiAPI::article_tags) for the tags.
     tag: String,
     /// Field to sort the results by.
     order_by: ArticleOrdering,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(TopEpisode {
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Order of the list.
+    order_by: TopEpisodeOrder,
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(TypeSfwPage {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only reviews of the specified type
+    entry_type: EntryType:(|_, v| format!("type={v}")),
+}, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });

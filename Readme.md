@@ -7,7 +7,7 @@ A rust wrapper for the [Tenrai API](https://tenrai.org/)
 
 The major version will be supported for as long as it's online. Minor versions are going to be dropped way quicker.
 
-Also see [Changelog](./changelog.md).
+See [Changelog](./changelog.md) for how the two versions link.
 
 # Feature Flags
 <details>

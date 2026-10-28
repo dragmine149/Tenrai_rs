@@ -232,6 +232,28 @@ pub struct Recommendation {
     pub entry: Entry,
 }
 
+/// Information about the top recommendations. This contains a lot more information that the [Recommendation] alternative.
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+pub struct TopRecommendation {
+    /// Text of the first recommendation of the pair.
+    pub content: Option<String>,
+    /// When the first recommendation was written.
+    pub date: Option<String>,
+    /// More info about the Recommendation itself.
+    pub entry: Vec<Entry>,
+    /// Two MAL IDs of the pair. Lowest first
+    ///
+    /// TODO: Custom deserializer / serializer
+    pub mal_id: String,
+    /// THe URL on MAL
+    pub url: String,
+    /// The user who wrote the first recommendation of the pair.
+    pub user: User,
+    /// Number of users who recommended this pair in either direction
+    pub votes: u64,
+}
+
 /// Information about an individual score and how much it contributes to the overall score.
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
