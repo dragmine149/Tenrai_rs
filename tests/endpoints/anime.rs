@@ -70,7 +70,7 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_episode,
-    (async |client: &TenraiAPI, id| client.anime_episode(id, 1).await)
+    (async |client: &TenraiAPI, id| client.anime_episode(id, &1).await)
 );
 TestBuilder!(
     anime_video,

@@ -32,8 +32,8 @@ TestBuilder!(
     seasonal_winter_anime,
     (async |client: &TenraiAPI, _| client
         .seasonal_anime(
-            rand::random_range(1990..2027),
-            Season::Winter,
+            &rand::random_range(1990_u64..2027_u64),
+            &Season::Winter,
             SeasonalQuery::default()
         )
         .await)

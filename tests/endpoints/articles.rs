@@ -44,11 +44,11 @@ TestBuilder!(
 
 TestBuilder!(
     news_details,
-    (async |client: &TenraiAPI, page: u64| {
+    (async |client: &TenraiAPI, page: &u64| {
         let id = client
             .news(
                 NewsQuery::builder()
-                    .page(page.clamp(1, 16000))
+                    .page((*page).clamp(1, 16000))
                     .limit(1_u64)
                     .build()
                     .unwrap(),
@@ -60,7 +60,7 @@ TestBuilder!(
             .expect("Page is empty?")
             .mal_id;
         println!("New ID: {id}");
-        client.news_details(id, SfwQuery::default()).await
+        client.news_details(&id, SfwQuery::default()).await
     })
 );
 TestBuilder!(

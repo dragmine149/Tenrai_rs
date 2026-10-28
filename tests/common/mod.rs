@@ -8,7 +8,7 @@ use tenrai::schemas::{anime::AnimeType, common::AgeRating, query::AnimeQuery};
 #[tokio::test]
 async fn test_error() {
     let client = build_client();
-    let result = client.anime_details(0).await;
+    let result = client.anime_details(&0).await;
     println!("{:?}", result);
     assert!(matches!(
         result.err().unwrap(),
@@ -27,7 +27,7 @@ async fn test_auto_retry() {
     let mut futures = vec![];
     // limit is 20 as we should be able to hit the /second limit rather than the /min limit.
     for _ in 0..20 {
-        futures.push(client.anime_details(1));
+        futures.push(client.anime_details(&1));
     }
     for future in futures {
         future
@@ -55,7 +55,7 @@ async fn test_rate_limiter() {
     let mut futures = vec![];
     // limit is 20 as we should be able to hit the /second limit rather than the /min limit.
     for _ in 0..20 {
-        futures.push(client.anime_details(1));
+        futures.push(client.anime_details(&1));
     }
     let mut last = Instant::now();
     let mut index = 0;
