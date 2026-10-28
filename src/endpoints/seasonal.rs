@@ -13,11 +13,11 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/{year}/{season}>
     pub async fn seasonal_anime(
         &self,
-        year: u64,
-        season: Season,
+        year: &u64,
+        season: &Season,
         query: SeasonalQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
-        if year <= 1000 || year >= 2999 {
+        if *year <= 1000 || *year >= 2999 {
             return Err(crate::errors::TenraiError::Custom(
                 "Year must be between 1000 and 2999 (inclusive)",
             ));

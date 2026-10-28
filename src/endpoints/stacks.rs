@@ -23,7 +23,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/interest-stacks/GET/stacks/{id}>
     pub async fn stacks_details(
         &self,
-        id: u64,
+        id: &u64,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Stack>> {
         Ok(self

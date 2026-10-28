@@ -23,13 +23,13 @@ impl TenraiAPI {
     /// Get details about a company
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/producers/GET/producers/{id}>
-    pub async fn company_details(&self, id: u64) -> crate::Result<TenraiResponse<Company>> {
+    pub async fn company_details(&self, id: &u64) -> crate::Result<TenraiResponse<Company>> {
         Ok(self.request(format!("producers/{id}")).await?.result()?)
     }
     /// Get full details about a company
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/producers/GET/producers/{id}/full>
-    pub async fn company_full_details(&self, id: u64) -> crate::Result<TenraiResponse<Company>> {
+    pub async fn company_full_details(&self, id: &u64) -> crate::Result<TenraiResponse<Company>> {
         Ok(self
             .request(format!("producers/{id}/full"))
             .await?
@@ -38,7 +38,7 @@ impl TenraiAPI {
     /// Get external links  to companies sites
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/producers/GET/producers/{id}/external>
-    pub async fn company_external(&self, id: u64) -> crate::Result<TenraiResponse<Vec<External>>> {
+    pub async fn company_external(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<External>>> {
         Ok(self
             .request(format!("producers/{id}/external"))
             .await?

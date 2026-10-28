@@ -26,7 +26,7 @@ impl TenraiAPI {
     /// Get details for a person
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}>
-    pub async fn people_details(&self, id: u64) -> crate::Result<TenraiResponse<Person>> {
+    pub async fn people_details(&self, id: &u64) -> crate::Result<TenraiResponse<Person>> {
         Ok(self.request(format!("people/{id}")).await?.result()?)
     }
 
@@ -35,7 +35,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/full>
     pub async fn people_full_details(
         &self,
-        id: u64,
+        id: &u64,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Person>> {
         Ok(self
@@ -48,7 +48,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/anime>
     pub async fn people_anime_roles(
         &self,
-        id: u64,
+        id: &u64,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Vec<AnimePersonConnection>>> {
         Ok(self
@@ -61,7 +61,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/manga>
     pub async fn people_manga_roles(
         &self,
-        id: u64,
+        id: &u64,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Vec<MangaPersonConnection>>> {
         Ok(self
@@ -74,7 +74,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/voices>
     pub async fn people_voices(
         &self,
-        id: u64,
+        id: &u64,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Vec<VoiceConnection>>> {
         Ok(self
@@ -85,7 +85,7 @@ impl TenraiAPI {
     /// Get pictures of a person
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/pictures>
-    pub async fn people_pictures(&self, id: u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
+    pub async fn people_pictures(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("people/{id}/pictures"))
             .await?
@@ -96,7 +96,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/{id}/articles>
     pub async fn people_articles(
         &self,
-        id: u64,
+        id: &u64,
         query: ArticleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Article>> {
         Ok(self

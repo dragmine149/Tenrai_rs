@@ -1,4 +1,7 @@
 # Changelog
+# Unreleased
+- **Changed** All non-query parameters to be borrowed *`&`* instead of owned.
+
 # 1.1.2
  - **Fixed** `AnimeSource` not having a ` ` (empty string) option. *(Defaults to `AnimeSource.Unknown`)*
  - **Fixed** `FullRecommendationInfo.content` breaking due to a `null` value.
