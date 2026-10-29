@@ -432,18 +432,22 @@ query!(MangaIds {
 }, {});
 
 query!(Character {
-    /// The name of the anime to search for
+    /// The name of the character to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
-    /// How to sort the anime
+    /// How to sort the character list
     order_by: BasicOrder,
     /// Order in which to sort.
     sort: SortDirection,
     /// Only characters whose name start with this letter
     letter: char,
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
@@ -451,18 +455,22 @@ query!(Character {
 });
 
 query!(People {
-    /// The name of the anime to search for
+    /// The name of the person to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
-    /// How to sort the anime
+    /// How to sort the people list
     order_by: PeopleOrder,
     /// Order in which to sort.
     sort: SortDirection,
     /// Only people whose name start with this letter
     letter: char,
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
@@ -470,18 +478,22 @@ query!(People {
 });
 
 query!(Producer {
-    /// The name of the anime to search for
+    /// The name of the producer to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
-    /// How to sort the anime
+    /// How to sort the producer list
     order_by: ProducerOrder,
     /// Order in which to sort.
     sort: SortDirection,
     /// Only producers whose name start with this letter
     letter: char,
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),

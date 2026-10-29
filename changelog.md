@@ -9,6 +9,7 @@ First API update.
 - **Exposed** Caching `age` so values can be used other than the default of `1 day`
 - **Fixed** Changelog formatting *(i was using `#` instead of `##`)*
 - **Fixed** `sfw-strict` having an extra `?`. *idk if this actually affected stuff, but its fixed now*
+- **Fixed** Various incorrect `query` documentation due to copy-paste. *Theres probably still issues somewhere*
 
 ## 1.1.3
 - **Changed** All non-query parameters to be borrowed *`&`* instead of owned.
