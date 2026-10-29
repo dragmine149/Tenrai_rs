@@ -4,7 +4,7 @@ Format is `{Crate}(API)` where both are their represetive versions. If `(API)` d
 ## 1.2.0 (v1.0.25)
 First API update and some other small fixes.
 
-I am thinking of changing how the query is handled, but don't know what will happen to it yet.
+I am thinking of changing how the query is handled, but don't know what will happen to it yet. Query args will be revalidated *and tested* then. For now, please open an issue for any issues with them.
 - **Updated** to `v1.0.25`, See [API Changelog](https://api.tenrai.org/changelog) for more details.
 	- **Added** `top_episodes`, `top_recommendations`
 	- **Updated** Various queries and return structs to reflect the new changes. *once again, see the API changelog for more details*
