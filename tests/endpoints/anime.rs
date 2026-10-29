@@ -5,7 +5,8 @@ use tenrai::{
         common::IDsQueryInclude,
         query::{
             AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
-            PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            PageSfwQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
+            StatsHistoryQuery,
         },
     },
 };
@@ -42,7 +43,9 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_recommendation,
-    (async |client: &TenraiAPI, id| client.anime_recommendations(id, SfwQuery::default()).await)
+    (async |client: &TenraiAPI, id| client
+        .anime_recommendations(id, RecommendationQuery::default())
+        .await)
 );
 TestBuilder!(
     anime_characters,

@@ -6,7 +6,7 @@ use crate::{
         characters::CharacterDetails,
         manga::Manga,
         people::Person,
-        query::{RandomAnimeQuery, RandomMangaQuery, RandomPersonQuery, SfwQuery},
+        query::{RandomAnimeQuery, RandomMangaQuery, RandomPersonQuery},
     },
 };
 

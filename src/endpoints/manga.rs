@@ -12,7 +12,8 @@ use crate::{
         people::Character,
         query::{
             AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
-            MangaQuery, PageSfwQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            MangaQuery, PageSfwQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
+            StatsHistoryQuery,
         },
         reviews::Review,
         stacks::Stack,
@@ -58,7 +59,7 @@ impl TenraiAPI {
     pub async fn manga_recommendations(
         &self,
         id: &u64,
-        query: SfwQuery,
+        query: RecommendationQuery,
     ) -> crate::Result<TenraiResponse<Vec<Recommendation>>> {
         Ok(self
             .request(format!("manga/{id}/recommendations{query}"))

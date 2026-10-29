@@ -161,6 +161,8 @@ query!(Anime {
 });
 
 query!(Review {
+    /// Only content that has been written by this MAL username. Matches the full username
+    username: String,
     /// Page number
     page: u64,
     /// Sort direction.
@@ -172,6 +174,7 @@ query!(Review {
     /// Filter by what the review overall thinks.
     sentiment: Sentiment,
 }, {
+    username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
 });
 
@@ -389,7 +392,7 @@ query!(Manga {
 }, {
     query:letter,
     year:min_year:max_year,
-    score:min_score:max_score
+    score:min_score:max_score,
 });
 
 query!(Adapted {
@@ -636,6 +639,8 @@ query!(TopManga {
 });
 
 query!(TopReview {
+    /// Only content that has been written by this MAL username. Matches the full username
+    username: String,
     /// Page number
     page: u64,
     /// Results per page (Default: 25)
@@ -655,6 +660,7 @@ query!(TopReview {
     /// Only reviews of the specified type
     entry_type: EntryType:(|_, v| format!("type={v}")),
 }, {
+    username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
@@ -841,3 +847,14 @@ query!(RandomPerson {
     /// Only entries with this favourite count or lower
     max_favorites: u64,
 }, {});
+
+query!(Recommendation {
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only content that has been written by this MAL username. Matches the full username
+    username: String,
+}, {
+    username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
+});
