@@ -101,6 +101,16 @@ fn test_long_query() {
     assert_eq!(query.to_string(), "Query length is too long");
 }
 
+#[test]
+fn test_not_happy_query() {
+    AnimeQuery::builder()
+        .year(2026_u64)
+        .min_year(2020_u64)
+        .build()
+        // .unwrap();
+        .expect_err("Min year and year can't combine");
+}
+
 /// Test designed for quickly checking an endpoint as trying to find the cause can be confusing.
 #[test]
 fn local_parsing() {

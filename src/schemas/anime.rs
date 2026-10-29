@@ -137,7 +137,7 @@ pub enum AnimeSource {
     /// 4-koma Manga
     #[serde(rename = "4-koma manga")]
     KomaManga,
-    #[serde(rename = "Digital manga")
+    #[serde(rename = "Digital manga")]
     DigitalManga,
 
     Book,

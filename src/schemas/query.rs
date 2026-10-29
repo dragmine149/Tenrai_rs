@@ -6,7 +6,7 @@ use crate::{
     query,
     schemas::{
         anime::{AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
-        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
+        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, Season, SortDirection},
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
@@ -154,6 +154,9 @@ query!(Anime {
     min_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
     max_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+}, {
+    year:min_year:max_year,
+    query:letter,
 });
 
 query!(Review {
@@ -368,11 +371,14 @@ query!(Manga {
     score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_chapterss: "Must be at least 1 chapter": (|l: &u64| *l == 0),
-    max_chapterss: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    min_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    max_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
     min_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
     max_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
-    authors: "Cannot have more than 25 author entries": (|a: &[String]| *a > 25),
+    authors: "Cannot have more than 25 author entries": (|a: &[String]| a.len() > 25),
+}, {
+    query:letter,
+    year:min_year:max_year,
 });
 
 query!(Adapted {

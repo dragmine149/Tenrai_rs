@@ -69,7 +69,12 @@ macro_rules! query {
     	$(
      		$builder_var:ident: $builder_var_msg:literal: $builder_var_func:expr,
      	)*
-    }) => {
+    }
+    $(,{
+    	$(
+     		$combined_var:ident $(:$disallowed:ident)+,
+     	)+
+    })*) => {
         pastey::paste! {
             #[derive(Debug, Default, Builder)]
             #[builder(build_fn(validate = "Self::validate"))]
@@ -93,6 +98,17 @@ macro_rules! query {
                      		return Err($builder_var_msg.to_string())
                      	}
                		)*
+                 	$(
+                  		$(
+                    		if self.$combined_var.is_some() {
+                      			$(
+	                      			if self.$disallowed.is_some() {
+	                      				return Err(format!("{} cannot be combined with {}", stringify!($combined_var), stringify!($disallowed)));
+	                         		}
+                         		)+
+                      		}
+                    	)+
+                  	)*
                  	Ok(())
              	}
             }

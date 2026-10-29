@@ -2,10 +2,11 @@
 Format is `{Crate}(API)` where both are their represetive versions. If `(API)` does not exist, then it's the same API version as the previous crate version.
 
 ## 1.2.0 (v1.0.25)
-First API update.
+First API update and some other small fixes.
 - **Updated** to `v1.0.25`, See [API Changelog](https://api.tenrai.org/changelog) for more details.
 	- **Added** `top_episodes`, `top_recommendations`
 	- **Updated** Various queries and return structs to reflect the new changes. *once again, see the API changelog for more details*
+- **Added** local checking for when two query variables cannot be used together. 
 - **Exposed** Caching `age` so values can be used other than the default of `1 day`
 - **Fixed** Changelog formatting *(i was using `#` instead of `##`)*
 - **Fixed** `sfw-strict` having an extra `?`. *idk if this actually affected stuff, but its fixed now*
