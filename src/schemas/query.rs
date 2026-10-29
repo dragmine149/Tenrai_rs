@@ -5,7 +5,7 @@
 use crate::{
     query,
     schemas::{
-        anime::{AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
+        anime::{AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, SortDirection},
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
@@ -89,6 +89,10 @@ query!(Anime {
     status: AnimeStatus,
     /// Filter by age rating. Multiple ratings can be selected.
     rating: Vec<AgeRating>:query_vec,
+    /// Filter by source material. If multiple provided, will match with any of them.
+    source: Vec<AnimeSource>:query_vec,
+    /// Filter by a main trailer ID or URL. Playback availability is not checked.
+    has_trailed: bool,
     /// Filter adult content
     sfw: bool,
     /// Apply strict SFW filtering for adult content and Ecchi
@@ -101,6 +105,20 @@ query!(Anime {
     min_score: f64,
     /// Only entries with this score or lower
     max_score: f64,
+    /// Only entries that have been scored by this many users (inclusive) (`>=`)
+    min_scored_by: u64,
+    /// Only entries with this member count or higher
+    min_members: u64,
+    /// Only entries with this member count or lower
+    max_members: u64,
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
+    /// Only entries with this episode count or higher
+    min_episodes: u64,
+    /// Only entries with this episode count or lower
+    max_episodes: u64,
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u64>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
@@ -117,13 +135,24 @@ query!(Anime {
     start_date: Date,
     /// Only anime that finished airing on or before this date.
     end_date: Date,
+    /// Filter by MAL Debut-season classification
+    season: Season,
+    /// Calendar year of the aired date. Cannot be combined with [AnimeQuery::min_year] or [AnimeQuery::max_year]
+    year: u64,
+    /// Anime that aired this *provided* year or later
+    min_year: u64,
+    /// Anime that aired this *provided* year or earlier
+    max_year: u64,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    source: "Can only have 25 types of sources": (|s: &[AnimeSource]| s.len() > 25),
     score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    min_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
+    max_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
@@ -306,6 +335,32 @@ query!(Manga {
     start_date: Date,
     /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
     end_date: Date,
+    /// Only entries that have been scored by this many users (inclusive) (`>=`)
+    min_scored_by: u64,
+    /// Only entries with this member count or higher
+    min_members: u64,
+    /// Only entries with this member count or lower
+    max_members: u64,
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
+    /// Only entries with this volume count or higher
+    min_volumes: u64,
+    /// Only entries with this volume count or lower
+    max_volumes: u64,
+    /// Only entries with this chapter count or higher
+    min_chapters: u64,
+    /// Only entries with this chapter count or lower
+    max_chapters: u64,
+    /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
+    year: u64,
+    /// Manga that started publishing this *provided* year or later
+    min_year: u64,
+    /// Manga that started publishing this *provided* year or earlier
+    max_year: u64,
+    /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
+    authors: Vec<String>: query_vec,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
@@ -313,6 +368,11 @@ query!(Manga {
     score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    min_chapterss: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    max_chapterss: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    min_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
+    max_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
+    authors: "Cannot have more than 25 author entries": (|a: &[String]| *a > 25),
 });
 
 query!(Adapted {

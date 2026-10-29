@@ -120,7 +120,8 @@ pub struct Anime {
 }
 
 /// What source the anime is based on..
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
 pub enum AnimeSource {
     Novel,
     #[serde(rename = "Visual novel")]
@@ -136,6 +137,8 @@ pub enum AnimeSource {
     /// 4-koma Manga
     #[serde(rename = "4-koma manga")]
     KomaManga,
+    #[serde(rename = "Digital manga")
+    DigitalManga,
 
     Book,
     #[serde(rename = "Picture book")]
