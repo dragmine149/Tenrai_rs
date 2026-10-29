@@ -18,6 +18,27 @@ pub(crate) fn build_client() -> TenraiAPI {
     builder.build().unwrap()
 }
 
+pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
+    if let Err(e) = result {
+        match e {
+            // tenrai::errors::TenraiError::Tenrai(tenrai_apierror) => {
+            //     match tenrai_apierror.error_type {
+            //         // Can't remember why this got to survive...
+            //         tenrai::errors::MachineErrorType::ResourceNotFoundException => true,
+            //         _=>false,
+            //     }
+            // }
+            tenrai::errors::TenraiError::Reqwest(_) => {
+                tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+                true
+            }
+            _ => false,
+        }
+    } else {
+        false
+    }
+}
+
 /// Macro for making tests with.
 ///
 /// `$func_name` is the function to test. Due to limitations, the function will need to be repeated in `$func` callback.
@@ -47,19 +68,12 @@ macro_rules! TestBuilder {
                 let random = rand::random_range(1_u64..70_000_u64);
                 println!("ID: {random}");
                 let res = $func(&client, &random).await;
-                if let Err(ref e) = res {
-                    if let TenraiError::Tenrai(e) = e {
-	                    if e.error_type == MachineErrorType::ResourceNotFoundException {
-	                        continue;
-	                    }
-	                }
-					if let TenraiError::Reqwest(_) = e {
-						tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-						continue;
-					}
+                if crate::error(&res).await {
+                	continue;
+                } else {
+                	res.expect("Test failed somehow...");
+                 	break;
                 }
-                res.expect("Failed to call API");
-                break;
             }
         }
     };
@@ -87,7 +101,14 @@ macro_rules! TestPaginator {
                 let mut page = 1_u64;
                 for _ in 0..15 {
                     println!("Page: {page}");
-                    let res = $func(&client, page).await.expect("This should not fail");
+                    let res = $func(&client, page).await;
+                    let res = {
+                        if crate::error(&res).await {
+                            res.unwrap()
+                        } else {
+                            res.expect("This should not fail")
+                        }
+                    }
                     if page == 1 {
                         page = rand::random_range(1..res.pagination.last_visible_page);
                         println!("Chosen page: {page}");
