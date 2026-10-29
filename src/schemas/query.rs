@@ -253,6 +253,8 @@ Forum {
 query!(Article {
     /// Page number
     page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
     /// Field to sort the results by.
     order_by: ArticleOrdering,
     /// Direction to sort the results
@@ -261,8 +263,16 @@ query!(Article {
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only content that has been written by this MAL username. Matches the full username
+    author_username: String,
+    /// Only items published on or after this date/timestamp.
+    published_after: String,
+    /// Only items published on or before this date/timestamp.
+    published_before: String,
 }, {
+    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
 query!(
@@ -705,7 +715,10 @@ query!(News {
     sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only items with this tag. See [TenraiAPI::news_tags](crate::TenraiAPI::news_tags) for the tags.
     tag: String,
+    /// Only content that has been written by this MAL username. Matches the full username
+    author_username: String,
 }, {
+    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
@@ -726,7 +739,10 @@ query!(FullArticle {
     tag: String,
     /// Field to sort the results by.
     order_by: ArticleOrdering,
+    /// Only content that has been written by this MAL username. Matches the full username
+    author_username: String,
 }, {
+    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
