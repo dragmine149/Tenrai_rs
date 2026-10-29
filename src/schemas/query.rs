@@ -92,7 +92,7 @@ query!(Anime {
     /// Filter by source material. If multiple provided, will match with any of them.
     source: Vec<AnimeSource>:query_vec,
     /// Filter by a main trailer ID or URL. Playback availability is not checked.
-    has_trailed: bool,
+    has_trailer: bool,
     /// Filter adult content
     sfw: bool,
     /// Apply strict SFW filtering for adult content and Ecchi
@@ -156,6 +156,7 @@ query!(Anime {
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 }, {
     year:min_year:max_year,
+    score:min_score:max_score,
     query:letter,
 });
 
@@ -388,6 +389,7 @@ query!(Manga {
 }, {
     query:letter,
     year:min_year:max_year,
+    score:min_score:max_score
 });
 
 query!(Adapted {
@@ -755,3 +757,87 @@ query!(TypeSfwPage {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
+
+query!(RandomAnime {
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Filter by media type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Only anime with this airing status
+    status: AnimeStatus,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Only entries with this score or higher
+    min_score: f64,
+    /// Only entries with this score or lower
+    max_score: f64,
+    /// Calendar year of the aired date. Cannot be combined with [RandomAnimeQuery::min_year] or [RandomAnimeQuery::max_year]
+    year: u64,
+    /// Anime that aired this *provided* year or later
+    min_year: u64,
+    /// Anime that aired this *provided* year or earlier
+    max_year: u64,
+    /// Filter by source material. If multiple provided, will match with any of them.
+    source: Vec<AnimeSource>:query_vec,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter by a main trailer ID or URL. Playback availability is not checked.
+    has_trailer: bool,
+    /// List of produces to filter by. Use the ID of the producer.
+    producers: Vec<u64>:query_vec,
+}, {
+    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+    source: "Can only have 25 types of sources": (|s: &[AnimeSource]| s.len() > 25),
+}, {
+    year:min_year:max_year,
+});
+
+query!(RandomManga {
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Filter by manga type, multiple can be selected
+    manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Only manga with this publishing status
+    status: MangaStatus,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Only entries with this score or higher
+    min_score: f64,
+    /// Only entries with this score or lower
+    max_score: f64,
+    /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
+    year: u64,
+    /// Manga that started publishing this *provided* year or later
+    min_year: u64,
+    /// Manga that started publishing this *provided* year or earlier
+    max_year: u64,
+    /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
+    authors: Vec<String>: query_vec,
+}, {
+    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    authors: "Cannot have more than 25 author entries": (|a: &[String]| a.len() > 25),
+}, {
+    year:min_year:max_year,
+});
+
+query!(RandomPerson {
+ 	/// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only entries with this favourite count or higher
+    min_favorites: u64,
+    /// Only entries with this favourite count or lower
+    max_favorites: u64,
+}, {});

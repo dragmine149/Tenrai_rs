@@ -8,6 +8,7 @@ I am thinking of changing how the query is handled, but don't know what will hap
 - **Updated** to `v1.0.25`, See [API Changelog](https://api.tenrai.org/changelog) for more details.
 	- **Added** `top_episodes`, `top_recommendations`
 	- **Updated** Various queries and return structs to reflect the new changes. *once again, see the API changelog for more details*
+		- **Updated** `random_*` endpoints to use more detailed queries instead of `SfwQuery`
 	- **Removed** `TopQuery` in favour of `TopMangaQuery` and `TopAnimeQuery`
 - **Added** local checking for when two query variables cannot be used together. 
 - **Exposed** Caching `age` so values can be used other than the default of `1 day`
