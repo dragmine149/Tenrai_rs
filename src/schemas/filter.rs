@@ -14,6 +14,12 @@ pub enum SeasonOrder {
     Score,
     Members,
     StartDate,
+    MalId,
+    Episodes,
+    Favorites,
+    EndDate,
+    ScoredBy,
+    Title,
 }
 
 /// Conjoint year and season.

@@ -529,6 +529,18 @@ query!(Seasonal {
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Only entries with this member count or higher
+    min_members: u64,
+    /// Only entries with this member count or lower
+    max_members: u64,
+    /// Only entries with this episode count or higher
+    min_episodes: u64,
+    /// Only entries with this episode count or lower
+    max_episodes: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
