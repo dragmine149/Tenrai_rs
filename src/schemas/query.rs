@@ -5,7 +5,10 @@
 use crate::{
     query,
     schemas::{
-        anime::{AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering, OrderBy},
+        anime::{
+            AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering,
+            NewsArticleOrdering, OrderBy,
+        },
         common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, Season, SortDirection},
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
@@ -257,6 +260,31 @@ query!(Article {
     limit: u64,
     /// Field to sort the results by.
     order_by: ArticleOrdering,
+    /// Direction to sort the results
+    sort: SortDirection,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Only content that has been written by this MAL username. Matches the full username
+    author_username: String,
+    /// Only items published on or after this date/timestamp.
+    published_after: String,
+    /// Only items published on or before this date/timestamp.
+    published_before: String,
+}, {
+    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+});
+
+query!(NewsArticle {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Field to sort the results by.
+    order_by: NewsArticleOrdering,
     /// Direction to sort the results
     sort: SortDirection,
     /// Filter out: R+, Rx, Hentai, Erotica

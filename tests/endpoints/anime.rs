@@ -5,7 +5,7 @@ use tenrai::{
         common::IDsQueryInclude,
         query::{
             AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
-            PageSfwQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
+            NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
             StatsHistoryQuery,
         },
     },
@@ -61,7 +61,7 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_news,
-    (async |client: &TenraiAPI, id| client.anime_news(id, PageSfwQuery::default()).await)
+    (async |client: &TenraiAPI, id| client.anime_news(id, NewsArticleQuery::default()).await)
 );
 TestBuilder!(
     anime_articles,

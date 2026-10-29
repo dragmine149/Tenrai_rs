@@ -1,14 +1,16 @@
 use crate::{TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::query::{PageQuery, TopEpisodeQuery, TopQuery, TopReviewQuery, TypeSfwPageQuery},
+    schemas::query::{
+        PageQuery, TopAnimeQuery, TopEpisodeQuery, TopMangaQuery, TopReviewQuery, TypeSfwPageQuery,
+    },
 };
 TestPaginator!(
     top_anime,
     (async |client: &TenraiAPI, page| {
         client
             .top_anime(
-                TopQuery::builder()
+                TopAnimeQuery::builder()
                     .page(page)
                     .limit(100_u64)
                     .build()
@@ -23,7 +25,7 @@ TestPaginator!(
     (async |client: &TenraiAPI, page| {
         client
             .top_manga(
-                TopQuery::builder()
+                TopMangaQuery::builder()
                     .page(page)
                     .limit(100_u64)
                     .build()

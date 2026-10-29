@@ -6,7 +6,7 @@ use tenrai::{
         common::IDsQueryInclude,
         query::{
             AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
-            MangaQuery, PageSfwQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
+            MangaQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
             StatsHistoryQuery,
         },
     },
@@ -44,7 +44,7 @@ TestBuilder!(
 );
 TestBuilder!(
     manga_news,
-    (async |client: &TenraiAPI, id| { client.manga_news(id, PageSfwQuery::default()).await })
+    (async |client: &TenraiAPI, id| { client.manga_news(id, NewsArticleQuery::default()).await })
 );
 TestBuilder!(
     manga_articles,

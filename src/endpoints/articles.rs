@@ -2,7 +2,7 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse,
-        article::Article,
+        article::{Article, NewsArticle},
         common::Tag,
         query::{FullArticleQuery, NewsQuery, SfwQuery},
     },
@@ -13,7 +13,10 @@ impl TenraiAPI {
     /// Get news articles
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/news/GET/news>
-    pub async fn news(&self, query: NewsQuery) -> crate::Result<TenraiPaginatorResponse<Article>> {
+    pub async fn news(
+        &self,
+        query: NewsQuery,
+    ) -> crate::Result<TenraiPaginatorResponse<NewsArticle>> {
         Ok(self
             .request(format!("news{query}"))
             .await?
@@ -32,7 +35,7 @@ impl TenraiAPI {
         &self,
         id: &u64,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Article>> {
+    ) -> crate::Result<TenraiResponse<NewsArticle>> {
         Ok(self.request(format!("news/{id}{query}")).await?.result()?)
     }
 }

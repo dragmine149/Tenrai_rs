@@ -12,6 +12,7 @@ I am thinking of changing how the query is handled, but don't know what will hap
 	- **Removed** `TopQuery` in favour of `TopMangaQuery` and `TopAnimeQuery`
 - **Added** local checking for when two query variables cannot be used together. 
 - **Exposed** Caching `age` so values can be used other than the default of `1 day`
+- **FIXED** `News` and `Articles` not being the same thing. 
 - **Fixed** Changelog formatting *(i was using `#` instead of `##`)*
 - **Fixed** `sfw-strict` having an extra `?`. *idk if this actually affected stuff, but its fixed now*
 - **Fixed** Various incorrect `query` documentation due to copy-paste. *Theres probably still issues somewhere*

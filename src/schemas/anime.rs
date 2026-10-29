@@ -453,6 +453,16 @@ pub enum ArticleOrdering {
     ViewCount,
 }
 
+/// How to order the listing of news articles
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+#[strum(serialize_all = "snake_case")]
+pub enum NewsArticleOrdering {
+    #[strum(to_string = "published_at")]
+    PublishedDate,
+    Comments,
+}
+
 /// How to order the listing of forums
 #[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]

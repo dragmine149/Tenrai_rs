@@ -2,7 +2,7 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
-        article::Article,
+        article::{Article, NewsArticle},
         common::{
             External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
             StatsHistory,
@@ -12,7 +12,7 @@ use crate::{
         people::Character,
         query::{
             AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
-            MangaQuery, PageSfwQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
+            MangaQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
             StatsHistoryQuery,
         },
         reviews::Review,
@@ -84,8 +84,8 @@ impl TenraiAPI {
     pub async fn manga_news(
         &self,
         id: &u64,
-        query: PageSfwQuery,
-    ) -> crate::Result<TenraiPaginatorResponse<Article>> {
+        query: NewsArticleQuery,
+    ) -> crate::Result<TenraiPaginatorResponse<NewsArticle>> {
         Ok(self
             .request(format!("manga/{id}/news{query}"))
             .await?
