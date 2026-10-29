@@ -1,6 +1,5 @@
 use tenrai::{
     TenraiAPI,
-    errors::{MachineErrorType, TenraiError},
     schemas::{
         common::IDsQueryInclude,
         query::{

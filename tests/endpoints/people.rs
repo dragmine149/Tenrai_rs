@@ -1,7 +1,6 @@
 use crate::{TestBuilder, TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    errors::{MachineErrorType, TenraiError},
     schemas::query::{ArticleQuery, PeopleQuery, SfwQuery},
 };
 

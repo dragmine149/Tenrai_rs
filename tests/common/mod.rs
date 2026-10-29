@@ -58,8 +58,7 @@ async fn test_rate_limiter() {
         futures.push(client.anime_details(&1));
     }
     let mut last = Instant::now();
-    let mut index = 0;
-    for future in futures {
+    for (index, future) in futures.into_iter().enumerate() {
         future.await.expect("The request should be fine...");
         if index > 1 {
             let diff = Instant::now().duration_since(last);
@@ -71,7 +70,6 @@ async fn test_rate_limiter() {
                 panic!("Request completed too quickly ({diff:?})")
             }
         }
-        index += 1;
         last = Instant::now();
     }
 }

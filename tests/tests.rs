@@ -19,6 +19,10 @@ pub(crate) fn build_client() -> TenraiAPI {
 }
 
 pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
+    #[allow(
+        clippy::collapsible_match,
+        reason = "There could be reasons why we emit the other errors."
+    )]
     if let Err(e) = result {
         match e {
             // tenrai::errors::TenraiError::Tenrai(tenrai_apierror) => {
@@ -68,7 +72,7 @@ macro_rules! TestBuilder {
                 let random = rand::random_range(1_u64..70_000_u64);
                 println!("ID: {random}");
                 let res = $func(&client, &random).await;
-                if crate::error(&res).await {
+                if $crate::error(&res).await {
                 	continue;
                 } else {
                 	res.expect("Test failed somehow...");
@@ -103,12 +107,12 @@ macro_rules! TestPaginator {
                     println!("Page: {page}");
                     let res = $func(&client, page).await;
                     let res = {
-                        if crate::error(&res).await {
+                        if $crate::error(&res).await {
                             res.unwrap()
                         } else {
                             res.expect("This should not fail")
                         }
-                    }
+                    };
                     if page == 1 {
                         page = rand::random_range(1..res.pagination.last_visible_page);
                         println!("Chosen page: {page}");
