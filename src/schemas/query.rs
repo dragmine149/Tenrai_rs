@@ -294,9 +294,18 @@ query!(Schedule {
     page: u64,
     /// Results per page (Default: 25)
     limit: u64,
+    /// Filter by anime type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
 query!(Manga {
