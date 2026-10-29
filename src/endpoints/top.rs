@@ -7,7 +7,10 @@ use crate::{
         common::TopRecommendation,
         manga::Manga,
         people::Person,
-        query::{PageQuery, TopEpisodeQuery, TopQuery, TopReviewQuery, TypeSfwPageQuery},
+        query::{
+            PageQuery, TopAnimeQuery, TopEpisodeQuery, TopMangaQuery, TopReviewQuery,
+            TypeSfwPageQuery,
+        },
         reviews::Review,
     },
 };
@@ -19,7 +22,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/anime>
     pub async fn top_anime(
         &self,
-        query: TopQuery,
+        query: TopAnimeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
         Ok(self
             .request(format!("top/anime{query}"))
@@ -31,7 +34,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/manga>
     pub async fn top_manga(
         &self,
-        query: TopQuery,
+        query: TopMangaQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Manga>> {
         Ok(self
             .request(format!("top/manga{query}"))

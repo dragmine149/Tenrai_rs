@@ -534,7 +534,7 @@ query!(Seasonal {
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
-query!(Top {
+query!(TopAnime {
     /// Page number
     page: u64,
     /// Results per page (Default: 25)
@@ -549,9 +549,67 @@ query!(Top {
     anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
     /// Limit the ranking to a subset
     filter: TopFilter,
+    /// Only entries with this member count or higher
+    min_members: u64,
+    /// Only entries with this member count or lower
+    max_members: u64,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Sort direction.
+    sort: SortDirection,
+    /// Only entries with this episode count or higher
+    min_episodes: u64,
+    /// Only entries with this episode count or lower
+    max_episodes: u64,
 }, {
     page: "Page must be less than 20k": (|p: &u64| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    min_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
+    max_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
+});
+
+query!(TopManga {
+    /// Page number
+    page: u64,
+    /// Results per page (Default: 25)
+    limit: u64,
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// Filter adult content
+    sfw: bool,
+    /// Apply strict SFW filtering for adult content and Ecchi
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Filter by media type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Limit the ranking to a subset
+    filter: TopFilter,
+    /// Only entries with this member count or higher
+    min_members: u64,
+    /// Only entries with this member count or lower
+    max_members: u64,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u64>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u64>:query_vec,
+    /// Sort direction.
+    sort: SortDirection,
+    /// Only entries with this volume count or higher
+    min_volumes: u64,
+    /// Only entries with this volume count or lower
+    max_volumes: u64,
+    /// Only entries with this chapter count or higher
+    min_chapters: u64,
+    /// Only entries with this chapter count or lower
+    max_chapters: u64,
+}, {
+    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    min_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    max_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
+    min_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
+    max_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
 });
 
 query!(TopReview {
