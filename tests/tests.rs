@@ -47,12 +47,16 @@ macro_rules! TestBuilder {
                 let random = rand::random_range(1_u64..70_000_u64);
                 println!("ID: {random}");
                 let res = $func(&client, &random).await;
-                if let Err(ref e) = res
-                    && let TenraiError::Tenrai(e) = e
-                {
-                    if e.error_type == MachineErrorType::ResourceNotFoundException {
-                        continue;
-                    }
+                if let Err(ref e) = res {
+                    if let TenraiError::Tenrai(e) = e {
+	                    if e.error_type == MachineErrorType::ResourceNotFoundException {
+	                        continue;
+	                    }
+	                }
+					if let TenraiError::Reqwest(_) = e {
+						tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+						continue;
+					}
                 }
                 res.expect("Failed to call API");
                 break;
