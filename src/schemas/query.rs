@@ -79,11 +79,6 @@ FullPageSFW {
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
-fn test() {
-    // AnimeQuery::builder().anime_type(value)
-    // AnimeQuery::builder().sfw(true);
-}
-
 query!(Anime {
     /// Title search query (fuzzy matched against English, Japanese and default titles). Cannot be combined with [AnimeQuery::letter]
     query: String:(|_, v| format!("q={v}")),
@@ -102,7 +97,7 @@ query!(Anime {
     /// Filter by a main trailer ID or URL. Playback availability is not checked.
     has_trailer: bool,
     /// Filter audlt themes
-    *custom,sfw: SfwQuery,
+    *custom:sfw: SfwQuery,
     /// Also include unapproved entries.
     unapproved: OnlyBool,
     /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.

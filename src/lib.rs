@@ -17,10 +17,21 @@
 //! }
 //! ```
 //!
-//! ## Queries
+//! # Queries
 //! A lot of endpoints have a required query parameter. If you don't want to attack any query to the request, provide `T::default()`.
 //!
 //! There are also various different types of queries depending on the combination of potential options.
+//!
+//! ## Public Query Types
+//! One query has 4 types. That of the following:
+//! - (*Query) One main type that will be passed into functions
+//! - (*QueryBuilder) One builder type for building (derive_builder)
+//! - (*QueryBuilderError) One BuilderError for building (derive_builder)
+//! - (*QueryHelper) One sealed trait for some functions (related to building)
+//! Only the main and builder types should be used in code. The helper trait is sealed as it's intended for the builder functions. (it's also not that useful outside of it)
+//!
+//! The values stored in the main trait are private and can only be gotten as references. This is to prevent editing of values before sending to the API and hence bypassing the verification done in the builder.
+//! You can however do something like `QueryBuilder::from(Query)` to convert it back into a builder. This will consume the `Query` struct in doing so but allow modification of the struct once again.
 //!
 //! # Endpoint Notes
 //! Most endpoints function names will follow the official ones provide by tenrai. However, some functions have been renamed. A table has been provided below

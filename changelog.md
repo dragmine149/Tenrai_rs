@@ -2,12 +2,18 @@
 Format is `{Crate}(API)` where both are their represetive versions. If `(API)` does not exist, then it's the same API version as the previous crate version.
 
 ## 1.3.0 (v1.0.31)
-Skipped many a version because of the query update. Changed how we handle queries internally.
+Skipped many a version because of the query update. Hopefully smoother sailing from here.
 
 - **Updated API** to `v1.0.31`
 	- See [API Changelog](https://api.tenrai.org/changelog) for more details.
 - **Updated** How handle of queries is done internally.
 	- Nothing changes much on the frontend, apart from having to additionally import some new traits
+	- This does make all query fields private. Please convert it back into a builder to edit them. 
+		- Additionally, functions have been provided to get the values of said fields.
+- **Updated** A bunch of documentation.
+- **Updated** dependencies.
+	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.
+	- Also added comments so those reading it know which dependencies are for what.
 
 
 ## 1.2.0 (v1.0.25)

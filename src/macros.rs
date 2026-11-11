@@ -28,42 +28,71 @@ macro_rules! generic_type {
 ///
 /// # Usage
 /// ```ignore
-/// query!(name { DataStruct }, { ValidationStruct })
+/// query!(name { DataStruct }, { ValidationStruct }, { ExclusiveStruct })
 /// ```
-/// - `DataStruct` is done like a normal struct, with optional `:{format_func}` for cases where `T` doesn't have `to_string()`
-/// - `ValidationStruct` is done in the format of `{var}: {reason}: {func}`.
-///
-/// ## format_func
-/// A format function is given the stringified name of the field, plus the value to format. As such it can be used for both renaming and edge-cases.
-///
-/// For example
+/// ## DataStruct
+/// For the most part, this is same as usual...
 /// ```ignore
-/// // renaming
+/// /// (optional) some comment
+/// some_field:some_type
+/// ```
+/// However, it has been expanded to support the following
+/// ```ignore
+/// /// (optional) some comment
+/// *custom:some_field:some_type:format_func
+/// ```
+/// ### `*custom`
+/// This marks the field as a custom field, and assumes the field is a query instead of a typical field.
+/// The benefits of this means you can use the [query_extension] macro and formatting the field won't be as bad as `?some_field=?some_field=some_value`
+///
+/// ### `format_func`
+/// This allows for custom formatting that can't be done via `Display` without having to make a struct just for implementing `Display`.
+/// For example:
+/// ```ignore
 /// query: String:(|_, v| format!("q={v}")),
+/// // ofc, probably split it out.
+/// genres: Vec<u64>:(|n, v| format!("{n}={}", v.iter().map(|s| format!("{s}")).collect::<Vec<String>>().join(","))),
+/// // because this is possible (where `query_vec` is just the name of a function that can be accessed)
+/// genres: Vec<u64>:query_vec,
+/// ```
+/// The inputs are:
+/// - variable name (String)
+/// - variable value (type of variable as defined)
 ///
-/// // parsing
-/// anime_type: Vec<AnimeType>:query_vec,
+/// ## ValidationStruct
+/// This struct adds extra conditions when using the `Builder`. A build will fail if not all conditions are met. Conditions are formatted as such
+/// ```ignore
+/// some_var:some_reason:some_condition
+/// // example
+/// query: "Query length is too long": (|q: &String| q.len() > 300),
+/// page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+/// rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+/// ```
+/// - `some_var` must be the same as one of the members of the `DataStruct`
+/// - `some_reason` must be a string literal of the error. This is returned in as `E` in `Result`
+/// - `some_func` is the function to test. You get passed the value, and the type is a reference to the type specified.
 ///
-/// pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
-///     format!(
-///         "{var_name}={}",
-///         vec.iter()
-///             .map(|s| format!("{s}"))
-///             .collect::<Vec<String>>()
-///             .join(",")
-///     )
+/// ## ExclusiveStruct
+/// Finally, as an extension to `ValidationStruct`. This struct compares and makes sure `some_val_a` can not be enabled when `some_val_b` is also enabled.
+/// ```ignore
+/// {
+///     some_field_a:some_field_b:some_field_c:some_field_d,
+///     some_field_d:some_field_e,
+///     some_field_f:some_field_g
 /// }
 /// ```
-/// By default, if one is not provided, `format!("{var_name}={value}")` is used.
+/// This says, that as long as one of `a/b/c/d` is enabled. The rest of them cannot be. It also allows stuff like `a/e` to be enabled whilst `a/d` and `d/e` are disallowed. (enabling `d` would prevent `a` and `e`)
 ///
-/// # Default
-/// Note that we do not implement any method to deal with default variables. The server should take care of that.
+/// Due to being an extension, it's completely optional and can just not be provided. If provided though, it must have at least one exclusive value *just to make it worth while providing it*
+///
+/// # Derives
+/// All types must implement `Debug, Display, Default, Clone`. *rust gets annoyed otherwise*
 #[macro_export]
 macro_rules! query {
     ($(#[$query_meta:meta])? $name:ident {
     	$(
      		$(#[$field_meta:meta])?
-       		$(*$custom:ident,)?
+       		$(*$custom:ident:)?
      		$var:ident:$var_type:ty $(:$fmt:expr)?,
      	)*
     }, {
@@ -77,6 +106,7 @@ macro_rules! query {
      	)+
     })*) => {
         pastey::paste! {
+        	// deals with the main struct. This is what contains the data after everything.
             #[derive(Debug, Default, Builder, Clone)]
             #[builder(build_fn(validate = "Self::validate"))]
             $(#[$query_meta])?
@@ -84,21 +114,43 @@ macro_rules! query {
             	$(
              		$(#[$field_meta])?
              		#[builder(setter(into, strip_option $(,$custom)?), default)]
-                    pub $var: Option<$var_type>,
+                    $var: Option<$var_type>,
                 )*
             }
+            #[doc = "Helper functions for interacting with " [<$name:upper_camel Query>]]
             impl [<$name:upper_camel Query>] {
+            	/// Create a new builder object
             	pub fn builder() -> [<$name:upper_camel QueryBuilder>] {
              		[<$name:upper_camel QueryBuilder>]::default()
              	}
+              	$(
+                 	$(#[$field_meta])?
+               		pub fn $var(&self) -> &Option<$var_type> {
+                 		return &self.$var;
+                 	}
+               	)*
             }
+            // Allow converting from query to builder
+            impl From<[<$name:upper_camel Query>]> for [<$name:upper_camel QueryBuilder>] {
+            	fn from(value: [<$name:upper_camel Query>]) -> Self {
+             		Self {
+               			$(
+                  			$var: Some(value.$var),
+                  		)*
+               		}
+             	}
+            }
+
+            // Custom validation function.
             impl [<$name:upper_camel QueryBuilder>] {
             	fn validate(&self) -> Result<(), String> {
+             		// Check to see if the ValidationStruct is fine
              		$(
                			if let Some(ref v) = self.$builder_var && let Some(v) = v && $builder_var_func(v) {
                      		return Err($builder_var_msg.to_string())
                      	}
                		)*
+                 	// Then check the exclusive struct
                  	$(
                   		$(
                     		if self.$combined_var.is_some() {
@@ -113,6 +165,7 @@ macro_rules! query {
                  	Ok(())
              	}
             }
+            // Converts the struct into `?some_var=a&some_foo=b&some_bar=c`.
             impl std::fmt::Display for [<$name:upper_camel Query>] {
             	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
              		let mut query = vec![];
@@ -121,6 +174,8 @@ macro_rules! query {
                  			query.push(query!(@format $($custom,)? $var, v, $($fmt)?));
                    		}
                  	)*
+
+                  	// this is useful because then we don't have to worry about getting rid of trailing `&`s
                   	if query.len() > 0 {
                    		write!(f, "?{}", query.join("&"))
                    	} else {
@@ -129,6 +184,7 @@ macro_rules! query {
              	}
             }
 
+            // see query_extension
             #[doc="Helper trait for adding " $name " to another query\n\nThis is a sealed trait and cannot be implemented."]
             #[sealed::sealed]
             pub trait [<$name:upper_camel QueryHelper>] {
@@ -142,6 +198,7 @@ macro_rules! query {
         }
     };
 
+    // format extensions of `Display`, depending on the input.
     (@format $var:ident, $field:expr, $fmt:expr) => {
     	$fmt(stringify!($var), $field)
     };
@@ -156,10 +213,26 @@ macro_rules! query {
     }
 }
 
+/// Extension macro to [query] allowing for things that [query] can't do on its own.
+///
+/// This involves implementing the helper trait where specified.
+///
+/// # Usage
+/// ```
+/// query_extension!(Anime, Sfw, {
+///     sfw: bool,
+///     sfw_strict: bool,
+///	});
+///	```
+/// where `Anime` is the `Query` struct and `Sfw` is the `Helper` trait.
+/// Due to limitations in rust, you will have to provided all the fields and types again. However, the amount saved is worth it.
+///
+/// Additionally, the following helper traits have their own branch, hence the whole `{ /* ... */ }` is useless.
+/// - Sfw
 #[macro_export]
 macro_rules! query_extension {
 	($query: ident, Sfw) => {
-		query_extension!(Anime, Sfw, {
+		query_extension!($query, Sfw, {
     		sfw: bool,
       		sfw_strict: bool,
 		});
@@ -167,16 +240,20 @@ macro_rules! query_extension {
 
     ($query: ident, $helper: ident, {$($value:ident:$var_type:ty,)*}) => {
         pastey::paste! {
+        	// impl sealed as it's a sealed trait.
         	#[sealed::sealed]
          	impl [<$helper:upper_camel QueryHelper>] for [<$query:upper_camel QueryBuilder>] {
           		$(
+            		// for all functions, reimplement it.
             		fn $value<VALUE>(&mut self, value: VALUE) -> &mut Self
               		where
                 		VALUE: Into<$var_type>
                   	{
+                   		// if it doesn't exist, make it.
                   		self.[<$helper:lower_camel>]
                     		.get_or_insert_with(|| Some([<$helper:upper_camel Query>]::default()))
                       		.get_or_insert_default()
+                        	// then edit it.
                         	.$value = Some(value.into());
                         self
                   	}

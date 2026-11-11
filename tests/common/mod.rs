@@ -130,10 +130,10 @@ fn new_1_3_query() {
         .expect("Should build");
     assert!(
         query
-            .sfw
+            .sfw()
             .as_ref()
             .expect("Should be some")
-            .sfw
+            .sfw()
             .as_ref()
             .expect("Should be some")
     );
@@ -143,10 +143,12 @@ fn new_1_3_query() {
         .build()
         .expect("Should build");
     assert_eq!(
-        query
-            .sfw
+        *query
+            .sfw()
+            .as_ref()
             .expect("Should be some")
-            .sfw
+            .sfw()
+            .as_ref()
             .expect("Should be some"),
         false
     );

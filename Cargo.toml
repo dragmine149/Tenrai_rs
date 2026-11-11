@@ -1,6 +1,6 @@
 [package]
 name = "tenrai"
-version = "1.2.0"
+version = "1.3.0"
 edition = "2024"
 description = "Bindings for the Tenrai API."
 readme = "Readme.md"
@@ -10,28 +10,6 @@ license-file = "LICENSE"
 keywords = ["Jikan", "MAL", "MyAnimeList", "Tenrai"]
 exclude = ["tests/"]
 
-[lib]
-doctest = false
-
-[dependencies]
-bytes = "1.12"
-derive_builder = "0.20"
-dirs = "7.0.0"
-log = { version = "0.4.34", optional = true }
-pastey = "0.2.3"
-"regex" = "1.13.1"
-reqwest = { version = "0.13", features = ["json"] }
-sealed = "0.7.0"
-serde = { version = "1.0", features = ["serde_derive"] }
-serde_json = "1.0"
-strum = "0.28.0"
-strum_macros = "0.28.0"
-tokio = { version = "1.54.1", features = ["macros", "rt"] }
-
-[dev-dependencies]
-"rand" = { version = "0.10.3" }
-tokio = { version = "1.54.1", features = ["rt-multi-thread"] }
-
 [features]
 default = ["auto_retry"]
 auto_retry = []
@@ -39,4 +17,35 @@ custom = []
 log = ["dep:log"]
 rate = []
 strict = []
-# test_random = []
+
+[lib]
+doctest = false
+
+[dependencies]
+# Used for caching data
+bytes = "1.12"
+dirs = "7.0"
+
+# Used for parsing data
+regex = "1.13"
+serde = { version = "1.0", features = ["serde_derive"] }
+serde_json = "1.0"
+strum = "0.28"
+strum_macros = "0.28"
+
+# Used for macros / building front-end code
+derive_builder = "0.20"
+pastey = "0.2"
+sealed = "0.7"
+
+# Used for making the requests
+reqwest = { version = "0.13", features = ["json"] }
+tokio = { version = "1.54", features = ["macros", "rt"] }
+
+# Optional for features
+log = { version = "0.4", optional = true }
+
+[dev-dependencies]
+# Used for testing
+rand = { version = "0.10" }
+tokio = { version = "1.54", features = ["rt-multi-thread"] }

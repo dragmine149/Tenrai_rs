@@ -65,7 +65,14 @@ If the API updates without this crate updating, there is a high likelihood of so
 Everything has been documentated in line with the [official API documentation](https://api.tenrai.org/documentation)
 However in some cases, documentation will be slightly reworded to make more sense or to explain more that the official one lacks.
 
+See: <https://docs.rs/tenrai/latest/tenrai/struct.TenraiAPI.html> for the exact documentation.
+
 ## Naming
 Most variable names are done in line with the official API documentation. But there are many cases where the name is different.
 
 A common case is `type` due to being a keyword in rust. Other renames have been done for rust usability. At the very least the new names should match the official ones decently enough.
+
+# Contributions
+Contribtuions are welcome, however please open an issue first for anything that is not of the following list:
+- Updating API Versions
+- Fixing inconsistencies with the official documentation.
