@@ -3,7 +3,7 @@
 //!
 
 use crate::{
-    query,
+    query, query_extension,
     schemas::{
         anime::{
             AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering,
@@ -28,7 +28,7 @@ SFW {
 	/// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
 }, {});
 
 query!(
@@ -79,6 +79,11 @@ FullPageSFW {
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
+fn test() {
+    // AnimeQuery::builder().anime_type(value)
+    // AnimeQuery::builder().sfw(true);
+}
+
 query!(Anime {
     /// Title search query (fuzzy matched against English, Japanese and default titles). Cannot be combined with [AnimeQuery::letter]
     query: String:(|_, v| format!("q={v}")),
@@ -96,10 +101,8 @@ query!(Anime {
     source: Vec<AnimeSource>:query_vec,
     /// Filter by a main trailer ID or URL. Playback availability is not checked.
     has_trailer: bool,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Filter audlt themes
+    *custom,sfw: SfwQuery,
     /// Also include unapproved entries.
     unapproved: OnlyBool,
     /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.
@@ -162,6 +165,34 @@ query!(Anime {
     score:min_score:max_score,
     query:letter,
 });
+
+// query_extend!(Anime, Sfw);
+query_extension!(Anime, Sfw);
+
+// #[sealed::sealed]
+// impl SfwQueryHelper for AnimeQueryBuilder {
+//     fn sfw<VALUE>(&mut self, value: VALUE) -> &mut Self
+//     where
+//         VALUE: Into<bool>,
+//     {
+//         self.sfw
+//             .get_or_insert_with(|| Some(SfwQuery::default()))
+//             .get_or_insert_default()
+//             .sfw = Some(value.into());
+//         self
+//     }
+
+//     fn sfw_strict<VALUE>(&mut self, value: VALUE) -> &mut Self
+//     where
+//         VALUE: Into<bool>,
+//     {
+//         self.sfw
+//             .get_or_insert_with(|| Some(SfwQuery::default()))
+//             .get_or_insert_default()
+//             .sfw_strict = Some(value.into());
+//         self
+//     }
+// }
 
 query!(Review {
     /// Only content that has been written by this MAL username. Matches the full username

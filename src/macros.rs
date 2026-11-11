@@ -63,6 +63,7 @@ macro_rules! query {
     ($(#[$query_meta:meta])? $name:ident {
     	$(
      		$(#[$field_meta:meta])?
+       		$(*$custom:ident,)?
      		$var:ident:$var_type:ty $(:$fmt:expr)?,
      	)*
     }, {
@@ -76,13 +77,13 @@ macro_rules! query {
      	)+
     })*) => {
         pastey::paste! {
-            #[derive(Debug, Default, Builder)]
+            #[derive(Debug, Default, Builder, Clone)]
             #[builder(build_fn(validate = "Self::validate"))]
             $(#[$query_meta])?
             pub struct [<$name:upper_camel Query>] {
             	$(
              		$(#[$field_meta])?
-             		#[builder(setter(into, strip_option), default)]
+             		#[builder(setter(into, strip_option $(,$custom)?), default)]
                     pub $var: Option<$var_type>,
                 )*
             }
@@ -117,7 +118,7 @@ macro_rules! query {
              		let mut query = vec![];
                		$(
                  		if let Some(v) = self.$var.as_ref() {
-                 			query.push(query!(@format $var, v, $($fmt)?));
+                 			query.push(query!(@format $($custom,)? $var, v, $($fmt)?));
                    		}
                  	)*
                   	if query.len() > 0 {
@@ -127,6 +128,17 @@ macro_rules! query {
                     }
              	}
             }
+
+            #[doc="Helper trait for adding " $name " to another query\n\nThis is a sealed trait and cannot be implemented."]
+            #[sealed::sealed]
+            pub trait [<$name:upper_camel QueryHelper>] {
+            	$(
+             		$(#[$field_meta])?
+             		fn $var<VALUE>(&mut self, value: VALUE) -> &mut Self
+               		where
+                 		VALUE: Into<$var_type>;
+             	)*
+            }
         }
     };
 
@@ -135,7 +147,43 @@ macro_rules! query {
     };
     (@format $var:ident, $field:expr,) => {
     	format!("{}={}", stringify!($var), $field)
+    };
+    (@format custom, $var:ident, $field:expr,) => {
+    	(|| {
+     		let original = format!("{}", $field);
+      		original.strip_prefix("?").map(|s| s.to_string()).unwrap_or(original)
+     	})()
     }
+}
+
+#[macro_export]
+macro_rules! query_extension {
+	($query: ident, Sfw) => {
+		query_extension!(Anime, Sfw, {
+    		sfw: bool,
+      		sfw_strict: bool,
+		});
+	};
+
+    ($query: ident, $helper: ident, {$($value:ident:$var_type:ty,)*}) => {
+        pastey::paste! {
+        	#[sealed::sealed]
+         	impl [<$helper:upper_camel QueryHelper>] for [<$query:upper_camel QueryBuilder>] {
+          		$(
+            		fn $value<VALUE>(&mut self, value: VALUE) -> &mut Self
+              		where
+                		VALUE: Into<$var_type>
+                  	{
+                  		self.[<$helper:lower_camel>]
+                    		.get_or_insert_with(|| Some([<$helper:upper_camel Query>]::default()))
+                      		.get_or_insert_default()
+                        	.$value = Some(value.into());
+                        self
+                  	}
+            	)*
+          	}
+        }
+    };
 }
 
 /// Helper macro for making errors.

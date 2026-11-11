@@ -1,6 +1,15 @@
 # Changelog
 Format is `{Crate}(API)` where both are their represetive versions. If `(API)` does not exist, then it's the same API version as the previous crate version.
 
+## 1.3.0 (v1.0.31)
+Skipped many a version because of the query update. Changed how we handle queries internally.
+
+- **Updated API** to `v1.0.31`
+	- See [API Changelog](https://api.tenrai.org/changelog) for more details.
+- **Updated** How handle of queries is done internally.
+	- Nothing changes much on the frontend, apart from having to additionally import some new traits
+
+
 ## 1.2.0 (v1.0.25)
 First API update and some other small fixes.
 

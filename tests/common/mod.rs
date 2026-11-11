@@ -1,7 +1,11 @@
 //! Tests related to various utils aspects. Kinda not meant to be testing one specific endpoint.
 
 use crate::build_client;
-use tenrai::schemas::{anime::AnimeType, common::AgeRating, query::AnimeQuery};
+use tenrai::schemas::{
+    anime::AnimeType,
+    common::AgeRating,
+    query::{AnimeQuery, SfwQueryHelper},
+};
 
 /// Test to see if the error response works.
 /// *as no test should error*
@@ -116,4 +120,34 @@ fn local_parsing() {
         tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::article::Article>,
     >(include_str!("../data/temp.json"))
     .expect("Failed to parse json");
+}
+
+#[test]
+fn new_1_3_query() {
+    let query = AnimeQuery::builder()
+        .sfw(true)
+        .build()
+        .expect("Should build");
+    assert!(
+        query
+            .sfw
+            .as_ref()
+            .expect("Should be some")
+            .sfw
+            .as_ref()
+            .expect("Should be some")
+    );
+    assert_eq!(format!("{query}"), "?sfw=true");
+    let query = AnimeQuery::builder()
+        .sfw(false)
+        .build()
+        .expect("Should build");
+    assert_eq!(
+        query
+            .sfw
+            .expect("Should be some")
+            .sfw
+            .expect("Should be some"),
+        false
+    );
 }
