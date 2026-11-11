@@ -72,6 +72,16 @@ macro_rules! generic_type {
 /// - `some_reason` must be a string literal of the error. This is returned in as `E` in `Result`
 /// - `some_func` is the function to test. You get passed the value, and the type is a reference to the type specified.
 ///
+/// Additionally, after the above, it is possible to add the following `/key/var:condition` This is a shorthand for the above, as such can't be as dynamic.
+/// `key` is a specific key of one of the following
+/// - v:  Checks to see if any item in `Vec<T>` is `< var`
+/// - vl: Checks to see if the length of `Vec<T>` is > var`
+/// - i:  Checks to see if the value is > var
+/// - il: Checks to see if the value is < var
+///	For any of the above condition, if the condition returns true an error is caused.
+///
+/// `var` is the variable in question, whilst `condition` depends on the key.
+///
 /// ## ExclusiveStruct
 /// Finally, as an extension to `ValidationStruct`. This struct compares and makes sure `some_val_a` can not be enabled when `some_val_b` is also enabled.
 /// ```ignore
@@ -99,6 +109,7 @@ macro_rules! query {
     	$(
      		$builder_var:ident: $builder_var_msg:literal: $builder_var_func:expr,
      	)*
+      	$(/$tt:tt/$builder_var2:ident:$builder_condition:literal,)*
     }
     $(,{
     	$(
@@ -147,9 +158,17 @@ macro_rules! query {
              		// Check to see if the ValidationStruct is fine
              		$(
                			if let Some(ref v) = self.$builder_var && let Some(v) = v && $builder_var_func(v) {
-                     		return Err($builder_var_msg.to_string())
+                     		return Err($builder_var_msg.to_string());
                      	}
                		)*
+                 	// Custom validation which reduces a lot of reputition.
+                 	$(
+                  		if let Some(ref v) = self.$builder_var2 && let Some(v) = v
+                    		&& query!(@condition /$tt/ v, $builder_condition)
+                      	{
+                    		return Err(query!(@condition_reason /$tt/ $builder_var2, $builder_condition))
+                    	}
+                  	)*
                  	// Then check the exclusive struct
                  	$(
                   		$(
@@ -210,7 +229,32 @@ macro_rules! query {
      		let original = format!("{}", $field);
       		original.strip_prefix("?").map(|s| s.to_string()).unwrap_or(original)
      	})()
-    }
+    };
+
+    (@condition /v/ $value:expr, $condition:expr) => {
+    	(|| $value.iter().any(|v| *v < $condition))()
+    };
+    (@condition /vl/ $value:expr, $condition:expr) => {
+    	(|| $value.len() > $condition)()
+    };
+    (@condition /i/ $value:expr, $condition:expr) => {
+    	(|| *$value > $condition)()
+    };
+    (@condition /il/ $value:expr, $condition:expr) => {
+    	(|| *$value < $condition)()
+    };
+    (@condition_reason /v/ $v:ident, $condition:expr) => {
+    	format!("All values of \"{}\" must be greater than \"{}\"", stringify!($v), $condition)
+    };
+    (@condition_reason /vl/ $v:ident, $condition:expr) => {
+    	format!("Can only have a max of {} {}(s)", $condition, stringify!($v))
+    };
+    (@condition_reason /i/ $v:ident, $condition:expr) => {
+    	format!("{} must be less than {}", stringify!($v), $condition)
+    };
+    (@condition_reason /il/ $v:ident, $condition:expr) => {
+    	format!("{} must be greater than {}", stringify!($v), $condition)
+    };
 }
 
 /// Extension macro to [query] allowing for things that [query] can't do on its own.
@@ -235,6 +279,36 @@ macro_rules! query_extension {
 		query_extension!($query, Sfw, {
     		sfw: bool,
       		sfw_strict: bool,
+		});
+	};
+	($query: ident, Ids) => {
+		query_extension!($query, Ids, {
+			min_id: u32,
+			max_id: u32,
+			ids: Vec<u32>,
+			exclude_ids: Vec<u32>,
+		});
+	};
+	($query:ident, Score) => {
+		query_extension!($query, Score, {
+			score:f64,
+			min_score:f64,
+			max_score:f64,
+			min_scored_by:u32,
+			max_scored_by:u32,
+		});
+	};
+	($query:ident, Year) => {
+		query_extension!($query, Year, {
+			year: Vec<u32>,
+			min_year: u32,
+			max_year: u32,
+		});
+	};
+	($query:ident, Page) => {
+		query_extension!($query, Page, {
+			page: u32,
+			limit: u32,
 		});
 	};
 

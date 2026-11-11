@@ -14,4 +14,6 @@ pub enum ScheduleDayFilter {
     Sunday,
     Unknown,
     Other,
+    Today,
+    Tomorrow,
 }

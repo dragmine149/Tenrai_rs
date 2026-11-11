@@ -505,3 +505,45 @@ pub struct Tag {
     /// How many entries have this tag
     pub count: u64,
 }
+
+#[derive(Debug, Display, Clone)]
+#[strum(serialize_all = "camel_case")]
+pub enum Language {
+    English,
+    French,
+    German,
+    Hebrew,
+    Hungrain,
+    Italin,
+    Japanese,
+    Korean,
+    Mandarin,
+    #[strum(serialize = "portuguese_br")]
+    PortugueseBR,
+    Spanish,
+}
+
+/// Applies to any field related to ordering (`order_by`)
+///
+/// If omitted will be treated as such:
+/// - [Nulls::First] when [SortDirection::Ascending]
+/// - [Nulls::Last] when [SortDirection::Descending]
+/// # Example
+/// ```
+/// /// Leaves out entries without an end-date.
+/// fn null_exclude() {
+///     AnimeQuery::builder()
+///         .order_by(OrderBy::EndDate)
+///         .nulls(Nulls::Exclude)
+/// }
+/// ```
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "camel_case")]
+pub enum Nulls {
+    /// Put entries without a value first.
+    First,
+    /// Put entries without a value last
+    Last,
+    /// Leave the entries out of the result + total count.
+    Exclude,
+}

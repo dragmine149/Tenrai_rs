@@ -9,11 +9,14 @@ use crate::{
             AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering,
             NewsArticleOrdering, OrderBy,
         },
-        common::{AgeRating, BasicOrder, Date, IDsQueryInclude, OnlyBool, Season, SortDirection},
+        common::{
+            AgeRating, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool, Season,
+            SortDirection,
+        },
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
-        people::PeopleOrder,
+        people::{CharacterRole, PeopleOrder},
         query_vec,
         reviews::{ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
@@ -44,12 +47,12 @@ query!(
 /// Full paginator query. Allows the selection of a different page.
 Page {
     /// Page Number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(
@@ -79,115 +82,214 @@ FullPageSFW {
     limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
 });
 
+query!(
+    /// Sub query for getting ids.
+    IDs {
+        /// Minimum MAL ID (inclusive)
+        min_id: u32,
+        /// Maximum MAL ID (inclusive)
+        max_id: u32,
+        /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
+        // TODO: Don't cache.
+        ids: Vec<u32>:query_vec,
+        /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
+        // TODO: Don't cache.
+        exclude_ids: Vec<u32>:query_vec,
+    }, {
+        /il/ min_id:1,
+        /il/ max_id:1,
+        /vl/ ids:1000,
+        /v/  ids:1,
+    }
+);
+query!(
+    /// Sub query for scoring information
+    Score {
+        /// Only entries with this exact score. Use [min_score](ScoreQuery::min_score) and [max_score](ScoreQuery::max_score) for a range.
+        score: f64,
+        /// Only entries with this score or higher
+        min_score: f64,
+        /// Only entries with this score or lower
+        max_score: f64,
+        /// Only entries that have been scored by this many users (inclusive) (`>=`)
+        min_scored_by: u32,
+        /// Only entries that have been scored by this many users (inclusive) (`>=`)
+        max_scored_by: u32,
+    }, {
+        score: "Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+        score: "Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+        min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l < 0.0 || *l > 10.0),
+        min_score: "Min Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+        max_score: "Max Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+        max_score: "Max Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+    },
+    {
+        score:min_score:max_score,
+    }
+);
+
+query!(
+    /// Sub query for year information
+    Year {
+        /// Calendar year of the aired or published start date. Cannot be combined with [min_year](YearQuery::min_year) or [max_year](YearQuery::max_year). For anime, this can differ from MAL's season year. Multiple years match any selected year.
+        year:Vec<u32>:query_vec,
+        /// Minimum calendar year of the aired or published start date.
+        min_year:u32,
+        /// Maximum calendar year of the aired or published start date.
+        max_year:u32,
+    }, {
+        year: "Year must be between 1 and 9999 (inclusive)": (|y: &[u32]| y.iter().any(|y| *y < 1 || *y > 9999)),
+        min_year: "Min Year must be between 1 and 9999 (inclusive)": (|y: &u32| *y < 1 || *y > 9999),
+        max_year: "Max Year must be between 1 and 9999 (inclusive)": (|y: &u32| *y < 1 || *y > 9999),
+    }, {
+        year:min_year:max_year,
+    }
+);
+
 query!(Anime {
     /// Title search query (fuzzy matched against English, Japanese and default titles). Cannot be combined with [AnimeQuery::letter]
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u64,
-    /// Results per page (Default: 25)
-    limit: u64,
-    /// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    /// Only anime with this airing status
-    status: AnimeStatus,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter by source material. If multiple provided, will match with any of them.
-    source: Vec<AnimeSource>:query_vec,
-    /// Filter by a main trailer ID or URL. Playback availability is not checked.
-    has_trailer: bool,
-    /// Filter audlt themes
-    *custom:sfw: SfwQuery,
-    /// Also include unapproved entries.
-    unapproved: OnlyBool,
-    /// Only entries with this exact score. Use [AnimeQuery::min_score] and [AnimeQuery::max_score] for a range.
-    score: f64,
-    /// Only entries with this score or higher
-    min_score: f64,
-    /// Only entries with this score or lower
-    max_score: f64,
-    /// Only entries that have been scored by this many users (inclusive) (`>=`)
-    min_scored_by: u64,
-    /// Only entries with this member count or higher
-    min_members: u64,
-    /// Only entries with this member count or lower
-    max_members: u64,
-    /// Only entries with this favourite count or higher
-    min_favorites: u64,
-    /// Only entries with this favourite count or lower
-    max_favorites: u64,
-    /// Only entries with this episode count or higher
-    min_episodes: u64,
-    /// Only entries with this episode count or lower
-    max_episodes: u64,
-    /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
-    /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
-    /// Field to sort the results by.
-    order_by: OrderBy,
-    /// Sort direction. Only applies when [AnimeQuery::order_by] is used.
-    sort: SortDirection,
     /// Only anime whose title starts with this letter. Cannot be combined with [AnimeQuery::query].
     letter: char,
+
+    /// Only entries with any selected type. Multiple values match any selected type.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Exclude entries with any selected type. Multiple values exclude any selected type.
+    anime_type_exclude: Vec<AnimeType>:(|_, v| query_vec("type_exclude", v)),
+
+    /// Only entries with any selected status. Multiple values match any selected status.
+    status: Vec<AnimeStatus>:query_vec,
+    /// Exclude entries with any selected status. Multiple values match any selected status.
+    status_exclude: Vec<AnimeStatus>:query_vec,
+
+    /// Only entries with any selected rating. Multiple values match any selected rating.
+    rating: Vec<AgeRating>:query_vec,
+    /// Exclude entries with any selected rating. Multiple values match any selected rating.
+    rating_exclude: Vec<AgeRating>:query_vec,
+
+    /// Only entries with any selected source material. Multiple values match any selected source.
+    source: Vec<AnimeSource>:query_vec,
+    /// Exclude entries with any selected source material. Multiple values match any selected source.
+    source_exclude: Vec<AnimeSource>:query_vec,
+
+    /// Filter by a main trailer ID or URL. Playback availability is not checked.
+    has_trailer: bool,
+    /// Only anime with a streaming link from any of these providers, e.g. Crunchyroll, Netflix or HIDIVE. Names ignore capitalization, spacing and common spelling variants. Links are not checked for current availability or region.
+    streaming_service: Vec<String>:query_vec,
+
+    /// Filter recorded MyAnimeList relations: true includes entries with or without relations, false returns entries with no recorded relations, and only returns entries with at least one recorded relation. Includes anime and manga relations.
+    has_relation: OnlyBool,
+
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u32>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u32>:query_vec,
+
     /// List of produces to filter by. Use the ID of the producer.
-    producers: Vec<u64>:query_vec,
+    producers: Vec<u32>:query_vec,
+    /// List of produces to filter by. Use the ID of the producer.
+    producers_exclude: Vec<u32>:query_vec,
+    /// Filter by credited staff MAL ID. Multiple IDs match any selected person.
+    staff: Vec<u32>:query_vec,
+    /// Filter by recorded MAL character IDs. Multiple IDs match any selected character.
+    characters: Vec<u32>:query_vec,
+    /// Only count the characters in characters when MAL lists them in this role. Requires characters.
+    character_role: CharacterRole,
+    /// Filter by recorded voice-actor MAL person IDs. Multiple IDs match any selected person.
+    voice_actors: Vec<u32>:query_vec,
+    /// Only anime with a voice cast credited in any of these languages, e.g. an English dub. When used with voice_actors, a selected voice actor must be credited in that language. A credited dub doesn't mean it can be streamed.
+    voice_language: Vec<Language>:query_vec,
+
+    /// Query parameters related to IDs.
+    *custom: ids: IdsQuery,
+    /// Query parameters related to score
+    *custom: score: ScoreQuery,
+
+    /// Minimum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 applies no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 returns entries with no stored reviews.
+    max_reviews: u32,
+    /// Only entries with this member count or higher
+    min_members: u32,
+    /// Only entries with this member count or lower
+    max_members: u32,
+    /// Only entries with this favourite count or higher
+    min_favorites: u32,
+    /// Only entries with this favourite count or lower
+    max_favorites: u32,
+    /// Only entries with this episode count or higher
+    min_episodes: u32,
+    /// Only entries with this episode count or lower
+    max_episodes: u32,
+
+    /// Query parameters related to year.
+    *custom: year: YearQuery,
+    /// Filter by MAL Debut-season classification. Multiple seasons match any.
+    season: Vec<Season>:query_vec,
+    /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+    season_year: Vec<u32>:query_vec,
+    /// Filter by the day of the week the anime airs in Japan (JST). Multiple days match any selected day. other matches anime that MAL lists without a regular day. Anime without a recorded broadcast day never match. today and tomorrow follow the date in Japan, so they move on at midnight Japan time (15:00 UTC).
+    broadcast_day: Vec<ScheduleDayFilter>:query_vec,
+
     /// Only anime that started airing on or after this date.
     start_date: Date,
     /// Only anime that finished airing on or before this date.
     end_date: Date,
-    /// Filter by MAL Debut-season classification
-    season: Season,
-    /// Calendar year of the aired date. Cannot be combined with [AnimeQuery::min_year] or [AnimeQuery::max_year]
-    year: u64,
-    /// Anime that aired this *provided* year or later
-    min_year: u64,
-    /// Anime that aired this *provided* year or earlier
-    max_year: u64,
+    /// Only anime added on or after this date. Only works with approved anime.
+    added_after: Date,
+    /// Only anime added before this date (not on it). Only works with approved anime.
+    added_before: Date,
+
+    /// Filter audlt themes
+    *custom: sfw: SfwQuery,
+    /// Also include unapproved entries.
+    unapproved: OnlyBool,
+
+    /// Field to sort the results by.
+    order_by: OrderBy,
+    /// Sort direction. Only applies when [AnimeQuery::order_by] is used.
+    sort: SortDirection,
+
+    /// Extra filtering for [AnimeQuery::order_by]. *See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom: page: PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-    source: "Can only have 25 types of sources": (|s: &[AnimeSource]| s.len() > 25),
-    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
-    max_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
-    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+
+    rating: "Rating cannot be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+    rating_exclude: "Rating Exclude cannot be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+
+    season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+    broadcast_day: "Can't be \"unknown\".": (|b: &[ScheduleDayFilter]| b.contains(&ScheduleDayFilter::Unknown)),
+
+    /vl/ streaming_service:25,
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  producers:1,
+    /vl/ producers:25,
+    /v/  producers_exclude:1,
+    /vl/ producers_exclude:25,
+    /v/  staff:1,
+    /vl/ staff:25,
+    /v/  characters:1,
+    /vl/ characters:25,
+    /v/  voice_actors:1,
+    /vl/ voice_actors:25,
+    /il/ min_episodes:1,
+    /il/ max_episodes:1,
+    /vl/ season_year:25,
 }, {
-    year:min_year:max_year,
-    score:min_score:max_score,
     query:letter,
+    // Technically it still works... but eh.
+    unapproved:added_after:added_before,
 });
 
-// query_extend!(Anime, Sfw);
+query_extension!(Anime, Ids);
+query_extension!(Anime, Score);
+query_extension!(Anime, Year);
 query_extension!(Anime, Sfw);
-
-// #[sealed::sealed]
-// impl SfwQueryHelper for AnimeQueryBuilder {
-//     fn sfw<VALUE>(&mut self, value: VALUE) -> &mut Self
-//     where
-//         VALUE: Into<bool>,
-//     {
-//         self.sfw
-//             .get_or_insert_with(|| Some(SfwQuery::default()))
-//             .get_or_insert_default()
-//             .sfw = Some(value.into());
-//         self
-//     }
-
-//     fn sfw_strict<VALUE>(&mut self, value: VALUE) -> &mut Self
-//     where
-//         VALUE: Into<bool>,
-//     {
-//         self.sfw
-//             .get_or_insert_with(|| Some(SfwQuery::default()))
-//             .get_or_insert_default()
-//             .sfw_strict = Some(value.into());
-//         self
-//     }
-// }
+query_extension!(Anime, Page);
 
 query!(Review {
     /// Only content that has been written by this MAL username. Matches the full username

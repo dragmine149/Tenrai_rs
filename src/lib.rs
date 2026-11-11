@@ -33,6 +33,10 @@
 //! The values stored in the main trait are private and can only be gotten as references. This is to prevent editing of values before sending to the API and hence bypassing the verification done in the builder.
 //! You can however do something like `QueryBuilder::from(Query)` to convert it back into a builder. This will consume the `Query` struct in doing so but allow modification of the struct once again.
 //!
+//! ## Sub Queries
+//! There are a couple of queries that are deemed as "Sub-queries". These act just like normal, however no endpoint defined in [TenraiAPI] will accept them.
+//! Please use the main queries instead.
+//!
 //! # Endpoint Notes
 //! Most endpoints function names will follow the official ones provide by tenrai. However, some functions have been renamed. A table has been provided below
 //! |Original|Renamed To|Reason|

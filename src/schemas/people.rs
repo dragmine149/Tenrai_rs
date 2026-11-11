@@ -20,8 +20,9 @@ pub struct Character {
 }
 
 /// How important is the character role
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+#[strum(serialize_all = "camel_case")]
 pub enum CharacterRole {
     Main,
     Supporting,

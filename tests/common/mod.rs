@@ -4,7 +4,7 @@ use crate::build_client;
 use tenrai::schemas::{
     anime::AnimeType,
     common::AgeRating,
-    query::{AnimeQuery, SfwQueryHelper},
+    query::{AnimeQuery, ScoreQuery, SfwQueryHelper},
 };
 
 /// Test to see if the error response works.
@@ -152,4 +152,54 @@ fn new_1_3_query() {
             .expect("Should be some"),
         false
     );
+}
+
+#[test]
+fn score_query_test() {
+    ScoreQuery::builder()
+        .score(3.45)
+        .build()
+        .expect("This should not fail");
+    ScoreQuery::builder()
+        .score(12.45)
+        .build()
+        .expect_err("This should fail");
+    ScoreQuery::builder()
+        .score(1.245)
+        .build()
+        .expect_err("This should fail");
+
+    ScoreQuery::builder()
+        .min_score(3.45)
+        .build()
+        .expect("This should not fail");
+    ScoreQuery::builder()
+        .min_score(12.45)
+        .build()
+        .expect_err("This should fail");
+    ScoreQuery::builder()
+        .min_score(1.245)
+        .build()
+        .expect_err("This should fail");
+    ScoreQuery::builder()
+        .min_score(-1.24)
+        .build()
+        .expect_err("This should fail");
+
+    ScoreQuery::builder()
+        .max_score(3.45)
+        .build()
+        .expect("This should not fail");
+    ScoreQuery::builder()
+        .max_score(12.45)
+        .build()
+        .expect_err("This should fail");
+    ScoreQuery::builder()
+        .max_score(1.245)
+        .build()
+        .expect_err("This should fail");
+    ScoreQuery::builder()
+        .max_score(-1.24)
+        .build()
+        .expect_err("This should fail");
 }

@@ -35,17 +35,15 @@ pub struct Anime {
     pub demographics: Vec<DemographicsType>,
     /// Length per episode or total run time of the anime
     pub duration: Option<String>,
-    /// Total episodes broadcast.
+    /// Total episodes broadcast. ([None] if ongoing / not aired)
     pub episodes: Option<u64>,
-    /// Explicit genre classification (E.g. Hentai, Ecchi)
-    pub explicit_genres: Vec<GenreType>,
     /// External links and resources related to this anime
     ///
     /// Requires `full` details
     pub external: Option<Vec<External>>,
     /// Total users who have favorited the anime.
     pub favorites: Option<u64>,
-    /// Genre Classification
+    /// Genre Classification. *Also contains explicit genres*
     pub genres: Vec<GenreType>,
     /// Images used on the website.
     pub images: Images,
@@ -67,6 +65,8 @@ pub struct Anime {
     /// Global rank based on average score
     pub rank: Option<u64>,
     /// Age rating categorization
+    ///
+    /// TODO: Convert [None] to [AgeRating::None]?
     pub rating: Option<AgeRating>,
     /// Relationships with other media in the same series
     ///
@@ -93,7 +93,8 @@ pub struct Anime {
     /// Theme songs used in the anime.
     ///
     /// Requires `full` details
-    pub theme: Option<ThemeSongs>,
+    #[serde(rename = "theme")]
+    pub theme_songs: Option<ThemeSongs>,
     /// Theme Classification.
     pub themes: Vec<ThemeType>,
     /// The primary default title of the anime.
@@ -244,6 +245,10 @@ pub enum AnimeStatus {
 pub enum OrderBy {
     MalId,
     Title,
+    #[strum(serialize = "title_english")]
+    TitleEN,
+    #[strum(serialize = "title_japanese")]
+    TitleJP,
     StartDate,
     EndDate,
     Episodes,

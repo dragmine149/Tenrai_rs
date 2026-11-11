@@ -10,11 +10,21 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- Nothing changes much on the frontend, apart from having to additionally import some new traits
 	- This does make all query fields private. Please convert it back into a builder to edit them. 
 		- Additionally, functions have been provided to get the values of said fields.
-- **Updated** A bunch of documentation.
+- **Fixed** a bunch of issues with the old query system whilst updating it.
+	- *i think score would just... not work before oops*
+- **Updated** a bunch of documentation.
 - **Updated** dependencies.
 	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.
 	- Also added comments so those reading it know which dependencies are for what.
+- **Changed** types from `u64` to `u32` to better align with the API.
+	- Still use `f64` though as those are rust defaults. *we just check for 2dp in most cases*
+	- Note: You can still do stuff `u32::MAX` as the API only accepts up to `i32::MAX`.
+		- *i use `u32::MAX` as i don't want to deal with negatives*
 
+### More specific struct changes that aren't generalised
+- **Removed** `Anime.explicit_genres` due to being always empty.
+- **Renamed** `Anime.theme` to `Anime.theme_songs` to make the difference between that and `Anime.themes` more obvious.
+	- *It still reads from `theme` though*
 
 ## 1.2.0 (v1.0.25)
 First API update and some other small fixes.
