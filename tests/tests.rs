@@ -25,16 +25,20 @@ pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
     )]
     if let Err(e) = result {
         match e {
-            // tenrai::errors::TenraiError::Tenrai(tenrai_apierror) => {
-            //     match tenrai_apierror.error_type {
-            //         // Can't remember why this got to survive...
-            //         tenrai::errors::MachineErrorType::ResourceNotFoundException => true,
-            //         _=>false,
-            //     }
-            // }
-            tenrai::errors::TenraiError::Reqwest(_) => {
-                tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-                true
+            tenrai::errors::TenraiError::Tenrai(tenrai_apierror) => {
+                match tenrai_apierror.error_type {
+                    // Reattempt in case we hit an entry which doesn't exist.
+                    tenrai::errors::MachineErrorType::ResourceNotFoundException => true,
+                    _ => false,
+                }
+            }
+            tenrai::errors::TenraiError::Reqwest(re) => {
+                if re.is_timeout() {
+                    tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+                    true
+                } else {
+                    false
+                }
             }
             _ => false,
         }
@@ -68,11 +72,12 @@ macro_rules! TestBuilder {
         $(#[$attr])*
         async fn $func_name() {
             let client = build_client();
-            loop {
-                let random = rand::random_range(1_u32..70_000_u32);
+            for _ in 0..5 {
+                let random = rand::random_range(1_u32..100_000_u32);
                 println!("ID: {random}");
                 let res = $func(&client, &random).await;
                 if $crate::error(&res).await {
+                	println!("Hit error {:?}", res.err());
                 	continue;
                 } else {
                 	res.expect("Test failed somehow...");

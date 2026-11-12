@@ -23,7 +23,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- *There was like 339+ replacements...*
 
 ### More specific struct changes that aren't generalised
-- **Removed** `Anime.explicit_genres` due to being always empty.
+- **Privatised** `Anime.explicit_genres` due to being always empty.
 - **Renamed** `Anime.theme` to `Anime.theme_songs` to make the difference between that and `Anime.themes` more obvious.
 	- *It still reads from `theme` though*
 

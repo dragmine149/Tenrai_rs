@@ -41,6 +41,9 @@ pub struct Anime {
     ///
     /// Requires `full` details
     pub external: Option<Vec<External>>,
+
+    explicit_genres: Vec<GenreType>,
+
     /// Total users who have favorited the anime.
     pub favorites: Option<u32>,
     /// Genre Classification. *Also contains explicit genres*
@@ -79,7 +82,7 @@ pub struct Anime {
     /// Season of premier.
     pub season: Option<Season>,
     /// The source material type.
-    pub source: AnimeSource,
+    pub source: Option<AnimeSource>,
     /// Airing status of the anime.
     pub status: AnimeStatus,
     /// External sites where you can watch the anime

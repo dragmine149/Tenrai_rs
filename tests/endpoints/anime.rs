@@ -4,8 +4,8 @@ use tenrai::{
         common::IDsQueryInclude,
         query::{
             AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
-            NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
-            StatsHistoryQuery,
+            NewsArticleQuery, PageQueryHelper, RecommendationQuery, ReviewQuery, SfwQuery,
+            StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -39,6 +39,14 @@ async fn anime_search() {
 TestBuilder!(
     anime_full_details,
     (async |client: &TenraiAPI, rand| client.anime_full_details(rand, SfwQuery::default()).await)
+);
+TestBuilder!(
+    anime_advanced,
+    (async |client: &TenraiAPI, rand| client
+        .custom::<tenrai::schemas::anime::Anime>(format!(
+            "anime/{rand}/full?ids=235,667535,1246,30"
+        ))
+        .await)
 );
 TestBuilder!(
     anime_recommendation,

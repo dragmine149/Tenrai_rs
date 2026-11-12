@@ -94,6 +94,22 @@ pub struct TenraiPaginatorResponse<T> {
     pub data: Vec<T>,
 }
 
+/// Special struct for when returning data from the API.
+///
+/// Data stored is based on the endpoint called. With additional data provided by IDs
+//
+/// Also see [TenraiResponse] for the default version.
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+pub struct TenraiIncludesResponse<T> {
+    /// Full details for additional IDs
+    pub included: Option<Vec<T>>,
+    /// The data stored based on the query
+    pub data: T,
+    /// Additional IDs not found
+    pub missing_ids: Option<Vec<u32>>,
+}
+
 /// Internal struct to contain all the possible values that the API can return.
 ///
 /// This is used before the data gets split up into `Result<Response, Error>`
@@ -101,14 +117,19 @@ pub struct TenraiPaginatorResponse<T> {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub(crate) struct TenraiRaw {
     pub data: Option<serde_json::Value>,
+
     pub pagination: Option<Paginator>,
     pub total: Option<u32>,
+
     pub status: Option<u32>,
     #[serde(rename = "type")]
     pub error_type: Option<MachineErrorType>,
     pub message: Option<String>,
     pub error: Option<String>,
     pub path: Option<String>,
+
+    pub included: Option<serde_json::Value>,
+    pub missing_ids: Option<Vec<u32>>,
 }
 
 // Convert the raw data from the API into individual responses depending on what was requested.
@@ -163,4 +184,48 @@ impl TenraiRaw {
             Err(self.build_error())
         }
     }
+    pub(crate) fn result_includes<T>(self) -> Result<TenraiIncludesResponse<T>, TenraiAPIError>
+    where
+        T: DeserializeOwned,
+    {
+        if let Some(data) = self.data {
+            Ok(TenraiIncludesResponse {
+                included: self.included.map(|v| serde_json::from_value(v).unwrap()),
+                data: serde_json::from_value(data).unwrap(),
+                missing_ids: self.missing_ids,
+            })
+        } else {
+            Err(self.build_error())
+        }
+    }
 }
+
+// macro_rules! TenraiResult {
+//     ($name:literal, $struct:ident, $maker:expr) => {
+//         pastey::paste! {
+//            impl TenraiRaw {
+//                pub(crate) fn [<result_ $name>]<T>(self) -> Result<$struct<T>, TenraiAPIError>
+//                where T: DeserializeOwned,
+//                {
+//                    if let Some(data) = self.data {
+//                        Ok($maker(self))
+//                    } else {
+//                        Err(self.build_error())
+//                    }
+//                }
+//            }
+//         }
+//     };
+// }
+
+// TenraiResult!(
+//     "includes",
+//     TenraiIncludesResponse,
+//     (|this: TenraiRaw| {
+//         TenraiIncludesResponse {
+//             include: this.include.map(|v| serde_json::from_value(v).unwrap()),
+//             data: serde_json::from_value(data).unwrap(),
+//             missing_ids: this.missing_ids,
+//         }
+//     })
+// );

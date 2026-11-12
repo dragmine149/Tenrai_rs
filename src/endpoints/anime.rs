@@ -1,7 +1,7 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
+        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         anime::{Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ThemeSongs},
         article::{Article, NewsArticle},
         common::{
@@ -46,11 +46,11 @@ impl TenraiAPI {
         &self,
         id: &u32,
         query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Anime>> {
+    ) -> crate::Result<TenraiIncludesResponse<Anime>> {
         Ok(self
             .request(format!("anime/{id}/full{query}"))
             .await?
-            .result()?)
+            .result_includes()?)
     }
     /// Get recommendations for an anime
     ///

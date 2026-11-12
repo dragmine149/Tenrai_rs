@@ -4,7 +4,7 @@ use crate::build_client;
 use tenrai::schemas::{
     anime::AnimeType,
     common::AgeRating,
-    query::{AnimeQuery, ScoreQuery, SfwQueryHelper},
+    query::{AnimeQuery, ScoreQuery, SfwQueryHelper, YearQueryHelper},
 };
 
 /// Test to see if the error response works.
@@ -106,7 +106,7 @@ fn test_long_query() {
 #[test]
 fn test_not_happy_query() {
     AnimeQuery::builder()
-        .year(2026_u32)
+        .year(vec![2026_u32])
         .min_year(2020_u32)
         .build()
         // .unwrap();
@@ -117,7 +117,7 @@ fn test_not_happy_query() {
 #[test]
 fn local_parsing() {
     serde_json::from_str::<
-        tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::article::Article>,
+        tenrai::schemas::TenraiPaginatorResponse<tenrai::schemas::anime::Anime>,
     >(include_str!("../data/temp.json"))
     .expect("Failed to parse json");
 }
