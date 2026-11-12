@@ -13,9 +13,9 @@ use crate::{generic_type, schemas::anime::User};
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Date {
-    pub day: Option<u64>,
-    pub month: Option<u64>,
-    pub year: Option<u64>,
+    pub day: Option<u32>,
+    pub month: Option<u32>,
+    pub year: Option<u32>,
 }
 impl Display for Date {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -59,7 +59,7 @@ impl<'de> Visitor<'de> for DateVisitor {
     where
         E: serde::de::Error,
     {
-        let mut split = v.splitn(3, "-").map(|s| s.parse::<u64>().ok());
+        let mut split = v.splitn(3, "-").map(|s| s.parse::<u32>().ok());
         let year = split.next().flatten();
         let month = split.next().flatten();
         let day = split.next().flatten();
@@ -198,7 +198,7 @@ pub enum SortDirection {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Entry {
     /// Identifier of this entry on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Images related to this entry.
     pub images: Images,
     /// Title of this entry
@@ -227,7 +227,7 @@ pub struct Recommendation {
     /// Link to the recommended media
     pub url: String,
     /// How many people voted on this recommendation
-    pub votes: u64,
+    pub votes: u32,
     /// More info about the media itself.
     pub entry: Entry,
 }
@@ -251,7 +251,7 @@ pub struct TopRecommendation {
     /// The user who wrote the first recommendation of the pair.
     pub user: User,
     /// Number of users who recommended this pair in either direction
-    pub votes: u64,
+    pub votes: u32,
 }
 
 /// Information about an individual score and how much it contributes to the overall score.
@@ -261,9 +261,9 @@ pub struct StatsScore {
     /// Percent out of total scores
     pub percentage: f64,
     /// How many users voted for this
-    pub votes: u64,
+    pub votes: u32,
     /// The score index in question
-    pub score: u64,
+    pub score: u32,
 }
 
 /// More info.
@@ -283,11 +283,11 @@ pub struct Forum {
     /// The username of the author
     pub author_username: Option<String>,
     /// How many comments are on this post
-    pub comments: u64,
+    pub comments: u32,
     /// Information about the last comment
     pub last_comment: CommentInfo,
     /// The ID of the forum thread.
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Topic title. Can be empty.
     pub title: String,
     /// The URL to the forum post.
@@ -332,7 +332,7 @@ pub enum IDsQueryInclude {
 #[serde(untagged)]
 pub enum IDList {
     /// A raw list of ids
-    IDs(Vec<u64>),
+    IDs(Vec<u32>),
     /// A raw list of ids plus some extra information
     Context(Vec<IDContext>),
 }
@@ -341,7 +341,7 @@ pub enum IDList {
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct IDContext {
-    pub mal_id: u64,
+    pub mal_id: u32,
     pub title: String,
     #[serde(rename = "type")]
     pub id_type: String,
@@ -357,12 +357,12 @@ pub struct IDContext {
 pub struct StatsHistory<T> {
     /// Date queried
     pub date: Date,
-    pub favorites: Option<u64>,
-    pub members: Option<u64>,
-    pub popularity: Option<u64>,
-    pub rank: Option<u64>,
+    pub favorites: Option<u32>,
+    pub members: Option<u32>,
+    pub popularity: Option<u32>,
+    pub rank: Option<u32>,
     pub score: Option<f64>,
-    pub scored_by: Option<u64>,
+    pub scored_by: Option<u32>,
     #[serde(rename = "statistics")]
     pub stats: Option<T>,
 }
@@ -456,7 +456,7 @@ pub enum Relation {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct RelationEntry {
     /// The ID on MAL.
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// The type of this entry.
     #[serde(rename = "type")]
     pub entry_type: String,
@@ -503,7 +503,7 @@ pub struct Tag {
     /// Name of this tag
     pub name: String,
     /// How many entries have this tag
-    pub count: u64,
+    pub count: u32,
 }
 
 #[derive(Debug, Display, Clone)]

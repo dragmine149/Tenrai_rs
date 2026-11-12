@@ -20,6 +20,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- Still use `f64` though as those are rust defaults. *we just check for 2dp in most cases*
 	- Note: You can still do stuff `u32::MAX` as the API only accepts up to `i32::MAX`.
 		- *i use `u32::MAX` as i don't want to deal with negatives*
+	- *There was like 339+ replacements...*
 
 ### More specific struct changes that aren't generalised
 - **Removed** `Anime.explicit_genres` due to being always empty.

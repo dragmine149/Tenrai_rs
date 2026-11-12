@@ -106,8 +106,8 @@ fn test_long_query() {
 #[test]
 fn test_not_happy_query() {
     AnimeQuery::builder()
-        .year(2026_u64)
-        .min_year(2020_u64)
+        .year(2026_u32)
+        .min_year(2020_u32)
         .build()
         // .unwrap();
         .expect_err("Min year and year can't combine");

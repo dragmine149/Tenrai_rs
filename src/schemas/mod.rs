@@ -35,11 +35,11 @@ pub(crate) fn query_vec<T: Display>(var_name: &str, vec: &[T]) -> String {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Paginator {
     /// The highest page number available for this query
-    pub last_visible_page: u64,
+    pub last_visible_page: u32,
     /// Whether there are more results on the next page.
     pub has_next_page: bool,
     /// The current page number requested.
-    pub current_page: Option<u64>,
+    pub current_page: Option<u32>,
     /// Detailed item pagination counts
     pub items: Option<PaginatorItems>,
 }
@@ -49,11 +49,11 @@ pub struct Paginator {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct PaginatorItems {
     /// Number of records returned on the current page.
-    pub count: u64,
+    pub count: u32,
     /// Total number of matching records in the database.
-    pub total: u64,
+    pub total: u32,
     /// Maximum number of records per page.
-    pub per_page: u64,
+    pub per_page: u32,
 }
 
 /// Special struct for when returning data from the API.
@@ -77,7 +77,7 @@ pub struct TenraiTotalResponse<T> {
     /// The data stored based on the query.
     pub data: T,
     /// The total count of entries.
-    pub total: u64,
+    pub total: u32,
 }
 
 /// Special struct for when returning data from the API.
@@ -102,8 +102,8 @@ pub struct TenraiPaginatorResponse<T> {
 pub(crate) struct TenraiRaw {
     pub data: Option<serde_json::Value>,
     pub pagination: Option<Paginator>,
-    pub total: Option<u64>,
-    pub status: Option<u64>,
+    pub total: Option<u32>,
+    pub status: Option<u32>,
     #[serde(rename = "type")]
     pub error_type: Option<MachineErrorType>,
     pub message: Option<String>,

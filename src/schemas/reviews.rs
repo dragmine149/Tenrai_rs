@@ -38,19 +38,19 @@ pub struct Review {
     /// How far through they are (only if [Review::is_preliminary] is true)
     #[serde(alias = "episodes_watched")]
     #[serde(alias = "chapters_read")]
-    pub progress: Option<u64>,
+    pub progress: Option<u32>,
     /// Has this been posted before they finished it
     pub is_preliminary: bool,
     /// Does this entry contain spoilers
     pub is_spoiler: bool,
     /// The MAL ID for the review
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Reactions to the review provided by the community.
     pub reactions: ReviewReaction,
     /// The review itself
     pub review: String,
     /// The score given by the reviewer
-    pub score: u64,
+    pub score: u32,
     /// Any tags on the review
     pub tags: Vec<String>,
     /// What the review is on (anime/manga/light novel/etc)
@@ -66,12 +66,12 @@ pub struct Review {
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ReviewReaction {
-    pub confusing: u64,
-    pub creative: u64,
-    pub funny: u64,
-    pub informative: u64,
-    pub love_it: u64,
-    pub nice: u64,
-    pub overall: u64,
-    pub well_written: u64,
+    pub confusing: u32,
+    pub creative: u32,
+    pub funny: u32,
+    pub informative: u32,
+    pub love_it: u32,
+    pub nice: u32,
+    pub overall: u32,
+    pub well_written: u32,
 }

@@ -33,7 +33,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/news/GET/news/{id}>
     pub async fn news_details(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<NewsArticle>> {
         Ok(self.request(format!("news/{id}{query}")).await?.result()?)
@@ -65,7 +65,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/articles/GET/articles/{id}>
     pub async fn article_details(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Article>> {
         Ok(self

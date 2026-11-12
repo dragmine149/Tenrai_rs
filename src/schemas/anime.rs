@@ -36,13 +36,13 @@ pub struct Anime {
     /// Length per episode or total run time of the anime
     pub duration: Option<String>,
     /// Total episodes broadcast. ([None] if ongoing / not aired)
-    pub episodes: Option<u64>,
+    pub episodes: Option<u32>,
     /// External links and resources related to this anime
     ///
     /// Requires `full` details
     pub external: Option<Vec<External>>,
     /// Total users who have favorited the anime.
-    pub favorites: Option<u64>,
+    pub favorites: Option<u32>,
     /// Genre Classification. *Also contains explicit genres*
     pub genres: Vec<GenreType>,
     /// Images used on the website.
@@ -50,20 +50,20 @@ pub struct Anime {
     /// Licensing Agencies
     pub licensors: Vec<LicensorType>,
     /// The unique MAL ID of this entry.
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// More information related to the anime outside of the background/synopsis
     ///
     /// Requires `full` details
     #[serde(rename = "moreinfo")]
     pub more_info: Option<String>,
     /// Total users who have added this to their lists.
-    pub members: Option<u64>,
+    pub members: Option<u32>,
     /// Global popularity rank based on [Anime::members].
-    pub popularity: Option<u64>,
+    pub popularity: Option<u32>,
     /// Production companies or publishers
     pub producers: Vec<ProducerType>,
     /// Global rank based on average score
-    pub rank: Option<u64>,
+    pub rank: Option<u32>,
     /// Age rating categorization
     ///
     /// TODO: Convert [None] to [AgeRating::None]?
@@ -75,7 +75,7 @@ pub struct Anime {
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.
-    pub scored_by: Option<u64>,
+    pub scored_by: Option<u32>,
     /// Season of premier.
     pub season: Option<Season>,
     /// The source material type.
@@ -117,7 +117,7 @@ pub struct Anime {
     /// The direct MAL webpage URL of the anime
     pub url: String,
     /// Year or premier.
-    pub year: Option<u64>,
+    pub year: Option<u32>,
 }
 
 /// What source the anime is based on..
@@ -179,19 +179,19 @@ pub struct AnimeBroadcast {
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Trailer {
-    pub comment_count: Option<u64>,
-    pub dislikes: Option<u64>,
+    pub comment_count: Option<u32>,
+    pub dislikes: Option<u32>,
     pub duration: Option<String>,
     pub embed_url: Option<String>,
     pub embeddable: Option<bool>,
     pub images: ImageDetails,
-    pub likes: Option<u64>,
+    pub likes: Option<u32>,
     pub privacy_status: Option<String>,
     pub published_at: Option<String>,
     pub region_restriction: Option<RegionalRestrictions>,
     pub title: Option<String>,
     pub url: Option<String>,
-    pub views: Option<u64>,
+    pub views: Option<u32>,
     pub youtube_id: Option<String>,
 }
 
@@ -286,7 +286,7 @@ pub struct ThemeSong {
     /// When a song is only used in one episode, both values will be the same.
     ///
     /// NOTE: It is possible for no episodes to be listed. In which case an empty vec will be provided.
-    pub episodes: Vec<(u64, u64)>,
+    pub episodes: Vec<(u32, u32)>,
 }
 
 /// Helper struct used for the custom deserializer for [[ThemeSong]]
@@ -335,7 +335,7 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
                     .map(|ep| {
                         ep.split_once("-").map_or_else(
                             || {
-                                let num = ep.trim().parse::<u64>().unwrap_or_else(|_| {
+                                let num = ep.trim().parse::<u32>().unwrap_or_else(|_| {
                                     panic!("Expected (solo) digit found {}", ep)
                                 });
                                 (num, num)
@@ -343,10 +343,10 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
                             |(a, b)| {
                                 let first = a
                                     .trim()
-                                    .parse::<u64>()
+                                    .parse::<u32>()
                                     .unwrap_or_else(|_| panic!("Expected (a) digit found {}", a));
                                 let b = b.trim();
-                                let second = match b.parse::<u64>() {
+                                let second = match b.parse::<u32>() {
                                     Ok(v) => v,
                                     Err(_) => {
                                         if b.contains("?") || b.is_empty() {
@@ -363,7 +363,7 @@ impl<'de> Visitor<'de> for ThemeSongVisitor {
                             },
                         )
                     })
-                    .collect::<Vec<(u64, u64)>>()
+                    .collect::<Vec<(u32, u32)>>()
             })
             .unwrap_or_default();
 
@@ -414,7 +414,7 @@ pub struct AnimeEpisode {
     /// TODO: Use a parser to make this into a more usable format.
     pub aired: Option<String>,
     /// The length of the episode in seconds.
-    pub duration: Option<u64>,
+    pub duration: Option<u32>,
     /// Is this episode a filler episode?
     pub filler: bool,
     /// The link to the forum URL for discussing about this episode.
@@ -422,11 +422,11 @@ pub struct AnimeEpisode {
     /// Images related to the episode
     pub images: Images,
     /// The ID of this entry on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Is this a recap episode?
     pub recap: bool,
     /// Number of forum replies for this episode
-    pub replies: Option<u64>,
+    pub replies: Option<u32>,
     /// Average score of this episode.
     pub score: Option<f64>,
     /// Synopsis of the episode itself
@@ -444,7 +444,7 @@ pub struct AnimeEpisode {
     /// Only included when the anime is not provided.
     pub entry: Option<Entry>,
     /// Number of votes this episode has. Only included in [TenraiAPI::top_episodes](crate::TenraiAPI::top_episodes)
-    pub votes: Option<u64>,
+    pub votes: Option<u32>,
 }
 
 /// How to order the listing of articles
@@ -502,7 +502,7 @@ pub struct AnimeVideoEpisode {
     /// Images related to the episode
     pub images: Images,
     /// The entry of the episode on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// The title of the episode
     pub title: String,
     /// The URL to the mal information of the episode.
@@ -555,14 +555,14 @@ pub struct AnimeVideoPromo {
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeStatistics {
-    pub completed: u64,
-    pub dropped: u64,
-    pub on_hold: u64,
-    pub plan_to_watch: u64,
+    pub completed: u32,
+    pub dropped: u32,
+    pub on_hold: u32,
+    pub plan_to_watch: u32,
     /// Breakdown of each score and how much it contributes
     pub scores: Vec<StatsScore>,
-    pub total: u64,
-    pub watching: u64,
+    pub total: u32,
+    pub watching: u32,
 }
 
 /// Information about a user entry

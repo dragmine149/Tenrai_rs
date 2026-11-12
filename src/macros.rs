@@ -9,7 +9,7 @@ macro_rules! generic_type {
            #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
             pub struct [<$name:upper_camel Type>] {
                 /// The unique MAL ID of the catalog item
-                pub mal_id: u64,
+                pub mal_id: u32,
                 /// The name of the catalog item
                 pub name: String,
                 #[serde(rename = "type")]
@@ -51,9 +51,9 @@ macro_rules! generic_type {
 /// ```ignore
 /// query: String:(|_, v| format!("q={v}")),
 /// // ofc, probably split it out.
-/// genres: Vec<u64>:(|n, v| format!("{n}={}", v.iter().map(|s| format!("{s}")).collect::<Vec<String>>().join(","))),
+/// genres: Vec<u32>:(|n, v| format!("{n}={}", v.iter().map(|s| format!("{s}")).collect::<Vec<String>>().join(","))),
 /// // because this is possible (where `query_vec` is just the name of a function that can be accessed)
-/// genres: Vec<u64>:query_vec,
+/// genres: Vec<u32>:query_vec,
 /// ```
 /// The inputs are:
 /// - variable name (String)
@@ -65,7 +65,7 @@ macro_rules! generic_type {
 /// some_var:some_reason:some_condition
 /// // example
 /// query: "Query length is too long": (|q: &String| q.len() > 300),
-/// page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+/// page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 /// rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 /// ```
 /// - `some_var` must be the same as one of the members of the `DataStruct`

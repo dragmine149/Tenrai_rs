@@ -12,7 +12,7 @@ pub struct Character {
     /// Basic information about the character
     pub character: Entry,
     /// How many users have favorited the character
-    pub favorites: u64,
+    pub favorites: u32,
     /// How important is the character role
     pub role: CharacterRole,
     /// Which VAs (voice actors) play the character.
@@ -43,11 +43,11 @@ pub struct CharacterVA {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct BasicPerson {
     /// How many users have favorited this person
-    pub favorites: Option<u64>,
+    pub favorites: Option<u32>,
     /// Profile Picture images
     pub images: Images,
     /// ID on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Name of the person
     pub name: String,
     /// Direct link to their profile on MAL
@@ -69,7 +69,7 @@ pub struct AnimeStaff {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaAuthor {
     /// ID on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Name of the person
     pub name: String,
     /// The credited role
@@ -86,7 +86,7 @@ pub struct MangaAuthor {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaSerialization {
     /// ID on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Name of the entry
     pub name: String,
     /// Type of the serialization media
@@ -126,13 +126,13 @@ pub struct Person {
     /// Family name of the person (surname)
     pub family_name: Option<String>,
     /// How many users have favorited this anime
-    pub favorites: Option<u64>,
+    pub favorites: Option<u32>,
     /// Given name of the person (name)
     pub given_name: Option<String>,
     /// Portrait Images of the person
     pub images: Images,
     /// MAL ID of the person
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Anime this person has a position in
     ///
     /// Requires full details

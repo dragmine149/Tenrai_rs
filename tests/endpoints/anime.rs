@@ -16,14 +16,14 @@ use crate::{TestBuilder, build_client};
 #[ignore = "This sends upwards of 300 requests hence takes like a minute or two."]
 async fn anime_search() {
     let client = build_client();
-    let mut page = 1_u64;
+    let mut page = 1_u32;
     loop {
         println!("{page}");
         let result = client
             .anime_search(
                 AnimeQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

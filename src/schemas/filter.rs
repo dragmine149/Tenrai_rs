@@ -25,7 +25,7 @@ pub enum SeasonOrder {
 /// Conjoint year and season.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SeasonLookup {
-    pub year: u64,
+    pub year: u32,
     pub seasons: Vec<Season>,
 }
 #[derive(Debug, Serialize, Deserialize, Clone, Display)]
@@ -51,13 +51,13 @@ pub enum GenreFilter {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BasicInfo {
     /// ID on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Name of genre
     pub name: String,
     /// Direct URL to genre
     pub url: String,
     /// How many entries have this item
-    pub count: u64,
+    pub count: u32,
 }
 
 /// Order magaines by this

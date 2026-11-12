@@ -16,11 +16,11 @@ pub struct CharacterDetails {
     /// Connection to an anime this character is in.
     pub anime: Option<Vec<AnimeCharacterConnection>>,
     /// How many users have favorited this character
-    pub favorites: u64,
+    pub favorites: u32,
     /// Images of the character
     pub images: Images,
     /// ID of the character
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Connection to an manga this character is in.
     pub manga: Option<Vec<MangaCharacterConnection>>,
     /// Name of the character

@@ -8,7 +8,7 @@ TestPaginator!(
             .reviews_anime_recent(
                 TopReviewQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -22,7 +22,7 @@ TestPaginator!(
             .reviews_manga_recent(
                 TopReviewQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

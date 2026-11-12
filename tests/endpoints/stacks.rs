@@ -11,7 +11,7 @@ TestPaginator!(
             .stacks(
                 StackQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

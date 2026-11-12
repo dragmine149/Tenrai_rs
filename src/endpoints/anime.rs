@@ -36,7 +36,7 @@ impl TenraiAPI {
     /// Get details for an anime
     ///
     /// API Documentation: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}>
-    pub async fn anime_details(&self, id: &u64) -> crate::Result<TenraiResponse<Anime>> {
+    pub async fn anime_details(&self, id: &u32) -> crate::Result<TenraiResponse<Anime>> {
         Ok(self.request(format!("anime/{id}")).await?.result()?)
     }
     /// Get full detailed data for an anime
@@ -44,7 +44,7 @@ impl TenraiAPI {
     /// API Documentation: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/full>
     pub async fn anime_full_details(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Anime>> {
         Ok(self
@@ -57,7 +57,7 @@ impl TenraiAPI {
     /// API Documentation: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/recommendations>
     pub async fn anime_recommendations(
         &self,
-        id: &u64,
+        id: &u32,
         query: RecommendationQuery,
     ) -> crate::Result<TenraiResponse<Vec<Recommendation>>> {
         Ok(self
@@ -70,7 +70,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/characters>
     pub async fn anime_characters(
         &self,
-        id: &u64,
+        id: &u32,
     ) -> crate::Result<TenraiResponse<Vec<Character>>> {
         Ok(self
             .request(format!("anime/{id}/characters"))
@@ -80,7 +80,7 @@ impl TenraiAPI {
     /// Get staff for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/staff>
-    pub async fn anime_staff(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<AnimeStaff>>> {
+    pub async fn anime_staff(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<AnimeStaff>>> {
         Ok(self.request(format!("anime/{id}/staff")).await?.result()?)
     }
     /// Get episodes for an anime
@@ -88,7 +88,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/episodes>
     pub async fn anime_episodes(
         &self,
-        id: &u64,
+        id: &u32,
         query: BasicPageQuery,
     ) -> crate::Result<TenraiPaginatorResponse<AnimeEpisode>> {
         Ok(self
@@ -101,7 +101,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/news>
     pub async fn anime_news(
         &self,
-        id: &u64,
+        id: &u32,
         query: NewsArticleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<NewsArticle>> {
         Ok(self
@@ -114,7 +114,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/articles>
     pub async fn anime_articles(
         &self,
-        id: &u64,
+        id: &u32,
         query: ArticleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Article>> {
         Ok(self
@@ -129,7 +129,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/forum>
     pub async fn anime_forum(
         &self,
-        id: &u64,
+        id: &u32,
         query: ForumQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Forum>> {
         Ok(self
@@ -142,8 +142,8 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/episodes/{episode_id}>
     pub async fn anime_episode(
         &self,
-        id: &u64,
-        episode_id: &u64,
+        id: &u32,
+        episode_id: &u32,
     ) -> crate::Result<TenraiResponse<AnimeEpisode>> {
         Ok(self
             .request(format!("anime/{id}/episodes/{episode_id}"))
@@ -153,7 +153,7 @@ impl TenraiAPI {
     /// Get videos for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/videos>
-    pub async fn anime_videos(&self, id: &u64) -> crate::Result<TenraiResponse<AnimeVideo>> {
+    pub async fn anime_videos(&self, id: &u32) -> crate::Result<TenraiResponse<AnimeVideo>> {
         Ok(self.request(format!("anime/{id}/videos")).await?.result()?)
     }
     /// Get episode videos for an anime
@@ -161,7 +161,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/videos/episodes>
     pub async fn anime_video_episodes(
         &self,
-        id: &u64,
+        id: &u32,
         query: BasicPageQuery,
     ) -> crate::Result<TenraiPaginatorResponse<AnimeVideoEpisode>> {
         Ok(self
@@ -172,7 +172,7 @@ impl TenraiAPI {
     /// Get pictures for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/pictures>
-    pub async fn anime_pictures(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
+    pub async fn anime_pictures(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("anime/{id}/pictures"))
             .await?
@@ -183,7 +183,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics>
     pub async fn anime_statistics(
         &self,
-        id: &u64,
+        id: &u32,
     ) -> crate::Result<TenraiResponse<AnimeStatistics>> {
         Ok(self
             .request(format!("anime/{id}/statistics"))
@@ -195,7 +195,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/statistics/history>
     pub async fn anime_statistics_historical(
         &self,
-        id: &u64,
+        id: &u32,
         query: StatsHistoryQuery,
     ) -> crate::Result<TenraiPaginatorResponse<StatsHistory<AnimeStatistics>>> {
         Ok(self
@@ -206,7 +206,7 @@ impl TenraiAPI {
     /// Get more information for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/moreinfo>
-    pub async fn anime_more_info(&self, id: &u64) -> crate::Result<TenraiResponse<MoreInfo>> {
+    pub async fn anime_more_info(&self, id: &u32) -> crate::Result<TenraiResponse<MoreInfo>> {
         Ok(self
             .request(format!("anime/{id}/moreinfo"))
             .await?
@@ -217,7 +217,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/relations>
     pub async fn anime_relations(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Vec<RelationDetails>>> {
         Ok(self
@@ -228,13 +228,13 @@ impl TenraiAPI {
     /// Get opening and ending themes for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/themes>
-    pub async fn anime_themes(&self, id: &u64) -> crate::Result<TenraiResponse<ThemeSongs>> {
+    pub async fn anime_themes(&self, id: &u32) -> crate::Result<TenraiResponse<ThemeSongs>> {
         Ok(self.request(format!("anime/{id}/themes")).await?.result()?)
     }
     /// Get external links for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/external>
-    pub async fn anime_external(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<External>>> {
+    pub async fn anime_external(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<External>>> {
         Ok(self
             .request(format!("anime/{id}/external"))
             .await?
@@ -243,7 +243,7 @@ impl TenraiAPI {
     /// Get streaming links for an anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/streaming>
-    pub async fn anime_streaming(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<External>>> {
+    pub async fn anime_streaming(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<External>>> {
         Ok(self
             .request(format!("anime/{id}/streaming"))
             .await?
@@ -254,7 +254,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/reviews>
     pub async fn anime_reviews(
         &self,
-        id: &u64,
+        id: &u32,
         query: ReviewQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Review>> {
         Ok(self
@@ -267,7 +267,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/{id}/stacks>
     pub async fn anime_stacks(
         &self,
-        id: &u64,
+        id: &u32,
         query: StackQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Stack>> {
         Ok(self

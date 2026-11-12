@@ -10,7 +10,7 @@ pub struct NewsArticle {
     /// Author MAL Username
     pub author_username: String,
     /// Comment Count
-    pub comments: Option<u64>,
+    pub comments: Option<u32>,
     /// Content in an article. Only available when requesting the article directly.
     pub content: Option<ArticleContent>,
     /// Date posted (ISO8601 format)
@@ -20,7 +20,7 @@ pub struct NewsArticle {
     /// Images on the entry.
     pub images: Images,
     /// The ID of the article
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Article relation to anything. Only available when requesting the article directly.
     pub relations: Option<ArticleRelation>,
     /// The title of the article
@@ -48,7 +48,7 @@ pub struct Article {
     /// Images on the entry.
     pub images: Images,
     /// The ID of the article
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Article relation to anything. Only available when requesting the article directly.
     pub relations: Option<ArticleRelation>,
     /// Summary of the article. Normally a version of [Article::excerpt] expect it finishes the line.
@@ -62,7 +62,7 @@ pub struct Article {
     /// The URL to the article
     pub url: String,
     /// How many views this article has. Only available when requesting the article directly.
-    pub views: Option<u64>,
+    pub views: Option<u32>,
 }
 
 /// Content in an article
@@ -91,7 +91,7 @@ pub struct ArticleRelation {
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct BasicRelationInfo {
-    pub mal_id: u64,
+    pub mal_id: u32,
     pub name: String,
     pub url: String,
 }

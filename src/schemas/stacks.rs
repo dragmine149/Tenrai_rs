@@ -26,7 +26,7 @@ pub struct Stack {
     /// Description of the stack
     pub description: String,
     /// How many entries are in the stack (Max 50)
-    pub entry_count: u64,
+    pub entry_count: u32,
     /// Individual entries in a stack. Only available when requesting the stack
     pub entries: Option<Vec<StackEntry>>,
     /// Is the stack a challenge stack
@@ -38,9 +38,9 @@ pub struct Stack {
     /// Does the stack potentially contain spoilers
     pub is_spoiler: bool,
     /// The ID of the stack on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// How many users have restacked it
-    pub restack_count: u64,
+    pub restack_count: u32,
     /// What type is the stack
     pub stack_type: StackType,
     /// Title of the stack
@@ -62,15 +62,15 @@ pub enum StackType {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct StackEntry {
     /// Score given by the author
-    pub author_score: Option<u64>,
+    pub author_score: Option<u32>,
     /// Images of the entry
     pub images: Images,
     /// ID of the entry on MAL
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// Any notes left by the author
     pub note: Option<String>,
     /// The position in the stack
-    pub position: u64,
+    pub position: u32,
     /// The title of the entry
     pub title: String,
     /// English version of the entry title
@@ -84,11 +84,11 @@ pub struct StackEntry {
     /// URL of the entry
     pub url: String,
     /// Which year the anime first aired.
-    pub aired_from_year: Option<u64>,
+    pub aired_from_year: Option<u32>,
     /// How many episodes in the anime.
-    pub episodes: Option<u64>,
+    pub episodes: Option<u32>,
     /// Which year the manga first published.
-    pub published_from_year: Option<u64>,
+    pub published_from_year: Option<u32>,
     /// How many volumes in the manga.
-    pub volumes: Option<u64>,
+    pub volumes: Option<u32>,
 }

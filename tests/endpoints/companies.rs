@@ -1,8 +1,5 @@
 use crate::{TestBuilder, TestPaginator, build_client};
-use tenrai::{
-    TenraiAPI,
-    schemas::query::ProducerQuery,
-};
+use tenrai::{TenraiAPI, schemas::query::ProducerQuery};
 TestPaginator!(
     company_search,
     (async |client: &TenraiAPI, page| {
@@ -10,7 +7,7 @@ TestPaginator!(
             .company_search(
                 ProducerQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

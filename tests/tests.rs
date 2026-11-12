@@ -69,7 +69,7 @@ macro_rules! TestBuilder {
         async fn $func_name() {
             let client = build_client();
             loop {
-                let random = rand::random_range(1_u64..70_000_u64);
+                let random = rand::random_range(1_u32..70_000_u32);
                 println!("ID: {random}");
                 let res = $func(&client, &random).await;
                 if $crate::error(&res).await {
@@ -102,7 +102,7 @@ macro_rules! TestPaginator {
             #[ignore = "Paginator test, can take many minutes."]
             async fn [<$func_name _paginator>]() {
                 let client = build_client();
-                let mut page = 1_u64;
+                let mut page = 1_u32;
                 for _ in 0..15 {
                     println!("Page: {page}");
                     let res = $func(&client, page).await;

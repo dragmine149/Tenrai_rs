@@ -38,7 +38,7 @@ impl From<CacheError> for Error {
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct TenraiAPIError {
     /// The status code returned.
-    pub status: u64,
+    pub status: u32,
     /// Machine readable error category
     #[serde(rename = "type")]
     pub error_type: MachineErrorType,

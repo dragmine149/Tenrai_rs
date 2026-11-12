@@ -38,9 +38,9 @@ query!(
 /// Basic paginator query. Allows the selection of a different page.
 BasicPage {
     /// Page Number
-    page: u64,
+    page: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 });
 
 query!(
@@ -58,28 +58,28 @@ Page {
 query!(
 /// A combination of [SfwQuery] and [BasicPageQuery]
 PageSFW {
-    page: u64,
+    page: u32,
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 });
 
 query!(
 /// A combination of [SfwQuery] and [PageQuery]
 FullPageSFW {
-    page: u64,
+    page: u32,
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
     sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(
@@ -295,7 +295,7 @@ query!(Review {
     /// Only content that has been written by this MAL username. Matches the full username
     username: String,
     /// Page number
-    page: u64,
+    page: u32,
     /// Sort direction.
     sort: ReviewSort,
     /// Include reviews written before all episodes have been watched
@@ -306,16 +306,16 @@ query!(Review {
     sentiment: Sentiment,
 }, {
     username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 });
 
 query!(Stack {
     /// The name of the stack to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page Number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// How to sort the stacks.
     stack_order: StackOrder,
     /// Order in which to sort.
@@ -332,8 +332,8 @@ query!(Stack {
     sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(AnimeIds {
@@ -357,35 +357,35 @@ query!(Basic {
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// How to sort the anime
     order_by: BasicOrder,
     /// Order in which to sort.
     sort: SortDirection,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(
 /// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
 Forum {
     /// Page number
-    page: u64,
+    page: u32,
     order_by: ForumOrdering,
     sort: SortDirection,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 });
 
 query!(Article {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Field to sort the results by.
     order_by: ArticleOrdering,
     /// Direction to sort the results
@@ -402,15 +402,15 @@ query!(Article {
     published_before: String,
 }, {
     author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(NewsArticle {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Field to sort the results by.
     order_by: NewsArticleOrdering,
     /// Direction to sort the results
@@ -427,17 +427,17 @@ query!(NewsArticle {
     published_before: String,
 }, {
     author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(
 /// Query for getting historical stats.
 StatsHistory {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Direction to sort the results
     sort: SortDirection,
     /// Only days **on** or **after** this date
@@ -445,8 +445,8 @@ StatsHistory {
     /// Only days **on** or **before** this date
     end_date: Date,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(Schedule {
@@ -461,20 +461,20 @@ query!(Schedule {
     /// Include unapproved entries
     unapproved: OnlyBool,
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter by anime type. Multiple types can be selected.
     anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
     /// Filter by age rating. Multiple ratings can be selected.
     rating: Vec<AgeRating>:query_vec,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
@@ -482,9 +482,9 @@ query!(Manga {
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter by manga type, multiple can be selected
     manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
     /// Only manga with this publishing status
@@ -502,9 +502,9 @@ query!(Manga {
     /// Also include unapproved entries
     unapproved: bool,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Sort the results by...
     order_by: MangaOrder,
     /// Sort direction. Only applies when [MangaQuery::order_by] is used.
@@ -512,48 +512,48 @@ query!(Manga {
     /// Only manga whose title starts with this letter. Cannot be combined with [MangaQuery::query].
     letter: char,
     /// Magazines this manga has been published in. Use the ID of the magazine.
-    magazines: Vec<u64>:query_vec,
+    magazines: Vec<u32>:query_vec,
     /// Only manga that started publishing on or after this date.
     start_date: Date,
     /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
     end_date: Date,
     /// Only entries that have been scored by this many users (inclusive) (`>=`)
-    min_scored_by: u64,
+    min_scored_by: u32,
     /// Only entries with this member count or higher
-    min_members: u64,
+    min_members: u32,
     /// Only entries with this member count or lower
-    max_members: u64,
+    max_members: u32,
     /// Only entries with this favourite count or higher
-    min_favorites: u64,
+    min_favorites: u32,
     /// Only entries with this favourite count or lower
-    max_favorites: u64,
+    max_favorites: u32,
     /// Only entries with this volume count or higher
-    min_volumes: u64,
+    min_volumes: u32,
     /// Only entries with this volume count or lower
-    max_volumes: u64,
+    max_volumes: u32,
     /// Only entries with this chapter count or higher
-    min_chapters: u64,
+    min_chapters: u32,
     /// Only entries with this chapter count or lower
-    max_chapters: u64,
+    max_chapters: u32,
     /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
-    year: u64,
+    year: u32,
     /// Manga that started publishing this *provided* year or later
-    min_year: u64,
+    min_year: u32,
     /// Manga that started publishing this *provided* year or earlier
-    max_year: u64,
+    max_year: u32,
     /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
     authors: Vec<String>: query_vec,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
-    max_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
-    min_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
-    max_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
+    min_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
+    max_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
+    min_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
+    max_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
     authors: "Cannot have more than 25 author entries": (|a: &[String]| a.len() > 25),
 }, {
     query:letter,
@@ -565,9 +565,9 @@ query!(Adapted {
     /// Which MyAnimeList list of adapted manga to return. Default: [MangaAdaptedFilter::All]
     filter: MangaAdaptedFilter,
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter by manga type, multiple can be selected
     manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
     /// Only manga with this publishing status
@@ -583,7 +583,7 @@ query!(Adapted {
     /// Only entries with this score or lower
     max_score: f64,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// Sort the results by...
     order_by: MangaOrder,
     /// Sort direction. Only applies when [MangaQuery::order_by] is used.
@@ -593,8 +593,8 @@ query!(Adapted {
     /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
     end_date: Date,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
@@ -621,9 +621,9 @@ query!(Character {
     /// The name of the character to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// How to sort the character list
     order_by: BasicOrder,
     /// Order in which to sort.
@@ -631,22 +631,22 @@ query!(Character {
     /// Only characters whose name start with this letter
     letter: char,
     /// Only entries with this favourite count or higher
-    min_favorites: u64,
+    min_favorites: u32,
     /// Only entries with this favourite count or lower
-    max_favorites: u64,
+    max_favorites: u32,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(People {
     /// The name of the person to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// How to sort the people list
     order_by: PeopleOrder,
     /// Order in which to sort.
@@ -654,22 +654,22 @@ query!(People {
     /// Only people whose name start with this letter
     letter: char,
     /// Only entries with this favourite count or higher
-    min_favorites: u64,
+    min_favorites: u32,
     /// Only entries with this favourite count or lower
-    max_favorites: u64,
+    max_favorites: u32,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(Producer {
     /// The name of the producer to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// How to sort the producer list
     order_by: ProducerOrder,
     /// Order in which to sort.
@@ -677,13 +677,13 @@ query!(Producer {
     /// Only producers whose name start with this letter
     letter: char,
     /// Only entries with this favourite count or higher
-    min_favorites: u64,
+    min_favorites: u32,
     /// Only entries with this favourite count or lower
-    max_favorites: u64,
+    max_favorites: u32,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(Seasonal {
@@ -706,31 +706,31 @@ query!(Seasonal {
     /// Order in which to sort.
     sort: SortDirection,
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Only entries with this member count or higher
-    min_members: u64,
+    min_members: u32,
     /// Only entries with this member count or lower
-    max_members: u64,
+    max_members: u32,
     /// Only entries with this episode count or higher
-    min_episodes: u64,
+    min_episodes: u32,
     /// Only entries with this episode count or lower
-    max_episodes: u64,
+    max_episodes: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(TopAnime {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter by age rating. Multiple ratings can be selected.
     rating: Vec<AgeRating>:query_vec,
     /// Filter adult content
@@ -742,31 +742,31 @@ query!(TopAnime {
     /// Limit the ranking to a subset
     filter: TopFilter,
     /// Only entries with this member count or higher
-    min_members: u64,
+    min_members: u32,
     /// Only entries with this member count or lower
-    max_members: u64,
+    max_members: u32,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Sort direction.
     sort: SortDirection,
     /// Only entries with this episode count or higher
-    min_episodes: u64,
+    min_episodes: u32,
     /// Only entries with this episode count or lower
-    max_episodes: u64,
+    max_episodes: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-    min_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
-    max_episodes: "Must be at least 1 episode": (|l: &u64| *l == 0),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    min_episodes: "Must be at least 1 episode": (|l: &u32| *l == 0),
+    max_episodes: "Must be at least 1 episode": (|l: &u32| *l == 0),
 });
 
 query!(TopManga {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter by age rating. Multiple ratings can be selected.
     rating: Vec<AgeRating>:query_vec,
     /// Filter adult content
@@ -778,39 +778,39 @@ query!(TopManga {
     /// Limit the ranking to a subset
     filter: TopFilter,
     /// Only entries with this member count or higher
-    min_members: u64,
+    min_members: u32,
     /// Only entries with this member count or lower
-    max_members: u64,
+    max_members: u32,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Sort direction.
     sort: SortDirection,
     /// Only entries with this volume count or higher
-    min_volumes: u64,
+    min_volumes: u32,
     /// Only entries with this volume count or lower
-    max_volumes: u64,
+    max_volumes: u32,
     /// Only entries with this chapter count or higher
-    min_chapters: u64,
+    min_chapters: u32,
     /// Only entries with this chapter count or lower
-    max_chapters: u64,
+    max_chapters: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
-    min_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
-    max_chapters: "Must be at least 1 chapter": (|l: &u64| *l == 0),
-    min_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
-    max_volumes: "Must be at least 1 volume": (|l: &u64| *l == 0),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    min_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
+    max_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
+    min_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
+    max_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
 });
 
 query!(TopReview {
     /// Only content that has been written by this MAL username. Matches the full username
     username: String,
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Sort direction.
     sort: ReviewSort,
     /// Include reviews written before all episodes have been watched
@@ -827,8 +827,8 @@ query!(TopReview {
     entry_type: EntryType:(|_, v| format!("type={v}")),
 }, {
     username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(Genre {
@@ -842,9 +842,9 @@ query!(Genre {
 
 query!(Magazine {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// The name of the magazine to search for
     query: String:(|_, v| format!("q={v}")),
     /// Only magazines whose name start with this letter
@@ -854,17 +854,17 @@ query!(Magazine {
     /// How to sort the results
     order_by: MagazineOrder,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(News {
     /// The name of the article to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
@@ -876,17 +876,17 @@ query!(News {
 }, {
     author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(FullArticle {
     /// The name of the article to search for
     query: String:(|_, v| format!("q={v}")),
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
@@ -900,8 +900,8 @@ query!(FullArticle {
 }, {
     author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(TopEpisode {
@@ -912,19 +912,19 @@ query!(TopEpisode {
     /// Order of the list.
     order_by: TopEpisodeOrder,
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(TypeSfwPage {
     /// Page number
-    page: u64,
+    page: u32,
     /// Results per page (Default: 25)
-    limit: u64,
+    limit: u32,
     /// Filter out: R+, Rx, Hentai, Erotica
     sfw: bool,
     /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
@@ -932,8 +932,8 @@ query!(TypeSfwPage {
     /// Only reviews of the specified type
     entry_type: EntryType:(|_, v| format!("type={v}")),
 }, {
-    page: "Page must be less than 20k": (|p: &u64| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u64| *l > 100),
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(RandomAnime {
@@ -946,19 +946,19 @@ query!(RandomAnime {
     /// Only anime with this airing status
     status: AnimeStatus,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Only entries with this score or higher
     min_score: f64,
     /// Only entries with this score or lower
     max_score: f64,
     /// Calendar year of the aired date. Cannot be combined with [RandomAnimeQuery::min_year] or [RandomAnimeQuery::max_year]
-    year: u64,
+    year: u32,
     /// Anime that aired this *provided* year or later
-    min_year: u64,
+    min_year: u32,
     /// Anime that aired this *provided* year or earlier
-    max_year: u64,
+    max_year: u32,
     /// Filter by source material. If multiple provided, will match with any of them.
     source: Vec<AnimeSource>:query_vec,
     /// Filter by age rating. Multiple ratings can be selected.
@@ -966,7 +966,7 @@ query!(RandomAnime {
     /// Filter by a main trailer ID or URL. Playback availability is not checked.
     has_trailer: bool,
     /// List of produces to filter by. Use the ID of the producer.
-    producers: Vec<u64>:query_vec,
+    producers: Vec<u32>:query_vec,
 }, {
     min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
     max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
@@ -986,19 +986,19 @@ query!(RandomManga {
     /// Only manga with this publishing status
     status: MangaStatus,
     /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u64>:query_vec,
+    genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u64>:query_vec,
+    genres_exclude: Vec<u32>:query_vec,
     /// Only entries with this score or higher
     min_score: f64,
     /// Only entries with this score or lower
     max_score: f64,
     /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
-    year: u64,
+    year: u32,
     /// Manga that started publishing this *provided* year or later
-    min_year: u64,
+    min_year: u32,
     /// Manga that started publishing this *provided* year or earlier
-    max_year: u64,
+    max_year: u32,
     /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
     authors: Vec<String>: query_vec,
 }, {
@@ -1015,9 +1015,9 @@ query!(RandomPerson {
     /// Apply strict SFW filtering for adult content and Ecchi
     sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only entries with this favourite count or higher
-    min_favorites: u64,
+    min_favorites: u32,
     /// Only entries with this favourite count or lower
-    max_favorites: u64,
+    max_favorites: u32,
 }, {});
 
 query!(Recommendation {

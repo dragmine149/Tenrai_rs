@@ -13,7 +13,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/{year}/{season}>
     pub async fn seasonal_anime(
         &self,
-        year: &u64,
+        year: &u32,
         season: &Season,
         query: SeasonalQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {

@@ -8,7 +8,7 @@ TestPaginator!(
             .recommendations_anime_recent(
                 FullPageSfwQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -22,7 +22,7 @@ TestPaginator!(
             .recommendations_manga_recent(
                 FullPageSfwQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

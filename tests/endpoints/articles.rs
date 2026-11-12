@@ -11,7 +11,7 @@ TestPaginator!(
             .news(
                 NewsQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -25,7 +25,7 @@ TestPaginator!(
             .articles(
                 FullArticleQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -43,12 +43,12 @@ TestBuilder!(
 
 TestBuilder!(
     news_details,
-    (async |client: &TenraiAPI, page: &u64| {
+    (async |client: &TenraiAPI, page: &u32| {
         let id = client
             .news(
                 NewsQuery::builder()
                     .page((*page).clamp(1, 16000))
-                    .limit(1_u64)
+                    .limit(1_u32)
                     .build()
                     .unwrap(),
             )

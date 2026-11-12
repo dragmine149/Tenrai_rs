@@ -12,7 +12,7 @@ TestPaginator!(
             .top_anime(
                 TopAnimeQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -27,7 +27,7 @@ TestPaginator!(
             .top_manga(
                 TopMangaQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -42,7 +42,7 @@ TestPaginator!(
             .top_people(
                 PageQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -57,7 +57,7 @@ TestPaginator!(
             .top_character(
                 PageQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -72,7 +72,7 @@ TestPaginator!(
             .top_reviews(
                 TopReviewQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -86,7 +86,7 @@ TestPaginator!(
             .top_episodes(
                 TopEpisodeQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )
@@ -100,7 +100,7 @@ TestPaginator!(
             .top_recommendations(
                 TypeSfwPageQuery::builder()
                     .page(page)
-                    .limit(100_u64)
+                    .limit(100_u32)
                     .build()
                     .unwrap(),
             )

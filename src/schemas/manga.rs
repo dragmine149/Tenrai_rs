@@ -72,7 +72,7 @@ pub struct Manga {
     /// Historical or context information about the production
     pub background: Option<String>,
     /// Total chapters (null if ongoing)
-    pub chapters: Option<u64>,
+    pub chapters: Option<u32>,
     /// Demographic classifications (e.g. Shonen, Seinen).
     pub demographics: Vec<DemographicsType>,
     /// Explicit genre classification (E.g. Hentai, Ecchi)
@@ -82,28 +82,28 @@ pub struct Manga {
     /// Requires `full` details
     pub external: Option<Vec<External>>,
     /// Total users who have favorited the anime.
-    pub favorites: Option<u64>,
+    pub favorites: Option<u32>,
     /// Genre Classification
     pub genres: Vec<GenreType>,
     /// Images used on the website.
     pub images: Images,
     /// The unique MAL ID of this entry.
-    pub mal_id: u64,
+    pub mal_id: u32,
     /// More information related to the manga outside of the background/synopsis
     ///
     /// Requires `full` details
     #[serde(rename = "moreinfo")]
     pub more_info: Option<String>,
     /// Total users who have added this to their lists.
-    pub members: Option<u64>,
+    pub members: Option<u32>,
     /// Global popularity rank based on [Manga::members].
-    pub popularity: Option<u64>,
+    pub popularity: Option<u32>,
     /// Publication date details.
     pub published: Aired,
     /// Whether the manga is currently in active serializaation
     pub publishing: bool,
     /// Global rank based on average score
-    pub rank: Option<u64>,
+    pub rank: Option<u32>,
     /// Relationships with other media in the same series
     ///
     /// Requires `full` details
@@ -111,7 +111,7 @@ pub struct Manga {
     /// The average rating score out of 10.
     pub score: Option<f64>,
     /// How many users have scored this anime.
-    pub scored_by: Option<u64>,
+    pub scored_by: Option<u32>,
     /// Publications or magazines where the manga was serialized.
     pub serializations: Vec<MangaSerialization>,
     /// Status of the manga
@@ -138,21 +138,21 @@ pub struct Manga {
     /// The link to MAL of this manga
     pub url: String,
     /// Total volumes published (null if ongoing)
-    pub volumes: Option<u64>,
+    pub volumes: Option<u32>,
 }
 
 /// Statistics about the specified anime
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct MangaStatistics {
-    pub completed: u64,
-    pub dropped: u64,
-    pub on_hold: u64,
-    pub plan_to_read: u64,
+    pub completed: u32,
+    pub dropped: u32,
+    pub on_hold: u32,
+    pub plan_to_read: u32,
     /// Breakdown of each score and how much it contributes
     pub scores: Vec<StatsScore>,
-    pub total: u64,
-    pub reading: u64,
+    pub total: u32,
+    pub reading: u32,
 }
 
 /// Which MyAnimeList list of adapted manga to return

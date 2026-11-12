@@ -37,7 +37,7 @@ impl TenraiAPI {
     /// Get details for a manga
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}>
-    pub async fn manga_details(&self, id: &u64) -> crate::Result<TenraiResponse<Manga>> {
+    pub async fn manga_details(&self, id: &u32) -> crate::Result<TenraiResponse<Manga>> {
         Ok(self.request(format!("manga/{id}")).await?.result()?)
     }
     /// Get full detailed data for a manga.
@@ -45,7 +45,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/full>
     pub async fn manga_full_details(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Manga>> {
         Ok(self
@@ -58,7 +58,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/recommendations>
     pub async fn manga_recommendations(
         &self,
-        id: &u64,
+        id: &u32,
         query: RecommendationQuery,
     ) -> crate::Result<TenraiResponse<Vec<Recommendation>>> {
         Ok(self
@@ -71,7 +71,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/characters>
     pub async fn manga_characters(
         &self,
-        id: &u64,
+        id: &u32,
     ) -> crate::Result<TenraiResponse<Vec<Character>>> {
         Ok(self
             .request(format!("manga/{id}/characters"))
@@ -83,7 +83,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/news>
     pub async fn manga_news(
         &self,
-        id: &u64,
+        id: &u32,
         query: NewsArticleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<NewsArticle>> {
         Ok(self
@@ -96,7 +96,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/articles>
     pub async fn manga_articles(
         &self,
-        id: &u64,
+        id: &u32,
         query: ArticleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Article>> {
         Ok(self
@@ -107,7 +107,7 @@ impl TenraiAPI {
     /// Get pictures for a manga
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/pictures>
-    pub async fn manga_pictures(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<Images>>> {
+    pub async fn manga_pictures(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<Images>>> {
         Ok(self
             .request(format!("manga/{id}/pictures"))
             .await?
@@ -118,7 +118,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/statistics>
     pub async fn manga_statistics(
         &self,
-        id: &u64,
+        id: &u32,
     ) -> crate::Result<TenraiResponse<MangaStatistics>> {
         Ok(self
             .request(format!("manga/{id}/statistics"))
@@ -130,7 +130,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/statistics/history>
     pub async fn manga_statistics_historyical(
         &self,
-        id: &u64,
+        id: &u32,
         query: StatsHistoryQuery,
     ) -> crate::Result<TenraiPaginatorResponse<StatsHistory<MangaStatistics>>> {
         Ok(self
@@ -141,7 +141,7 @@ impl TenraiAPI {
     /// Get more information about a manga
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/moreinfo>
-    pub async fn manga_more_info(&self, id: &u64) -> crate::Result<TenraiResponse<MoreInfo>> {
+    pub async fn manga_more_info(&self, id: &u32) -> crate::Result<TenraiResponse<MoreInfo>> {
         Ok(self
             .request(format!("manga/{id}/moreinfo"))
             .await?
@@ -152,7 +152,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/relations>
     pub async fn manga_relations(
         &self,
-        id: &u64,
+        id: &u32,
         query: SfwQuery,
     ) -> crate::Result<TenraiResponse<Vec<RelationDetails>>> {
         Ok(self
@@ -163,7 +163,7 @@ impl TenraiAPI {
     /// Get links to other sites about a manga
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/external>
-    pub async fn manga_external(&self, id: &u64) -> crate::Result<TenraiResponse<Vec<External>>> {
+    pub async fn manga_external(&self, id: &u32) -> crate::Result<TenraiResponse<Vec<External>>> {
         Ok(self
             .request(format!("manga/{id}/external"))
             .await?
@@ -174,7 +174,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/reviews>
     pub async fn manga_reviews(
         &self,
-        id: &u64,
+        id: &u32,
         query: ReviewQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Review>> {
         Ok(self
@@ -189,7 +189,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/forum>
     pub async fn manga_forum(
         &self,
-        id: &u64,
+        id: &u32,
         query: ForumQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Forum>> {
         Ok(self
@@ -202,7 +202,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/{id}/stacks>
     pub async fn manga_stacks(
         &self,
-        id: &u64,
+        id: &u32,
         query: StackQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Stack>> {
         Ok(self
