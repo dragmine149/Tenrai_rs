@@ -1,17 +1,37 @@
 //! Every struct related to making queries
 //!
+//! # Query Types
+//! There are two different types of queries. `Sub` and `Main`. A `main` query is decided if it's used in an endpoint function, whilst a `sub` is used in a `main` query.
+//! A `main` query can be a `sub` query as well.
 //!
+//! `Sub` queries are not designed to be made by the user.
+//!
+//! Due to limitations, `sub-queries` may have documentation which is more generalised.
+//!
+//! # Sealed Traits
+//! For convince in making and using sub-queries. A `sealed` trait exists for every query. This trait just provides setter functions and shouldn't be used externally.
+//!
+//! # Query Data Types
+//! Each query comes with 4 different data types
+//! - (*Query) One main type that will be passed into functions
+//! - (*QueryBuilder) One builder type for building (derive_builder)
+//! - (*QueryBuilderError) One BuilderError for building (derive_builder)
+//! - (*QueryHelper) One sealed trait for some functions (related to building)
+//! Only the main and builder types should be used in code. The helper trait is sealed as it's intended for the builder functions. (it's also not that useful outside of it)
+//!
+//! The values stored in the main trait are private and can only be gotten as references. This is to prevent editing of values before sending to the API and hence bypassing the verification done in the builder.
+//! You can however do something like `QueryBuilder::from(Query)` to convert it back into a builder. This will consume the `Query` struct in doing so but allow modification of the struct once again.
 
 use crate::{
     query, query_extension,
     schemas::{
         anime::{
-            AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, ForumOrdering,
+            AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, EpisodeOrder, ForumOrdering,
             NewsArticleOrdering, OrderBy,
         },
         common::{
-            AgeRating, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool, Season,
-            SortDirection,
+            AgeRating, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool, SearchMode,
+            Season, SortDirection,
         },
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
@@ -283,6 +303,7 @@ query!(Anime {
     query:letter,
     // Technically it still works... but eh.
     unapproved:added_after:added_before,
+    /nulls:order_by,
 });
 
 query_extension!(Anime, Ids);
@@ -290,6 +311,42 @@ query_extension!(Anime, Score);
 query_extension!(Anime, Year);
 query_extension!(Anime, Sfw);
 query_extension!(Anime, Page);
+
+query!(
+/// Query for IDs but with extra details
+ExtendedDetails {
+    /// Extra ids to search for at the same time. Returned as (TenraiIncludesResponse::included)[crate::schemas::TenraiIncludesResponse::included]
+    ids: Vec<u32>:query_vec,
+    *custom:sfw: SfwQuery,
+    /// Which archive to search. If omitted, searches the regular catalogue.
+    mode: SearchMode,
+},{
+    /vl/ ids:25,
+});
+
+query_extension!(ExtendedDetails, Sfw);
+
+query!(
+    Episode {
+        /// Filter by if an episode is a filler (true) or not (false). If not provided will give both fillers and not fillers.
+        filler: bool,
+        /// Filter by if an episode is a recap (true) or not (false). If not provided will give both recap's and not recap's.
+        recap: bool,
+        /// Field to sort episodes.
+        order_by: EpisodeOrder,
+        /// Sort Direction
+        sort: SortDirection,
+        /// Extra sorting for [EpisodeQuery::order_by]. See [Nulls] for more detail.
+        nulls: Nulls,
+        /// Page number to search
+        *custom:basic_page:BasicPageQuery,
+    },
+    {},
+    {
+        /nulls:order_by,
+    }
+);
+query_extension!(Episode, BasicPage);
 
 query!(Review {
     /// Only content that has been written by this MAL username. Matches the full username
@@ -1028,5 +1085,5 @@ query!(Recommendation {
     /// Only content that has been written by this MAL username. Matches the full username
     username: String,
 }, {
-    username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
+    username: "Username cannot be more than 30 characters": (|u: &String| u.len() > 30),
 });

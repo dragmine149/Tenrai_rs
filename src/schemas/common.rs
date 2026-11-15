@@ -547,3 +547,13 @@ pub enum Nulls {
     /// Leave the entries out of the result + total count.
     Exclude,
 }
+
+/// Choose which archive to search.
+///
+///
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "camel_case")]
+pub enum SearchMode {
+    Denied,
+    Deleted,
+}

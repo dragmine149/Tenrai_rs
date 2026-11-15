@@ -106,15 +106,12 @@ macro_rules! query {
      		$var:ident:$var_type:ty $(:$fmt:expr)?,
      	)*
     }, {
-    	$(
-     		$builder_var:ident: $builder_var_msg:literal: $builder_var_func:expr,
-     	)*
+    	$($builder_var:ident: $builder_var_msg:literal: $builder_var_func:expr,)*
       	$(/$tt:tt/$builder_var2:ident:$builder_condition:literal,)*
     }
     $(,{
-    	$(
-     		$combined_var:ident $(:$disallowed:ident)+,
-     	)+
+    	$($combined_var:ident $(:$disallowed:ident)+,)*
+     	$(/$required_var:ident $(:$requires:ident)+,)*
     })*) => {
         pastey::paste! {
         	// deals with the main struct. This is what contains the data after everything.
@@ -179,8 +176,20 @@ macro_rules! query {
 	                         		}
                          		)+
                       		}
-                    	)+
+                    	)*
                   	)*
+                   	// and finnally the required.
+                    $(
+                    	$(
+                     		if self.$required_var.is_some() {
+                       			$(
+                          			if self.$requires.is_none() {
+                             			return Err(format!("{} requires {}", stringify!($required_var), stringify!($requires)));
+                             		}
+                          		)+
+                       		}
+                     	)*
+                    )*
                  	Ok(())
              	}
             }
@@ -311,6 +320,11 @@ macro_rules! query_extension {
 			limit: u32,
 		});
 	};
+	($query:ident, BasicPage) => {
+		query_extension!($query, BasicPage, {
+			page: u32,
+		});
+	};
 
     ($query: ident, $helper: ident, {$($value:ident:$var_type:ty,)*}) => {
         pastey::paste! {
@@ -324,7 +338,7 @@ macro_rules! query_extension {
                 		VALUE: Into<$var_type>
                   	{
                    		// if it doesn't exist, make it.
-                  		self.[<$helper:lower_camel>]
+                  		self.[<$helper:snake>]
                     		.get_or_insert_with(|| Some([<$helper:upper_camel Query>]::default()))
                       		.get_or_insert_default()
                         	// then edit it.

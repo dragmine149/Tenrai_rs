@@ -10,9 +10,9 @@ use crate::{
         },
         people::{AnimeStaff, Character},
         query::{
-            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
-            NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
-            StatsHistoryQuery,
+            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
+            ExtendedDetailsQuery, ForumQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery,
+            SfwQuery, StackQuery, StatsHistoryQuery,
         },
         reviews::Review,
         stacks::Stack,
@@ -45,7 +45,7 @@ impl TenraiAPI {
     pub async fn anime_full_details(
         &self,
         id: &u32,
-        query: SfwQuery,
+        query: ExtendedDetailsQuery,
     ) -> crate::Result<TenraiIncludesResponse<Anime>> {
         Ok(self
             .request(format!("anime/{id}/full{query}"))
@@ -89,7 +89,7 @@ impl TenraiAPI {
     pub async fn anime_episodes(
         &self,
         id: &u32,
-        query: BasicPageQuery,
+        query: EpisodeQuery,
     ) -> crate::Result<TenraiPaginatorResponse<AnimeEpisode>> {
         Ok(self
             .request(format!("anime/{id}/episodes{query}"))

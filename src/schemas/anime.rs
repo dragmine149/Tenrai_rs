@@ -263,6 +263,23 @@ pub enum OrderBy {
     Favorites,
 }
 
+/// Field to sort episodes by
+#[derive(Debug, Clone, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum EpisodeOrder {
+    /// Episode number. Also defaults to this
+    MalId,
+    Aired,
+    Score,
+    Replies,
+    Duration,
+    Title,
+    #[strum(serialize = "title_english")]
+    TitleEN,
+    #[strum(serialize = "title_japanese")]
+    TitleJP,
+}
+
 /// Theme songs found in the anime.
 ///
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.

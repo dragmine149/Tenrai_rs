@@ -1,11 +1,12 @@
 use tenrai::{
     TenraiAPI,
     schemas::{
-        common::IDsQueryInclude,
+        anime::EpisodeOrder,
+        common::{IDsQueryInclude, Nulls},
         query::{
-            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, ForumQuery,
-            NewsArticleQuery, PageQueryHelper, RecommendationQuery, ReviewQuery, SfwQuery,
-            StackQuery, StatsHistoryQuery,
+            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
+            ExtendedDetailsQuery, ForumQuery, NewsArticleQuery, PageQueryHelper,
+            RecommendationQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -38,15 +39,22 @@ async fn anime_search() {
 
 TestBuilder!(
     anime_full_details,
-    (async |client: &TenraiAPI, rand| client.anime_full_details(rand, SfwQuery::default()).await)
-);
-TestBuilder!(
-    anime_advanced,
-    (async |client: &TenraiAPI, rand| client
-        .custom::<tenrai::schemas::anime::Anime>(format!(
-            "anime/{rand}/full?ids=235,667535,1246,30"
-        ))
-        .await)
+    (async |client: &TenraiAPI, rand| {
+        client
+            .anime_full_details(
+                rand,
+                ExtendedDetailsQuery::builder()
+                    .ids(
+                        rand::random_iter()
+                            .take(5)
+                            .map(|s: i32| s.abs() as u32)
+                            .collect::<Vec<u32>>(),
+                    )
+                    .build()
+                    .unwrap(),
+            )
+            .await
+    })
 );
 TestBuilder!(
     anime_recommendation,
@@ -64,7 +72,22 @@ TestBuilder!(
 );
 TestBuilder!(
     anime_episodes,
-    (async |client: &TenraiAPI, id| client.anime_episodes(id, BasicPageQuery::default()).await)
+    (async |client: &TenraiAPI, id| client.anime_episodes(id, EpisodeQuery::default()).await)
+);
+TestBuilder!(
+    anime_episodes_nertff,
+    (async |client: &TenraiAPI, id| client
+        .anime_episodes(
+            id,
+            EpisodeQuery::builder()
+                .order_by(EpisodeOrder::MalId)
+                .nulls(Nulls::Exclude)
+                .recap(true)
+                .filler(false)
+                .build()
+                .unwrap()
+        )
+        .await)
 );
 TestBuilder!(
     anime_news,
