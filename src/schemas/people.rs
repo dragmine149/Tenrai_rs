@@ -20,7 +20,7 @@ pub struct Character {
 }
 
 /// How important is the character role
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "camel_case")]
 pub enum CharacterRole {
@@ -81,7 +81,7 @@ pub struct MangaAuthor {
     pub url: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum MangaAuthorRole {
     Story,
@@ -105,7 +105,7 @@ pub struct MangaSerialization {
     pub url: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 /// How to order the people list

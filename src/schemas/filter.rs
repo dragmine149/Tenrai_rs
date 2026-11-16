@@ -8,7 +8,7 @@ use crate::schemas::common::Season;
 use serde::{Deserialize, Serialize};
 use strum_macros::Display;
 
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum SeasonOrder {
     Score,
@@ -28,7 +28,7 @@ pub struct SeasonLookup {
     pub year: u32,
     pub seasons: Vec<Season>,
 }
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum TopFilter {
     Airing,
@@ -38,7 +38,7 @@ pub enum TopFilter {
     Favorite,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum GenreFilter {
     Genres,
@@ -61,7 +61,7 @@ pub struct BasicInfo {
 }
 
 /// Order magaines by this
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum MagazineOrder {
     MalId,
@@ -70,7 +70,7 @@ pub enum MagazineOrder {
 }
 
 /// How to order episodes returned by [TenraiAPI::top_episodes](crate::TenraiAPI::top_episodes)
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum TopEpisodeOrder {
     /// Highest average vote first, among episodes with at least 100 votes.
@@ -82,7 +82,7 @@ pub enum TopEpisodeOrder {
 }
 
 /// Only entries consisting of either...
-#[derive(Debug, Serialize, Deserialize, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum EntryType {
     Anime,

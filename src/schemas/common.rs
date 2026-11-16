@@ -143,7 +143,7 @@ pub enum Season {
 }
 
 /// Extension of [bool] but with `Only`
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum OnlyBool {
     /// Exclude
@@ -184,7 +184,7 @@ pub struct ImageDetails {
 }
 
 /// Direction to sort the results in.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum SortDirection {
     #[strum(to_string = "asc")]
@@ -316,7 +316,7 @@ pub struct CommentInfo {
     pub url: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum IDsQueryInclude {
@@ -327,7 +327,7 @@ pub enum IDsQueryInclude {
 /// All unique valid IDs stored in the database.
 ///
 /// Enum response will depend on if [AnimeIdsQuery::include](crate::schemas::query::AnimeIdsQuery::include) is present or not.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[serde(untagged)]
 pub enum IDList {
@@ -338,7 +338,7 @@ pub enum IDList {
 }
 
 /// Extra information along with the id itself
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct IDContext {
     pub mal_id: u32,
@@ -368,7 +368,7 @@ pub struct StatsHistory<T> {
 }
 
 /// Basic ordering between MAL and Title
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum BasicOrder {
@@ -429,7 +429,7 @@ pub struct RelationDetails {
 }
 
 /// The relation between two entries.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Relation {
     Adaptation,
     Sequel,
@@ -506,7 +506,7 @@ pub struct Tag {
     pub count: u32,
 }
 
-#[derive(Debug, Display, Clone)]
+#[derive(Debug, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "camel_case")]
 pub enum Language {
     English,
@@ -537,7 +537,7 @@ pub enum Language {
 ///         .nulls(Nulls::Exclude)
 /// }
 /// ```
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "camel_case")]
 pub enum Nulls {
     /// Put entries without a value first.
@@ -551,7 +551,7 @@ pub enum Nulls {
 /// Choose which archive to search.
 ///
 ///
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "camel_case")]
 pub enum SearchMode {
     Denied,

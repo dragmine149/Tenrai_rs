@@ -4,7 +4,7 @@ use strum_macros::Display;
 use crate::schemas::{anime::User, common::Entry};
 
 /// How to sort a review list
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ReviewSort {
@@ -14,7 +14,7 @@ pub enum ReviewSort {
 }
 
 /// If the reviewer would recommend the media or not.
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum Sentiment {

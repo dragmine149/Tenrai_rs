@@ -66,7 +66,7 @@ impl Display for TenraiAPIError {
 ///
 /// # Route Not Found
 /// `RouteNotFound` is only available via the `custom` feature. This is because every endpoint should be found.
-#[derive(Debug, Serialize, Deserialize, Display, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[serde(rename_all = "PascalCase")]
 pub enum MachineErrorType {

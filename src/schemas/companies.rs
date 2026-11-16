@@ -3,7 +3,7 @@ use strum_macros::Display;
 
 use crate::schemas::common::{AlternativeTitle, External, Images};
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum ProducerOrder {
     MalId,

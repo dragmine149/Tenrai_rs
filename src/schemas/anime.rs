@@ -124,7 +124,7 @@ pub struct Anime {
 }
 
 /// What source the anime is based on..
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Display)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Display, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeSource {
     Novel,
@@ -163,7 +163,7 @@ pub enum AnimeSource {
 }
 
 /// Weekly broadcast schedule day, time and timezone.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct AnimeBroadcast {
     /// Day of week the broadcast happened
@@ -209,7 +209,7 @@ pub struct RegionalRestrictions {
 }
 
 /// The format that this anime is in.
-#[derive(Debug, Clone, Display, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Display, Serialize, Deserialize, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeType {
     #[serde(rename = "TV")]
@@ -231,7 +231,7 @@ pub enum AnimeType {
 }
 
 /// Status of the anime.
-#[derive(Debug, Clone, Display, Deserialize, Serialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Display, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum AnimeStatus {
     #[serde(rename = "Currently Airing")]
@@ -243,7 +243,7 @@ pub enum AnimeStatus {
 }
 
 /// Which field to order the anime by.
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum OrderBy {
     MalId,
@@ -264,7 +264,7 @@ pub enum OrderBy {
 }
 
 /// Field to sort episodes by
-#[derive(Debug, Clone, Display)]
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum EpisodeOrder {
     /// Episode number. Also defaults to this
@@ -283,7 +283,7 @@ pub enum EpisodeOrder {
 /// Theme songs found in the anime.
 ///
 /// TODO: Implement custom de/serialize to parse the data so this is much more usable.
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct ThemeSongs {
     pub openings: Vec<ThemeSong>,
@@ -295,7 +295,7 @@ pub struct ThemeSongs {
 /// NOTE: The data is parsed from a string using regex and hence can't easily be linked back to an entry on MAL.
 ///
 /// NOTE: Index Data is lost on serializing.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug)]
 pub struct ThemeSong {
     /// The name of the song
     pub name: String,
@@ -468,7 +468,7 @@ pub struct AnimeEpisode {
 }
 
 /// How to order the listing of articles
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ArticleOrdering {
@@ -479,7 +479,7 @@ pub enum ArticleOrdering {
 }
 
 /// How to order the listing of news articles
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum NewsArticleOrdering {
@@ -489,7 +489,7 @@ pub enum NewsArticleOrdering {
 }
 
 /// How to order the listing of forums
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 pub enum ForumOrdering {

@@ -9,7 +9,7 @@ use crate::schemas::{
     people::{MangaAuthor, MangaSerialization},
 };
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "lowercase")]
 /// The type of the manga
@@ -26,7 +26,7 @@ pub enum MangaType {
     Manhua,
 }
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "lowercase")]
 /// What status is this manga in
@@ -40,7 +40,7 @@ pub enum MangaStatus {
     Hiatus,
 }
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "snake_case")]
 /// How to order the manga
