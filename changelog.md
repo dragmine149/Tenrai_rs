@@ -12,7 +12,8 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 		- Additionally, functions have been provided to get the values of said fields.
 - **Added** Ability for queries to require other query parameters. *Yes the API does this, but eh.*
 - **Fixed** a bunch of issues with the old query system whilst updating it.
-	- *Too many to list here*
+	- `usernames` being set to limit of 300 chars instead of 30
+	- *And probably many more*
 - **Updated** a bunch of documentation.
 - **Updated** dependencies.
 	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.

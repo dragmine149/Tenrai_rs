@@ -326,33 +326,29 @@ ExtendedDetails {
 
 query_extension!(ExtendedDetails, Sfw);
 
-query!(
-    Episode {
-        /// Filter by if an episode is a filler (true) or not (false). If not provided will give both fillers and not fillers.
-        filler: bool,
-        /// Filter by if an episode is a recap (true) or not (false). If not provided will give both recap's and not recap's.
-        recap: bool,
-        /// Field to sort episodes.
-        order_by: EpisodeOrder,
-        /// Sort Direction
-        sort: SortDirection,
-        /// Extra sorting for [EpisodeQuery::order_by]. See [Nulls] for more detail.
-        nulls: Nulls,
-        /// Page number to search
-        *custom:basic_page:BasicPageQuery,
-    },
-    {},
-    {
-        /nulls:order_by,
-    }
-);
+query!(Episode {
+    /// Filter by if an episode is a filler (true) or not (false). If not provided will give both fillers and not fillers.
+    filler: bool,
+    /// Filter by if an episode is a recap (true) or not (false). If not provided will give both recap's and not recap's.
+    recap: bool,
+    /// Field to sort episodes.
+    order_by: EpisodeOrder,
+    /// Sort Direction
+    sort: SortDirection,
+    /// Extra sorting for [EpisodeQuery::order_by]. See [Nulls] for more detail.
+    nulls: Nulls,
+    /// Page number to search
+    *custom:basic_page:BasicPageQuery,
+}, {},
+{
+    /nulls:order_by,
+});
 query_extension!(Episode, BasicPage);
 
 query!(Review {
+    *custom:basic_page:BasicPageQuery,
     /// Only content that has been written by this MAL username. Matches the full username
     username: String,
-    /// Page number
-    page: u32,
     /// Sort direction.
     sort: ReviewSort,
     /// Include reviews written before all episodes have been watched
@@ -362,36 +358,31 @@ query!(Review {
     /// Filter by what the review overall thinks.
     sentiment: Sentiment,
 }, {
-    username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    username: "Username cannot be more than 30 characters": (|u: &String| u.len() > 30),
 });
+query_extension!(Review, BasicPage);
 
 query!(Stack {
+    *custom:page:PageQuery,
+    *custom:sfw:SfwQuery,
+
     /// The name of the stack to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page Number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// How to sort the stacks.
-    stack_order: StackOrder,
-    /// Order in which to sort.
-    sort: SortDirection,
     /// Include stacks that contain spoilers
     spoilers: OnlyBool,
     /// Include stacks that are challenges. NOTE: [StackQuery::official] also needs to not be false.
     challenges: OnlyBool,
     /// Includes stacks that are made by MAL instead of a user.
     official: OnlyBool,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+
+    /// How to sort the stacks.
+    stack_order: StackOrder:(|_, v| format!("order_by={v}")),
+    /// Order in which to sort.
+    sort: SortDirection,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
+query_extension!(Stack, Page);
 
 query!(AnimeIds {
 	/// Filter by media type. Multiple types can be selected.
@@ -411,21 +402,19 @@ query!(AnimeIds {
 }, {});
 
 query!(Basic {
+    *custom:page:PageQuery,
+    *custom:sfw:SfwQuery,
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
     /// How to sort the anime
     order_by: BasicOrder,
     /// Order in which to sort.
     sort: SortDirection,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
+query_extension!(Basic, Page);
+query_extension!(Basic, Sfw);
 
 query!(
 /// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
@@ -439,18 +428,13 @@ Forum {
 });
 
 query!(Article {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
+    *custom:page:PageQuery,
+    *custom:sfw:SfwQuery,
+
     /// Field to sort the results by.
     order_by: ArticleOrdering,
     /// Direction to sort the results
     sort: SortDirection,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only content that has been written by this MAL username. Matches the full username
     author_username: String,
     /// Only items published on or after this date/timestamp.
@@ -458,24 +442,20 @@ query!(Article {
     /// Only items published on or before this date/timestamp.
     published_before: String,
 }, {
-    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    author_username: "Author username cannot be more than 30 characters": (|u: &String| u.len() > 30),
 });
 
+query_extension!(Article, Page);
+query_extension!(Article, Sfw);
+
 query!(NewsArticle {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
+    *custom:page:PageQuery,
+    *custom:sfw:SfwQuery,
+
     /// Field to sort the results by.
     order_by: NewsArticleOrdering,
     /// Direction to sort the results
     sort: SortDirection,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only content that has been written by this MAL username. Matches the full username
     author_username: String,
     /// Only items published on or after this date/timestamp.
@@ -483,28 +463,23 @@ query!(NewsArticle {
     /// Only items published on or before this date/timestamp.
     published_before: String,
 }, {
-    author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    author_username: "Author username cannot be more than 30 characters": (|u: &String| u.len() > 30),
 });
+query_extension!(NewsArticle, Page);
+query_extension!(NewsArticle, Sfw);
 
 query!(
 /// Query for getting historical stats.
 StatsHistory {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
+	*custom:page:PageQuery,
     /// Direction to sort the results
     sort: SortDirection,
     /// Only days **on** or **after** this date
     start_date: Date,
     /// Only days **on** or **before** this date
     end_date: Date,
-}, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-});
+}, {});
+query_extension!(StatsHistory, Page);
 
 query!(Schedule {
     /// Filter by day of week
