@@ -1,7 +1,7 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
+        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
         article::{Article, NewsArticle},
         common::{
             External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
@@ -11,9 +11,9 @@ use crate::{
         manga::{Manga, MangaStatistics},
         people::Character,
         query::{
-            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
-            MangaQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
-            StatsHistoryQuery,
+            AdaptedQuery, ArticleQuery, BasicQuery, ExtendedDetailsQuery, ForumQuery,
+            MagazineQuery, MangaIdsQuery, MangaQuery, NewsArticleQuery, RecommendationQuery,
+            ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
         reviews::Review,
         stacks::Stack,
@@ -46,12 +46,12 @@ impl TenraiAPI {
     pub async fn manga_full_details(
         &self,
         id: &u32,
-        query: SfwQuery,
-    ) -> crate::Result<TenraiResponse<Manga>> {
+        query: ExtendedDetailsQuery,
+    ) -> crate::Result<TenraiIncludesResponse<Manga>> {
         Ok(self
             .request(format!("manga/{id}/full{query}"))
             .await?
-            .result()?)
+            .result_includes()?)
     }
     /// Get recommendations for a manga
     ///

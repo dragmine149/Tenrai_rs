@@ -73,12 +73,21 @@ pub struct MangaAuthor {
     /// Name of the person
     pub name: String,
     /// The credited role
-    pub role: Option<String>,
+    pub role: Option<MangaAuthorRole>,
     /// Always "people" (meant to be type but well...)
     #[serde(rename = "type")]
     pub author_type: String,
     /// Direct link to MAL for this person
     pub url: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq)]
+#[strum(serialize_all = "snake_case")]
+pub enum MangaAuthorRole {
+    Story,
+    Art,
+    #[serde(rename = "Story & Art")]
+    Both,
 }
 
 /// Information about where a manga was serialized

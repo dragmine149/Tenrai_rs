@@ -240,6 +240,7 @@ macro_rules! query {
      	})()
     };
 
+    // if any of these conditions are true. Then it causes an error.
     (@condition /v/ $value:expr, $condition:expr) => {
     	(|| $value.iter().any(|v| *v < $condition))()
     };

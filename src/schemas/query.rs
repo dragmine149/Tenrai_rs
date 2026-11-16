@@ -36,7 +36,7 @@ use crate::{
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
-        people::{CharacterRole, PeopleOrder},
+        people::{CharacterRole, MangaAuthorRole, PeopleOrder},
         query_vec,
         reviews::{ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
@@ -513,141 +513,213 @@ query!(Schedule {
 query!(Manga {
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter by manga type, multiple can be selected
+    /// Only manga whose title starts with this letter. Cannot be combined with [MangaQuery::query].
+    letter: char,
+    /// Only manga with this type.
     manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Exclude manga with any of these types
+    manga_type_exclude: Vec<MangaType>:(|_, v| query_vec("type_exclude", v)),
     /// Only manga with this publishing status
     status: MangaStatus,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Only entries with this exact score
-    score: f64,
-    /// Only entries with this score or higher
-    min_score: f64,
-    /// Only entries with this score or lower
-    max_score: f64,
-    /// Also include unapproved entries
-    unapproved: bool,
+    /// Exclude manga with this publishing status
+    status_exclude: MangaStatus,
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
     genres_exclude: Vec<u32>:query_vec,
-    /// Sort the results by...
-    order_by: MangaOrder,
-    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
-    sort: SortDirection,
-    /// Only manga whose title starts with this letter. Cannot be combined with [MangaQuery::query].
-    letter: char,
     /// Magazines this manga has been published in. Use the ID of the magazine.
     magazines: Vec<u32>:query_vec,
+    /// Exclude manga if it has been published in any of these magazines. Use the ID of the magazine
+    magazines_exclude: Vec<u32>:query_vec,
+    /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
+    authors: Vec<u32>: query_vec,
+    /// Only count the authors in [MangaQuery::authors] when MAL credits them with this role. Author credited with both matches both.
+    author_role: MangaAuthorRole,
+    #[doc="Filter by who made the manga\n\n-True: Written and drawn by one person\n\n-False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    solo_author:bool,
+    /// Exclude manga by any of these authors in any role.
+    authors_exclude: Vec<u32>: query_vec,
+    /// Filter by characters that appear in the manga.
+    characters: Vec<u32>:query_vec,
+    /// Only count the character when MAL lists them as this role.
+    character_role: CharacterRole,
+
+    *custom:ids:IdsQuery,
+    *custom:score:ScoreQuery,
+
+    /// Minimum number of available reviews including all types. Not a complete total. 0/NA = no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews including all types. Not a complete total. 0 returns entries with no reviews.
+    max_reviews: u32,
+    /// Only manga with this member count or higher
+    min_members: u32,
+    /// Only manga with this member count or lower
+    max_members: u32,
+    /// Only manga with this favourite count or higher
+    min_favorites: u32,
+    /// Only manga with this favourite count or lower
+    max_favorites: u32,
+    /// Only manga with this chapter count or higher
+    min_chapters: u32,
+    /// Only manga with this chapter count or lower
+    max_chapters: u32,
+    /// Only manga with this volume count or higher
+    min_volumes: u32,
+    /// Only manga with this volume count or lower
+    max_volumes: u32,
+
+    *custom:year:YearQuery,
     /// Only manga that started publishing on or after this date.
     start_date: Date,
     /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
     end_date: Date,
-    /// Only entries that have been scored by this many users (inclusive) (`>=`)
-    min_scored_by: u32,
-    /// Only entries with this member count or higher
-    min_members: u32,
-    /// Only entries with this member count or lower
-    max_members: u32,
-    /// Only entries with this favourite count or higher
-    min_favorites: u32,
-    /// Only entries with this favourite count or lower
-    max_favorites: u32,
-    /// Only entries with this volume count or higher
-    min_volumes: u32,
-    /// Only entries with this volume count or lower
-    max_volumes: u32,
-    /// Only entries with this chapter count or higher
-    min_chapters: u32,
-    /// Only entries with this chapter count or lower
-    max_chapters: u32,
-    /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
-    year: u32,
-    /// Manga that started publishing this *provided* year or later
-    min_year: u32,
-    /// Manga that started publishing this *provided* year or earlier
-    max_year: u32,
-    /// Filter by credited author or artist. If multiple are provided will match any of them. Requires MAL person IDs
-    authors: Vec<String>: query_vec,
+
+    *custom:sfw:SfwQuery,
+    /// Also include unapproved entries
+    unapproved: bool,
+    /// Sort the results by...
+    order_by: MangaOrder,
+    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
+    sort: SortDirection,
+    /// Extra filtering for [MangaQuery::order_by]*See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom:page:PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
-    max_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
     min_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
     max_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
-    authors: "Cannot have more than 25 author entries": (|a: &[String]| a.len() > 25),
+    author_role: "Role cannot be both": (|r: &MangaAuthorRole| *r == MangaAuthorRole::Both),
+
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  magazines:1,
+    /vl/ magazines:25,
+    /v/  magazines_exclude:1,
+    /vl/ magazines_exclude:25,
+    /v/  authors:1,
+    /vl/ authors:25,
+    /v/  authors_exclude:1,
+    /vl/ authors_exclude:25,
+    /v/  characters:1,
+    /vl/ characters:25,
+    /il/ min_chapters:1,
+    /il/ max_chapters:1,
+    /il/ min_volumes:1,
+    /il/ max_volumes:1,
 }, {
     query:letter,
-    year:min_year:max_year,
-    score:min_score:max_score,
+
+    /author_role:authors,
+    /character_role:characters,
+    /nulls:order_by,
 });
+query_extension!(Manga, Page);
+query_extension!(Manga, Ids);
+query_extension!(Manga, Score);
+query_extension!(Manga, Sfw);
+query_extension!(Manga, Year);
 
 query!(Adapted {
     /// Which MyAnimeList list of adapted manga to return. Default: [MangaAdaptedFilter::All]
     filter: MangaAdaptedFilter,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
     /// Filter by manga type, multiple can be selected
     manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Exclude entries with this type.
+    manga_type_exclude: Vec<MangaType>:(|_, v| query_vec("type_exclude", v)),
     /// Only manga with this publishing status
     status: MangaStatus,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Only entries with this exact score
-    score: f64,
-    /// Only entries with this score or higher
-    min_score: f64,
-    /// Only entries with this score or lower
-    max_score: f64,
+    /// Exclude manga with these publishing status
+    status_exclude: Vec<MangaStatus>:query_vec,
+
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
-    /// Sort the results by...
-    order_by: MangaOrder,
-    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
-    sort: SortDirection,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u32>:query_vec,
+    /// Magazines this manga has been published in. Use the ID of the magazine.
+    magazines: Vec<u32>:query_vec,
+    /// Exclude manga if it has been published in any of these magazines. Use the ID of the magazine
+    magazines_exclude: Vec<u32>:query_vec,
+    #[doc="Filter by who made the manga\n\n-True: Written and drawn by one person\n\n-False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    solo_author:bool,
+    /// Exclude the entries whose MAL IDs you choose, such as the ones already on a user's list. Comma-separated. TODO: Never cache. *server doesn't cache*
+    exclude_ids: Vec<u32>:query_vec,
+
+    *custom:score:ScoreQuery,
+    /// Minimum number of available reviews including all types. Not a complete total. 0/NA = no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews including all types. Not a complete total. 0 returns entries with no reviews.
+    max_reviews: u32,
+    /// Only manga with this member count or higher
+    min_members: u32,
+    /// Only manga with this member count or lower
+    max_members: u32,
+    /// Only manga with this favourite count or higher
+    min_favorites: u32,
+    /// Only manga with this favourite count or lower
+    max_favorites: u32,
+    /// Only manga with this chapter count or higher
+    min_chapters: u32,
+    /// Only manga with this chapter count or lower
+    max_chapters: u32,
+    /// Only manga with this volume count or higher
+    min_volumes: u32,
+    /// Only manga with this volume count or lower
+    max_volumes: u32,
+
+
+    *custom:year:YearQuery,
     /// Only manga that started publishing on or after this date.
     start_date: Date,
     /// Only manga that finished publishing on or before this date. Manga with no end date, *such as one-shots*, are left out.
     end_date: Date,
+
+    *custom:sfw:SfwQuery,
+
+    /// Sort the results by...
+    order_by: MangaOrder,
+    /// Sort direction. Only applies when [MangaQuery::order_by] is used.
+    sort: SortDirection,
+    /// Extra filtering for [AnimeQuery::order_by]. *See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom:page:PageQuery,
 }, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-    score: "Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
-    max_score: "Max Score must be between 0 and 10 (inclusive)": (|l: &f64| *l >= 0.0 && *l <= 10.0),
+    manga_type: "Cannot be light novel or novel":(|t: &[MangaType]| t.iter().any(|t| *t == MangaType::LightNovel || *t == MangaType::Novel)),
+    manga_type_exclude: "Cannot be light novel or novel":(|t: &[MangaType]| t.iter().any(|t| *t == MangaType::LightNovel || *t == MangaType::Novel)),
+
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  magazines:1,
+    /vl/ magazines:25,
+    /v/  magazines_exclude:1,
+    /vl/ magazines_exclude:25,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
+    /il/ min_chapters:1,
+    /il/ max_chapters:1,
+    /il/ min_volumes:1,
+    /il/ max_volumes:1,
+}, {
+    /nulls:order_by,
 });
+query_extension!(Adapted, Page);
+query_extension!(Adapted, Sfw);
+query_extension!(Adapted, Score);
+query_extension!(Adapted, Year);
 
 query!(MangaIds {
 	/// Filter by media type. Multiple types can be selected.
     manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
     /// Only anime with this airing status
     status: MangaStatus,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
+    *custom:sfw:SfwQuery,
     /// Fields to include per entry. Allowed: Title, Type
     include: Vec<IDsQueryInclude>:query_vec,
     /// Filter entries updated on or after this ISO 8601 date-time or Unix timestamp. This is as updated on site, not API. May or may not be fully accurate.
     updated_at: String,
 }, {});
+query_extension!(MangaIds, Sfw);
 
 query!(Character {
     /// The name of the character to search for

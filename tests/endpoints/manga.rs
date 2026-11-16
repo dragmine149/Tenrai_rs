@@ -4,9 +4,9 @@ use tenrai::{
     schemas::{
         common::IDsQueryInclude,
         query::{
-            AdaptedQuery, ArticleQuery, BasicQuery, ForumQuery, MagazineQuery, MangaIdsQuery,
-            MangaQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery, SfwQuery, StackQuery,
-            StatsHistoryQuery,
+            AdaptedQuery, ArticleQuery, BasicQuery, ExtendedDetailsQuery, ForumQuery,
+            MagazineQuery, MangaIdsQuery, MangaQuery, NewsArticleQuery, PageQueryHelper,
+            RecommendationQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
     },
 };
@@ -27,7 +27,11 @@ TestPaginator!(
 );
 TestBuilder!(
     manga_full_details,
-    (async |client: &TenraiAPI, id| { client.manga_full_details(id, SfwQuery::default()).await })
+    (async |client: &TenraiAPI, id| {
+        client
+            .manga_full_details(id, ExtendedDetailsQuery::default())
+            .await
+    })
 );
 TestBuilder!(
     manga_recommendation,

@@ -9,7 +9,7 @@ use crate::schemas::{
     people::{MangaAuthor, MangaSerialization},
 };
 
-#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 #[strum(serialize_all = "lowercase")]
 /// The type of the manga
