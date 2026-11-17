@@ -198,7 +198,7 @@ query!(Anime {
     streaming_service: Vec<String>:query_vec,
 
     /// Filter recorded MyAnimeList relations: true includes entries with or without relations, false returns entries with no recorded relations, and only returns entries with at least one recorded relation. Includes anime and manga relations.
-    has_relation: OnlyBool,
+    has_relations: OnlyBool,
 
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,

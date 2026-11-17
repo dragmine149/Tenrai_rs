@@ -11,12 +11,15 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.
 	- Also added comments so those reading it know which dependencies are for what.
 - **Changed** types from `u64` to `u32` to better align with the API.
-	- Still use `f64` though as those are rust defaults. *we just check for 2dp in most cases*
+	- Still use `f64` though as those are rust defaults. (*we just check for 2dp in most cases*)
 	- Note: You can still do stuff `u32::MAX` as the API only accepts up to `i32::MAX`. *i use `u32::MAX` as i don't want to deal with negatives*
 	- *There was like 339+ replacements...*
 - **Added** a mixture of `PartialEq, Eq, PartialOrd, Ord` to every enum to further align with [c-common-traits](https://rust-lang.github.io/api-guidelines/interoperability.html#c-common-traits)
 	- *Also removed some from structs whilst i work out what to do*
 - **Added** `new`, `From<&str>`, `From<String>` methods for `Date`
+- **Changed** `Date` types to be more fitting of their true representation. (*you don't need a u32 for a u4*)
+- **Added** `From<bool>` for `OnlyBool` (*you're not getting a reverse bc of `Only`*)
+- URL now gets **logged** via `log::debug` on every request. (*see log feature*)
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.
@@ -27,6 +30,8 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- `usernames` being set to limit of 300 chars instead of 30
 	- *And probably many more*
 - **Changed** All query fields to be private. In return, getter methods are provided.
+- Added basics query tests.
+	- *these are really limited, however what they do test should guarantee it works. Full query tests are impossible.*
 
 ### More specific struct changes that aren't generalised
 - **Privatised** `Anime.explicit_genres` due to being always empty.

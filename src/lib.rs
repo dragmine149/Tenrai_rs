@@ -122,6 +122,8 @@ impl TenraiAPI {
     /// Internal function for sending the request itself.
     async fn request(&self, endpoint: String) -> crate::Result<TenraiRaw> {
         let url = format!("https://api.tenrai.org/v1/{endpoint}");
+        #[cfg(feature = "log")]
+        log::debug!("Fetching URL: {url}");
         let request = self.client.get(url).headers(self.build_headers());
         #[cfg(feature = "rate")]
         let delay = match self.server_key {

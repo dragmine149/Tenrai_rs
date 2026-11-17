@@ -132,3 +132,43 @@ macro_rules! TestPaginator {
         }
     };
 }
+
+#[macro_export]
+macro_rules! TestQuery {
+    (
+    	$func_name: ident,
+     	$query: ident,
+     	$count: expr,
+      	{
+       		$(
+         		$name:ident:$query_builder: expr,
+         	)+
+       	}
+    ) => {
+        pastey::paste! {
+           #[tokio::test]
+            async fn [<test_ $func_name _query>]() {
+            	env_logger::init();
+                let client = build_client();
+                let base_data = $count(client
+                	.$func_name($query::default())
+                    .await
+                    .expect("This should not fail")
+                );
+                let mut rng = rand::rng();
+                $(
+                	let mut builder = $query::builder();
+                 	$query_builder(&mut builder, &mut rng);
+                	let $name = $count(client
+                 		.$func_name(builder.build().unwrap())
+                   		.await
+                     	.expect("This should not fail")
+                	);
+                 	assert_ne!(base_data, $name, concat!("Panic in ", stringify!($name)));
+                )+
+
+
+              }
+        }
+    };
+}

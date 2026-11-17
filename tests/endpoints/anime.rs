@@ -1,21 +1,21 @@
-use rand::{
-    RngExt,
-    distr::{Alphabetic, Distribution},
-};
+use rand::{RngExt, distr::Alphabetic, rngs::ThreadRng};
 use tenrai::{
     TenraiAPI,
     schemas::{
-        anime::EpisodeOrder,
-        common::{Date, IDsQueryInclude, Nulls},
+        TenraiPaginatorResponse,
+        anime::{Anime, AnimeSource, AnimeStatus, AnimeType, EpisodeOrder},
+        common::{AgeRating, Date, IDsQueryInclude, Language, Nulls, OnlyBool, Season},
+        people::CharacterRole,
         query::{
-            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
-            ExtendedDetailsQuery, ForumQuery, NewsArticleQuery, PageQueryHelper,
-            RecommendationQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
+            AnimeIdsQuery, AnimeQuery, AnimeQueryBuilder, ArticleQuery, BasicPageQuery, BasicQuery,
+            EpisodeQuery, ExtendedDetailsQuery, ForumQuery, IdsQueryHelper, NewsArticleQuery,
+            PageQueryHelper, RecommendationQuery, ReviewQuery, ScoreQueryHelper, SfwQuery,
+            SfwQueryHelper, StackQuery, StatsHistoryQuery, YearQueryHelper,
         },
     },
 };
 
-use crate::{TestBuilder, build_client};
+use crate::{TestBuilder, TestQuery, build_client};
 
 #[tokio::test]
 #[ignore = "This sends upwards of 300 requests hence takes like a minute or two."]
@@ -191,65 +191,56 @@ TestBuilder!(
     ignore = "Requires Server key"
 );
 
-#[tokio::test]
-async fn test_anime_query() {
-    let client = build_client();
-    let base_data = client
-        .anime_search(AnimeQuery::default())
-        .await
-        .expect("This should not fail")
-        .pagination
-        .items
-        .unwrap()
-        .total;
-    let mut rng = rand::rng();
-
-    // AnimeQuery::builder().added_after.unwrap_or_default()
-
-    let query = client
-        .anime_search(
-            AnimeQuery::builder()
-                .query(
-                    (0..7)
-                        .map(|_| rng.sample(Alphabetic) as char)
-                        .collect::<String>(),
-                )
-                .build()
-                .unwrap(),
-        )
-        .await
-        .expect("This should not fail")
-        .pagination
-        .items
-        .unwrap()
-        .total;
-    assert_ne!(base_data, query);
-    let letter = client
-        .anime_search(
-            AnimeQuery::builder()
-                .letter(rng.sample(Alphabetic) as char)
-                .build()
-                .unwrap(),
-        )
-        .await
-        .expect("This should not fail")
-        .pagination
-        .items
-        .unwrap()
-        .total;
-    assert_ne!(base_data, letter);
-    let added_after = client
-        .anime_search(
-            AnimeQuery::builder()
-                .added_after(Date::new(2020, 05, None))
-                .build()
-                .unwrap(),
-        )
-        .await
-        .expect("This should not fail")
-        .pagination
-        .items
-        .unwrap()
-        .total;
-    assert_ne!(base_data, added_after);
-}
+// TODO: Randomise these more.
+TestQuery!(anime_search, AnimeQuery, (|res: TenraiPaginatorResponse<Anime>| res.pagination.items.unwrap().total), {
+    query:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.query((0..7).map(|_| rand.sample(Alphabetic) as char).collect::<String>());}),
+    letter:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.letter(rand.sample(Alphabetic) as char);}),
+    anime_type:(|builder: &mut AnimeQueryBuilder, _| {builder.anime_type(vec![AnimeType::Tv]);}),
+    anime_type_exclude:(|builder: &mut AnimeQueryBuilder, _| {builder.anime_type_exclude(vec![AnimeType::Ova]);}),
+    status:(|builder: &mut AnimeQueryBuilder, _| {builder.status(vec![AnimeStatus::Airing]);}),
+    status_exclude:(|builder: &mut AnimeQueryBuilder, _| {builder.status_exclude(vec![AnimeStatus::Complete]);}),
+    rating:(|builder: &mut AnimeQueryBuilder, _| {builder.rating(vec![AgeRating::Rx]);}),
+    rating_exclude:(|builder: &mut AnimeQueryBuilder, _| {builder.rating_exclude(vec![AgeRating::Pg]);}),
+    source:(|builder: &mut AnimeQueryBuilder, _| {builder.source(vec![AnimeSource::Original]);}),
+    source_exclude:(|builder: &mut AnimeQueryBuilder, _| {builder.source_exclude(vec![AnimeSource::LightNovel]);}),
+    has_trailer: (|builder: &mut AnimeQueryBuilder, _| {builder.has_trailer(true);}),
+    streaming_service: (|builder: &mut AnimeQueryBuilder, _| {builder.streaming_service(vec!{"Cr".to_string()});}),
+    has_relations: (|builder: &mut AnimeQueryBuilder, _| {builder.has_relations(OnlyBool::Only);}),
+    genres:(|builder: &mut AnimeQueryBuilder, _| {builder.genres(vec![2]);}),
+    genres_exclude:(|builder: &mut AnimeQueryBuilder, _| {builder.genres_exclude(vec![4]);}),
+    staff:(|builder: &mut AnimeQueryBuilder, _| {builder.staff(vec![4]);}),
+    characters:(|builder: &mut AnimeQueryBuilder, _| {builder.characters(vec![4]);}),
+    character_role:(|builder: &mut AnimeQueryBuilder, _| {builder.character_role(CharacterRole::Main).characters(vec![155904, 211945, 117225]);}),
+    voice_actors:(|builder: &mut AnimeQueryBuilder, _| {builder.voice_actors(vec![6, 3]);}),
+    voice_language:(|builder: &mut AnimeQueryBuilder, _| {builder.voice_language(vec![Language::English]);}),
+    min_id:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_id(rand.random::<u16>());}),
+    max_id:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_id(rand.random::<u16>());}),
+    ids:(|builder: &mut AnimeQueryBuilder, _| {builder.ids(vec![2309]);}),
+    exclude_ids:(|builder: &mut AnimeQueryBuilder, _| {builder.exclude_ids(vec![5439]);}),
+    score:(|builder: &mut AnimeQueryBuilder, _| {builder.score(1.23);}),
+    min_score:(|builder: &mut AnimeQueryBuilder, _| {builder.min_score(1.0);}),
+    max_score:(|builder: &mut AnimeQueryBuilder, _| {builder.max_score(2.34);}),
+    min_scored_by:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_scored_by(rand.random::<u16>());}),
+    max_scored_by:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_scored_by(rand.random::<u16>());}),
+    min_reviews:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_reviews(rand.random::<u8>());}),
+    max_reviews:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_reviews(rand.random::<u8>());}),
+    min_members:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_members(rand.random::<u16>());}),
+    max_members:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_members(rand.random::<u16>());}),
+    min_favorites:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_favorites(rand.random::<u16>());}),
+    max_favorites:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_favorites(rand.random::<u16>());}),
+    min_episodes:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_episodes(rand.random::<u8>());}),
+    max_episodes:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_episodes(rand.random::<u8>());}),
+    year:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.year(vec![rand.random_range(1900_u32..2100_u32)]);}),
+    min_year:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.min_year(rand.random_range(1900_u32..2100_u32));}),
+    max_year:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.max_year(rand.random_range(1900_u32..2100_u32));}),
+    season:(|builder: &mut AnimeQueryBuilder, _| {builder.season(vec![Season::Spring]);}),
+    season_year:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.season_year(vec![rand.random_range(1900_u32..2100_u32)]);}),
+    start_date:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.start_date(Date::new(rand.random_range(1900_u16..2100_u16), rand.random_range(1_u8..12_u8), None));}),
+    end_date:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.end_date(Date::new(rand.random_range(1900_u16..2100_u16), rand.random_range(1_u8..12_u8), None));}),
+    added_after:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.added_after(Date::new(rand.random_range(2010_u16..2100_u16), rand.random_range(1_u8..12_u8), None));}),
+    added_before:(|builder: &mut AnimeQueryBuilder, rand: &mut ThreadRng| {builder.added_before(Date::new(rand.random_range(1900_u16..2025_u16), rand.random_range(1_u8..12_u8), None));}),
+    sfw:(|builder: &mut AnimeQueryBuilder, _| {builder.sfw(true);}),
+    sfw_strict:(|builder: &mut AnimeQueryBuilder, _| {builder.sfw_strict(true);}),
+    unapproved:(|builder: &mut AnimeQueryBuilder, _| {builder.unapproved(true);}),
+    // The rest don't do anything useful here.
+});

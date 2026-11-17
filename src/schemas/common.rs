@@ -195,6 +195,14 @@ pub enum OnlyBool {
     /// Will **ONLY** Show these items
     Only,
 }
+impl From<bool> for OnlyBool {
+    fn from(value: bool) -> Self {
+        match value {
+            true => Self::True,
+            false => Self::False,
+        }
+    }
+}
 
 /// Images used on the website.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
