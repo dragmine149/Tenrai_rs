@@ -138,18 +138,20 @@ macro_rules! query {
                  	}
                	)*
             }
-            // Allow converting from query to builder
+            /// Allow converting from query to builder
+            ///
+            /// Note: If the value in the query struct is [None], then it will get translated to [None] here instead of `Some(None)`
             impl From<[<$name:upper_camel Query>]> for [<$name:upper_camel QueryBuilder>] {
             	fn from(value: [<$name:upper_camel Query>]) -> Self {
              		Self {
                			$(
-                  			$var: Some(value.$var),
+                  			$var: value.$var.is_some().then(|| value.$var),
                   		)*
                		}
              	}
             }
 
-            // Custom validation function.
+            /// Custom validation function.
             impl [<$name:upper_camel QueryBuilder>] {
             	fn validate(&self) -> Result<(), String> {
              		// Check to see if the ValidationStruct is fine
@@ -190,10 +192,15 @@ macro_rules! query {
                        		}
                      	)*
                     )*
+                    $(
+                    	$(
+                    		query!(@validate $custom [<$var:upper_camel QueryHelper>])(&self).map_err(|e| e.to_string())?;
+                     	)?
+                    )*
                  	Ok(())
              	}
             }
-            // Converts the struct into `?some_var=a&some_foo=b&some_bar=c`.
+            /// Converts the struct into `?some_var=a&some_foo=b&some_bar=c`.
             impl std::fmt::Display for [<$name:upper_camel Query>] {
             	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
              		let mut query = vec![];
@@ -222,6 +229,11 @@ macro_rules! query {
                		where
                  		VALUE: Into<$var_type>;
              	)*
+
+              	/// Test to see if the custom builder is fine or not.
+                ///
+                /// The default implementation is to return OK so that nothing breaks.
+              	fn validate_helper(&self) -> Result<(), [<$name:upper_camel QueryBuilderError>]> { Ok(()) }
             }
         }
     };
@@ -264,6 +276,10 @@ macro_rules! query {
     };
     (@condition_reason /il/ $v:ident, $condition:expr) => {
     	format!("{} must be greater than {}", stringify!($v), $condition)
+    };
+
+    (@validate custom $helper:ident) => {
+    	<Self as $helper>::validate_helper
     };
 }
 
@@ -347,6 +363,15 @@ macro_rules! query_extension {
                         self
                   	}
             	)*
+
+             	fn validate_helper(&self) -> Result<(), [<$helper:upper_camel QueryBuilderError>]> {
+             		[<$helper:upper_camel QueryBuilder>]::from(self.[<$helper:snake>]
+              			.clone()
+                		.unwrap_or_default()
+                  		.unwrap_or_default()
+              		).build()?;
+                	Ok(())
+              	}
           	}
         }
     };

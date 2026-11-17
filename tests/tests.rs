@@ -18,13 +18,16 @@ pub(crate) fn build_client() -> TenraiAPI {
     builder.build().unwrap()
 }
 
+/// - Returns `true` if a valid error occurred which we need to re-request for.
+/// - Returns `false` elsewise.
 pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
     #[allow(
         clippy::collapsible_match,
         reason = "There could be reasons why we emit the other errors."
     )]
-    if let Err(e) = result {
-        match e {
+    match result {
+        Ok(_) => false,
+        Err(e) => match e {
             tenrai::errors::TenraiError::Tenrai(tenrai_apierror) => {
                 match tenrai_apierror.error_type {
                     // Reattempt in case we hit an entry which doesn't exist.
@@ -32,18 +35,16 @@ pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
                     _ => false,
                 }
             }
+            // This is because cloudflare was giving us some issues with long running tests.
             tenrai::errors::TenraiError::Reqwest(re) => {
-                if re.is_timeout() {
+                let to = re.is_timeout();
+                if to {
                     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-                    true
-                } else {
-                    false
                 }
+                to
             }
             _ => false,
-        }
-    } else {
-        false
+        },
     }
 }
 

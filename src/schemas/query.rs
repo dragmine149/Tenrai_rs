@@ -383,6 +383,7 @@ query!(Stack {
     query: "Query length is too long": (|q: &String| q.len() > 300),
 });
 query_extension!(Stack, Page);
+query_extension!(Stack, Sfw);
 
 query!(AnimeIds {
 	/// Filter by media type. Multiple types can be selected.

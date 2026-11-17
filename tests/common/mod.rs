@@ -152,6 +152,9 @@ fn new_1_3_query() {
             .expect("Should be some"),
         false
     );
+
+    // let a = Some(true);
+    // let b = a.is_some().then(|| a);
 }
 
 #[test]

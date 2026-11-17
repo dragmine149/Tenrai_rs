@@ -4,16 +4,8 @@ Format is `{Crate}(API)` where both are their represetive versions. If `(API)` d
 ## 1.3.0 (v1.0.31)
 Skipped many a version because of the query update. Hopefully smoother sailing from here.
 
-- **Updated API** to `v1.0.31`
+- **Updated API** to `v1.0.{insert ver here}`
 	- See [API Changelog](https://api.tenrai.org/changelog) for more details.
-- **Updated** How handle of queries is done internally.
-	- Nothing changes much on the frontend, apart from having to additionally import some new traits
-	- This does make all query fields private. Please convert it back into a builder to edit them. 
-		- Additionally, functions have been provided to get the values of said fields.
-- **Added** Ability for queries to require other query parameters. *Yes the API does this, but eh.*
-- **Fixed** a bunch of issues with the old query system whilst updating it.
-	- `usernames` being set to limit of 300 chars instead of 30
-	- *And probably many more*
 - **Updated** a bunch of documentation.
 - **Updated** dependencies.
 	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.
@@ -24,6 +16,16 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- *There was like 339+ replacements...*
 - **Added** a mixture of `PartialEq, Eq, PartialOrd, Ord` to every enum to further align with [c-common-traits](https://rust-lang.github.io/api-guidelines/interoperability.html#c-common-traits)
 	- *Also removed some from structs whilst i work out what to do*
+
+### Query related stuff
+- **Updated** How handle of queries is done internally.
+	- Nothing changes much on the frontend, apart from having to additionally import some new traits
+- **Added** `From<*Query> for *QueryBuilder` 
+- **Added** Ability for queries to require other query parameters. *Yes the API does this, but eh.*
+- **Fixed** a bunch of issues with the old query system whilst updating it.
+	- `usernames` being set to limit of 300 chars instead of 30
+	- *And probably many more*
+- **Changed** All query fields to be private. In return, getter methods are provided.
 
 ### More specific struct changes that aren't generalised
 - **Privatised** `Anime.explicit_genres` due to being always empty.

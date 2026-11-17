@@ -1,3 +1,7 @@
+use rand::{
+    RngExt,
+    distr::{Alphabetic, Distribution},
+};
 use tenrai::{
     TenraiAPI,
     schemas::{
@@ -186,3 +190,52 @@ TestBuilder!(
         .await),
     ignore = "Requires Server key"
 );
+
+#[tokio::test]
+async fn test_anime_query() {
+    let client = build_client();
+    let base_data = client
+        .anime_search(AnimeQuery::default())
+        .await
+        .expect("This should not fail")
+        .pagination
+        .items
+        .unwrap()
+        .total;
+    let mut rng = rand::rng();
+
+    // AnimeQuery::builder().added_after.unwrap_or_default()
+
+    let query = client
+        .anime_search(
+            AnimeQuery::builder()
+                .query(
+                    (0..7)
+                        .map(|_| rng.sample(Alphabetic) as char)
+                        .collect::<String>(),
+                )
+                .build()
+                .unwrap(),
+        )
+        .await
+        .expect("This should not fail")
+        .pagination
+        .items
+        .unwrap()
+        .total;
+    assert_ne!(base_data, query);
+    let letter = client
+        .anime_search(
+            AnimeQuery::builder()
+                .letter(rng.sample(Alphabetic) as char)
+                .build()
+                .unwrap(),
+        )
+        .await
+        .expect("This should not fail")
+        .pagination
+        .items
+        .unwrap()
+        .total;
+    assert_ne!(base_data, letter);
+}
