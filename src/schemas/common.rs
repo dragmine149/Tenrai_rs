@@ -9,13 +9,39 @@ use strum_macros::Display;
 
 use crate::{generic_type, schemas::anime::User};
 
-/// Stores the date related to the entry.
+/// Stores the date related to the entry. Unlike a typical Date/Time combo. This just stores the date in 3 fields.
+///
+/// Most of the time, this will be returned from the API. However it is possible to create the struct to use in query parameters
+/// ```
+///	let query = AnimeQuery::builder()
+///     .added_after(Date::from("2020-05"))
+///     .build();
+/// ```
 #[derive(Debug, Serialize, PartialEq, Eq, Clone, Default)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
 pub struct Date {
-    pub day: Option<u32>,
-    pub month: Option<u32>,
-    pub year: Option<u32>,
+    pub day: Option<u8>,
+    pub month: Option<u8>,
+    pub year: Option<u16>,
+}
+impl Date {
+    /// Create a new date constructor.
+    ///
+    /// # Example
+    /// ```
+    /// Date::new(2020, 05, None); // New date using 2020-05 as base.
+    /// ```
+    pub fn new(
+        year: impl Into<Option<u16>>,
+        month: impl Into<Option<u8>>,
+        day: impl Into<Option<u8>>,
+    ) -> Self {
+        Self {
+            day: day.into(),
+            month: month.into(),
+            year: year.into(),
+        }
+    }
 }
 impl Display for Date {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -30,6 +56,20 @@ impl Display for Date {
             }
         }
         Ok(())
+    }
+}
+impl From<String> for Date {
+    fn from(value: String) -> Self {
+        Self::from(value.as_str())
+    }
+}
+impl From<&str> for Date {
+    fn from(value: &str) -> Self {
+        let mut split = value.splitn(3, "-").map(|s| s.parse::<u16>().ok());
+        let year = split.next().flatten();
+        let month = split.next().flatten().map(|d| d as u8);
+        let day = split.next().flatten().map(|d| d as u8);
+        Date { day, month, year }
     }
 }
 struct DateVisitor;
@@ -59,11 +99,7 @@ impl<'de> Visitor<'de> for DateVisitor {
     where
         E: serde::de::Error,
     {
-        let mut split = v.splitn(3, "-").map(|s| s.parse::<u32>().ok());
-        let year = split.next().flatten();
-        let month = split.next().flatten();
-        let day = split.next().flatten();
-        Ok(Date { day, month, year })
+        Ok(Date::from(v))
     }
 
     fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>

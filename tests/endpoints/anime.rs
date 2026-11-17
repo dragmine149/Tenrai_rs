@@ -6,7 +6,7 @@ use tenrai::{
     TenraiAPI,
     schemas::{
         anime::EpisodeOrder,
-        common::{IDsQueryInclude, Nulls},
+        common::{Date, IDsQueryInclude, Nulls},
         query::{
             AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
             ExtendedDetailsQuery, ForumQuery, NewsArticleQuery, PageQueryHelper,
@@ -238,4 +238,18 @@ async fn test_anime_query() {
         .unwrap()
         .total;
     assert_ne!(base_data, letter);
+    let added_after = client
+        .anime_search(
+            AnimeQuery::builder()
+                .added_after(Date::new(2020, 05, None))
+                .build()
+                .unwrap(),
+        )
+        .await
+        .expect("This should not fail")
+        .pagination
+        .items
+        .unwrap()
+        .total;
+    assert_ne!(base_data, added_after);
 }

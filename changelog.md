@@ -16,6 +16,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 	- *There was like 339+ replacements...*
 - **Added** a mixture of `PartialEq, Eq, PartialOrd, Ord` to every enum to further align with [c-common-traits](https://rust-lang.github.io/api-guidelines/interoperability.html#c-common-traits)
 	- *Also removed some from structs whilst i work out what to do*
+- **Added** `new`, `From<&str>`, `From<String>` methods for `Date`
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.
