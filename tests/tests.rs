@@ -37,11 +37,11 @@ pub(crate) async fn error<T>(result: &tenrai::Result<T>) -> bool {
             }
             // This is because cloudflare was giving us some issues with long running tests.
             tenrai::errors::TenraiError::Reqwest(re) => {
-                let to = re.is_timeout();
-                if to {
+                let sleep = re.is_timeout() || re.is_connect();
+                if sleep {
                     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
                 }
-                to
+                sleep
             }
             _ => false,
         },
