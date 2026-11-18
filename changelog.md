@@ -1,7 +1,7 @@
 # Changelog
 Format is `{Crate}(API)` where both are their represetive versions. If `(API)` does not exist, then it's the same API version as the previous crate version.
 
-## 1.3.0 (v1.0.31)
+## 1.3.0 (v1.0.{ver}) **UNRELEASED**
 Skipped many a version because of the query update. Hopefully smoother sailing from here.
 
 - **Updated API** to `v1.0.{insert ver here}`
@@ -20,6 +20,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Changed** `Date` types to be more fitting of their true representation. (*you don't need a u32 for a u4*)
 - **Added** `From<bool>` for `OnlyBool` (*you're not getting a reverse bc of `Only`*)
 - URL now gets **logged** via `log::debug` on every request. (*see log feature*)
+- **Added** `producer_*` aliases to `company_*` endpoint methods.
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.
