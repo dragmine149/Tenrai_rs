@@ -128,6 +128,7 @@ macro_rules! query {
             #[doc = "Helper functions for interacting with " [<$name:upper_camel Query>]]
             impl [<$name:upper_camel Query>] {
             	/// Create a new builder object
+             	#[must_use = "Finish the builder with `.build()`"]
             	pub fn builder() -> [<$name:upper_camel QueryBuilder>] {
              		[<$name:upper_camel QueryBuilder>]::default()
              	}

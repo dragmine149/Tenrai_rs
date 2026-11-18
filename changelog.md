@@ -21,6 +21,9 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Added** `From<bool>` for `OnlyBool` (*you're not getting a reverse bc of `Only`*)
 - URL now gets **logged** via `log::debug` on every request. (*see log feature*)
 - **Added** `producer_*` aliases to `company_*` endpoint methods.
+- **Publicisied** `TenraiAPI.server_key` (*no reason to have it private*)
+- **Added** `#[must_use]` to `*QueryBuilder::builder` methods.
+- **Added** `From<reqwest::Client> for TenraiAPI`
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

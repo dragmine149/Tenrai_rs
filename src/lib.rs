@@ -86,11 +86,11 @@ pub type Result<T> = std::result::Result<T, crate::errors::Error>;
 pub struct TenraiAPI {
     /// Server key used for higher rate limits. Received by becoming a patron member: <https://api.tenrai.org/documentation#description/server-keys>
     #[builder(setter(into, strip_option), default)]
-    server_key: Option<String>,
+    pub server_key: Option<String>,
     /// Internal client object
     #[builder(setter(skip), default = "TenraiAPI::default_client()")]
     client: Client,
-    /// How long should the cache be valid for.
+    /// How long should the cache be valid for. Default of 24 hours.
     ///
     /// If you don't want caching, then set the duration to 0. *([Duration::is_zero])* This will skip even writing to a file.
     #[builder(setter, default = Duration::from_hours(24))]
@@ -222,5 +222,13 @@ impl TenraiAPI {
 
     pub fn builder() -> TenraiAPIBuilder {
         TenraiAPIBuilder::default()
+    }
+}
+impl From<reqwest::Client> for TenraiAPI {
+    fn from(value: reqwest::Client) -> Self {
+        Self {
+            client: value,
+            ..Default::default()
+        }
     }
 }
