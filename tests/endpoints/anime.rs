@@ -277,13 +277,13 @@ TestQuery!(
 TestQuery!(
     anime_stacks,
     StackQuery,
-    (async |client: &TenraiAPI, query: StackQuery| client.anime_stacks(&6547_u32, query).await),
-    (|res: TenraiPaginatorResponse<Stack>| res.pagination.items.unwrap().count),
+    (async |client: &TenraiAPI, query: StackQuery| client.anime_stacks(&103_u32, query).await),
+    (|res: TenraiPaginatorResponse<Stack>| res.pagination.items.unwrap().total),
     {
         author_username:(|builder: &mut StackQueryBuilder, _| {builder.author_username("Plaxin");}),
         spoilers:(|builder:&mut StackQueryBuilder, _| {builder.spoilers(true);}),
-        challenges:(|builder:&mut StackQueryBuilder, _| {builder.challenges(true);}),
-        official:(|builder:&mut StackQueryBuilder, _| {builder.official(true);}),
+        challenges:(|builder:&mut StackQueryBuilder, _| {builder.official(true).challenges(true);}),
+        official:(|builder:&mut StackQueryBuilder, _| {builder.official(OnlyBool::Only);}),
         has_notes:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.has_notes(rng.random::<bool>());}),
         min_noted_entries:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.min_noted_entries(rng.random_range(0_u32..50_u32));}),
         has_author_scores:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.has_author_scores(rng.random::<bool>());}),
@@ -291,8 +291,8 @@ TestQuery!(
         min_entries:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.min_entries(rng.random_range(0_u32..50_u32));}),
         max_entries:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.max_entries(rng.random_range(0_u32..50_u32));}),
         min_restacks:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.min_restacks(rng.random_range(0_u32..700_u32));}),
-        max_restacks:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.max_restacks(rng.random_range(0_u32..700_u32));}),
-        created_after:(|builder: &mut StackQueryBuilder, _| {builder.created_after("2020-05-13");}),
+        max_restacks:(|builder:&mut StackQueryBuilder, rng: &mut ThreadRng| {builder.max_restacks(rng.random_range(0_u32..300_u32));}),
+        created_after:(|builder: &mut StackQueryBuilder, _| {builder.created_after("2026-05-13");}),
         created_before:(|builder: &mut StackQueryBuilder, _| {builder.created_before("2010-05-13");}),
         max_per_author:(|builder: &mut StackQueryBuilder, rng: &mut ThreadRng| {builder.max_per_author(rng.random_range(2_u32..100_u32));}),
     }
