@@ -325,6 +325,13 @@ macro_rules! query_extension {
 			max_scored_by:u32,
 		});
 	};
+	($query:ident, MiniScore) => {
+		query_extension!($query, MiniScore, {
+			score:f64,
+			min_score:f64,
+			max_score:f64,
+		});
+	};
 	($query:ident, Year) => {
 		query_extension!($query, Year, {
 			year: Vec<u32>,

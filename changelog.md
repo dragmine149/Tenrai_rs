@@ -24,6 +24,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Publicisied** `TenraiAPI.server_key` (*no reason to have it private*)
 - **Added** `#[must_use]` to `*QueryBuilder::builder` methods.
 - **Added** `From<reqwest::Client> for TenraiAPI`
+- **Added** *developer focused* `test` feature.
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

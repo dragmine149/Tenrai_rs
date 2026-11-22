@@ -38,7 +38,7 @@ use crate::{
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::{CharacterRole, MangaAuthorRole, PeopleOrder},
         query_vec,
-        reviews::{ReviewSort, Sentiment},
+        reviews::{ReviewOrder, ReviewReaction, ReviewReactionEnum, ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
         stacks::StackOrder,
     },
@@ -122,6 +122,7 @@ query!(
         /v/  ids:1,
     }
 );
+
 query!(
     /// Sub query for scoring information
     Score {
@@ -135,6 +136,28 @@ query!(
         min_scored_by: u32,
         /// Only entries that have been scored by this many users (inclusive) (`>=`)
         max_scored_by: u32,
+    }, {
+        score: "Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+        score: "Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+        min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l < 0.0 || *l > 10.0),
+        min_score: "Min Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+        max_score: "Max Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+        max_score: "Max Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+    },
+    {
+        score:min_score:max_score,
+    }
+);
+
+query!(
+    /// Sub query for scoring information
+    MiniScore {
+        /// Only entries with this exact score. Use [min_score](ScoreQuery::min_score) and [max_score](ScoreQuery::max_score) for a range.
+        score: f64,
+        /// Only entries with this score or higher
+        min_score: f64,
+        /// Only entries with this score or lower
+        max_score: f64,
     }, {
         score: "Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
         score: "Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
@@ -346,41 +369,87 @@ query!(Episode {
 query_extension!(Episode, BasicPage);
 
 query!(Review {
-    *custom:basic_page:BasicPageQuery,
     /// Only content that has been written by this MAL username. Matches the full username
     username: String,
+    /// Filter by what the review overall thinks.
+    sentiment: Vec<Sentiment>: query_vec,
+    /// Only reviews with at least [ReviewQuery::min_reaction_count] reactions of all of the selected.
+    reaction: Vec<ReviewReactionEnum>: query_vec,
+    /// Minimum reactions of each selected kin, Inclusive.
+    min_reaction_count: u32,
+    /// Minimum total reactions on the review, Inclusive. Uses [Review::reactions::overall](crate::schemas::reviews::ReviewReaction::overall) as the counter.
+    min_reactions: u32,
+    /// Maximum total reactions on the review, Inclusive. Uses [Review::reactions::overall](crate::schemas::reviews::ReviewReaction::overall) as the counter.
+    max_reactions: u32,
+    /// Include reviews written before all episodes have been watched. Preliminary reviews are left out if this is not set.
+    preliminary: OnlyBool,
+    /// Include reviews which might contain spoilers. Spoiler reviews are left out if this is not set.
+    spoilers: OnlyBool,
+    *custom: mini_score: MiniScoreQuery,
+    /// Only reviews published on or after this date/timestamp.
+    published_after: String,
+    /// Only reviews published on or before this date/timestamp.
+    published_before: String,
+    /// How to order the results
+    order_by: ReviewOrder,
     /// Sort direction.
     sort: ReviewSort,
-    /// Include reviews written before all episodes have been watched
-    preliminary: OnlyBool,
-    /// Include reviews which might contain spoilers
-    spoilers: OnlyBool,
-    /// Filter by what the review overall thinks.
-    sentiment: Sentiment,
+    /// Extra sorting for [ReviewQuery::order_by]. See [Nulls] for more detail.
+    nulls: Nulls,
+    *custom:basic_page:BasicPageQuery,
+
 }, {
     username: "Username cannot be more than 30 characters": (|u: &String| u.len() > 30),
+    /il/ min_reaction_count: 1,
+}, {
+    /min_reaction_count:reaction,
 });
 query_extension!(Review, BasicPage);
+query_extension!(Review, MiniScore);
 
 query!(Stack {
-    *custom:page:PageQuery,
-    *custom:sfw:SfwQuery,
-
     /// The name of the stack to search for
     query: String:(|_, v| format!("q={v}")),
+    /// Only content that has been written by this MAL username. Matches the full username, ignoring case.
+    author_username: String,
     /// Include stacks that contain spoilers
     spoilers: OnlyBool,
     /// Include stacks that are challenges. NOTE: [StackQuery::official] also needs to not be false.
     challenges: OnlyBool,
     /// Includes stacks that are made by MAL instead of a user.
     official: OnlyBool,
-
+    /// Whether at least one entry has a recorded note.
+    has_notes: bool,
+    /// Minimum number of entries with a recorded note (inclusive)
+    min_noted_entries: u32,
+    /// Whether at least one entry has a recorded score.
+    has_author_scores: bool,
+    /// Minimum number of entries with a recorded score (inclusive)
+    min_scored_entries: u32,
+    /// Minimum entry count (inclusive)
+    min_entries: u32,
+    /// Maximum entry count (inclusive)
+    max_entries: u32,
+    /// Minimum restack count (inclusive)
+    min_restacks: u32,
+    /// Maximum restack count (inclusive)
+    max_restacks: u32,
+    /// Only stacks created on or after this date/timestamp.
+    created_after: String,
+    /// Only stacks created on or before this date/timestamp.
+    created_before: String,
+    /// Maximum stacks per author using the selected sort before pagination. Stacks without a known author count separately.
+    max_per_author: u32,
+    *custom:sfw:SfwQuery,
     /// How to sort the stacks.
     stack_order: StackOrder:(|_, v| format!("order_by={v}")),
     /// Order in which to sort.
     sort: SortDirection,
+    *custom:page:PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
+    author_username: "Author username cannot be more than 30 characters": (|u: &String| u.len() > 30),
+    /il/ max_per_author:1,
 });
 query_extension!(Stack, Page);
 query_extension!(Stack, Sfw);
@@ -418,7 +487,7 @@ query_extension!(Basic, Page);
 query_extension!(Basic, Sfw);
 
 query!(
-/// How to query the forum.   NOTE: This does not include the `filter` param from the official API as that does nothing rn.
+/// How to query the forum.  NOTE: This does not include the `filter` param from the official API as that does nothing rn.
 Forum {
     /// Page number
     page: u32,
@@ -428,7 +497,9 @@ Forum {
     page: "Page must be less than 20k": (|p: &u32| *p > 20000),
 });
 
-query!(Article {
+query!(
+/// Query for getting articles. Similar to [NewsArticleQuery] however has a different [order_by](ArticleQuery::order_by) field.
+Article {
     *custom:page:PageQuery,
     *custom:sfw:SfwQuery,
 
@@ -449,7 +520,9 @@ query!(Article {
 query_extension!(Article, Page);
 query_extension!(Article, Sfw);
 
-query!(NewsArticle {
+query!(
+/// Query for getting news articles. Similar to [ArticleQuery] however has a different [order_by](NewsArticleQuery::order_by) field.
+NewsArticle {
     *custom:page:PageQuery,
     *custom:sfw:SfwQuery,
 

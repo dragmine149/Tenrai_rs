@@ -136,8 +136,8 @@ macro_rules! TestPaginator {
 #[macro_export]
 macro_rules! TestQuery {
     (
-    	$func_name: ident,
-     	$query: ident,
+    	$func_name: ident, $query: ident,
+    	$func: expr,
      	$count: expr,
       	{
        		$(
@@ -150,25 +150,23 @@ macro_rules! TestQuery {
             async fn [<test_ $func_name _query>]() {
             	env_logger::init();
                 let client = build_client();
-                let base_data = $count(client
-                	.$func_name($query::default())
+                let mut rng = rand::rng();
+                let base_data = $count(
+                	$func(&client, $query::default())
                     .await
                     .expect("This should not fail")
                 );
-                let mut rng = rand::rng();
                 $(
                 	let mut builder = $query::builder();
                  	$query_builder(&mut builder, &mut rng);
-                	let $name = $count(client
-                 		.$func_name(builder.build().unwrap())
+                	let $name = $count(
+                 		$func(&client, builder.build().unwrap())
                    		.await
                      	.expect("This should not fail")
                 	);
                  	assert_ne!(base_data, $name, concat!("Panic in ", stringify!($name)));
                 )+
-
-
-              }
+            }
         }
     };
 }

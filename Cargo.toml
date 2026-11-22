@@ -17,6 +17,7 @@ custom = []
 log = ["dep:log"]
 rate = []
 strict = []
+test = ["log", "rate", "strict"]
 
 [lib]
 doctest = false

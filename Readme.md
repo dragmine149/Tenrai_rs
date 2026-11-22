@@ -60,6 +60,15 @@ This is intended for development work. Applies `#[serde(deny_unknown_fields)]` t
 If the API updates without this crate updating, there is a high likelihood of something breaking if this feature is enabled. 
 
 </details>
+<details>
+  <summary>test</summary>
+
+Like the `strict` feature. This is also intended for development work. Enables the following features:
+- strict
+- log
+- rate
+
+</details>
 
 # Documentation
 Everything has been documentated in line with the [official API documentation](https://api.tenrai.org/documentation)

@@ -13,6 +13,26 @@ pub enum ReviewSort {
     MostHelpful,
 }
 
+/// How to order a review query.
+///
+/// Use score to show the highest reviewer score first.
+/// Or a reaction to show the review with the most of this reaction kind.
+///
+/// Use [ReviewSort] to break ties.
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+#[strum(serialize_all = "snake_case")]
+pub enum ReviewOrder {
+    Score,
+    Nice,
+    LoveIt,
+    Funny,
+    Confusing,
+    Informative,
+    WellWritten,
+    Creative,
+}
+
 /// If the reviewer would recommend the media or not.
 #[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
@@ -74,4 +94,18 @@ pub struct ReviewReaction {
     pub nice: u32,
     pub overall: u32,
     pub well_written: u32,
+}
+
+/// What reaction the community gave the review and how many are of that reaction.
+#[derive(Debug, Serialize, Deserialize, Display, Clone)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+pub enum ReviewReactionEnum {
+    Confusing,
+    Creative,
+    Funny,
+    Informative,
+    LoveIt,
+    Nice,
+    Overall,
+    WellWritten,
 }

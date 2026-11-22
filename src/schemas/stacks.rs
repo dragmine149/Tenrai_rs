@@ -9,6 +9,9 @@ use crate::schemas::common::Images;
 pub enum StackOrder {
     CreatedAt,
     RestackCount,
+    EntryCount,
+    Title,
+    MalID,
 }
 
 /// Information about an anime stack.
