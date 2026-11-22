@@ -499,6 +499,27 @@ Forum {
 });
 
 query!(
+/// Query for getting news articles. Similar to [ArticleQuery] however has a different [order_by](NewsArticleQuery::order_by) field.
+NewsArticle {
+    /// Only content that has been written by this MAL username. Matches the full username
+    author_username: String,
+    /// Only items published on or after this date/timestamp.
+    published_after: String,
+    /// Only items published on or before this date/timestamp.
+    published_before: String,
+    *custom:sfw:SfwQuery,
+    /// Field to sort the results by.
+    order_by: NewsArticleOrdering,
+    /// Direction to sort the results
+    sort: SortDirection,
+    *custom:page:PageQuery,
+}, {
+    author_username: "Author username cannot be more than 30 characters": (|u: &String| u.len() > 30),
+});
+query_extension!(NewsArticle, Page);
+query_extension!(NewsArticle, Sfw);
+
+query!(
 /// Query for getting articles. Similar to [NewsArticleQuery] however has a different [order_by](ArticleQuery::order_by) field.
 Article {
     *custom:page:PageQuery,
@@ -522,28 +543,6 @@ query_extension!(Article, Page);
 query_extension!(Article, Sfw);
 
 query!(
-/// Query for getting news articles. Similar to [ArticleQuery] however has a different [order_by](NewsArticleQuery::order_by) field.
-NewsArticle {
-    *custom:page:PageQuery,
-    *custom:sfw:SfwQuery,
-
-    /// Field to sort the results by.
-    order_by: NewsArticleOrdering,
-    /// Direction to sort the results
-    sort: SortDirection,
-    /// Only content that has been written by this MAL username. Matches the full username
-    author_username: String,
-    /// Only items published on or after this date/timestamp.
-    published_after: String,
-    /// Only items published on or before this date/timestamp.
-    published_before: String,
-}, {
-    author_username: "Author username cannot be more than 30 characters": (|u: &String| u.len() > 30),
-});
-query_extension!(NewsArticle, Page);
-query_extension!(NewsArticle, Sfw);
-
-query!(
 /// Query for getting historical stats.
 StatsHistory {
 	*custom:page:PageQuery,
@@ -556,35 +555,6 @@ StatsHistory {
 }, {});
 query_extension!(StatsHistory, Page);
 
-query!(Schedule {
-    /// Filter by day of week
-    filter: ScheduleDayFilter,
-    /// Filter out kids entries
-    kids: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Include unapproved entries
-    unapproved: OnlyBool,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter by anime type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u32>:query_vec,
-    /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u32>:query_vec,
-}, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
-});
-
 query!(Manga {
     /// The name of the anime to search for
     query: String:(|_, v| format!("q={v}")),
@@ -595,9 +565,11 @@ query!(Manga {
     /// Exclude manga with any of these types
     manga_type_exclude: Vec<MangaType>:(|_, v| query_vec("type_exclude", v)),
     /// Only manga with this publishing status
-    status: MangaStatus,
+    status: Vec<MangaStatus>:query_vec,
     /// Exclude manga with this publishing status
-    status_exclude: MangaStatus,
+    status_exclude: Vec<MangaStatus>:query_vec,
+    /// Filter recorded MyAnimeList relations: true includes entries with or without relations, false returns entries with no recorded relations, and only returns entries with at least one recorded relation. Includes anime and manga relations.
+    has_relations: OnlyBool,
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
@@ -610,7 +582,7 @@ query!(Manga {
     authors: Vec<u32>: query_vec,
     /// Only count the authors in [MangaQuery::authors] when MAL credits them with this role. Author credited with both matches both.
     author_role: MangaAuthorRole,
-    #[doc="Filter by who made the manga\n\n-True: Written and drawn by one person\n\n-False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    #[doc="Filter by who made the manga\n\n- True: Written and drawn by one person\n\n- False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
     solo_author:bool,
     /// Exclude manga by any of these authors in any role.
     authors_exclude: Vec<u32>: query_vec,
@@ -618,10 +590,8 @@ query!(Manga {
     characters: Vec<u32>:query_vec,
     /// Only count the character when MAL lists them as this role.
     character_role: CharacterRole,
-
     *custom:ids:IdsQuery,
     *custom:score:ScoreQuery,
-
     /// Minimum number of available reviews including all types. Not a complete total. 0/NA = no limit.
     min_reviews: u32,
     /// Maximum number of available reviews including all types. Not a complete total. 0 returns entries with no reviews.
@@ -703,7 +673,7 @@ query!(Adapted {
     /// Exclude entries with this type.
     manga_type_exclude: Vec<MangaType>:(|_, v| query_vec("type_exclude", v)),
     /// Only manga with this publishing status
-    status: MangaStatus,
+    status: Vec<MangaStatus>:query_vec,
     /// Exclude manga with these publishing status
     status_exclude: Vec<MangaStatus>:query_vec,
 
@@ -715,7 +685,7 @@ query!(Adapted {
     magazines: Vec<u32>:query_vec,
     /// Exclude manga if it has been published in any of these magazines. Use the ID of the magazine
     magazines_exclude: Vec<u32>:query_vec,
-    #[doc="Filter by who made the manga\n\n-True: Written and drawn by one person\n\n-False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    #[doc="Filter by who made the manga\n\n- True: Written and drawn by one person\n\n- False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
     solo_author:bool,
     /// Exclude the entries whose MAL IDs you choose, such as the ones already on a user's list. Comma-separated. TODO: Never cache. *server doesn't cache*
     exclude_ids: Vec<u32>:query_vec,
@@ -863,6 +833,35 @@ query!(Producer {
     query: "Query length is too long": (|q: &String| q.len() > 300),
     page: "Page must be less than 20k": (|p: &u32| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+});
+
+query!(Schedule {
+    /// Filter by day of week
+    filter: ScheduleDayFilter,
+    /// Filter out kids entries
+    kids: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica
+    sfw: bool,
+    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
+    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
+    /// Include unapproved entries
+    unapproved: OnlyBool,
+    /// Page number
+    page: u32,
+    /// Results per page (Default: 25)
+    limit: u32,
+    /// Filter by anime type. Multiple types can be selected.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Filter by age rating. Multiple ratings can be selected.
+    rating: Vec<AgeRating>:query_vec,
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u32>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u32>:query_vec,
+}, {
+    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
+    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
 });
 
 query!(Seasonal {
@@ -1020,22 +1019,25 @@ query!(Genre {
 }, {});
 
 query!(Magazine {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
     /// The name of the magazine to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Only magazines whose name start with this letter
+    /// Only magazines whose title starts with this letter. Cannot be combined with [MagazineQuery::query].
     letter: char,
-    /// Order in which to sort.
-    sort: SortDirection,
+
+    *custom:sfw:SfwQuery,
     /// How to sort the results
     order_by: MagazineOrder,
+    /// Order in which to sort.
+    sort: SortDirection,
+
+    *custom:page:PageQuery,
 }, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    query: "Query length is too long": (|q: &String| q.len() > 300),
+}, {
+    query:letter,
 });
+query_extension!(Magazine, Sfw);
+query_extension!(Magazine, Page);
 
 query!(News {
     /// The name of the article to search for

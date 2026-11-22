@@ -30,3 +30,8 @@ Personally, i also recommend adding the rate feature just to smoothen out result
 ```sh
 cargo test --features=rate -- --skip _paginator
 ```
+
+# Server Keys
+Using server keys whilst testing is possible. When compiling the tests, make an env variable called `server_key` with the related server-key. All tests will then use this key.
+
+The tests will still be consedered valid with or without a server key. The github automated testing doesn't use a server key.

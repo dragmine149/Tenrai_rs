@@ -10,9 +10,8 @@ use tenrai::TenraiAPI;
 /// If you wish to test server key aspects, include the `server-key` as an environment variable.
 pub(crate) fn build_client() -> TenraiAPI {
     let mut builder = TenraiAPI::builder();
-    builder.cache(Duration::default());
-    // builder.cache(true);
-    if let Some(sk) = option_env!("server-key") {
+    builder.cache(Duration::from_secs(0));
+    if let Some(sk) = option_env!("server_key") {
         builder.server_key(sk);
     }
     builder.build().unwrap()
