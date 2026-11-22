@@ -1,10 +1,10 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
+        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse,
         article::{Article, NewsArticle},
         common::{
-            External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
+            External, Forum, Images, MoreInfo, Recommendation, RelationDetails,
             StatsHistory,
         },
         filter::BasicInfo,
@@ -12,7 +12,7 @@ use crate::{
         people::Character,
         query::{
             AdaptedQuery, ArticleQuery, BasicQuery, ExtendedDetailsQuery, ForumQuery,
-            MagazineQuery, MangaIdsQuery, MangaQuery, NewsArticleQuery, RecommendationQuery,
+            MagazineQuery, MangaQuery, NewsArticleQuery, RecommendationQuery,
             ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
         },
         reviews::Review,

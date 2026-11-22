@@ -1,7 +1,5 @@
 //! Structs related to anime endpoints.
 
-use std::fmt::Display;
-
 use crate::{
     generic_type,
     schemas::common::{

@@ -43,7 +43,7 @@ macro_rules! generic_type {
 /// ```
 /// ### `*custom`
 /// This marks the field as a custom field, and assumes the field is a query instead of a typical field.
-/// The benefits of this means you can use the [query_extension] macro and formatting the field won't be as bad as `?some_field=?some_field=some_value`
+/// The benefits of this means you can use the [query_extension](crate::query_extension) macro and formatting the field won't be as bad as `?some_field=?some_field=some_value`
 ///
 /// ### `format_func`
 /// This allows for custom formatting that can't be done via `Display` without having to make a struct just for implementing `Display`.
@@ -78,23 +78,29 @@ macro_rules! generic_type {
 /// - vl: Checks to see if the length of `Vec<T>` is > var`
 /// - i:  Checks to see if the value is > var
 /// - il: Checks to see if the value is < var
-///	For any of the above condition, if the condition returns true an error is caused.
+///
+/// For any of the above condition, if the condition returns true an error is caused.
 ///
 /// `var` is the variable in question, whilst `condition` depends on the key.
 ///
 /// ## ExclusiveStruct
-/// Finally, as an extension to `ValidationStruct`. This struct compares and makes sure `some_val_a` can not be enabled when `some_val_b` is also enabled.
+/// Finally, as an extension to `ValidationStruct`. This struct compares and makes sure, for example, `some_val_a` can not be enabled when `some_val_b` is also enabled.
 /// ```ignore
 /// {
-///     some_field_a:some_field_b:some_field_c:some_field_d,
+///     some_field_a:some_field_b:some_field_c:some_field_e,
 ///     some_field_d:some_field_e,
 ///     some_field_f:some_field_g
+///     /some_field_h:some_field_c,
 /// }
 /// ```
-/// This says, that as long as one of `a/b/c/d` is enabled. The rest of them cannot be. It also allows stuff like `a/e` to be enabled whilst `a/d` and `d/e` are disallowed. (enabling `d` would prevent `a` and `e`)
+/// If `some_field_a` is present. All of `some_field_b`,`some_field_c`,`some_field_e` cannot be present.
+/// However without `some_field_a`, All or `some_field_b`,`some_field_c`,`some_field_e` can be present.
+///
+/// The above applies as long as something else doesn't conflict. For example, if `some_field_a` is not present, and `some_field_d` is, `some_field_e` cannot be.
+///
+/// The addition of `/` at the front does the opposite. If `some_field_h` is present, then `some_field_c` must be present. Hence in a sense, by having `some_field_h` enabled. `some_field_a` cannot be enabled. *in the above case*
 ///
 /// Due to being an extension, it's completely optional and can just not be provided. If provided though, it must have at least one exclusive value *just to make it worth while providing it*
-///
 /// # Derives
 /// All types must implement `Debug, Display, Default, Clone`. *rust gets annoyed otherwise*
 #[macro_export]
@@ -247,24 +253,24 @@ macro_rules! query {
     	format!("{}={}", stringify!($var), $field)
     };
     (@format custom, $var:ident, $field:expr,) => {
-    	(|| {
+    	{
      		let original = format!("{}", $field);
       		original.strip_prefix("?").map(|s| s.to_string()).unwrap_or(original)
-     	})()
+     	}
     };
 
     // if any of these conditions are true. Then it causes an error.
     (@condition /v/ $value:expr, $condition:expr) => {
-    	(|| $value.iter().any(|v| *v < $condition))()
+    	$value.iter().any(|v| *v < $condition)
     };
     (@condition /vl/ $value:expr, $condition:expr) => {
-    	(|| $value.len() > $condition)()
+    	$value.len() > $condition
     };
     (@condition /i/ $value:expr, $condition:expr) => {
-    	(|| *$value > $condition)()
+    	*$value > $condition
     };
     (@condition /il/ $value:expr, $condition:expr) => {
-    	(|| *$value < $condition)()
+    	*$value < $condition
     };
     (@condition_reason /v/ $v:ident, $condition:expr) => {
     	format!("All values of \"{}\" must be greater than \"{}\"", stringify!($v), $condition)
@@ -293,8 +299,8 @@ macro_rules! query {
 /// query_extension!(Anime, Sfw, {
 ///     sfw: bool,
 ///     sfw_strict: bool,
-///	});
-///	```
+/// });
+/// ```
 /// where `Anime` is the `Query` struct and `Sfw` is the `Helper` trait.
 /// Due to limitations in rust, you will have to provided all the fields and types again. However, the amount saved is worth it.
 ///

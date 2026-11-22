@@ -1,16 +1,16 @@
 use crate::{
     TenraiAPI,
     schemas::{
-        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse, TenraiTotalResponse,
+        TenraiIncludesResponse, TenraiPaginatorResponse, TenraiResponse,
         anime::{Anime, AnimeEpisode, AnimeStatistics, AnimeVideo, AnimeVideoEpisode, ThemeSongs},
         article::{Article, NewsArticle},
         common::{
-            External, Forum, IDList, Images, MoreInfo, Recommendation, RelationDetails,
+            External, Forum, Images, MoreInfo, Recommendation, RelationDetails,
             StatsHistory,
         },
         people::{AnimeStaff, Character},
         query::{
-            AnimeIdsQuery, AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
+            AnimeQuery, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
             ExtendedDetailsQuery, ForumQuery, NewsArticleQuery, RecommendationQuery, ReviewQuery,
             SfwQuery, StackQuery, StatsHistoryQuery,
         },

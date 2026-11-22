@@ -55,7 +55,7 @@ TestBuilder!(
                     .ids(
                         rand::random_iter()
                             .take(5)
-                            .map(|s: i32| s.abs() as u32)
+                            .map(|s: i32| s.unsigned_abs())
                             .collect::<Vec<u32>>(),
                     )
                     .build()

@@ -142,15 +142,14 @@ fn new_1_3_query() {
         .sfw(false)
         .build()
         .expect("Should build");
-    assert_eq!(
-        *query
+    assert!(
+        !(*query
             .sfw()
             .as_ref()
             .expect("Should be some")
             .sfw()
             .as_ref()
-            .expect("Should be some"),
-        false
+            .expect("Should be some"))
     );
 
     // let a = Some(true);

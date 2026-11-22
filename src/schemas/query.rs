@@ -17,6 +17,7 @@
 //! - (*QueryBuilder) One builder type for building (derive_builder)
 //! - (*QueryBuilderError) One BuilderError for building (derive_builder)
 //! - (*QueryHelper) One sealed trait for some functions (related to building)
+//!
 //! Only the main and builder types should be used in code. The helper trait is sealed as it's intended for the builder functions. (it's also not that useful outside of it)
 //!
 //! The values stored in the main trait are private and can only be gotten as references. This is to prevent editing of values before sending to the API and hence bypassing the verification done in the builder.
@@ -38,7 +39,7 @@ use crate::{
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::{CharacterRole, MangaAuthorRole, PeopleOrder},
         query_vec,
-        reviews::{ReviewOrder, ReviewReaction, ReviewReactionEnum, ReviewSort, Sentiment},
+        reviews::{ReviewOrder, ReviewReactionEnum, ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
         stacks::StackOrder,
     },
@@ -1171,7 +1172,7 @@ query!(RandomManga {
     min_score: f64,
     /// Only entries with this score or lower
     max_score: f64,
-    /// Calendar year of the published start date. Cannot be combined with [MangaQuery::min_year] or [MangaQuery::max_year]
+    /// Calendar year of the published start date. Cannot be combined with [RandomMangaQuery::min_year] or [RandomMangaQuery::max_year]
     year: u32,
     /// Manga that started publishing this *provided* year or later
     min_year: u32,

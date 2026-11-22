@@ -13,7 +13,7 @@ use crate::{generic_type, schemas::anime::User};
 ///
 /// Most of the time, this will be returned from the API. However it is possible to create the struct to use in query parameters
 /// ```
-///	let query = AnimeQuery::builder()
+/// let query = AnimeQuery::builder()
 ///     .added_after(Date::from("2020-05"))
 ///     .build();
 /// ```
