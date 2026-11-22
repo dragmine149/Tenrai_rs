@@ -258,21 +258,6 @@ impl TenraiAPI {
             .await?
             .result_paginator()?)
     }
-    /// Retrieve all unique MAL manga IDs of approved entries that currently exist and are active.
-    ///
-    /// NOTE: This requires a server key.
-    ///
-    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/manga/GET/manga/ids>
-    pub async fn manga_ids(
-        &self,
-        query: MangaIdsQuery,
-    ) -> crate::Result<TenraiTotalResponse<IDList>> {
-        self.check_server_key()?;
-        Ok(self
-            .request(format!("manga/ids{query}"))
-            .await?
-            .result_total()?)
-    }
 }
 
 // This is wayy too small to be on it's own. And it fits nicely in with manga (as well yeah).

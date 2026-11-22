@@ -106,13 +106,4 @@ impl TenraiAPI {
             .await?
             .result_paginator()?)
     }
-    /// Get the ID of every character in one request
-    ///
-    /// NOTE: This requires a server key.
-    ///
-    /// API DOCUMENTATION: <api.tenrai.org/documentation#tag/characters/GET/characters/ids>
-    pub async fn character_ids(&self) -> crate::Result<TenraiResponse<Vec<u32>>> {
-        self.check_server_key()?;
-        Ok(self.request("characters/ids".to_string()).await?.result()?)
-    }
 }

@@ -5,11 +5,11 @@ use tenrai::{
         TenraiPaginatorResponse,
         anime::{Anime, AnimeEpisode, AnimeSource, AnimeStatus, AnimeType, EpisodeOrder},
         article::NewsArticle,
-        common::{AgeRating, Date, IDsQueryInclude, Language, Nulls, OnlyBool, Season},
+        common::{AgeRating, Date, Language, Nulls, OnlyBool, Season},
         people::CharacterRole,
         query::{
-            AnimeIdsQuery, AnimeQuery, AnimeQueryBuilder, ArticleQuery, BasicPageQuery, BasicQuery,
-            EpisodeQuery, EpisodeQueryBuilder, ExtendedDetailsQuery, ForumQuery, IdsQueryHelper,
+            AnimeQuery, AnimeQueryBuilder, ArticleQuery, BasicPageQuery, BasicQuery, EpisodeQuery,
+            EpisodeQueryBuilder, ExtendedDetailsQuery, ForumQuery, IdsQueryHelper,
             NewsArticleQuery, NewsArticleQueryBuilder, PageQueryHelper, RecommendationQuery,
             ReviewQuery, ReviewQueryBuilder, ScoreQueryHelper, SfwQuery, SfwQueryHelper,
             StackQuery, StackQueryBuilder, StatsHistoryQuery, YearQueryHelper,
@@ -177,24 +177,6 @@ TestBuilder!(
     anime_deleted,
     (async |client: &TenraiAPI, _| client.anime_deleted(BasicQuery::default()).await)
 );
-TestBuilder!(
-    anime_ids,
-    (async |client: &TenraiAPI, _| client.anime_ids(AnimeIdsQuery::default()).await),
-    ignore = "Requires Server key"
-);
-TestBuilder!(
-    anime_ids_information,
-    (async |client: &TenraiAPI, _| client
-        .anime_ids(
-            AnimeIdsQuery::builder()
-                .include([IDsQueryInclude::Title, IDsQueryInclude::Type])
-                .build()
-                .unwrap()
-        )
-        .await),
-    ignore = "Requires Server key"
-);
-
 // TODO: Randomise these more.
 TestQuery!(anime_search, AnimeQuery,
     (async |client: &TenraiAPI, query: AnimeQuery| client.anime_search(query).await),

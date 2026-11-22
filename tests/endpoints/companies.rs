@@ -22,8 +22,3 @@ TestBuilder!(
     company_external,
     (async |client: &TenraiAPI, id| { client.company_external(id).await })
 );
-TestBuilder!(
-    company_ids,
-    (async |client: &TenraiAPI, _| { client.company_ids().await }),
-    ignore = "Requires Server key"
-);

@@ -25,6 +25,8 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Added** `#[must_use]` to `*QueryBuilder::builder` methods.
 - **Added** `From<reqwest::Client> for TenraiAPI`
 - **Added** *developer focused* `test` feature.
+- **Added** `db_*` aliases to `_ids` functions.
+	- *Also moved them to a separate `impl`*
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

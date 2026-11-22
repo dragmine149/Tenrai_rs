@@ -42,8 +42,3 @@ TestBuilder!(
     people_articles,
     (async |client: &TenraiAPI, id| { client.people_articles(id, ArticleQuery::default()).await })
 );
-TestBuilder!(
-    people_ids,
-    (async |client: &TenraiAPI, _| { client.people_ids().await }),
-    ignore = "Requires Server key"
-);

@@ -311,19 +311,4 @@ impl TenraiAPI {
             .await?
             .result_paginator()?)
     }
-    /// Retrieve all unique MAL anime IDs of approved entries that currently exist and are active.
-    ///
-    /// NOTE: This requires a server key.
-    ///
-    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/anime/GET/anime/ids>
-    pub async fn anime_ids(
-        &self,
-        query: AnimeIdsQuery,
-    ) -> crate::Result<TenraiTotalResponse<IDList>> {
-        self.check_server_key()?;
-        Ok(self
-            .request(format!("anime/ids{query}"))
-            .await?
-            .result_total()?)
-    }
 }

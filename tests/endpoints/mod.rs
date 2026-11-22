@@ -7,6 +7,8 @@ mod characters;
 #[cfg(test)]
 mod companies;
 #[cfg(test)]
+mod database;
+#[cfg(test)]
 mod genres;
 #[cfg(test)]
 mod manga;

@@ -1,13 +1,10 @@
 use crate::{TestBuilder, TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::{
-        common::IDsQueryInclude,
-        query::{
-            AdaptedQuery, ArticleQuery, BasicQuery, ExtendedDetailsQuery, ForumQuery,
-            MagazineQuery, MangaIdsQuery, MangaQuery, NewsArticleQuery, PageQueryHelper,
-            RecommendationQuery, ReviewQuery, SfwQuery, StackQuery, StatsHistoryQuery,
-        },
+    schemas::query::{
+        AdaptedQuery, ArticleQuery, BasicQuery, ExtendedDetailsQuery, ForumQuery, MagazineQuery,
+        MangaQuery, NewsArticleQuery, PageQueryHelper, RecommendationQuery, ReviewQuery, SfwQuery,
+        StackQuery, StatsHistoryQuery,
     },
 };
 
@@ -108,25 +105,6 @@ TestBuilder!(
 TestBuilder!(
     manga_deleted,
     (async |client: &TenraiAPI, _| { client.manga_deleted(BasicQuery::default()).await })
-);
-TestBuilder!(
-    manga_ids,
-    (async |client: &TenraiAPI, _| { client.manga_ids(MangaIdsQuery::default()).await }),
-    ignore = "Requires Server key"
-);
-TestBuilder!(
-    manga_ids_information,
-    (async |client: &TenraiAPI, _| {
-        client
-            .manga_ids(
-                MangaIdsQuery::builder()
-                    .include([IDsQueryInclude::Title, IDsQueryInclude::Type])
-                    .build()
-                    .unwrap(),
-            )
-            .await
-    }),
-    ignore = "Requires Server key"
 );
 TestBuilder!(
     magazines,

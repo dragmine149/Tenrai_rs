@@ -104,13 +104,4 @@ impl TenraiAPI {
             .await?
             .result_paginator()?)
     }
-    /// Get the ID of every person in one request
-    ///
-    /// NOTE: This requires a server key.
-    ///
-    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/people/GET/people/ids>
-    pub async fn people_ids(&self) -> crate::Result<TenraiResponse<Vec<u32>>> {
-        self.check_server_key()?;
-        Ok(self.request("people/ids".to_string()).await?.result()?)
-    }
 }

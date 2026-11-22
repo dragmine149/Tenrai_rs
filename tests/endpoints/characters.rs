@@ -52,8 +52,3 @@ TestBuilder!(
         client.character_articles(id, ArticleQuery::default()).await
     })
 );
-TestBuilder!(
-    character_ids,
-    (async |client: &TenraiAPI, _| client.character_ids().await),
-    ignore = "Requires Server key"
-);

@@ -10,6 +10,7 @@ mod anime;
 mod articles;
 mod characters;
 mod companies;
+mod database;
 mod genres;
 mod manga;
 mod people;
