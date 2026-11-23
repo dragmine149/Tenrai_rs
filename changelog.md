@@ -31,6 +31,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 ### Query related stuff
 - **Updated** How handle of queries is done internally.
 	- Nothing changes much on the frontend, apart from having to additionally import some new traits
+- **Updated** a bunch of queries to have new arguments in line with the new API updates.
 - **Added** `From<*Query> for *QueryBuilder` 
 - **Added** Ability for queries to require other query parameters. *Yes the API does this, but eh.*
 - **Fixed** a bunch of issues with the old query system whilst updating it.
