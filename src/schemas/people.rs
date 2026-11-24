@@ -22,10 +22,27 @@ pub struct Character {
 /// How important is the character role
 #[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
-#[strum(serialize_all = "camel_case")]
+#[strum(serialize_all = "snake_case")]
 pub enum CharacterRole {
     Main,
     Supporting,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+#[strum(serialize_all = "snake_case")]
+pub enum CharacterOrder {
+    MalId,
+    Name,
+    NameKanji,
+    Favorites,
+    Appearances,
+    AnimeAppearances,
+    MangaAppearances,
+    MainRoles,
+    SupportingRoles,
+    VoiceLanguages,
+    VoiceActors,
 }
 
 /// Information about a character VA

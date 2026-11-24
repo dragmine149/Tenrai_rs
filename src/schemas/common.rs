@@ -551,7 +551,7 @@ pub struct Tag {
 }
 
 #[derive(Debug, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
-#[strum(serialize_all = "camel_case")]
+#[strum(serialize_all = "snake_case")]
 pub enum Language {
     English,
     French,
@@ -582,7 +582,7 @@ pub enum Language {
 /// }
 /// ```
 #[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
-#[strum(serialize_all = "camel_case")]
+#[strum(serialize_all = "snake_case")]
 pub enum Nulls {
     /// Put entries without a value first.
     First,
@@ -596,8 +596,20 @@ pub enum Nulls {
 ///
 ///
 #[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
-#[strum(serialize_all = "camel_case")]
+#[strum(serialize_all = "snake_case")]
 pub enum SearchMode {
     Denied,
     Deleted,
+}
+
+/// What media does the thing appear in.
+#[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
+#[strum(serialize_all = "snake_case")]
+pub enum AppearsIn {
+    /// Only appears in [anime](crate::schemas::anime::Anime)
+    Anime,
+    /// Only appears in [manga](crate::schemas::manga::Manga)
+    Manga,
+    /// Appears in both [anime](crate::schemas::anime::Anime) and [manga](crate::schemas::manga::Manga)
+    Both,
 }

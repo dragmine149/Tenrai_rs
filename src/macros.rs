@@ -75,7 +75,7 @@ macro_rules! generic_type {
 /// Additionally, after the above, it is possible to add the following `/key/var:condition` This is a shorthand for the above, as such can't be as dynamic.
 /// `key` is a specific key of one of the following
 /// - v:  Checks to see if any item in `Vec<T>` is `< var`
-/// - vl: Checks to see if the length of `Vec<T>` is > var`
+/// - vl: Checks to see if `.len()` is > var`
 /// - i:  Checks to see if the value is > var
 /// - il: Checks to see if the value is < var
 ///
@@ -107,7 +107,7 @@ macro_rules! generic_type {
 macro_rules! query {
     ($(#[$query_meta:meta])? $name:ident {
     	$(
-     		$(#[$field_meta:meta])?
+     		$(#[$field_meta:meta])*
        		$(*$custom:ident:)?
      		$var:ident:$var_type:ty $(:$fmt:expr)?,
      	)*
@@ -126,7 +126,7 @@ macro_rules! query {
             $(#[$query_meta])?
             pub struct [<$name:upper_camel Query>] {
             	$(
-             		$(#[$field_meta])?
+             		$(#[$field_meta])*
              		#[builder(setter(into, strip_option $(,$custom)?), default)]
                     $var: Option<$var_type>,
                 )*
@@ -139,7 +139,7 @@ macro_rules! query {
              		[<$name:upper_camel QueryBuilder>]::default()
              	}
               	$(
-                 	$(#[$field_meta])?
+                 	$(#[$field_meta])*
                		pub fn $var(&self) -> &Option<$var_type> {
                  		return &self.$var;
                  	}
@@ -231,7 +231,7 @@ macro_rules! query {
             #[sealed::sealed]
             pub trait [<$name:upper_camel QueryHelper>] {
             	$(
-             		$(#[$field_meta])?
+             		$(#[$field_meta])*
              		fn $var<VALUE>(&mut self, value: VALUE) -> &mut Self
                		where
                  		VALUE: Into<$var_type>;

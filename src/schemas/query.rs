@@ -31,13 +31,13 @@ use crate::{
             NewsArticleOrdering, OrderBy,
         },
         common::{
-            AgeRating, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool, SearchMode,
-            Season, SortDirection,
+            AgeRating, AppearsIn, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool,
+            SearchMode, Season, SortDirection,
         },
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
-        people::{CharacterRole, MangaAuthorRole, PeopleOrder},
+        people::{CharacterOrder, CharacterRole, MangaAuthorRole, PeopleOrder},
         query_vec,
         reviews::{ReviewOrder, ReviewReactionEnum, ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
@@ -582,7 +582,11 @@ query!(Manga {
     authors: Vec<u32>: query_vec,
     /// Only count the authors in [MangaQuery::authors] when MAL credits them with this role. Author credited with both matches both.
     author_role: MangaAuthorRole,
-    #[doc="Filter by who made the manga\n\n- True: Written and drawn by one person\n\n- False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    /// Filter by who made the manga
+    /// - True: Written and drawn by one person
+    /// - False: Writing and drawing creddited to multiple.
+    ///
+    /// Manga that MAL lists without both a writer and artist match neither"]
     solo_author:bool,
     /// Exclude manga by any of these authors in any role.
     authors_exclude: Vec<u32>: query_vec,
@@ -685,7 +689,11 @@ query!(Adapted {
     magazines: Vec<u32>:query_vec,
     /// Exclude manga if it has been published in any of these magazines. Use the ID of the magazine
     magazines_exclude: Vec<u32>:query_vec,
-    #[doc="Filter by who made the manga\n\n- True: Written and drawn by one person\n\n- False: Writing and drawing creddited to multiple.\n\nManga that MAL lists without both a writer and artist match neither"]
+    /// Filter by who made the manga
+    /// - True: Written and drawn by one person
+    /// - False: Writing and drawing creddited to multiple.
+    ///
+    /// Manga that MAL lists without both a writer and artist match neither"]
     solo_author:bool,
     /// Exclude the entries whose MAL IDs you choose, such as the ones already on a user's list. Comma-separated. TODO: Never cache. *server doesn't cache*
     exclude_ids: Vec<u32>:query_vec,
@@ -769,25 +777,102 @@ query_extension!(MangaIds, Sfw);
 query!(Character {
     /// The name of the character to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// How to sort the character list
-    order_by: BasicOrder,
-    /// Order in which to sort.
-    sort: SortDirection,
     /// Only characters whose name start with this letter
     letter: char,
-    /// Only entries with this favourite count or higher
+    /// Only match characters with this given name. Matches the whole name ignoring case. If only one name listed will be the given name.
+    given_name: String,
+    /// Only match characters with this family name. Matches the whole name ignoring case.
+    family_name: String,
+    /// Does the character have about text. "No biography written" counts as not having about text.
+    has_about: bool,
+    /// Does the character have an image. Placeholder image = no image.
+    has_image: bool,
+    /// Does the character have at least one nickname.
+    has_nicknames: bool,
+    /// Does the character have a name written in kanji ([name_kanji](crate::schemas::characters::CharacterDetails::name_kanji))
+    has_kanji: bool,
+    /// Does the character have a family name
+    has_family_name: bool,
+    /// Only characters in any of these anime. With [CharacterQuery::voice_language], the voice credit must be in the same anime.
+    anime: Vec<u32>: query_vec,
+    /// Only characters in any of these manga.
+    manga: Vec<u32>: query_vec,
+    /// Only characters with this role. With [CharacterQuery::anime] or [CharacterQuery::manga], the role is in those titles. Without them the role is in either.
+    role: CharacterRole,
+    /// Only characters in this role and never the other one.
+    role_only: CharacterRole,
+    /// Where does the character appear.
+    appears_in: AppearsIn,
+    /// Is this character in an anime thats currently airing
+    airing: bool,
+    /// Is this character in an anime thats has not yet aired.
+    upcoming: bool,
+    /// Is this character in a manga thats currently being published.
+    publishing: bool,
+    /// Filter by MAL Debut-season classification. Multiple seasons match any.
+    season: Vec<Season>:query_vec,
+    /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+    season_year: Vec<u32>:query_vec,
+    /// Filter by recorded voice-actor MAL person IDs. Multiple IDs match any selected person. With [CharacterQuery::voice_language], they must match the language in any of the given [CharacterQuery::anime], [CharacterQuery::season] or [CharacterQuery::season_year]
+    voice_actors: Vec<u32>:query_vec,
+    /// Only characters with a voice cast credited in any of these languages. With [CharacterQuery::anime], [CharacterQuery::season] or [CharacterQuery::season_year], the credited person must also be in one of those seasons/anime.
+    voice_language: Vec<Language>:query_vec,
+    /// Exclude characters with a voice cast credited in any of these languages. With [CharacterQuery::anime], [CharacterQuery::season] or [CharacterQuery::season_year], the credited person must also be in one of those seasons/anime.
+    voice_language_exclude: Vec<Language>:query_vec,
+    /// Does this character have at least one credited voice actor in any language.
+    has_voice_actor: bool,
+    /// Minimum favourite count (inclusive). Missing counts are treated as 0.
+    #[doc(alias = "min_favourites")]
     min_favorites: u32,
-    /// Only entries with this favourite count or lower
+    /// Maximum favourite count (inclusive). Missing counts are treated as 0.
+    #[doc(alias = "max_favourites")]
     max_favorites: u32,
+    /// Minimum number of anime and manga the character appears in. (inclusive)
+    min_appearances: u32,
+    /// Maximum number of anime and manga the character appears in. (inclusive)
+    max_appearances: u32,
+    /// Minimum number of anime the character appears in. (inclusive)
+    min_anime_appearances: u32,
+    /// Maximum number of anime the character appears in. (inclusive)
+    max_anime_appearances: u32,
+    /// Minimum number of manga the character appears in. (inclusive)
+    min_manga_appearances: u32,
+    /// Maximum number of manga the character appears in. (inclusive)
+    max_manga_appearances: u32,
+    /// Minimum number of anime and manga that lists the character as a [CharacterRole::Main] character (inclusive)
+    min_main_roles: u32,
+    /// Maximum number of anime and manga that lists the character as a [CharacterRole::Main] character (inclusive)
+    max_main_roles: u32,
+    /// Minimum number of anime and manga that lists the character as a [CharacterRole::Supporting] character (inclusive)
+    min_supporting_roles: u32,
+    /// Maximum number of anime and manga that lists the character as a [CharacterRole::Supporting] character (inclusive)
+    max_supporting_roles: u32,
+    /// Minimum number of languages the character has a credited voice actor in. (inclusive)
+    min_voice_languages: u32,
+    /// Maximum number of languages the character has a credited voice actor in. (inclusive)
+    max_voice_languages: u32,
+    /// Minimum number of credited voice actors the character has across all languages. (inclusive)
+    min_voice_actors: u32,
+    /// Maximum number of credited voice actors the character has across all languages. (inclusive)
+    max_voice_actors: u32,
+    *custom:sfw:SfwQuery,
+    /// How to sort the character list
+    order_by: CharacterOrder,
+    /// Order in which to sort.
+    sort: SortDirection,
+    *custom:page:PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    given_name: "Given name is too long": (|q: &String| q.len() > 100),
+    family_name: "Family name is too long": (|q: &String| q.len() > 100),
+    season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+
+    /vl/ season_year:25,
+    /v/  voice_actors:1,
+    /vl/ voice_actors:25,
 });
+query_extension!(Character, Sfw);
+query_extension!(Character, Page);
 
 query!(People {
     /// The name of the person to search for
