@@ -295,7 +295,7 @@ macro_rules! query {
 /// This involves implementing the helper trait where specified.
 ///
 /// # Usage
-/// ```
+/// ```ignore
 /// query_extension!(Anime, Sfw, {
 ///     sfw: bool,
 ///     sfw_strict: bool,

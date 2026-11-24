@@ -13,6 +13,11 @@ use crate::{generic_type, schemas::anime::User};
 ///
 /// Most of the time, this will be returned from the API. However it is possible to create the struct to use in query parameters
 /// ```
+/// use tenrai::schemas::{
+/// 	query::AnimeQuery,
+/// 	common::Date,
+/// };
+///
 /// let query = AnimeQuery::builder()
 ///     .added_after(Date::from("2020-05"))
 ///     .build();
@@ -29,6 +34,8 @@ impl Date {
     ///
     /// # Example
     /// ```
+    /// use tenrai::schemas::common::Date;
+    ///
     /// Date::new(2020, 05, None); // New date using 2020-05 as base.
     /// ```
     pub fn new(
@@ -574,11 +581,19 @@ pub enum Language {
 /// - [Nulls::Last] when [SortDirection::Descending]
 /// # Example
 /// ```
+/// use tenrai::schemas::{
+/// 	query::AnimeQuery,
+/// 	anime::OrderBy,
+/// 	common::Nulls,
+/// };
+///
 /// /// Leaves out entries without an end-date.
-/// fn null_exclude() {
+/// fn null_exclude() -> AnimeQuery {
 ///     AnimeQuery::builder()
 ///         .order_by(OrderBy::EndDate)
 ///         .nulls(Nulls::Exclude)
+/// 		.build()
+/// 		.unwrap()
 /// }
 /// ```
 #[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
