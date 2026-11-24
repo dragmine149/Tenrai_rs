@@ -127,10 +127,24 @@ pub struct MangaSerialization {
 #[strum(serialize_all = "snake_case")]
 /// How to order the people list
 pub enum PeopleOrder {
+    /// ID on Mal
     MalId,
+    /// Name
     Name,
+    /// Birthday
     Birthday,
+    /// Favorites
     Favorites,
+    /// Number of anime the person is credited in.
+    AnimeCredits,
+    /// Number of characters the person voiced.
+    VoiceRoles,
+    /// Number of manga the person is credited as an author of.
+    MangaCredits,
+    /// Start year of the earliest credited anime/manga. People without credits or have no start date come last.
+    Debut,
+    /// Start year of the latest credited anime or manga. People without credits or have no start date come last.
+    LastCredit,
 }
 
 /// Detailed information about a person
@@ -183,4 +197,87 @@ pub struct VoiceConnection {
     pub anime: Entry,
     pub character: Entry,
     pub role: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum AnimeCreditRole {
+    Voice,
+    Staff,
+    Author,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum StaffPosition {
+    Director,
+    CoDirector,
+    AssistantDirector,
+    EpisodeDirector,
+    Storyboard,
+    SeriesComposition,
+    Script,
+    ScreenPlay,
+    OriginalCreator,
+    Creator,
+    Planning,
+    Producer,
+    ExecutiveProducer,
+    ChiefProducer,
+    CoProducer,
+    AssociateProducer,
+    AssistantProducer,
+    PlanningProducer,
+    ProductionManager,
+    ProductionAssistant,
+    ProductionCoordination,
+    AssistantProductionCoordinator,
+    SeriesProductionDirector,
+    Publicity,
+    CastingDirector,
+    AssociateCastingDirector,
+    CharacterDesign,
+    OriginalCharacterDesign,
+    MechanicalDesign,
+    ChiefAnimationDirector,
+    AnimationDirector,
+    AssistantAnimationDrector,
+    KeyAnimation,
+    #[strum(serialize = "2nd_key_animation")]
+    SecondKeyAnimation,
+    InBetweenAnimation,
+    AnimationCheck,
+    Layout,
+    PrincipleDrawing,
+    ArtDirector,
+    BackgroundArt,
+    ColorDesign,
+    ColorSetting,
+    DigitalPaint,
+    SpecialEffects,
+    DirectorOfPohotograph,
+    Editing,
+    OnlineEditor,
+    OnlineEditingSupervision,
+    Setting,
+    SettingManager,
+    Spotting,
+    Music,
+    SoundDirector,
+    SoundEffects,
+    SoundManager,
+    SoundSupervisor,
+    Recording,
+    RecordingEngineer,
+    RecordingAssistant,
+    AssistantEngineer,
+    ReRecordingMixing,
+    DialogueEditing,
+    AdrDirector,
+    PostProductionAssistant,
+    ThemeSongPerformance,
+    ThemeSongComposition,
+    ThemeSongLyrics,
+    ThemeSongArrangement,
+    InsertedSongPerformance,
 }

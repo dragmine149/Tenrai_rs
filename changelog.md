@@ -7,6 +7,7 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Updated API** to `v1.0.{insert ver here}`
 	- See [API Changelog](https://api.tenrai.org/changelog) for more details.
 - **Updated** a bunch of documentation.
+	- **Added** testing for documentation.
 - **Updated** dependencies.
 	- Nothing actually needed updating, however i have reduced the pinning back to `X.Y` instead of `X.Y.Z` for all of them.
 	- Also added comments so those reading it know which dependencies are for what.

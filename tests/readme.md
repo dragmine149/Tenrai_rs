@@ -24,12 +24,9 @@ The ignored ones are as follows:
 
 If you use to include the paginator versions but not server keys, then this command might be useful
 ```sh
-cargo test -- --skip _paginator
+cargo test --features=test -- --skip _paginator
 ```
-Personally, i also recommend adding the rate feature just to smoothen out results
-```sh
-cargo test --features=rate -- --skip _paginator
-```
+As much as the `test` feature is optional. It has been made for tests. Tests shouldn't break without it.
 
 # Server Keys
 Using server keys whilst testing is possible. When compiling the tests, make an env variable called `server_key` with the related server-key. All tests will then use this key.

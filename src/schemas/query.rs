@@ -37,7 +37,10 @@ use crate::{
         companies::ProducerOrder,
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
-        people::{CharacterOrder, CharacterRole, MangaAuthorRole, PeopleOrder},
+        people::{
+            AnimeCreditRole, CharacterOrder, CharacterRole, MangaAuthorRole, PeopleOrder,
+            StaffPosition,
+        },
         query_vec,
         reviews::{ReviewOrder, ReviewReactionEnum, ReviewSort, Sentiment},
         schedules::ScheduleDayFilter,
@@ -870,6 +873,12 @@ query!(Character {
     /vl/ season_year:25,
     /v/  voice_actors:1,
     /vl/ voice_actors:25,
+    /v/  anime:1,
+    /vl/ anime:25,
+    /v/  manga:1,
+    /vl/ manga:25,
+    /v/  season_year:1,
+    /vl/ season_year:25,
 });
 query_extension!(Character, Sfw);
 query_extension!(Character, Page);
@@ -877,25 +886,283 @@ query_extension!(Character, Page);
 query!(People {
     /// The name of the person to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
+    /// Only People whose name start with this letter
+    letter: char,
+    /// Only match people with this given name. Matches the whole name ignoring case. If only one name listed will be the given name.
+    given_name: String,
+    /// Only match people with this family name. Matches the whole name ignoring case.
+    family_name: String,
+    /// Include people with a birthday listed.
+    has_birtday: bool,
+    /// Include people with an image. MAL placheolder image counts as not having an image.
+    has_image: bool,
+    /// Include people with about text.
+    has_about: bool,
+    /// Include people with their own personal website.
+    has_website: bool,
+    /// Include people with alternative names.
+    has_alternative_name: bool,
+    /// Include people with a family name.
+    has_family_name: bool,
+    /// Only people credited in any of these anime. With [PeopleQuery::voice_language], the voice credit must be in the same anime.
+    anime: Vec<u32>: query_vec,
+    /// Only people credited as an author of these manga.
+    manga: Vec<u32>: query_vec,
+    /// Only people who voice any of these characters.
+    /// - With [PeopleQuery::voice_language], they must have voiced the character in that language.
+    /// - With [PeopleQuery::anime], [PeopleQuery::season] or [PeopleQuery::season_year]. This must have also voiced in that anime/season/year
+    characters: Vec<u32>: query_vec,
+    /// Only people with any selected kind of credit.
+    /// With
+    /// [anime](PeopleQuery::anime),
+    /// [season](PeopleQuery::season),
+    /// [season_year](PeopleQuery::season_year),
+    /// [producers](PeopleQuery::producers),
+    /// [anime_type](PeopleQuery::anime_type),
+    /// [source](PeopleQuery::source),
+    /// [active_after](PeopleQuery::active_after),
+    /// [active_before](PeopleQuery::active_before),
+    /// [airing](PeopleQuery::airing)=[true] or
+    /// [upcoming](PeopleQuery::upcoming)=[true],
+    /// a voice or staff credit is on one anime that meets all of them; without them, on any anime.
+    credit: Vec<AnimeCreditRole>: query_vec,
+    /// Exclude people with any selected kind of credit.
+    /// With
+    /// [anime](PeopleQuery::anime),
+    /// [season](PeopleQuery::season),
+    /// [season_year](PeopleQuery::season_year),
+    /// [producers](PeopleQuery::producers),
+    /// [anime_type](PeopleQuery::anime_type),
+    /// [source](PeopleQuery::source),
+    /// [active_after](PeopleQuery::active_after),
+    /// [active_before](PeopleQuery::active_before),
+    /// [airing](PeopleQuery::airing)=[true] or
+    /// [upcoming](PeopleQuery::upcoming)=[true],
+    /// a voice or staff credit is on one anime that meets all of them; without them, on any anime.
+    credit_exclude: Vec<AnimeCreditRole>: query_vec,
+    /// Only people MAL credits with any selected job.
+    /// With
+    /// [anime](PeopleQuery::anime),
+    /// [season](PeopleQuery::season),
+    /// [season_year](PeopleQuery::season_year),
+    /// [producers](PeopleQuery::producers),
+    /// [anime_type](PeopleQuery::anime_type),
+    /// [source](PeopleQuery::source),
+    /// [active_after](PeopleQuery::active_after),
+    /// [active_before](PeopleQuery::active_before),
+    /// [airing](PeopleQuery::airing)=[true] or
+    /// [upcoming](PeopleQuery::upcoming)=[true],
+    /// the job is on one anime that meets all of them. Without them on any anime.
+    position: Vec<StaffPosition>: query_vec,
+    /// Exclude people MAL credits with any selected job.
+    /// With
+    /// [anime](PeopleQuery::anime),
+    /// [season](PeopleQuery::season),
+    /// [season_year](PeopleQuery::season_year),
+    /// [producers](PeopleQuery::producers),
+    /// [anime_type](PeopleQuery::anime_type),
+    /// [source](PeopleQuery::source),
+    /// [active_after](PeopleQuery::active_after),
+    /// [active_before](PeopleQuery::active_before),
+    /// [airing](PeopleQuery::airing)=[true] or
+    /// [upcoming](PeopleQuery::upcoming)=[true],
+    /// the job is on one anime that meets all of them. Without them on any anime.
+    position_exclude: Vec<StaffPosition>: query_vec,
+    /// Only people with this author role.
+    author_role: MangaAuthorRole,
+    /// Only people credited in titles with every selected genre, theme or demographic ID: each in at least one of their anime, or each in at least one of their manga.
+    genres: Vec<u32>:query_vec,
+    /// Exclude people credited in any anime or manga with any of these genre, theme or demographic IDs
+    genres_exclude: Vec<u32>:query_vec,
+    /// Only people credited as staff or voice actors in an anime the lists any selected company.
+    #[doc(alias = "companies")]
+    producers: Vec<u32>: query_vec,
+    /// Only people credited as an author of a manga serialized in any of these magazines.
+    magazines: Vec<u32>: query_vec,
+    /// Only people credited in an anime of any selected type as a staff or voice actor.
+    anime_type: Vec<AnimeType>: query_vec,
+    /// Only people credited in a manga of any selected type as the author.
+    manga_type: Vec<MangaType>: query_vec,
+    /// Only people credited in an anime adapted from any selected source material, as staff or voice actor.
+    source: Vec<AnimeSource>: query_vec,
+    /// Only people credited in an anime of any selected MAL debut season, as staff or as a voice actor. With [PeopleQuery::season_year], must be the same anime in the same year.
+    season: Vec<Season>:query_vec,
+    /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+    season_year: Vec<u32>:query_vec,
+    /// Filter by people credited in at least one currently airing anime.
+    airing: bool,
+    /// Filter by people credited in at least one not year aired anime.
+    upcoming: bool,
+    /// Filter by people credited in at least one currently publishing manga.
+    publishing: bool,
+    /// Only people credited as a voice actor for any of these languages.
+    ///
+    /// With [PeopleQuery::season], [PeopleQuery::season_year], [PeopleQuery::anime] or [PeopleQuery::characters], that same credit must be in the one of the given seasons/anime/year/character.
+    ///
+    /// The role counts (
+    /// [PeopleQuery::min_voice_roles],
+    /// [PeopleQuery::max_voice_roles],
+    /// [PeopleQuery::min_main_voice_roles],
+    /// [PeopleQuery::max_main_voice_roles],
+    /// [PeopleQuery::min_supporting_voice_roles],
+    /// [PeopleQuery::max_supporting_voice_roles],
+    /// [PeopleQuery::order_by]=voice_roles)
+    /// then count only roles in these languages.
+    voice_language: Vec<Language>:query_vec,
+    /// Exclude people credited as a voice actor for any of these languages.
+    ///
+    /// With [PeopleQuery::season], [PeopleQuery::season_year], [PeopleQuery::anime] or [PeopleQuery::characters], only a credit in an anime of that season, in one of those anime and of one of those characters, for each of them given
+    voice_language_exclude: Vec<Language>:query_vec,
+    /// Only people credited in an anime or manga that started in this year or later.
+    /// The same anime/manga must also match [PeopleQuery::active_before] if present.
+    active_after: u32,
+    /// Only people credited in an anime or manga that started in this year or later.
+    /// The same anime/manga must also match [PeopleQuery::active_after] if present.
+    active_before: u32,
+    /// Only people whose earliest credited anime/manga started this year or later.
+    debut_after: u32,
+    /// Only people whose latest credited anime/manga started this year or earlier. Anime/manga not yet started will use their planned year.
+    last_credit_before: u32,
+    /// Only people with this favourite count or higher
+    min_favorites: u32,
+    /// Only people with this favourite count or lower
+    max_favorites: u32,
+    /// Minimum number of anime the person is credited in, as staff or voice actor. (inclusive)
+    ///
+    /// With
+    /// [PeopleQuery::anime],
+    /// [PeopleQuery::season],
+    /// [PeopleQuery::season_year],
+    /// [PeopleQuery::source],
+    /// [PeopleQuery::producers],
+    /// [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before],
+    /// [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only anime that meet all of them count.
+    min_anime_credits: u32,
+    /// Maximum number of anime the person is credited in, as staff or voice actor. (inclusive)
+    ///
+    /// With
+    /// [PeopleQuery::anime],
+    /// [PeopleQuery::season],
+    /// [PeopleQuery::season_year],
+    /// [PeopleQuery::source],
+    /// [PeopleQuery::producers],
+    /// [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before],
+    /// [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only anime that meet all of them count.
+    max_anime_credits: u32,
+    /// Minimum number of manga the person is credited as an author of. (inclusive)
+    min_manga_credits: u32,
+    /// Maximum number of manga the person is credited as an author of. (inclusive)
+    max_manga_credits: u32,
+    /// Minimum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    min_voice_roles: u32,
+    /// Maximum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    max_voice_roles: u32,
+    /// Minimum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    min_main_voice_roles: u32,
+    /// Maximum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    max_main_voice_roles: u32,
+    /// Minimum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    min_supporting_voice_roles: u32,
+    /// Maximum number of characters the person voiced (inclusive).
+    ///
+    /// With [PeopleQuery::voice_language], only roles in that language count.
+    ///
+    /// With [PeopleQuery::anime], [PeopleQuery::season],
+    /// [PeopleQuery::season_year], [PeopleQuery::anime_type],
+    /// [PeopleQuery::producers], [PeopleQuery::active_after],
+    /// [PeopleQuery::active_before], [PeopleQuery::airing]=true,
+    /// [PeopleQuery::upcoming]=true.
+    /// Only roles in anime that meet all of them count.
+    max_supporting_voice_roles: u32,
+    /// Minimum number of languages the person is credited as a voice actor in. (inclusive)
+    min_voice_languages: u32,
+    /// Maximum number of languages the person is credited as a voice actor in. (inclusive)
+    max_voice_languages: u32,
+
+    *custom:sfw:SfwQuery,
     /// How to sort the people list
     order_by: PeopleOrder,
     /// Order in which to sort.
     sort: SortDirection,
-    /// Only people whose name start with this letter
-    letter: char,
-    /// Only entries with this favourite count or higher
-    min_favorites: u32,
-    /// Only entries with this favourite count or lower
-    max_favorites: u32,
+
+    *custom:page: PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    given_name: "Given name is too long": (|q: &String| q.len() > 100),
+    family_name: "Family name is too long": (|q: &String| q.len() > 100),
+    season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+    author_role: "Role cannot be both": (|r: &MangaAuthorRole| *r == MangaAuthorRole::Both),
+    active_after: "Active After year must be between 1 (inclusive) and 9999 (inclusive)": (|aa: &u32| *aa < 1 || *aa > 9999),
+    active_before: "Active Before year must be between 1 (inclusive) and 9999 (inclusive)": (|aa: &u32| *aa < 1 || *aa > 9999),
+    debut_after: "Debut After year must be between 1 (inclusive) and 9999 (inclusive)": (|aa: &u32| *aa < 1 || *aa > 9999),
+    last_credit_before: "Last Credit Before year must be between 1 (inclusive) and 9999 (inclusive)": (|aa: &u32| *aa < 1 || *aa > 9999),
+
+    /v/  anime:1,
+    /vl/ anime:25,
+    /v/  manga:1,
+    /vl/ manga:25,
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  producers:1,
+    /vl/ producers:25,
+    /v/  magazines:1,
+    /vl/ magazines:25,
+    /vl/ season_year:25,
 });
+
+query_extension!(People, Sfw);
+query_extension!(People, Page);
 
 query!(Producer {
     /// The name of the producer to search for

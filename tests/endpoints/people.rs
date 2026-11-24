@@ -1,7 +1,7 @@
 use crate::{TestBuilder, TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::query::{ArticleQuery, PeopleQuery, SfwQuery},
+    schemas::query::{ArticleQuery, PageQueryHelper, PeopleQuery, SfwQuery},
 };
 
 TestPaginator!(
