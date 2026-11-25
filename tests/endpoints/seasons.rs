@@ -1,7 +1,7 @@
 use crate::{TestBuilder, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::{common::Season, query::SeasonalQuery},
+    schemas::{anime::AnimeStatus, common::Season, filter::SeasonOrder, query::SeasonalQuery},
 };
 
 TestBuilder!(
@@ -37,3 +37,38 @@ TestBuilder!(
         )
         .await)
 );
+
+TestBuilder!(
+    seasonal_order_30d,
+    (async |client: &TenraiAPI, _| client
+        .seasonal_anime_current(
+            SeasonalQuery::builder()
+                .order_by(vec![SeasonOrder::ScoreChange30d])
+                .build()
+                .unwrap()
+        )
+        .await)
+);
+
+#[tokio::test]
+async fn test_seasonal_upcoming_status() {
+    let client = build_client();
+    client
+        .seasonal_anime_upcoming(
+            SeasonalQuery::builder()
+                .status(vec![AnimeStatus::Airing])
+                .build()
+                .unwrap(),
+        )
+        .await
+        .expect_err("This should not be allowed");
+    client
+        .seasonal_anime_upcoming(
+            SeasonalQuery::builder()
+                .status_exclude(vec![AnimeStatus::Airing])
+                .build()
+                .unwrap(),
+        )
+        .await
+        .expect_err("This should not be allowed");
+}

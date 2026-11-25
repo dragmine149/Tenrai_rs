@@ -27,6 +27,7 @@ impl TenraiAPI {
             .await?
             .result_paginator()?)
     }
+
     /// Get the current season's anime
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/seasons/GET/seasons/now>
@@ -58,6 +59,17 @@ impl TenraiAPI {
         &self,
         query: SeasonalQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Anime>> {
+        if query.status().is_some() {
+            return Err(crate::errors::TenraiError::Custom(
+                "anime_upcoming does not accept the `status` parameter",
+            ));
+        }
+        if query.status_exclude().is_some() {
+            return Err(crate::errors::TenraiError::Custom(
+                "anime_upcoming does not accept the `status_exclude` parameter",
+            ));
+        }
+
         Ok(self
             .request(format!("seasons/upcoming{query}"))
             .await?

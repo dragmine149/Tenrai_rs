@@ -11,15 +11,42 @@ use strum_macros::Display;
 #[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum SeasonOrder {
+    /// Score
     Score,
+    /// Members,
     Members,
+    /// Start date
     StartDate,
+    /// MAL ID
     MalId,
+    /// Number of episodes
     Episodes,
+    /// Favorites
     Favorites,
+    /// End date
     EndDate,
+    /// Number of users who scored it
     ScoredBy,
+    /// Title
     Title,
+    /// English title
+    TitleEnglish,
+    /// Japanese title
+    TitleJapanese,
+    /// Rank
+    Rank,
+    /// Popularity rank
+    Popularity,
+    /// Date MAL added it, newest first with sort=desc; approved anime only, even with unapproved
+    Added,
+    /// Change in MAL score over 30 days
+    #[strum(serialize = "score_change_30d")]
+    ScoreChange30d,
+    /// Standard deviation of user scores; higher means more disagreement
+    ScoreSpread,
+    /// Net change in members over 7 days
+    #[strum(serialize = "members_gained_7d")]
+    MembersGained7d,
 }
 
 /// Conjoint year and season.

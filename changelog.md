@@ -32,7 +32,6 @@ This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0
 - **Renamed:** *(and aliasesed)*
 	- `ProducerQuery*` to `CompanyQuery*`
 	- `ProducerOrder` to `CompanyOrder`
-	- *Note that new `Company*` items don't have a `Producer*` alias*
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

@@ -1256,6 +1256,122 @@ Company {
 query_extension!(Company, Sfw);
 query_extension!(Company, Page);
 
+query!(Seasonal {
+    /// Only include anime of any of the selected types.
+    filter: Vec<AnimeType>: query_vec,
+    /// Exclude anime with any selected type
+    filter_exclude: Vec<AnimeType>: query_vec,
+    /// Only include anime of any selected status.
+    status: Vec<AnimeStatus>: query_vec,
+    /// Exclude anime of any selected status.
+    status_exclude: Vec<AnimeStatus>: query_vec,
+    /// Only anime with any selected age rating
+    rating: Vec<AgeRating>: query_vec,
+    /// Exclude anime with any selected age rating
+    rating_exclude: Vec<AgeRating>: query_vec,
+    /// Only anime with any selected source material
+    source: Vec<AnimeSource>: query_vec,
+    /// Exclude anime with any selected source material
+    source_exclude: Vec<AnimeSource>: query_vec,
+    /// Filter by a main trailer ID or URL. Playback availability is not checked.
+    has_trailer: bool,
+    /// Only anime with a streaming link from any of these providers, e.g. Crunchyroll, Netflix or HIDIVE.
+    /// Names ignore capitalization, spacing and common spelling variants. Links are not checked for current availability or region.
+    streaming_service: Vec<String>:query_vec,
+    /// Filter recorded MyAnimeList relations:
+    /// - [OnlyBool::True] includes entries with or without relations
+    /// - [OnlyBool::False] returns entries with no recorded relations
+    /// - [OnlyBool::Only] returns entries with at least one recorded relation.
+    ///
+    /// Includes anime and manga relations.
+    has_relations: OnlyBool,
+    /// Only include anime that is of any selected genre.
+    genres: Vec<u32>:query_vec,
+    /// Exclude anime that is of any selected genre.
+    genres_exclude: Vec<u32>:query_vec,
+    /// Only include anime that has any selected company credited.
+    #[doc(alias = "producers")]
+    companies: Vec<u32>: (|_, v| query_vec("producers", v)),
+    /// Ezclude anime that has any selected company credited.
+    #[doc(alias = "producers_exclude")]
+    companies_exclude: Vec<u32>: (|_, v| query_vec("producers_exclude", v)),
+    /// Only include anime that has any of these staff credited.
+    staff: Vec<u32>: query_vec,
+    /// Only include anime that has any of these characters listed.
+    characters: Vec<u32>: query_vec,
+    /// Only count the characters in characters when MAL lists them in this role. Requires [SeasonalQuery::characters].
+    character_role: CharacterRole,
+    /// Filter by recorded voice-actor MAL person IDs. Multiple IDs match any selected person.
+    voice_actors: Vec<u32>:query_vec,
+    /// Only anime with a voice cast credited in any of these languages, e.g. an English dub. When used with voice_actors, a selected voice actor must be credited in that language. A credited dub doesn't mean it can be streamed.
+    voice_language: Vec<Language>:query_vec,
+    /// Exclude entries that have any of the selected ids
+    exclude_ids: Vec<u32>: query_vec,
+    *custom:score:ScoreQuery,
+    /// Minimum number of available reviews including all types. Not a complete total. 0/NA = no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews including all types. Not a complete total. 0 returns entries with no reviews.
+    max_reviews: u32,
+    /// Only entries with this member count or higher
+    min_members: u32,
+    /// Only entries with this member count or lower
+    max_members: u32,
+    /// Only entries with this episode count or higher
+    min_favorites: u32,
+    /// Only entries with this episode count or lower
+    max_favorites: u32,
+    /// Only entries with this episode count or higher
+    min_episodes: u32,
+    /// Only entries with this episode count or lower
+    max_episodes: u32,
+    /// Filter by the day of the week the anime airs in Japan (JST). Multiple days match any selected day. other matches anime that MAL lists without a regular day. Anime without a recorded broadcast day never match. today and tomorrow follow the date in Japan, so they move on at midnight Japan time (15:00 UTC).
+    broadcast_day: Vec<ScheduleDayFilter>:query_vec,
+    *custom:sfw:SfwQuery,
+    /// Filter out kids entries
+    kids: bool,
+    /// Include TV series continubing from a previous season.
+    ///
+    /// Defaults to [OnlyBool::False]
+    continuing: OnlyBool,
+    /// Also include unapproved entries.
+    unapproved: OnlyBool,
+
+    /// Field to sort the results by
+    order_by: Vec<SeasonOrder>:query_vec,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// Extra filtering for [SeasonalQuery::order_by]. *See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom:page:PageQuery,
+}, {
+    rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+    rating_exclude: "Excluded rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+    broadcast_day: "Can't be \"unknown\".": (|b: &[ScheduleDayFilter]| b.contains(&ScheduleDayFilter::Unknown)),
+
+    /vl/ streaming_service:25,
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /vl/ companies:25,
+    /v/  companies:1,
+    /vl/ companies_exclude:25,
+    /v/  companies_exclude:1,
+    /vl/ staff:25,
+    /v/  staff:1,
+    /vl/ characters:25,
+    /v/  characters:1,
+    /v/  voice_actors:1,
+    /vl/ voice_actors:25,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
+}, {
+    /character_role:characters,
+    /nulls:order_by,
+});
+query_extension!(Seasonal, Score);
+query_extension!(Seasonal, Sfw);
+query_extension!(Seasonal, Page);
+
 query!(Schedule {
     /// Filter by day of week
     filter: ScheduleDayFilter,
@@ -1283,46 +1399,6 @@ query!(Schedule {
     page: "Page must be less than 20k": (|p: &u32| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
-});
-
-query!(Seasonal {
-    /// Filter by media type
-    filter: AnimeType,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Also include unapproved entries.
-    unapproved: OnlyBool,
-    /// Include TV series continubing from a previous series
-    continuing: bool,
-    /// Filter out kids entries
-    kids: bool,
-    /// Field to sort the results by
-    order_by: Vec<SeasonOrder>:query_vec,
-    /// Order in which to sort.
-    sort: SortDirection,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// List of genres to filter by. Use the ID of the genre.
-    genres: Vec<u32>:query_vec,
-    /// List of genres to exclude. Use the ID of the genre.
-    genres_exclude: Vec<u32>:query_vec,
-    /// Only entries with this member count or higher
-    min_members: u32,
-    /// Only entries with this member count or lower
-    max_members: u32,
-    /// Only entries with this episode count or higher
-    min_episodes: u32,
-    /// Only entries with this episode count or lower
-    max_episodes: u32,
-}, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
 
 query!(TopAnime {

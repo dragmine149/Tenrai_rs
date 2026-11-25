@@ -45,6 +45,7 @@ pub struct Company {
 
 #[derive(Debug, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
+#[doc(alias = "ProducerRole")]
 pub enum CompanyRole {
     Studio,
     Producer,
