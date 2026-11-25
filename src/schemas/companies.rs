@@ -5,11 +5,15 @@ use crate::schemas::common::{AlternativeTitle, External, Images};
 
 #[derive(Debug, Serialize, Deserialize, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
-pub enum ProducerOrder {
+#[doc(alias = "ProducerOrder")]
+pub enum CompanyOrder {
     MalId,
+    Name,
     Count,
     Favorites,
     Established,
+    Debut,
+    LastCredit,
 }
 
 /// Information about a producer of an anime
@@ -37,4 +41,12 @@ pub struct Company {
     pub titles: Vec<AlternativeTitle>,
     /// Direct link to the MAL page
     pub url: String,
+}
+
+#[derive(Debug, Display, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[strum(serialize_all = "snake_case")]
+pub enum CompanyRole {
+    Studio,
+    Producer,
+    Licensor,
 }

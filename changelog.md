@@ -3,6 +3,7 @@ Format is `{Crate}(API)` where both are their represetive versions. If `(API)` d
 
 ## 1.3.0 (v1.0.{ver}) **UNRELEASED**
 Skipped many a version because of the query update. Hopefully smoother sailing from here.
+This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0.24)>)
 
 - **Updated API** to `v1.0.{insert ver here}`
 	- See [API Changelog](https://api.tenrai.org/changelog) for more details.
@@ -28,6 +29,10 @@ Skipped many a version because of the query update. Hopefully smoother sailing f
 - **Added** *developer focused* `test` feature.
 - **Added** `db_*` aliases to `_ids` functions.
 	- *Also moved them to a separate `impl`*
+- **Renamed:** *(and aliasesed)*
+	- `ProducerQuery*` to `CompanyQuery*`
+	- `ProducerOrder` to `CompanyOrder`
+	- *Note that new `Company*` items don't have a `Producer*` alias*
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

@@ -2,7 +2,7 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse, TenraiResponse, common::External, companies::Company,
-        query::ProducerQuery,
+        query::CompanyQuery,
     },
 };
 
@@ -14,7 +14,7 @@ impl TenraiAPI {
     #[doc(alias = "producers_search")]
     pub async fn company_search(
         &self,
-        query: ProducerQuery,
+        query: CompanyQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Company>> {
         Ok(self
             .request(format!("producers{query}"))

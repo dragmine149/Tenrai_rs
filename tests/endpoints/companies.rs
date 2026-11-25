@@ -1,11 +1,14 @@
 use crate::{TestBuilder, TestPaginator, build_client};
-use tenrai::{TenraiAPI, schemas::query::ProducerQuery};
+use tenrai::{
+    TenraiAPI,
+    schemas::query::{CompanyQuery, PageQueryHelper},
+};
 TestPaginator!(
     company_search,
     (async |client: &TenraiAPI, page| {
         client
             .company_search(
-                ProducerQuery::builder()
+                CompanyQuery::builder()
                     .page(page)
                     .limit(100_u32)
                     .build()

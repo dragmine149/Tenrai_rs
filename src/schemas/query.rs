@@ -34,7 +34,7 @@ use crate::{
             AgeRating, AppearsIn, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool,
             SearchMode, Season, SortDirection,
         },
-        companies::ProducerOrder,
+        companies::{CompanyOrder, CompanyRole},
         filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::{
@@ -1164,28 +1164,97 @@ query!(People {
 query_extension!(People, Sfw);
 query_extension!(People, Page);
 
-query!(Producer {
-    /// The name of the producer to search for
+query!(
+#[doc(alias = "ProducerQuery")]
+Company {
+    /// The name of the company to search for
     query: String:(|_, v| format!("q={v}")),
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
+    /// Only Companies whose name start with this letter
+    letter: char,
+    /// Only companies credited in an anime of any selected type.
+    anime_type: Vec<AnimeType>: query_vec,
+    /// Only companies credited in an anime adapted from any selected source of media.
+    source: Vec<AnimeSource>:  query_vec,
+    /// Does the company have "about" text.
+    has_about: bool,
+    /// Does the company have an image (placeholder counts as none)
+    has_image: bool,
+    /// Does the company have an established date
+    has_established: bool,
+    /// Has the company been dissolved. NOTE: Some closed companies don't have a dissolved date on MAL.
+    dissolved: bool,
+    /// Only include companies that have produced these genres.
+    genres: Vec<u32>: query_vec,
+    /// Exclude companies that have produced these genres.
+    genres_exclude: Vec<u32>: query_vec,
+    /// Only include companies that have worked on an anime with any of these companies
+    worked_with: Vec<u32>: query_vec,
+    /// Only include companies that are of this role.
+    role: Vec<CompanyRole>: query_vec,
+    /// Has the company been credited in an anime airing now.
+    airing: bool,
+    /// Is the company credited in an anime that has not yet aired.
+    upcoming: bool,
+    /// Only companies with this favourite count or higher
+    min_favorites: u32,
+    /// Only companies with this favourite count or lower
+    max_favorites: u32,
+    /// Minimum number of anime the company is credited in (Inclusive).
+    ///
+    /// With [CompanyQuery::role], only those jobs count.
+    ///
+    /// Anime only count if they also meet [CompanyQuery::anime_type], [CompanyQuery::source],
+    /// [CompanyQuery::genres], [CompanyQuery::season], [CompanyQuery::season_year], [CompanyQuery::active_after],
+    /// [CompanyQuery::active_before], [CompanyQuery::airing] or [CompanyQuery::upcoming].
+    min_anime: u32,
+    /// Maximum number of anime the company is credited in (Inclusive).
+    ///
+    /// With [CompanyQuery::role], only those jobs count.
+    ///
+    /// Anime only count if they also meet [CompanyQuery::anime_type], [CompanyQuery::source],
+    /// [CompanyQuery::genres], [CompanyQuery::season], [CompanyQuery::season_year], [CompanyQuery::active_after],
+    /// [CompanyQuery::active_before], [CompanyQuery::airing] or [CompanyQuery::upcoming].
+    max_anime: u32,
+    /// Only companies credited in an anime that debuted in any of the selected seasons.
+    ///
+    /// With [CompanyQuery::season_year]: any selected season of any selected year in the same anime.
+    season: Vec<Season>: query_vec,
+    /// Only companies credited in an anime that debuted in any provided year.
+    season_year: Vec<u32>: query_vec,
+    /// Only companies credited in an anime or manga that started in this year or later.
+    /// The same anime/manga must also match [CompanyQuery::active_before] if present.
+    active_after: u32,
+    /// Only companies credited in an anime or manga that started in this year or later.
+    /// The same anime/manga must also match [CompanyQuery::active_after] if present.
+    active_before: u32,
+    /// Only companies whose earliest credited anime/manga started this year or later.
+    debut_after: u32,
+    /// Only companies whose latest credited anime/manga started this year or earlier. Anime/manga not yet started will use their planned year.
+    last_credit_before: u32,
+    /// Only companies founded in this year or later.
+    established_after: u32,
+    /// Only companies founded in this year or earlier.
+    established_before: u32,
+    *custom:sfw:SfwQuery,
     /// How to sort the producer list
-    order_by: ProducerOrder,
+    order_by: CompanyOrder,
     /// Order in which to sort.
     sort: SortDirection,
-    /// Only producers whose name start with this letter
-    letter: char,
-    /// Only entries with this favourite count or higher
-    min_favorites: u32,
-    /// Only entries with this favourite count or lower
-    max_favorites: u32,
+    *custom:page:PageQuery,
 }, {
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
+    season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+    established_after: "Must have been established between 1 (inclusive) and 9999 (inclusive)": (|e: &u32| *e < 1 || *e > 9999),
+    established_before: "Must have been established between 1 (inclusive) and 9999 (inclusive)": (|e: &u32| *e < 1 || *e > 9999),
+
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  worked_with:1,
+    /vl/ worked_with: 25,
+    /vl/ season_year:25,
 });
+query_extension!(Company, Sfw);
+query_extension!(Company, Page);
 
 query!(Schedule {
     /// Filter by day of week
