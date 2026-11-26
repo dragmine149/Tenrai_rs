@@ -124,12 +124,14 @@ impl TenraiAPI {
         let url = format!("https://api.tenrai.org/v1/{endpoint}");
         #[cfg(feature = "log")]
         log::debug!("Fetching URL: {url}");
+        let skip_cache = url.contains("exclude_ids");
         let request = self.client.get(url).headers(self.build_headers());
         #[cfg(feature = "rate")]
         let delay = match self.server_key {
             Some(_) => Duration::from_millis(200),
             None => Duration::from_millis(500),
         };
+        let cache = self.cache.is_zero() && !skip_cache;
 
         loop {
             #[cfg(feature = "rate")]
@@ -142,7 +144,7 @@ impl TenraiAPI {
             let request = request
                 .try_clone()
                 .expect("We should not be sending a stream");
-            let request = if !self.cache.is_zero() {
+            let request = if cache {
                 match request.try_cache_json(self.cache) {
                     Ok(c) => return Ok(c),
                     Err(e) => e,
@@ -171,7 +173,7 @@ impl TenraiAPI {
                 continue;
             }
 
-            break match self.cache.is_zero() {
+            break match cache {
                 true => Ok(response.json().await?),
                 false => Ok(response.cache_json(self.cache).await?),
             };

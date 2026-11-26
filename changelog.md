@@ -38,6 +38,7 @@ This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0
 	- `TypeSfwPageQuery` to `TopRecommendationsQuery` (not aliased as it makes more sense this way.)
 - **Added** `new` function to `*QueryBuilder`, which is just a reference to the `default` function.
 - **Changed** `RegionalRestrictions` from a struct into an enum.
+- **Added** ability for `exclude_ids` urls to skip the cache.
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

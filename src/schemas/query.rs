@@ -118,10 +118,8 @@ query!(
         /// Maximum MAL ID (inclusive)
         max_id: u32,
         /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
-        // TODO: Don't cache.
         ids: Vec<u32>:query_vec,
         /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
-        // TODO: Don't cache.
         exclude_ids: Vec<u32>:query_vec,
     }, {
         /il/ min_id:1,
@@ -1430,7 +1428,6 @@ query!(Schedule {
     /// List of genres to exclude. Use the ID of the genre.
     genres_exclude: Vec<u32>:query_vec,
     /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
-    // TODO: Don't cache.
     exclude_ids: Vec<u32>:query_vec,
     *custom:sfw:SfwQuery,
     /// Filter out kids entries
@@ -1497,7 +1494,6 @@ query!(TopAnime {
     genres_exclude: Vec<u32>:query_vec,
 
     /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
-    // TODO: Don't cache.
     exclude_ids: Vec<u32>:query_vec,
 
     *custom:no_score:NoScoreQuery,
@@ -1578,7 +1574,6 @@ query!(TopManga {
     /// Manga that MAL lists without both a writer and artist match neither"]
     solo_author:bool,
     /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
-    // TODO: Don't cache.
     exclude_ids: Vec<u32>:query_vec,
 
     *custom:no_score:NoScoreQuery,

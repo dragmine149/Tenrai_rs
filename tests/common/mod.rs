@@ -1,10 +1,12 @@
 //! Tests related to various utils aspects. Kinda not meant to be testing one specific endpoint.
 
+use std::{fs::OpenOptions, io::Read, time::Duration};
+
 use crate::build_client;
 use tenrai::schemas::{
     anime::AnimeType,
     common::AgeRating,
-    query::{AnimeQuery, ScoreQuery, SfwQueryHelper, YearQueryHelper},
+    query::{AnimeQuery, IdsQueryHelper, ScoreQuery, SfwQueryHelper, YearQueryHelper},
 };
 
 /// Test to see if the error response works.
@@ -204,4 +206,32 @@ fn score_query_test() {
         .max_score(-1.24)
         .build()
         .expect_err("This should fail");
+}
+
+#[tokio::test]
+async fn test_exclude_ids() {
+    let mut client = build_client();
+    client.cache = Duration::from_hours(24);
+    _ = client
+        .anime_search(
+            AnimeQuery::builder()
+                .exclude_ids(vec![34126])
+                .build()
+                .expect("The builder should not fail"),
+        )
+        .await
+        .expect("This should not error");
+
+    let cache_file = dirs::cache_dir()
+        .expect("Failed to get cache dir")
+        .join(env!("CARGO_PKG_NAME"))
+        .join("map.csv");
+    let mut buf = String::new();
+    OpenOptions::new()
+        .read(true)
+        .open(cache_file)
+        .expect("File should exist")
+        .read_to_string(&mut buf)
+        .unwrap();
+    assert!(buf.lines().last().unwrap().contains("34126"));
 }
