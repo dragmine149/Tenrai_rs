@@ -16,8 +16,9 @@ use tenrai::{
             CharacterQueryBuilder, CompanyQuery, CompanyQueryBuilder, EpisodeQuery,
             EpisodeQueryBuilder, IdsQueryHelper, MangaQuery, MangaQueryBuilder, NewsArticleQuery,
             NewsArticleQueryBuilder, PeopleQuery, PeopleQueryBuilder, ReviewQuery,
-            ReviewQueryBuilder, ScoreQueryHelper, SeasonalQuery, SeasonalQueryBuilder,
-            SfwQueryHelper, StackQuery, StackQueryBuilder, YearQueryHelper,
+            ReviewQueryBuilder, ScheduleQuery, ScheduleQueryBuilder, ScoreQueryHelper,
+            SeasonalQuery, SeasonalQueryBuilder, SfwQueryHelper, StackQuery, StackQueryBuilder,
+            YearQueryHelper,
         },
         reviews::{Review, ReviewReactionEnum, Sentiment},
         schedules::ScheduleDayFilter,
@@ -407,5 +408,29 @@ TestQuery!(
         min_episodes:(|builder: &mut SeasonalQueryBuilder, rng: &mut ThreadRng| {builder.min_episodes(rng.random::<u8>());}),
         max_episodes:(|builder: &mut SeasonalQueryBuilder, rng: &mut ThreadRng| {builder.max_episodes(rng.random::<u8>());}),
         broadcast_day: (|builder: &mut SeasonalQueryBuilder, _| {builder.broadcast_day(vec![ScheduleDayFilter::Wednesday]);}),
+    }
+);
+
+TestQuery!(
+    anime_schedule, ScheduleQuery,
+    (async |client: &TenraiAPI, query: ScheduleQuery| client.schedules(query).await),
+    (|res: TenraiPaginatorResponse<Anime>| res.pagination.items.unwrap().total),
+    {
+        filter: (|builder: &mut ScheduleQueryBuilder, _| {builder.filter(ScheduleDayFilter::Tomorrow);}),
+        anime_type:(|builder: &mut ScheduleQueryBuilder, _| {builder.anime_type(vec![AnimeType::Movie]);}),
+        anime_type_exclude:(|builder: &mut ScheduleQueryBuilder, _| {builder.anime_type_exclude(vec![AnimeType::Tv]);}),
+        status:(|builder: &mut ScheduleQueryBuilder, _| {builder.status(vec![AnimeStatus::Upcoming]);}),
+        status_exclude:(|builder: &mut ScheduleQueryBuilder, _| {builder.status_exclude(vec![AnimeStatus::Airing]);}),
+        rating:(|builder: &mut ScheduleQueryBuilder, _| {builder.rating(vec![AgeRating::Rx]);}),
+        rating_exclude:(|builder: &mut ScheduleQueryBuilder, _| {builder.rating_exclude(vec![AgeRating::Pg]);}),
+        source:(|builder: &mut ScheduleQueryBuilder, _| {builder.source(vec![AnimeSource::Original]);}),
+        source_exclude:(|builder: &mut ScheduleQueryBuilder, _| {builder.source_exclude(vec![AnimeSource::LightNovel]);}),
+        streaming_service: (|builder: &mut ScheduleQueryBuilder, _| {builder.streaming_service(vec!{"Cr".to_string()});}),
+        genres:(|builder: &mut ScheduleQueryBuilder, _| {builder.genres(vec![2]);}),
+        genres_exclude:(|builder: &mut ScheduleQueryBuilder, _| {builder.genres_exclude(vec![4]);}),
+        voice_language:(|builder: &mut ScheduleQueryBuilder, _| {builder.voice_language(vec![Language::English]);}),
+        // exclude_ids:(|builder: &mut ScheduleQueryBuilder, _| {builder.exclude_ids(vec![6547]);}),
+        kids:(|builder: &mut ScheduleQueryBuilder, _| {builder.kids(true);}),
+        // unapproved:(|builder: &mut ScheduleQueryBuilder, _| {builder.unapproved(true);}),
     }
 );

@@ -43,7 +43,7 @@ TestBuilder!(
     (async |client: &TenraiAPI, _| client
         .seasonal_anime_current(
             SeasonalQuery::builder()
-                .order_by(vec![SeasonOrder::ScoreChange30d])
+                .order_by(SeasonOrder::ScoreChange30d)
                 .build()
                 .unwrap()
         )

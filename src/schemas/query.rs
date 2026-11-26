@@ -43,7 +43,7 @@ use crate::{
         },
         query_vec,
         reviews::{ReviewOrder, ReviewReactionEnum, ReviewSort, Sentiment},
-        schedules::ScheduleDayFilter,
+        schedules::{ScheduleDayFilter, ScheduleOrder},
         stacks::StackOrder,
     },
 };
@@ -124,6 +124,8 @@ query!(
         /il/ max_id:1,
         /vl/ ids:1000,
         /v/  ids:1,
+        /v/  exclude_ids:1,
+        /vl/ exclude_ids:1000,
     }
 );
 
@@ -1337,7 +1339,7 @@ query!(Seasonal {
     unapproved: OnlyBool,
 
     /// Field to sort the results by
-    order_by: Vec<SeasonOrder>:query_vec,
+    order_by: SeasonOrder,
     /// Order in which to sort.
     sort: SortDirection,
     /// Extra filtering for [SeasonalQuery::order_by]. *See [Nulls] for more information*
@@ -1375,31 +1377,66 @@ query_extension!(Seasonal, Page);
 query!(Schedule {
     /// Filter by day of week
     filter: ScheduleDayFilter,
-    /// Filter out kids entries
-    kids: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Include unapproved entries
-    unapproved: OnlyBool,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter by anime type. Multiple types can be selected.
+
+    /// Only entries with any selected type. Multiple values match any selected type.
     anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
-    /// Filter by age rating. Multiple ratings can be selected.
+    /// Exclude entries with any selected type. Multiple values exclude any selected type.
+    anime_type_exclude: Vec<AnimeType>:(|_, v| query_vec("type_exclude", v)),
+
+    /// Only entries with any selected status. Multiple values match any selected status.
+    status: Vec<AnimeStatus>:query_vec,
+    /// Exclude entries with any selected status. Multiple values match any selected status.
+    status_exclude: Vec<AnimeStatus>:query_vec,
+
+    /// Only entries with any selected rating. Multiple values match any selected rating.
     rating: Vec<AgeRating>:query_vec,
+    /// Exclude entries with any selected rating. Multiple values match any selected rating.
+    rating_exclude: Vec<AgeRating>:query_vec,
+
+    /// Only entries with any selected source material. Multiple values match any selected source.
+    source: Vec<AnimeSource>:query_vec,
+    /// Exclude entries with any selected source material. Multiple values match any selected source.
+    source_exclude: Vec<AnimeSource>:query_vec,
+
+    /// Only anime with a streaming link from any of these providers, e.g. Crunchyroll, Netflix or HIDIVE. Names ignore capitalization, spacing and common spelling variants. Links are not checked for current availability or region.
+    streaming_service: Vec<String>:query_vec,
+    /// Only anime with a voice cast credited in any of these languages, e.g. an English dub. When used with voice_actors, a selected voice actor must be credited in that language. A credited dub doesn't mean it can be streamed.
+    voice_language: Vec<Language>:query_vec,
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
     genres_exclude: Vec<u32>:query_vec,
+    /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
+    // TODO: Don't cache.
+    exclude_ids: Vec<u32>:query_vec,
+    *custom:sfw:SfwQuery,
+    /// Filter out kids entries
+    kids: bool,
+    /// Include unapproved entries
+    unapproved: OnlyBool,
+
+    /// Field to sort the results by
+    order_by: ScheduleOrder,
+    /// Order in which to sort.
+    sort: SortDirection,
+    /// Extra filtering for [ScheduleQuery::order_by]. *See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom:page:PageQuery,
 }, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     rating: "Rating can not be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+    rating_exclude: "Rating Exclude cannot be None": (|r: &[AgeRating]| r.contains(&AgeRating::None)),
+
+    /vl/ streaming_service:25,
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
+}, {
+    /nulls:order_by,
 });
+query_extension!(Schedule, Page);
+query_extension!(Schedule, Sfw);
 
 query!(TopAnime {
     /// Page number
