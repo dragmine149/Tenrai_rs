@@ -57,8 +57,17 @@ pub struct SeasonLookup {
 }
 #[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
-pub enum TopFilter {
+pub enum TopAnimeFilter {
     Airing,
+    Upcoming,
+    #[strum(to_string = "bypopularity")]
+    Popularity,
+    Favorite,
+}
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
+#[strum(serialize_all = "snake_case")]
+pub enum TopMangaFilter {
+    Publishing,
     Upcoming,
     #[strum(to_string = "bypopularity")]
     Popularity,
@@ -100,12 +109,20 @@ pub enum MagazineOrder {
 #[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
 #[strum(serialize_all = "snake_case")]
 pub enum TopEpisodeOrder {
+    /// Uses the existing weighted ranking. (Default)
+    Rank,
     /// Highest average vote first, among episodes with at least 100 votes.
     Score,
     /// Most Votes first.
     Votes,
     /// Most forum replies first.
     Comments,
+    Aired,
+    /// Episode length in seconds
+    Duation,
+    Title,
+    TitleJapanese,
+    TitleEnglish,
 }
 
 /// Only entries consisting of either...
@@ -114,4 +131,14 @@ pub enum TopEpisodeOrder {
 pub enum EntryType {
     Anime,
     Manga,
+}
+
+/// Only entries consisting of either...
+#[derive(Debug, Serialize, Deserialize, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
+#[strum(serialize_all = "snake_case")]
+pub enum TopVideoFilter {
+    All,
+    Airing,
+    Upcoming,
+    Finished,
 }

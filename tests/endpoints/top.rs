@@ -1,8 +1,12 @@
 use crate::{TestPaginator, build_client};
 use tenrai::{
     TenraiAPI,
-    schemas::query::{
-        PageQuery, TopAnimeQuery, TopEpisodeQuery, TopMangaQuery, TopReviewQuery, TypeSfwPageQuery,
+    schemas::{
+        common::Date,
+        query::{
+            PageQueryHelper, TopAnimeQuery, TopCharacterQuery, TopEpisodeQuery, TopMangaQuery,
+            TopPeopleQuery, TopRecommendationsQuery, TopReviewQuery, TopVideoQuery,
+        },
     },
 };
 TestPaginator!(
@@ -40,7 +44,7 @@ TestPaginator!(
     (async |client: &TenraiAPI, page| {
         client
             .top_people(
-                PageQuery::builder()
+                TopPeopleQuery::builder()
                     .page(page)
                     .limit(100_u32)
                     .build()
@@ -54,8 +58,8 @@ TestPaginator!(
     top_character,
     (async |client: &TenraiAPI, page| {
         client
-            .top_character(
-                PageQuery::builder()
+            .top_characters(
+                TopCharacterQuery::builder()
                     .page(page)
                     .limit(100_u32)
                     .build()
@@ -79,6 +83,22 @@ TestPaginator!(
             .await
     })
 );
+
+TestPaginator!(
+    top_recommendations,
+    (async |client: &TenraiAPI, page| {
+        client
+            .top_recommendations(
+                TopRecommendationsQuery::builder()
+                    .page(page)
+                    .limit(100_u32)
+                    .build()
+                    .unwrap(),
+            )
+            .await
+    })
+);
+
 TestPaginator!(
     top_episodes,
     (async |client: &TenraiAPI, page| {
@@ -93,12 +113,25 @@ TestPaginator!(
             .await
     })
 );
+
+#[test]
+fn test_top_episode_regex() {
+    TopEpisodeQuery::builder()
+        .aired_after(Date::new(2026, 06, None).to_string())
+        .build()
+        .expect_err("This should fail");
+    TopEpisodeQuery::builder()
+        .aired_after(Date::new(2026, 06, None).to_full_string())
+        .build()
+        .expect("This should not fail");
+}
+
 TestPaginator!(
-    top_recommendations,
+    top_videos,
     (async |client: &TenraiAPI, page| {
         client
-            .top_recommendations(
-                TypeSfwPageQuery::builder()
+            .top_videos(
+                TopVideoQuery::builder()
                     .page(page)
                     .limit(100_u32)
                     .build()

@@ -4,21 +4,28 @@ use tenrai::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse,
-        anime::{Anime, AnimeEpisode, AnimeSource, AnimeStatus, AnimeType},
+        anime::{
+            Anime, AnimeEpisode, AnimeSource, AnimeStatus, AnimeType, TopVideo, VideoUploadedWithin,
+        },
         article::NewsArticle,
         characters::CharacterDetails,
-        common::{AgeRating, AppearsIn, Date, Language, OnlyBool, Season},
+        common::{AgeRating, AppearsIn, Date, Language, OnlyBool, Season, TopRecommendation},
         companies::{Company, CompanyRole},
+        filter::{EntryType, TopAnimeFilter, TopMangaFilter, TopVideoFilter},
         manga::{Manga, MangaAdaptedFilter, MangaStatus, MangaType},
-        people::{AnimeCreditRole, CharacterRole, Person, StaffPosition},
+        people::{AnimeCreditRole, CharacterRole, MangaAuthorRole, Person, StaffPosition},
         query::{
             AdaptedQuery, AdaptedQueryBuilder, AnimeQuery, AnimeQueryBuilder, CharacterQuery,
             CharacterQueryBuilder, CompanyQuery, CompanyQueryBuilder, EpisodeQuery,
             EpisodeQueryBuilder, IdsQueryHelper, MangaQuery, MangaQueryBuilder, NewsArticleQuery,
-            NewsArticleQueryBuilder, PeopleQuery, PeopleQueryBuilder, ReviewQuery,
-            ReviewQueryBuilder, ScheduleQuery, ScheduleQueryBuilder, ScoreQueryHelper,
+            NewsArticleQueryBuilder, NoScoreQueryHelper, PeopleQuery, PeopleQueryBuilder,
+            ReviewQuery, ReviewQueryBuilder, ScheduleQuery, ScheduleQueryBuilder, ScoreQueryHelper,
             SeasonalQuery, SeasonalQueryBuilder, SfwQueryHelper, StackQuery, StackQueryBuilder,
-            YearQueryHelper,
+            TopAnimeQuery, TopAnimeQueryBuilder, TopCharacterQuery, TopCharacterQueryBuilder,
+            TopEpisodeQuery, TopEpisodeQueryBuilder, TopMangaQuery, TopMangaQueryBuilder,
+            TopPeopleQuery, TopPeopleQueryBuilder, TopRecommendationsQuery,
+            TopRecommendationsQueryBuilder, TopReviewQuery, TopReviewQueryBuilder, TopVideoQuery,
+            TopVideoQueryBuilder, YearQueryHelper,
         },
         reviews::{Review, ReviewReactionEnum, Sentiment},
         schedules::ScheduleDayFilter,
@@ -299,6 +306,7 @@ TestQuery!(
         credit_exclude:(|builder: &mut PeopleQueryBuilder, _| {builder.credit_exclude(vec![AnimeCreditRole::Staff]);}),
         position:(|builder: &mut PeopleQueryBuilder, _| {builder.position(vec![StaffPosition::Director]);}),
         position_exclude:(|builder: &mut PeopleQueryBuilder, _| {builder.position_exclude(vec![StaffPosition::AssistantDirector]);}),
+        author_role:(|builder: &mut PeopleQueryBuilder, _| {builder.author_role(MangaAuthorRole::Story);}),
         genres:(|builder: &mut PeopleQueryBuilder, _| {builder.genres(vec![45]);}),
         genres_exclude:(|builder: &mut PeopleQueryBuilder, _| {builder.genres_exclude(vec![32]);}),
         producers:(|builder: &mut PeopleQueryBuilder, _| {builder.producers(vec![45]);}),
@@ -432,5 +440,179 @@ TestQuery!(
         // exclude_ids:(|builder: &mut ScheduleQueryBuilder, _| {builder.exclude_ids(vec![6547]);}),
         kids:(|builder: &mut ScheduleQueryBuilder, _| {builder.kids(true);}),
         // unapproved:(|builder: &mut ScheduleQueryBuilder, _| {builder.unapproved(true);}),
+    }
+);
+
+TestQuery!(
+    top_anime, TopAnimeQuery,
+    (async |client: &TenraiAPI, query: TopAnimeQuery| client.top_anime(query).await),
+    (|res: TenraiPaginatorResponse<Anime>| res.pagination.items.unwrap().total),
+    {
+        filter:(|builder: &mut TopAnimeQueryBuilder, _| {builder.filter(TopAnimeFilter::Favorite);}),
+        anime_type:(|builder: &mut TopAnimeQueryBuilder, _| {builder.anime_type(vec![AnimeType::Movie]);}),
+        anime_type_exclude:(|builder: &mut TopAnimeQueryBuilder, _| {builder.anime_type_exclude(vec![AnimeType::Tv]);}),
+        status:(|builder: &mut TopAnimeQueryBuilder, _| {builder.status(vec![AnimeStatus::Upcoming]);}),
+        status_exclude:(|builder: &mut TopAnimeQueryBuilder, _| {builder.status_exclude(vec![AnimeStatus::Airing]);}),
+        rating:(|builder: &mut TopAnimeQueryBuilder, _| {builder.rating(vec![AgeRating::Rx]);}),
+        rating_exclude:(|builder: &mut TopAnimeQueryBuilder, _| {builder.rating_exclude(vec![AgeRating::Pg]);}),
+        source:(|builder: &mut TopAnimeQueryBuilder, _| {builder.source(vec![AnimeSource::Original]);}),
+        source_exclude:(|builder: &mut TopAnimeQueryBuilder, _| {builder.source_exclude(vec![AnimeSource::LightNovel]);}),
+        has_trailer: (|builder: &mut TopAnimeQueryBuilder, _| {builder.has_trailer(true);}),
+        streaming_service: (|builder: &mut TopAnimeQueryBuilder, _| {builder.streaming_service(vec!{"Cr".to_string()});}),
+        has_relations: (|builder: &mut TopAnimeQueryBuilder, _| {builder.has_relations(OnlyBool::Only);}),
+        genres:(|builder: &mut TopAnimeQueryBuilder, _| {builder.genres(vec![2]);}),
+        genres_exclude:(|builder: &mut TopAnimeQueryBuilder, _| {builder.genres_exclude(vec![4]);}),
+        min_score:(|builder: &mut TopAnimeQueryBuilder, _| {builder.min_score(1.0);}),
+        max_score:(|builder: &mut TopAnimeQueryBuilder, _| {builder.max_score(2.34);}),
+        min_scored_by:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_scored_by(rng.random::<u16>());}),
+        max_scored_by:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_scored_by(rng.random::<u16>());}),
+        min_reviews:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_reviews(rng.random::<u8>());}),
+        max_reviews:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_reviews(rng.random::<u8>());}),
+        min_members:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_members(rng.random::<u16>());}),
+        max_members:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_members(rng.random::<u16>());}),
+        min_favorites:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_favorites(rng.random::<u16>());}),
+        max_favorites:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_favorites(rng.random::<u16>());}),
+        min_episodes:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_episodes(rng.random::<u8>());}),
+        max_episodes:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_episodes(rng.random::<u8>());}),
+        year:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.year(vec![rng.random_range(1900_u32..2100_u32)]);}),
+        min_year:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.min_year(rng.random_range(1900_u32..2100_u32));}),
+        max_year:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.max_year(rng.random_range(1900_u32..2100_u32));}),
+        season:(|builder: &mut TopAnimeQueryBuilder, _| {builder.season(vec![Season::Spring]);}),
+        season_year:(|builder: &mut TopAnimeQueryBuilder, rng: &mut ThreadRng| {builder.season_year(vec![rng.random_range(1900_u32..2100_u32)]);}),
+    }
+);
+
+TestQuery!(
+    top_manga, TopMangaQuery,
+    (async |client: &TenraiAPI, query: TopMangaQuery| client.top_manga(query).await),
+    (|res: TenraiPaginatorResponse<Manga>| res.pagination.items.unwrap().total),
+    {
+        filter:(|builder: &mut TopMangaQueryBuilder, _| {builder.filter(TopMangaFilter::Publishing);}),
+        manga_type:(|builder: &mut TopMangaQueryBuilder, _| {builder.manga_type(vec![MangaType::Manga]);}),
+        manga_type_exclude:(|builder: &mut TopMangaQueryBuilder, _| {builder.manga_type_exclude(vec![MangaType::LightNovel]);}),
+        status:(|builder: &mut TopMangaQueryBuilder, _| {builder.status(vec![MangaStatus::Publishing]);}),
+        status_exclude:(|builder: &mut TopMangaQueryBuilder, _| {builder.status_exclude(vec![MangaStatus::Complete]);}),
+        has_relations: (|builder: &mut TopMangaQueryBuilder, _| {builder.has_relations(OnlyBool::Only);}),
+        genres:(|builder: &mut TopMangaQueryBuilder, _| {builder.genres(vec![2]);}),
+        genres_exclude:(|builder: &mut TopMangaQueryBuilder, _| {builder.genres_exclude(vec![4]);}),
+        solo_author:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.solo_author(rng.random::<bool>());}),
+        min_score:(|builder: &mut TopMangaQueryBuilder, _| {builder.min_score(1.0);}),
+        max_score:(|builder: &mut TopMangaQueryBuilder, _| {builder.max_score(2.34);}),
+        min_scored_by:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_scored_by(rng.random::<u16>());}),
+        max_scored_by:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_scored_by(rng.random::<u16>());}),
+        min_reviews:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_reviews(rng.random::<u8>());}),
+        max_reviews:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_reviews(rng.random::<u8>());}),
+        min_members:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_members(rng.random::<u16>());}),
+        max_members:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_members(rng.random::<u16>());}),
+        min_chapters:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_chapters(rng.random::<u16>());}),
+        max_chapters:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_chapters(rng.random::<u16>());}),
+        min_volumes:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_volumes(rng.random::<u8>());}),
+        max_volumes:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_volumes(rng.random::<u8>());}),
+        year:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.year(vec![rng.random_range(1900_u32..2100_u32)]);}),
+        min_year:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.min_year(rng.random_range(1900_u32..2100_u32));}),
+        max_year:(|builder: &mut TopMangaQueryBuilder, rng: &mut ThreadRng| {builder.max_year(rng.random_range(1900_u32..2100_u32));}),
+    }
+);
+
+TestQuery!(
+    top_people, TopPeopleQuery,
+    (async |client: &TenraiAPI, query: TopPeopleQuery| client.top_people(query).await),
+    (|res: TenraiPaginatorResponse<Person>| res.pagination.items.unwrap().total),
+    {
+        credit:(|builder: &mut TopPeopleQueryBuilder, _| {builder.credit(vec![AnimeCreditRole::Voice]);}),
+        position:(|builder: &mut TopPeopleQueryBuilder, _| {builder.position(vec![StaffPosition::Director]);}),
+        position_exclude:(|builder: &mut TopPeopleQueryBuilder, _| {builder.position_exclude(vec![StaffPosition::AssistantDirector]);}),
+        author_role:(|builder: &mut TopPeopleQueryBuilder, _| {builder.author_role(MangaAuthorRole::Story);}),
+        season:(|builder: &mut TopPeopleQueryBuilder, _| {builder.season(vec![Season::Spring]);}),
+        season_year:(|builder: &mut TopPeopleQueryBuilder, rng: &mut ThreadRng| {builder.season_year(vec![rng.random_range(1900_u32..2100_u32)]);}),
+        airing:(|builder: &mut TopPeopleQueryBuilder, rng: &mut ThreadRng| {builder.airing(rng.random::<bool>());}),
+        upcoming:(|builder: &mut TopPeopleQueryBuilder, rng: &mut ThreadRng| {builder.upcoming(rng.random::<bool>());}),
+        publishing:(|builder: &mut TopPeopleQueryBuilder, rng: &mut ThreadRng| {builder.publishing(rng.random::<bool>());}),
+        voice_language:(|builder: &mut TopPeopleQueryBuilder, _| {builder.voice_language(vec![Language::English]);}),
+        voice_language_exclude:(|builder: &mut TopPeopleQueryBuilder, _| {builder.voice_language_exclude(vec![Language::Mandarin]);}),
+    }
+);
+
+TestQuery!(
+    top_characters, TopCharacterQuery,
+    (async |client: &TenraiAPI, query: TopCharacterQuery| client.top_characters(query).await),
+    (|res: TenraiPaginatorResponse<CharacterDetails>| res.pagination.items.unwrap().total),
+    {
+        role_only: (|builder: &mut TopCharacterQueryBuilder, _| {builder.role_only(CharacterRole::Main);}),
+        season:(|builder: &mut TopCharacterQueryBuilder, _| {builder.season(vec![Season::Spring]);}),
+        season_year:(|builder: &mut TopCharacterQueryBuilder, rng: &mut ThreadRng| {builder.season_year(vec![rng.random_range(1900_u32..2100_u32)]);}),
+        airing:(|builder: &mut TopCharacterQueryBuilder, rng: &mut ThreadRng| {builder.airing(rng.random::<bool>());}),
+        upcoming:(|builder: &mut TopCharacterQueryBuilder, rng: &mut ThreadRng| {builder.upcoming(rng.random::<bool>());}),
+        publishing:(|builder: &mut TopCharacterQueryBuilder, rng: &mut ThreadRng| {builder.publishing(rng.random::<bool>());}),
+    }
+);
+
+TestQuery!(
+    top_reviews, TopReviewQuery,
+    (async |client: &TenraiAPI, query: TopReviewQuery| client.top_reviews(query).await),
+    (|res: TenraiPaginatorResponse<Review>| res.pagination.items.unwrap().total),
+    {
+        entry_type:(|builder: &mut TopReviewQueryBuilder, _| {builder.entry_type(EntryType::Anime);}),
+        username:(|builder: &mut TopReviewQueryBuilder, _| {builder.username("coldcoal");}),
+        preliminary:(|builder: &mut TopReviewQueryBuilder, rng: &mut ThreadRng| {builder.preliminary(rng.random::<bool>());}),
+        spoilers:(|builder: &mut TopReviewQueryBuilder, rng: &mut ThreadRng| {builder.spoilers(rng.random::<bool>());}),
+    }
+);
+
+TestQuery!(
+    top_recommendations, TopRecommendationsQuery,
+    (async |client: &TenraiAPI, query: TopRecommendationsQuery| client.top_recommendations(query).await),
+    (|res: TenraiPaginatorResponse<TopRecommendation>| res.pagination.items.unwrap().total),
+    {
+        entry_type:(|builder: &mut TopRecommendationsQueryBuilder, _| {builder.entry_type(EntryType::Anime);}),
+    }
+);
+
+TestQuery!(
+    top_episodes, TopEpisodeQuery,
+    (async |client: &TenraiAPI, query: TopEpisodeQuery| client.top_episodes(query).await),
+    (|res: TenraiPaginatorResponse<AnimeEpisode>| res.pagination.items.unwrap().total),
+    {
+        anime_type:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.anime_type(vec![AnimeType::Movie]);}),
+        anime_type_exclude:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.anime_type_exclude(vec![AnimeType::Tv]);}),
+        status:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.status(vec![AnimeStatus::Upcoming]);}),
+        status_exclude:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.status_exclude(vec![AnimeStatus::Airing]);}),
+        rating:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.rating(vec![AgeRating::Rx]);}),
+        rating_exclude:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.rating_exclude(vec![AgeRating::Pg]);}),
+        source:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.source(vec![AnimeSource::Original]);}),
+        source_exclude:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.source_exclude(vec![AnimeSource::LightNovel]);}),
+        genres:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.genres(vec![2]);}),
+        genres_exclude:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.genres_exclude(vec![4]);}),
+        filler:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.filler(true);}),
+        recap:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.recap(true);}),
+        // anime_ids
+        // exclude_ids
+        min_votes:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.min_votes(rng.random_range(10_u32..100_u32));}),
+        max_votes:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.max_votes(rng.random_range(100_u32..1_000_u32));}),
+        min_anime_score:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.min_anime_score(1.0);}),
+        max_anime_score:(|builder: &mut TopEpisodeQueryBuilder, _| {builder.max_anime_score(2.34);}),
+        min_anime_episodes:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.min_anime_episodes(rng.random_range(10_u32..24_u32));}),
+        max_anime_episodes:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.max_anime_episodes(rng.random_range(24_u32..52_u32));}),
+        min_episode:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.min_episode(rng.random_range(10_u32..24_u32));}),
+        max_episode:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.max_episode(rng.random_range(24_u32..52_u32));}),
+        min_duration:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.min_duration(rng.random_range(90_u32..600_u32));}),
+        max_duration:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.max_duration(rng.random_range(600_u32..1458_u32));}),
+        max_per_anime:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.max_per_anime(rng.random_range(1_u32..25_u32));}),
+        aired_after:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.aired_after(Date::new(2026, 11, rng.random_range(1_u8..30_u8)).to_full_string());}),
+        aired_before:(|builder: &mut TopEpisodeQueryBuilder, rng: &mut ThreadRng| {builder.aired_before(Date::new(2026, 11, rng.random_range(1_u8..30_u8)).to_full_string());}),
+    }
+);
+
+TestQuery!(
+    top_videos, TopVideoQuery,
+    (async |client: &TenraiAPI, query: TopVideoQuery| client.top_videos(query).await),
+    (|res: TenraiPaginatorResponse<TopVideo>| res.pagination.items.unwrap().total),
+    {
+        filter:(|builder: &mut TopVideoQueryBuilder, _| {builder.filter(TopVideoFilter::Airing);}),
+        // video_type:(|builder: &mut TopVideoQueryBuilder, _| {builder.video_type(VideoType::Promo);}),
+        // views/likes/dislikes/comments aren't getting tested rn.
+        // the current system is just a tad bit too unreliable with potential thousands.
+        max_per_anime:(|builder: &mut TopVideoQueryBuilder, rng: &mut ThreadRng| {builder.max_per_anime(rng.random_range(1_u32..25_u32));}),
+        uploaded_within:(|builder: &mut TopVideoQueryBuilder, _| {builder.uploaded_within(VideoUploadedWithin::SevenDays);}),
     }
 );

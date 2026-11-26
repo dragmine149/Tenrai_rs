@@ -28,14 +28,17 @@ use crate::{
     schemas::{
         anime::{
             AnimeSource, AnimeStatus, AnimeType, ArticleOrdering, EpisodeOrder, ForumOrdering,
-            NewsArticleOrdering, OrderBy,
+            NewsArticleOrdering, OrderBy, VideoOrder, VideoType, VideoUploadedWithin,
         },
         common::{
             AgeRating, AppearsIn, BasicOrder, Date, IDsQueryInclude, Language, Nulls, OnlyBool,
             SearchMode, Season, SortDirection,
         },
         companies::{CompanyOrder, CompanyRole},
-        filter::{EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopEpisodeOrder, TopFilter},
+        filter::{
+            EntryType, GenreFilter, MagazineOrder, SeasonOrder, TopAnimeFilter, TopEpisodeOrder,
+            TopMangaFilter, TopVideoFilter,
+        },
         manga::{MangaAdaptedFilter, MangaOrder, MangaStatus, MangaType},
         people::{
             AnimeCreditRole, CharacterOrder, CharacterRole, MangaAuthorRole, PeopleOrder,
@@ -48,6 +51,7 @@ use crate::{
     },
 };
 use derive_builder::Builder;
+use regex::Regex;
 
 query!(
 /// Filter out anime which are not SFW. NOTE: In some cases it might look like no filtering in done. In these cases, only external relations have been filtered.
@@ -152,6 +156,25 @@ query!(
     },
     {
         score:min_score:max_score,
+    }
+);
+
+query!(
+    /// Sub query for scoring information
+    NoScore {
+        /// Only entries with this score or higher
+        min_score: f64,
+        /// Only entries with this score or lower
+        max_score: f64,
+        /// Only entries that have been scored by this many users (inclusive) (`>=`)
+        min_scored_by: u32,
+        /// Only entries that have been scored by this many users (inclusive) (`>=`)
+        max_scored_by: u32,
+    }, {
+        min_score: "Min Score must be between 0 and 10 (inclusive)": (|l: &f64| *l < 0.0 || *l > 10.0),
+        min_score: "Min Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+        max_score: "Max Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+        max_score: "Max Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
     }
 );
 
@@ -1439,109 +1462,445 @@ query_extension!(Schedule, Page);
 query_extension!(Schedule, Sfw);
 
 query!(TopAnime {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
     /// Limit the ranking to a subset
-    filter: TopFilter,
-    /// Only entries with this member count or higher
-    min_members: u32,
-    /// Only entries with this member count or lower
-    max_members: u32,
+    filter: TopAnimeFilter,
+    /// Only include anime of any selected type.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Exclude anime of any selected type
+    anime_type_exclude: Vec<AnimeType>:(|_, v| query_vec("type_exclude", v)),
+    /// Only anime with any selected status. Multiple values match any selected status.
+    status: Vec<AnimeStatus>:query_vec,
+    /// Exclude anime with any selected status. Multiple values match any selected status.
+    status_exclude: Vec<AnimeStatus>:query_vec,
+
+    /// Only anime with any selected rating. Multiple values match any selected rating.
+    rating: Vec<AgeRating>:query_vec,
+    /// Exclude anime with any selected rating. Multiple values match any selected rating.
+    rating_exclude: Vec<AgeRating>:query_vec,
+
+    /// Only anime with any selected source material. Multiple values match any selected source.
+    source: Vec<AnimeSource>:query_vec,
+    /// Exclude anime with any selected source material. Multiple values match any selected source.
+    source_exclude: Vec<AnimeSource>:query_vec,
+
+    /// Filter by a main trailer ID or URL. Playback availability is not checked.
+    has_trailer: bool,
+    /// Only anime with a streaming link from any of these providers, e.g. Crunchyroll, Netflix or HIDIVE. Names ignore capitalization, spacing and common spelling variants. Links are not checked for current availability or region.
+    streaming_service: Vec<String>:query_vec,
+
+    /// Filter recorded MyAnimeList relations: true includes entries with or without relations, false returns entries with no recorded relations, and only returns entries with at least one recorded relation. Includes anime and manga relations.
+    has_relations: OnlyBool,
+
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
     genres_exclude: Vec<u32>:query_vec,
+
+    /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
+    // TODO: Don't cache.
+    exclude_ids: Vec<u32>:query_vec,
+
+    *custom:no_score:NoScoreQuery,
+
+    /// Minimum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 applies no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 returns entries with no stored reviews.
+    max_reviews: u32,
+    /// Only anime with this member count or higher
+    min_members: u32,
+    /// Only anime with this member count or lower
+    max_members: u32,
+    /// Only anime with this favourite count or higher
+    min_favorites: u32,
+    /// Only anime with this favourite count or lower
+    max_favorites: u32,
+    /// Only anime with this episode count or higher
+    min_episodes: u32,
+    /// Only anime with this episode count or lower
+    max_episodes: u32,
+
+    /// Query parameters related to year.
+    *custom: year: YearQuery,
+    /// Filter by MAL Debut-season classification. Multiple seasons match any.
+    season: Vec<Season>:query_vec,
+    /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+    season_year: Vec<u32>:query_vec,
+
+    *custom:sfw:SfwQuery,
+
     /// Sort direction.
     sort: SortDirection,
-    /// Only entries with this episode count or higher
-    min_episodes: u32,
-    /// Only entries with this episode count or lower
-    max_episodes: u32,
+
+    *custom:page:PageQuery,
 }, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     min_episodes: "Must be at least 1 episode": (|l: &u32| *l == 0),
     max_episodes: "Must be at least 1 episode": (|l: &u32| *l == 0),
+
+    /vl/ streaming_service:25,
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
+    /il/ min_episodes:1,
+    /il/ max_episodes:1,
 });
+query_extension!(TopAnime, NoScore, {
+    min_score: f64,
+    max_score: f64,
+    min_scored_by: u32,
+    max_scored_by: u32,
+});
+query_extension!(TopAnime, Year);
+query_extension!(TopAnime, Sfw);
+query_extension!(TopAnime, Page);
 
 query!(TopManga {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter by age rating. Multiple ratings can be selected.
-    rating: Vec<AgeRating>:query_vec,
-    /// Filter adult content
-    sfw: bool,
-    /// Apply strict SFW filtering for adult content and Ecchi
-    sfw_strict: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Filter by media type. Multiple types can be selected.
-    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
     /// Limit the ranking to a subset
-    filter: TopFilter,
-    /// Only entries with this member count or higher
-    min_members: u32,
-    /// Only entries with this member count or lower
-    max_members: u32,
+    filter: TopMangaFilter,
+    /// Only manga with this type.
+    manga_type: Vec<MangaType>:(|_, v| query_vec("type", v)),
+    /// Exclude manga with any of these types
+    manga_type_exclude: Vec<MangaType>:(|_, v| query_vec("type_exclude", v)),
+    /// Only manga with this publishing status
+    status: Vec<MangaStatus>:query_vec,
+    /// Exclude manga with this publishing status
+    status_exclude: Vec<MangaStatus>:query_vec,
+    /// Filter recorded MyAnimeList relations: true includes entries with or without relations, false returns entries with no recorded relations, and only returns entries with at least one recorded relation. Includes anime and manga relations.
+    has_relations: OnlyBool,
     /// List of genres to filter by. Use the ID of the genre.
     genres: Vec<u32>:query_vec,
     /// List of genres to exclude. Use the ID of the genre.
     genres_exclude: Vec<u32>:query_vec,
+    /// Filter by who made the manga
+    /// - True: Written and drawn by one person
+    /// - False: Writing and drawing creddited to multiple.
+    ///
+    /// Manga that MAL lists without both a writer and artist match neither"]
+    solo_author:bool,
+    /// Only search within the entries whose MAL IDs you choose, such as the ones on a user's list. All other filters and sorting still apply.
+    // TODO: Don't cache.
+    exclude_ids: Vec<u32>:query_vec,
+
+    *custom:no_score:NoScoreQuery,
+
+    /// Minimum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 applies no limit.
+    min_reviews: u32,
+    /// Maximum number of available reviews, inclusive, including spoiler and preliminary reviews. This is not a complete MyAnimeList-wide total. 0 returns entries with no stored reviews.
+    max_reviews: u32,
+    /// Only manga with this member count or higher
+    min_members: u32,
+    /// Only manga with this member count or lower
+    max_members: u32,
+    /// Only manga with this volume count or higher
+    min_volumes: u32,
+    /// Only manga with this volume count or lower
+    max_volumes: u32,
+    /// Only manga with this chapter count or higher
+    min_chapters: u32,
+    /// Only manga with this chapter count or lower
+    max_chapters: u32,
+
     /// Sort direction.
     sort: SortDirection,
-    /// Only entries with this volume count or higher
-    min_volumes: u32,
-    /// Only entries with this volume count or lower
-    max_volumes: u32,
-    /// Only entries with this chapter count or higher
-    min_chapters: u32,
-    /// Only entries with this chapter count or lower
-    max_chapters: u32,
+
+    *custom:year:YearQuery,
+    *custom:sfw:SfwQuery,
+    *custom:page:PageQuery,
 }, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
     min_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
     max_chapters: "Must be at least 1 chapter": (|l: &u32| *l == 0),
     min_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
     max_volumes: "Must be at least 1 volume": (|l: &u32| *l == 0),
+
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
 });
+query_extension!(TopManga, NoScore, {
+    min_score: f64,
+    max_score: f64,
+    min_scored_by: u32,
+    max_scored_by: u32,
+});
+query_extension!(TopManga, Year);
+query_extension!(TopManga, Sfw);
+query_extension!(TopManga, Page);
+
+query!(TopPeople {
+    /// Only people with any selected kind of credit.
+    /// With
+    /// [season](TopPeopleQuery::season),
+    /// [season_year](TopPeopleQuery::season_year),
+    /// [airing](TopPeopleQuery::airing)=[true] or
+    /// [upcoming](TopPeopleQuery::upcoming)=[true],
+    /// a voice or staff credit is on one anime that meets all of them; without them, on any anime.
+    credit: Vec<AnimeCreditRole>: query_vec,
+     /// Only people MAL credits with any selected job.
+    /// With
+    /// [season](TopPeopleQuery::season),
+    /// [season_year](TopPeopleQuery::season_year),
+    /// [airing](TopPeopleQuery::airing)=[true] or
+    /// [upcoming](TopPeopleQuery::upcoming)=[true],
+    /// the job is on one anime that meets all of them. Without them on any anime.
+    position: Vec<StaffPosition>: query_vec,
+    /// Exclude people MAL credits with any selected job.
+    /// With
+    /// [season](TopPeopleQuery::season),
+    /// [season_year](TopPeopleQuery::season_year),
+    /// [airing](TopPeopleQuery::airing)=[true] or
+    /// [upcoming](TopPeopleQuery::upcoming)=[true],
+    /// the job is on one anime that meets all of them. Without them on any anime.
+    position_exclude: Vec<StaffPosition>: query_vec,
+    /// Only people with this author role.
+    author_role: MangaAuthorRole,
+    /// Only people credited in an anime of any selected MAL debut season, as staff or as a voice actor. With [PeopleQuery::season_year], must be the same anime in the same year.
+    season: Vec<Season>:query_vec,
+    /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+    season_year: Vec<u32>:query_vec,
+    /// Filter by people credited in at least one currently airing anime.
+    airing: bool,
+    /// Filter by people credited in at least one not year aired anime.
+    upcoming: bool,
+    /// Filter by people credited in at least one currently publishing manga.
+    publishing: bool,
+    /// Only people credited as a voice actor for any of these languages.
+    ///
+    /// With [PeopleQuery::season], [PeopleQuery::season_year], that same credit must be in the one of the given seasons/year
+    voice_language: Vec<Language>:query_vec,
+    /// Exclude people credited as a voice actor for any of these languages.
+    ///
+    /// With [PeopleQuery::season], [PeopleQuery::season_year], only those credited in the selected seson/year are excluded.
+    voice_language_exclude: Vec<Language>:query_vec,
+    *custom:sfw:SfwQuery,
+    *custom:page:PageQuery,
+}, {
+    season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+    /vl/ season_year:25,
+});
+query_extension!(TopPeople, Sfw);
+query_extension!(TopPeople, Page);
+
+query!(
+    TopCharacter {
+        /// Only characters in this role and never the other one.
+        role_only: CharacterRole,
+        /// Is this character in an anime thats currently airing
+        airing: bool,
+        /// Is this character in an anime thats has not yet aired.
+        upcoming: bool,
+        /// Is this character in a manga thats currently being published.
+        publishing: bool,
+        /// Filter by MAL Debut-season classification. Multiple seasons match any.
+        season: Vec<Season>:query_vec,
+        /// Filter by MAL's debut-season year. This can differ from the calendar start year. Multiple years match any selected year; with season, any selected season of any selected year matches.
+        season_year: Vec<u32>:query_vec,
+
+        *custom:sfw:SfwQuery,
+        *custom:page:PageQuery,
+    },
+    {
+        season_year: "All elements must be between 1 (inclusive) and 9999 (inclusive)": (|sy: &[u32]| sy.iter().any(|sy| *sy < 1 || *sy > 9999)),
+
+        /v/  season_year:1,
+        /vl/ season_year:25,
+    }
+);
+query_extension!(TopCharacter, Sfw);
+query_extension!(TopCharacter, Page);
 
 query!(TopReview {
-    /// Only content that has been written by this MAL username. Matches the full username
-    username: String,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Sort direction.
-    sort: ReviewSort,
-    /// Include reviews written before all episodes have been watched
-    preliminary: OnlyBool,
-    /// Include reviews which might contain spoilers
-    spoilers: OnlyBool,
-    /// Filter by what the review overall thinks.
-    sentiment: Sentiment,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
     /// Only reviews of the specified type
     entry_type: EntryType:(|_, v| format!("type={v}")),
+    /// Only content that has been written by this MAL username. Matches the full username
+    username: String,
+    /// Include reviews written before all episodes have been watched
+    preliminary: bool,
+    /// Include reviews which might contain spoilers
+    spoilers: bool,
+
+    *custom:sfw:SfwQuery,
+    *custom:page:PageQuery,
 }, {
     username: "Username cannot be more than 300 characters": (|u: &String| u.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });
+query_extension!(TopReview, Sfw);
+query_extension!(TopReview, Page);
+
+query!(TopRecommendations {
+    /// Only reviews of the specified type
+    entry_type: EntryType:(|_, v| format!("type={v}")),
+	*custom:page:PageQuery,
+	*custom:sfw:SfwQuery,
+}, {});
+query_extension!(TopRecommendations, Sfw);
+query_extension!(TopRecommendations, Page);
+
+query!(TopEpisode {
+    /// Only include anime of any selected type.
+    anime_type: Vec<AnimeType>:(|_, v| query_vec("type", v)),
+    /// Exclude anime of any selected type
+    anime_type_exclude: Vec<AnimeType>:(|_, v| query_vec("type_exclude", v)),
+    /// Only anime with any selected status. Multiple values match any selected status.
+    status: Vec<AnimeStatus>:query_vec,
+    /// Exclude anime with any selected status. Multiple values match any selected status.
+    status_exclude: Vec<AnimeStatus>:query_vec,
+
+    /// Only anime with any selected rating. Multiple values match any selected rating.
+    rating: Vec<AgeRating>:query_vec,
+    /// Exclude anime with any selected rating. Multiple values match any selected rating.
+    rating_exclude: Vec<AgeRating>:query_vec,
+
+    /// Only anime with any selected source material. Multiple values match any selected source.
+    source: Vec<AnimeSource>:query_vec,
+    /// Exclude anime with any selected source material. Multiple values match any selected source.
+    source_exclude: Vec<AnimeSource>:query_vec,
+
+    /// List of genres to filter by. Use the ID of the genre.
+    genres: Vec<u32>:query_vec,
+    /// List of genres to exclude. Use the ID of the genre.
+    genres_exclude: Vec<u32>:query_vec,
+
+
+    /// Filter by if an episode is a filler (true) or not (false). If not provided will give both fillers and not fillers.
+    filler: bool,
+    /// Filter by if an episode is a recap (true) or not (false). If not provided will give both recap's and not recap's.
+    recap: bool,
+
+    /// Only episodes from anime of the provided anime IDs.
+    anime_ids: Vec<u32>: query_vec,
+    /// Exclude episodes if their anime id is any of the provided ids.
+    exclude_ids: Vec<u32>: query_vec,
+
+    /// Minimum number of votes in the episode discussion poll (inclusive)
+    min_votes: u32,
+    /// Maximum number of votes in the episode discussion poll (inclusive)
+    max_votes: u32,
+    /// Only episodes whose anime has this overall score or higher. (Inclusive)
+    /// Does not use the episode 1-5 score.
+    min_anime_score: f64,
+    /// Only episodes whose anime has this overall score or lower. (Inclusive)
+    /// Does not use the episode 1-5 score.
+    max_anime_score: f64,
+    /// Minimum known positive totalepisode count of the anime. This is not the individual episode number
+    min_anime_episodes: u32,
+    /// Maximum known positive totalepisode count of the anime. This is not the individual episode number
+    max_anime_episodes: u32,
+    /// Minimum episode number
+    min_episode: u32,
+    /// Maximum episode number
+    max_episode: u32,
+    /// Minimum known duration in seconds (inclusive)
+    min_duration: u32,
+    /// Maximum known duration in seconds (inclusive)
+    max_duration: u32,
+    /// Maximum matching episodes from each anime across the whole ranked result before pagination.
+    /// E.g. 1 keeps only each anime's highest ranking episode *under the selected filters*
+    ///
+    /// Other filters apply first and pagination totals reflect this limit.
+    max_per_anime: u32,
+
+    *custom:year:YearQuery,
+
+    /// Only episodes aired on or after this date. Includes the whole UTC day.
+    aired_after: String,
+    /// Only episodes aired on or before this date. Includes the whole UTC day.
+    aired_before: String,
+
+    *custom:sfw:SfwQuery,
+    /// Order of the list.
+    order_by: TopEpisodeOrder,
+    /// Sort direction.
+    sort: SortDirection,
+    /// Extra filtering for [TopEpisodeQuery::order_by]. *See [Nulls] for more information*
+    nulls: Nulls,
+
+    *custom:page:PageQuery,
+}, {
+    min_anime_score: "Min Anime Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+    min_anime_score: "Min Anime Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+    max_anime_score: "Max Anime Score must be between 1 and 10 (inclusive)": (|l: &f64| *l < 1.0 || *l > 10.0),
+    max_anime_score: "Max Anime Score must not have more than 2dp": (|s: &f64| (s * 100.0).fract() != 0.0),
+    aired_after: "Must be of format `^\\d{4}-\\d{2}-\\d{2}$`": (|s: &String| !Regex::new(r#"^\d{4}-\d{2}-\d{2}$"#).unwrap().is_match(s)),
+    aired_before: "Must be of format `^\\d{4}-\\d{2}-\\d{2}$`": (|s: &String| !Regex::new(r#"^\d{4}-\d{2}-\d{2}$"#).unwrap().is_match(s)),
+
+    /v/  genres:1,
+    /v/  genres_exclude:1,
+    /v/  anime_ids:1,
+    /vl/ anime_ids:25,
+    /v/  exclude_ids:1,
+    /vl/ exclude_ids:1000,
+    /il/ min_anime_episodes:1,
+    /il/ max_anime_episodes:1,
+    /il/ min_episode:1,
+    /il/ max_episode:1,
+    /il/ max_per_anime:1,
+}, {
+    /nulls:order_by,
+});
+query_extension!(TopEpisode, Year);
+query_extension!(TopEpisode, Sfw);
+query_extension!(TopEpisode, Page);
+
+query!(
+    // NOTE: There are some fields that are u64 bc youtube does have videos with > 2^32 views.
+    // NOTE: This is very rare, and anime is probably never going to get that high, but still.
+    TopVideo {
+        /// Only videos of anime that are of the selected filter.
+        filter: TopVideoFilter,
+        /// The type of video to filter for.
+        video_type: VideoType,
+        /// Minimum recorded youtube view count (inclusive)
+        min_views: u64,
+        /// Maximum recorded youtube view count (inclusive)
+        max_views: u64,
+        /// Minimum recorder youtube like count (inclusive)
+        min_likes: u64,
+        /// Maximum recorder youtube like count (inclusive)
+        max_likes: u64,
+        /// Minimum recorder youtube dislike count (inclusive) Returned from <https://returnyoutubedislike.com/>
+        min_dislikes: u64,
+        /// Maximum recorder youtube dislike count (inclusive) Returned from <https://returnyoutubedislike.com/>
+        max_dislikes: u64,
+        /// Minimum recorder youtube comment count (inclusive)
+        min_comments: u64,
+        /// Maximum recorder youtube comment count (inclusive)
+        max_comments: u64,
+        /// Maximum matching episodes from each anime across the whole ranked result before pagination.
+        /// E.g. 1 keeps only each anime's highest ranking episode *under the selected filters*
+        ///
+        /// Other filters apply first and pagination totals reflect this limit.
+        max_per_anime: u32,
+
+        *custom:year:YearQuery,
+        /// Only videos published to youtube on or after this date/timestamp
+        ///
+        /// A date covers the whole UTC day.
+        published_after: String,
+        /// Only videos published to youtube on or after this date/timestamp
+        ///
+        /// A date covers the whole UTC day.
+        published_before: String,
+        /// Only videos uploaded within the last {specified} days. Evaluated at the start of the current UTC minute.
+        uploaded_within: VideoUploadedWithin,
+
+        *custom:sfw:SfwQuery,
+        /// Order of the list.
+        order_by: VideoOrder,
+        /// Sort direction.
+        sort: SortDirection,
+        /// Extra filtering for [TopVideoQuery::order_by]. *See [Nulls] for more information*
+        nulls: Nulls,
+
+        *custom:page:PageQuery,
+    },
+    {
+        /il/ max_per_anime:1,
+    }
+);
+query_extension!(TopVideo, Year);
+query_extension!(TopVideo, Sfw);
+query_extension!(TopVideo, Page);
 
 query!(Genre {
 	/// Filter out: R+, Rx, Hentai, Erotica
@@ -1615,38 +1974,6 @@ query!(FullArticle {
 }, {
     author_username: "Author username cannot be more than 300 characters": (|u: &String| u.len() > 300),
     query: "Query length is too long": (|q: &String| q.len() > 300),
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-});
-
-query!(TopEpisode {
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Order of the list.
-    order_by: TopEpisodeOrder,
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-}, {
-    page: "Page must be less than 20k": (|p: &u32| *p > 20000),
-    limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
-});
-
-query!(TypeSfwPage {
-    /// Page number
-    page: u32,
-    /// Results per page (Default: 25)
-    limit: u32,
-    /// Filter out: R+, Rx, Hentai, Erotica
-    sfw: bool,
-    /// Filter out: R+, Rx, Hentai, Erotica, Ecchi
-    sfw_struct: bool:(|_, v| format!("sfw-strict={v}")),
-    /// Only reviews of the specified type
-    entry_type: EntryType:(|_, v| format!("type={v}")),
-}, {
     page: "Page must be less than 20k": (|p: &u32| *p > 20000),
     limit: "Can not request more than 100 entries at once": (|l: &u32| *l > 100),
 });

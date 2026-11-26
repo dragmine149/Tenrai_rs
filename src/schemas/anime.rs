@@ -119,7 +119,7 @@ pub struct Anime {
     pub anime_type: Option<AnimeType>,
     /// The direct MAL webpage URL of the anime
     pub url: String,
-    /// Year or premier.
+    /// Year of premier.
     pub year: Option<u32>,
 }
 
@@ -203,9 +203,10 @@ pub struct Trailer {
 /// Only one of the two lists is present.
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
-pub struct RegionalRestrictions {
-    pub allowed: Option<Vec<String>>,
-    pub blocked: Option<Vec<String>>,
+#[serde(rename_all = "snake_case")]
+pub enum RegionalRestrictions {
+    Allowed(Vec<String>),
+    Blocked(Vec<String>),
 }
 
 /// The format that this anime is in.
@@ -595,4 +596,133 @@ pub struct User {
     pub url: String,
     /// Their username
     pub username: String,
+}
+
+/// Information about the type of video.
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, PartialOrd, Ord, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum VideoType {
+    /// Teasers / Trailers / Commercials
+    Promo,
+    /// Music videos.
+    ///
+    /// NOTE: MAL stopped added these after 2023, so newer videos have almost none.
+    Music,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, PartialOrd, Ord, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum VideoUploadedWithin {
+    #[strum(serialize = "7d")]
+    SevenDays,
+    #[strum(serialize = "30d")]
+    ThirtyDays,
+    #[strum(serialize = "90d")]
+    NinetyDays,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, PartialOrd, Ord, Display)]
+#[strum(serialize_all = "snake_case")]
+pub enum VideoOrder {
+    Views,
+    Likes,
+    Dislikes,
+    Comments,
+    Title,
+    PublishedAt,
+    Duration,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TopVideo {
+    /// [None] when youtube gives no count.
+    pub comment_count: Option<u32>,
+    /// Response from <https://returnyoutubedislike.com/>
+    pub dislikes: Option<u32>,
+    pub duration: Option<String>,
+    pub embed_url: String,
+    pub embeddable: Option<bool>,
+    /// Anime that lists this video on MAL. Order by popularity of the anime.
+    pub entry: Vec<AnimeVideoMeta>,
+    pub images: ImageDetails,
+    /// [None] when the count is hidden on youtube
+    pub likes: Option<u32>,
+    pub privacy_status: Option<String>,
+    /// When the video was uploaded to youtube
+    pub published_at: Option<String>,
+    /// Countries where youtube allows or blocks the video as two-letter country codes.
+    ///
+    /// Only one of the two lists is ever present. [None] when not restricted or details unknown.
+    pub region_restriction: Option<RegionalRestrictions>,
+    /// The video title on youtube
+    pub title: Option<String>,
+    pub url: String,
+    pub views: u32,
+    pub youtube_id: String,
+}
+
+/// Shorter version of [Anime] but for use with [TenraiAPI::top_videos](crate::TenraiAPI::top_videos)
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "strict", serde(deny_unknown_fields))]
+pub struct AnimeVideoMeta {
+    /// Airing dates of the anime.
+    pub aired: Aired,
+    /// Whether the anime is currently broadcasting live episodes
+    pub airing: bool,
+    /// Indicates whether the entry has been officially approved by MAL moderators
+    pub approved: bool,
+    /// Length per episode or total run time of the anime
+    pub duration: Option<String>,
+    /// Total episodes broadcast. ([None] if ongoing / not aired)
+    pub episodes: Option<u32>,
+    /// Total users who have favorited the anime.
+    pub favorites: Option<u32>,
+    /// Images used on the website.
+    pub images: Images,
+    /// The unique MAL ID of this entry.
+    pub mal_id: u32,
+    /// Total users who have added this to their lists.
+    pub members: Option<u32>,
+    /// The song and artist MAL gives for a music video.
+    ///
+    /// Only used when calling [TenraiAPI::top_videos](crate::TenraiAPI::top_videos)
+    pub meta: Option<AnimeVideoMusicMeta>,
+
+    /// Global popularity rank based on [Anime::members].
+    pub popularity: Option<u32>,
+    /// Global rank based on average score
+    pub rank: Option<u32>,
+    /// Age rating categorization
+    ///
+    /// TODO: Convert [None] to [AgeRating::None]?
+    pub rating: Option<AgeRating>,
+    /// The average rating score out of 10.
+    pub score: Option<f64>,
+    /// How many users have scored this anime.
+    pub scored_by: Option<u32>,
+    /// Season of premier.
+    pub season: Option<Season>,
+    /// The source material type.
+    pub source: Option<AnimeSource>,
+    /// Airing status of the anime.
+    pub status: AnimeStatus,
+    /// The primary default title of the anime.
+    pub title: String,
+    /// Official English title of the anime.
+    pub title_english: Option<String>,
+    /// Official Japanese title of the anime.
+    pub title_japanese: Option<String>,
+    /// Alternative names or synonyms of the title.
+    pub title_synonyms: Vec<String>,
+    /// The broadcast or media type
+    #[serde(rename = "type")]
+    pub anime_type: Option<AnimeType>,
+    /// The direct MAL webpage URL of the anime
+    pub url: String,
+    /// The video's name on the anime's MyAnimeList page, such as PV 1 or OP 1
+    ///
+    /// Only used when calling [TenraiAPI::top_videos](crate::TenraiAPI::top_videos)
+    pub video_title: Option<String>,
+    /// Year of premier.
+    pub year: Option<u32>,
 }

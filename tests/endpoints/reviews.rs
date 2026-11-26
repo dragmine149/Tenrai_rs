@@ -1,5 +1,8 @@
 use crate::{TestPaginator, build_client};
-use tenrai::{TenraiAPI, schemas::query::TopReviewQuery};
+use tenrai::{
+    TenraiAPI,
+    schemas::query::{PageQueryHelper, TopReviewQuery},
+};
 
 TestPaginator!(
     review_anime_recent,

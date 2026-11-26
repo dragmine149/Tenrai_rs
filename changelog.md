@@ -18,8 +18,10 @@ This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0
 	- *There was like 339+ replacements...*
 - **Added** a mixture of `PartialEq, Eq, PartialOrd, Ord` to every enum to further align with [c-common-traits](https://rust-lang.github.io/api-guidelines/interoperability.html#c-common-traits)
 	- *Also removed some from structs whilst i work out what to do*
-- **Added** `new`, `From<&str>`, `From<String>` methods for `Date`
-- **Changed** `Date` types to be more fitting of their true representation. (*you don't need a u32 for a u4*)
+- `Date`:
+	- **Added** `new`, `From<&str>`, `From<String>` methods
+	- **Added** `to_full_string` method as an alternative for `fmt` methods.
+	- **Changed** `Date` types to be more fitting of their true representation. (*you don't need a u32 for a u4*)
 - **Added** `From<bool>` for `OnlyBool` (*you're not getting a reverse bc of `Only`*)
 - URL now gets **logged** via `log::debug` on every request. (*see log feature*)
 - **Added** `producer_*` aliases to `company_*` endpoint methods.
@@ -29,10 +31,13 @@ This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0
 - **Added** *developer focused* `test` feature.
 - **Added** `db_*` aliases to `_ids` functions.
 	- *Also moved them to a separate `impl`*
-- **Renamed:** *(and aliasesed)*
-	- `ProducerQuery*` to `CompanyQuery*`
-	- `ProducerOrder` to `CompanyOrder`
+- **Renamed:**
+	- `ProducerQuery*` to `CompanyQuery*` (and aliased)
+	- `ProducerOrder` to `CompanyOrder` (and aliased)
+	- `top_character` to `top_characters`
+	- `TypeSfwPageQuery` to `TopRecommendationsQuery` (not aliased as it makes more sense this way.)
 - **Added** `new` function to `*QueryBuilder`, which is just a reference to the `default` function.
+- **Changed** `RegionalRestrictions` from a struct into an enum.
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.

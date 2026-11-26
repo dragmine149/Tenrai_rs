@@ -2,14 +2,14 @@ use crate::{
     TenraiAPI,
     schemas::{
         TenraiPaginatorResponse,
-        anime::{Anime, AnimeEpisode},
+        anime::{Anime, AnimeEpisode, TopVideo},
         characters::CharacterDetails,
         common::TopRecommendation,
         manga::Manga,
         people::Person,
         query::{
-            PageQuery, TopAnimeQuery, TopEpisodeQuery, TopMangaQuery, TopReviewQuery,
-            TypeSfwPageQuery,
+            TopAnimeQuery, TopCharacterQuery, TopEpisodeQuery, TopMangaQuery, TopPeopleQuery,
+            TopRecommendationsQuery, TopReviewQuery, TopVideoQuery,
         },
         reviews::Review,
     },
@@ -46,7 +46,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/people>
     pub async fn top_people(
         &self,
-        query: PageQuery,
+        query: TopPeopleQuery,
     ) -> crate::Result<TenraiPaginatorResponse<Person>> {
         Ok(self
             .request(format!("top/people{query}"))
@@ -56,9 +56,9 @@ impl TenraiAPI {
     /// Get the most favorited characters
     ///
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/characters>
-    pub async fn top_character(
+    pub async fn top_characters(
         &self,
-        query: PageQuery,
+        query: TopCharacterQuery,
     ) -> crate::Result<TenraiPaginatorResponse<CharacterDetails>> {
         Ok(self
             .request(format!("top/characters{query}"))
@@ -82,7 +82,7 @@ impl TenraiAPI {
     /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/recommendations>
     pub async fn top_recommendations(
         &self,
-        query: TypeSfwPageQuery,
+        query: TopRecommendationsQuery,
     ) -> crate::Result<TenraiPaginatorResponse<TopRecommendation>> {
         Ok(self
             .request(format!("top/recommendations{query}"))
@@ -101,6 +101,19 @@ impl TenraiAPI {
     ) -> crate::Result<TenraiPaginatorResponse<AnimeEpisode>> {
         Ok(self
             .request(format!("top/episodes{query}"))
+            .await?
+            .result_paginator()?)
+    }
+
+    /// Get the most viewed anime trailers or music videos on YouTube. Dislikes are estimates from Return YouTube Dislike.
+    ///
+    /// API DOCUMENTATION: <https://api.tenrai.org/documentation#tag/top/GET/top/videos>
+    pub async fn top_videos(
+        &self,
+        query: TopVideoQuery,
+    ) -> crate::Result<TenraiPaginatorResponse<TopVideo>> {
+        Ok(self
+            .request(format!("top/videos{query}"))
             .await?
             .result_paginator()?)
     }

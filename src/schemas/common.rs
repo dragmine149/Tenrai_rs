@@ -49,6 +49,24 @@ impl Date {
             year: year.into(),
         }
     }
+    /// Returns the current date as a string.
+    ///
+    /// Unlike [Date::fmt] (`impl Display for Date`). [None] fields are replaced with `1` by default.
+    /// # Example
+    /// ```
+    /// use tenrai::schemas::common::Date;
+    ///
+    /// let today = Date::new(2026, 11, None);
+    /// assert_eq!(today.to_full_date(), "2026-11-01");
+    /// ```
+    pub fn to_full_string(&self) -> String {
+        format!(
+            "{:0>4}-{:0>2}-{:0>2}",
+            self.year.unwrap_or(1),
+            self.month.unwrap_or(1),
+            self.day.unwrap_or(1)
+        )
+    }
 }
 impl Display for Date {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
