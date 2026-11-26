@@ -1,13 +1,12 @@
 //! Helper macros for generating types / structs / etc..
 //!
 //! These macros aren't meant to be used in production code. Only the library itself.
-#[doc(hidden)]
+#![doc(hidden)]
 
 /// A macro to make a generic type. There are many different types of the same information, so this consolidates them all.
 ///
 /// This also helps us with the `type` parameter as `type` is a keyword in rust.
 #[macro_export]
-#[doc(hidden)]
 macro_rules! generic_type {
     ($name: tt) => {
         pastey::paste! {
@@ -110,7 +109,6 @@ macro_rules! generic_type {
 /// # Derives
 /// All types must implement `Debug, Display, Default, Clone`. *rust gets annoyed otherwise*
 #[macro_export]
-#[doc(hidden)]
 macro_rules! query {
     ($(#[$query_meta:meta])* $name:ident {
     	$(
@@ -317,7 +315,6 @@ macro_rules! query {
 /// Additionally, the following helper traits have their own branch, hence the whole `{ /* ... */ }` is useless.
 /// - Sfw
 #[macro_export]
-#[doc(hidden)]
 macro_rules! query_extension {
 	($query: ident, Sfw) => {
 		query_extension!($query, Sfw, {
@@ -414,7 +411,6 @@ macro_rules! query_extension {
 /// ```
 /// Basically just define a struct of the errors.
 #[macro_export]
-#[doc(hidden)]
 macro_rules! error {
     ($(#[$doc_meta:meta])? $name:ident {
     	$(
@@ -456,7 +452,6 @@ macro_rules! error {
 
 /// Connects a person (ficitonal or real) to a type of media
 #[macro_export]
-#[doc(hidden)]
 macro_rules! person_connection {
     ($media:ident, $type: ident, $connection_name: ident) => {
         pastey::paste! {

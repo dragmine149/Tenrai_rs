@@ -14,8 +14,8 @@ use crate::{generic_type, schemas::anime::User};
 /// Most of the time, this will be returned from the API. However it is possible to create the struct to use in query parameters
 /// ```
 /// use tenrai::schemas::{
-/// 	query::AnimeQuery,
-/// 	common::Date,
+///     query::AnimeQuery,
+///     common::Date,
 /// };
 ///
 /// let query = AnimeQuery::builder()
@@ -600,9 +600,9 @@ pub enum Language {
 /// # Example
 /// ```
 /// use tenrai::schemas::{
-/// 	query::AnimeQuery,
-/// 	anime::OrderBy,
-/// 	common::Nulls,
+///     query::AnimeQuery,
+///     anime::OrderBy,
+///     common::Nulls,
 /// };
 ///
 /// /// Leaves out entries without an end-date.
@@ -610,8 +610,8 @@ pub enum Language {
 ///     AnimeQuery::builder()
 ///         .order_by(OrderBy::EndDate)
 ///         .nulls(Nulls::Exclude)
-/// 		.build()
-/// 		.unwrap()
+///         .build()
+///         .unwrap()
 /// }
 /// ```
 #[derive(Debug, Clone, Display, PartialEq, Eq, PartialOrd, Ord)]
