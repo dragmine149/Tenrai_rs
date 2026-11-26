@@ -213,6 +213,9 @@ macro_rules! query {
                     )*
                  	Ok(())
              	}
+              	pub fn new() -> Self {
+               		Self::default()
+               	}
             }
             /// Converts the struct into `?some_var=a&some_foo=b&some_bar=c`.
             impl std::fmt::Display for [<$name:upper_camel Query>] {

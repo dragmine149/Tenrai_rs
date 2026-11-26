@@ -32,6 +32,7 @@ This is also a big update, kinda on the scale of [v1.0.0](<changelog#1.0.0 (v1.0
 - **Renamed:** *(and aliasesed)*
 	- `ProducerQuery*` to `CompanyQuery*`
 	- `ProducerOrder` to `CompanyOrder`
+- **Added** `new` function to `*QueryBuilder`, which is just a reference to the `default` function.
 
 ### Query related stuff
 - **Updated** How handle of queries is done internally.
